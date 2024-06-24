@@ -25,13 +25,41 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[
-	a4paper, % Page size
-	fontsize=10pt, % Base font size
-	twoside=true, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	b5paper, % Page size
+	fontsize=9pt, % Base font size
+	twoside=false, % Use different layouts for even and odd pages (in particular, if, the margin column will be always on the outside)
 	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
 	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
 	numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
 ]{kaobook}
+
+% Custom page layout, reduce a bit the page margin to enlarge the text space
+
+% By default
+% Layout #1: large margins
+% \newcommand{\marginlayout}{%
+% 	\newgeometry{
+% 		top=27.4\vscale,
+% 		bottom=27.4\vscale,
+% 		inner=24.8\hscale,
+% 		textwidth=107\hscale,
+%         marginparsep=6.2\hscale,
+% 		marginparwidth=47.7\hscale,
+%     }%
+%     \recalchead%
+% }
+% \newcommand{\marginlayout}{%
+% 	\newgeometry{
+% 		top=0\vscale,
+% 		bottom=27.4\vscale,
+% 		inner=0\hscale,
+% 		textwidth=107\hscale,
+%         marginparsep=6.2\hscale,
+% 		marginparwidth=47.7\hscale,
+%     }%
+%     \recalchead%
+% }
+
 
 % Choose the language
 \ifxetexorluatex
@@ -77,13 +105,18 @@
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
 
-\titlehead{The \texttt{kaobook} class}
+\titlehead{Towards optimal solar MED processes}
 \subject{Use this document as a template}
 
-\title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
-\subtitle{Customise this page according to your needs}
+% \title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
+% \subtitle{Customise this page according to your needs}
 
-\author[Federico Marotta]{Federico Marotta\thanks{A \LaTeX\ lover}}
+% \title{Contributions to solar driven Multi-Effect Distillation processes}
+\title{Contributions to Multi-effect Distillation processes driven by sustainable sources}
+% \title{Development of advanced control techniques for solar desalination processes}
+% \subtitle{Customise this page according to your needs}
+
+\author[Juan Miguel Serrano Rodríguez]{Juan Miguel Serrano Rodríguez\thanks{A \LaTeX\ lover}}
 
 \date{\today}
 
@@ -149,7 +182,8 @@
 
 \dedication{
 	The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
-	\flushright -- D'Arcy Wentworth Thompson
+ %    \flushright A ti Juan, \\ hasta que yo ya no esté
+	% \flushright -- Tu nieto
 }
 
 %----------------------------------------------------------------------------------------
@@ -205,6 +239,9 @@
 
 \pagelayout{wide} % No margins
 \addpart{Class Options, Commands and Environments}
+\begin{flushright}
+	\textit{Vivir en una paradoja y seguir fregando los platos}
+\end{flushright}
 \pagelayout{margin} % Restore margins
 
 \input{chapters/options.tex}
