@@ -20,6 +20,12 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Personal modifications
+% Layout / style changes to the template
+% - Custom font
+% - b5paper
+% - 9pt font size
+
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
@@ -27,38 +33,11 @@
 \documentclass[
 	b5paper, % Page size
 	fontsize=9pt, % Base font size
-	twoside=false, % Use different layouts for even and odd pages (in particular, if, the margin column will be always on the outside)
+	twoside=true, % Use different layouts for even and odd pages (in particular, if, the margin column will be always on the outside)
 	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
 	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
 	numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
 ]{kaobook}
-
-% Custom page layout, reduce a bit the page margin to enlarge the text space
-
-% By default
-% Layout #1: large margins
-% \newcommand{\marginlayout}{%
-% 	\newgeometry{
-% 		top=27.4\vscale,
-% 		bottom=27.4\vscale,
-% 		inner=24.8\hscale,
-% 		textwidth=107\hscale,
-%         marginparsep=6.2\hscale,
-% 		marginparwidth=47.7\hscale,
-%     }%
-%     \recalchead%
-% }
-% \newcommand{\marginlayout}{%
-% 	\newgeometry{
-% 		top=0\vscale,
-% 		bottom=27.4\vscale,
-% 		inner=0\hscale,
-% 		textwidth=107\hscale,
-%         marginparsep=6.2\hscale,
-% 		marginparwidth=47.7\hscale,
-%     }%
-%     \recalchead%
-% }
 
 
 % Choose the language
@@ -85,7 +64,7 @@
 % Load the package for hyperreferences
 \usepackage{kaorefs}
 
-\graphicspath{{examples/documentation/images/}{images/}} % Paths in which to look for images
+\graphicspath{{images/}} % Paths in which to look for images
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
@@ -97,6 +76,29 @@
 % Reset sidenote counter at chapters
 %\counterwithin*{sidenote}{chapter}
 
+
+% Personal modifications
+
+\usepackage{fontspec}
+
+% Set custom font, from TheoWinterhalter-PhD
+\setmainfont[
+	Ligatures=TeX,
+	% UprightFont = ,
+	ItalicFont = Fira Sans Light Italic,
+	% SmallCapsFont = ,
+	BoldFont = Fira Sans,
+	BoldItalicFont = Fira Sans Italic
+]{Fira Sans Light}
+% \setsansfont[Ligatures=TeX]{Fira Sans}
+\setmonofont[Ligatures=TeX]{Fira Mono}
+
+% Customising margin citations, from TheoWinterhalter-PhD
+\renewcommand{\formatmargincitation}[1]{%
+	\color{Gray!90} \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\%
+}
+
+
 %----------------------------------------------------------------------------------------
 
 \begin{document}
@@ -106,7 +108,7 @@
 %----------------------------------------------------------------------------------------
 
 \titlehead{Towards optimal solar MED processes}
-\subject{Use this document as a template}
+\subject{PHD Thesis}
 
 % \title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
 % \subtitle{Customise this page according to your needs}
@@ -116,7 +118,7 @@
 % \title{Development of advanced control techniques for solar desalination processes}
 % \subtitle{Customise this page according to your needs}
 
-\author[Juan Miguel Serrano Rodríguez]{Juan Miguel Serrano Rodríguez\thanks{A \LaTeX\ lover}}
+\author{Juan Miguel Serrano Rodríguez\thanks{A \LaTeX\ lover}}
 
 \date{\today}
 

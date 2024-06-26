@@ -1,3 +1,8 @@
+% Personal modifications to this file:
+% - Changed colors for paragraphs in the margins (margin@par) to a lighter gray, 
+%
+%
+
 \ProvidesPackage{kao}
 
 %----------------------------------------------------------------------------------------
@@ -296,6 +301,11 @@
 	\frenchspacing% No additional space after periods
 	\normalfont% Use the default font
 	\footnotesize% Use a smaller size
+
+	% Personal Modifications
+    % Changes the text color to a shade that is a mix of 50% black and the predefined color Gray. This makes the text lighter than pure black, potentially making margin notes less dominant on the page.
+    \color{black!50!Gray}% 
+
 }
 
 % By default, use @body@par settings
@@ -1118,15 +1128,15 @@
 %----------------------------------------------------------------------------------------
 
 % Uncomment to have coloured headings
-%\addtokomafont{title}{\color{Maroon}}
-%\addtokomafont{part}{\color{Maroon}}
-%\addtokomafont{chapter}{\color{Maroon}}
-%\addtokomafont{section}{\color{Maroon}}
-%\addtokomafont{subsection}{\color{Maroon}}
-%\addtokomafont{subsubsection}{\color{Maroon}}
-%\addtokomafont{paragraph}{\color{Maroon}}
-%\addtokomafont{captionlabel}{\color{Blue}}
-%\addtokomafont{pagenumber}{\color{Maroon}}
+\addtokomafont{title}{\color{MidnightBlue}}
+\addtokomafont{part}{\color{MidnightBlue}}
+\addtokomafont{chapter}{\color{MidnightBlue}}
+\addtokomafont{section}{\color{MidnightBlue}}
+\addtokomafont{subsection}{\color{MidnightBlue}}
+\addtokomafont{subsubsection}{\color{MidnightBlue}}
+\addtokomafont{paragraph}{\color{MidnightBlue}}
+\addtokomafont{captionlabel}{\color{Blue}}
+\addtokomafont{pagenumber}{\color{MidnightBlue}}
 
 \hypersetup{
 	%anchorcolor=Red,
