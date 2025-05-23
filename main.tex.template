@@ -114,7 +114,7 @@
 \titlehead{The \texttt{kaobook} class}
 \subject{Use this document as a template}
 
-\title[Optimal resources management in solar thermal processes]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
+\title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
 \subtitle{Customise this page according to your needs}
 
 %\author[Federico Marotta]{Federico Marotta\thanks{A \LaTeX\ lover}}
