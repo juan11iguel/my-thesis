@@ -26,7 +26,8 @@
         "vscode": {
             // Set *default* container specific settings.json values on container create.
             "settings": {
-                "terminal.integrated.defaultProfile.linux": "bash"
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "latex-workshop.latex.recipe.default": "lastUsed",
             },
             // Add the IDs of extensions you want installed when the container is created.
             // Browse for extensions here: https://marketplace.visualstudio.com/

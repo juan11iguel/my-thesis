@@ -20,20 +20,18 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Personal modifications
-% Layout / style changes to the template
-% - Custom font
-% - b5paper
-% - 9pt font size
-
+%----------------------------------------------------------------------------------------
+%	EXAMPLE AND DOCUMENTATION OF THE KAOBOOK CLASS
+%----------------------------------------------------------------------------------------
 
 \documentclass[
-	letterpaper, % Page size
-	fontsize=9pt, % Base font size
-	twoside=true, % Use different layouts for even and odd pages (in particular, if, the margin column will be always on the outside)
+    a4paper, % Page size
+    fontsize=10pt, % Base font size
+    twoside=false, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
 	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
 	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
 	numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
+	fontmethod=tex, % Can also use "modern" with XeLaTeX or LuaTex; "tex" is the default for PdfLaTex, and "modern" is the default for those two.
 ]{kaobook}
 
 %----------------------------------------------------------------------------------------
@@ -76,31 +74,6 @@
 % Reset sidenote counter at chapters
 %\counterwithin*{sidenote}{chapter}
 
-
-%----------------------------------------------------------------------------------------
-%	PERSONAL MODIFICATIONS
-%----------------------------------------------------------------------------------------
-
-% \usepackage{fontspec}
-
-% Set custom font, from TheoWinterhalter-PhD
-% \setmainfont[
-% 	Ligatures=TeX,
-% 	% UprightFont = ,
-% 	ItalicFont = Fira Sans Light Italic,
-% 	% SmallCapsFont = ,
-% 	BoldFont = Fira Sans,
-% 	BoldItalicFont = Fira Sans Italic
-% ]{Fira Sans Light}
-% % \setsansfont[Ligatures=TeX]{Fira Sans}
-% \setmonofont[Ligatures=TeX]{Fira Mono}
-
-% Customising margin citations, from TheoWinterhalter-PhD
-\renewcommand{\formatmargincitation}[1]{%
-	\color{Gray!90} \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\%
-}
-
-
 %----------------------------------------------------------------------------------------
 
 \begin{document}
@@ -109,14 +82,14 @@
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
 
-\titlehead{Towards optimal solar MED processes}
-\subject{PHD Thesis}
+\titlehead{The \texttt{kaobook} class}
+\subject{Use this document as a template}
 
 \title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
 \subtitle{Customise this page according to your needs}
 
 %\author[Federico Marotta]{Federico Marotta\thanks{A \LaTeX\ lover}}
-\author[Juan Miguel Serrano Rodríguez]{Federico Marotta\thanks{A LaTeX lover}}
+\author[Federico Marotta]{Federico Marotta\thanks{A LaTeX lover}}
 \date{\today}
 
 \publishers{An Awesome Publisher}
@@ -181,8 +154,7 @@
 
 \dedication{
 	The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
- %    \flushright A ti Juan, \\ hasta que yo ya no esté
-	% \flushright -- Tu nieto
+	\flushright -- D'Arcy Wentworth Thompson
 }
 
 %----------------------------------------------------------------------------------------
@@ -241,9 +213,6 @@
 
 \pagelayout{wide} % No margins
 \addpart{Class Options, Commands and Environments}
-\begin{flushright}
-	\textit{Vivir en una paradoja y seguir fregando los platos}
-\end{flushright}
 \pagelayout{margin} % Restore margins
 
 \input{chapters/options.tex}
