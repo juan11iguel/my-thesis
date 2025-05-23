@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kaobook
-% LaTeX Template
-% Version 1.3 (December 9, 2021)
+% LaTeX Class
+% Version 0.9.8 (2021/08/23)
 %
 % This template originates from:
 % https://www.LaTeXTemplates.com
@@ -16,7 +16,7 @@
 % Modified for LaTeX Templates by Vel (vel@latextemplates.com)
 %
 % License:
-% CC0 1.0 Universal (see included MANIFEST.md file)
+% LPPL (see included MANIFEST.md file)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -26,9 +26,6 @@
 % - b5paper
 % - 9pt font size
 
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
 
 \documentclass[
 	letterpaper, % Page size
@@ -39,6 +36,9 @@
 	numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
 ]{kaobook}
 
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
 
 % Choose the language
 \ifxetexorluatex
@@ -50,7 +50,7 @@
 \usepackage[english=british]{csquotes}	% English quotes
 
 % Load packages for testing
-\usepackage{blindtext}
+\usepackage{blindtext} % Print text without any meaning for testing purposes
 %\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
 %\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
 
@@ -64,7 +64,7 @@
 % Load the package for hyperreferences
 \usepackage{kaorefs}
 
-\graphicspath{{images/}} % Paths in which to look for images
+\graphicspath{{examples/documentation/images/}{images/}} % Paths in which to look for images
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
@@ -77,21 +77,23 @@
 %\counterwithin*{sidenote}{chapter}
 
 
-% Personal modifications
+%----------------------------------------------------------------------------------------
+%	PERSONAL MODIFICATIONS
+%----------------------------------------------------------------------------------------
 
-\usepackage{fontspec}
+% \usepackage{fontspec}
 
 % Set custom font, from TheoWinterhalter-PhD
-\setmainfont[
-	Ligatures=TeX,
-	% UprightFont = ,
-	ItalicFont = Fira Sans Light Italic,
-	% SmallCapsFont = ,
-	BoldFont = Fira Sans,
-	BoldItalicFont = Fira Sans Italic
-]{Fira Sans Light}
-% \setsansfont[Ligatures=TeX]{Fira Sans}
-\setmonofont[Ligatures=TeX]{Fira Mono}
+% \setmainfont[
+% 	Ligatures=TeX,
+% 	% UprightFont = ,
+% 	ItalicFont = Fira Sans Light Italic,
+% 	% SmallCapsFont = ,
+% 	BoldFont = Fira Sans,
+% 	BoldItalicFont = Fira Sans Italic
+% ]{Fira Sans Light}
+% % \setsansfont[Ligatures=TeX]{Fira Sans}
+% \setmonofont[Ligatures=TeX]{Fira Mono}
 
 % Customising margin citations, from TheoWinterhalter-PhD
 \renewcommand{\formatmargincitation}[1]{%
@@ -110,16 +112,11 @@
 \titlehead{Towards optimal solar MED processes}
 \subject{PHD Thesis}
 
-% \title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
-% \subtitle{Customise this page according to your needs}
+\title[Example and documentation of the {\normalfont\texttt{kaobook}} class]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
+\subtitle{Customise this page according to your needs}
 
-% \title{Contributions to solar driven Multi-Effect Distillation processes}
-\title{Contributions to Multi-effect Distillation processes driven by sustainable sources}
-% \title{Development of advanced control techniques for solar desalination processes}
-% \subtitle{Customise this page according to your needs}
-
-\author{Juan Miguel Serrano Rodríguez\thanks{A \LaTeX\ lover}}
-
+%\author[Federico Marotta]{Federico Marotta\thanks{A \LaTeX\ lover}}
+\author[Juan Miguel Serrano Rodríguez]{Federico Marotta\thanks{A LaTeX lover}}
 \date{\today}
 
 \publishers{An Awesome Publisher}
@@ -216,17 +213,20 @@
 
 % Turn on compatibility mode for the etoc package
 \etocstandarddisplaystyle % "toc display" as if etoc was not loaded
-\etocstandardlines % "toc lines" as if etoc was not loaded
+\etocstandardlines % "toc lines as if etoc was not loaded
 
 \tableofcontents % Output the table of contents
 
 \listoffigures % Output the list of figures
 
-% Comment both of the following lines to have the LOF and the LOT on different pages
+% Comment both of the following lines to have the LOF and the LOT on 
+% different pages
 \let\cleardoublepage\bigskip
 \let\clearpage\bigskip
 
 \listoftables % Output the list of tables
+
+\listoflstlistings % Output the list of listings
 
 \endgroup
 
@@ -265,6 +265,11 @@
 \pagelayout{margin} % Restore margins
 
 \input{chapters/appendix.tex}
+
+\pagelayout{wide}
+\setchapterstyle{kao}
+\chapter{Test}
+\blindtext
 
 %----------------------------------------------------------------------------------------
 
