@@ -112,16 +112,15 @@
 %----------------------------------------------------------------------------------------
 
 \titlehead{The \texttt{kaobook} class}
-\subject{Use this document as a template}
+\subject{PhD Thesis}
 
-\title[Optimal resources management in solar thermal processes]{Example and documentation \\ of the {\normalfont\texttt{kaobook}} class}
-\subtitle{Customise this page according to your needs}
+\title[Towards optimal resource management in solar thermal applications]{Towards optimal resource management in solar thermal applications: desalination and CSP}
+% \subtitle{Customise this page according to your needs}
 
-%\author[Federico Marotta]{Federico Marotta\thanks{A \LaTeX\ lover}}
-\author[Federico Marotta]{Federico Marotta\thanks{A LaTeX lover}}
+\author[Juan Miguel Serrano]{Juan Miguel Serrano Rodríguez}
 \date{\today}
 
-\publishers{An Awesome Publisher}
+\publishers{University of Almería}
 
 %----------------------------------------------------------------------------------------
 
@@ -131,17 +130,17 @@
 %	OPENING PAGE
 %----------------------------------------------------------------------------------------
 
-\makeatletter
-\extratitle{
-	% In the title page, the title is vspaced by 9.5\baselineskip
-	\vspace*{9\baselineskip}
-	\vspace*{\parskip}
-	\begin{center}
-		% In the title page, \huge is set after the komafont for title
-		\usekomafont{title}\huge\@title
-	\end{center}
-}
-\makeatother
+% \makeatletter
+% \extratitle{
+% 	% In the title page, the title is vspaced by 9.5\baselineskip
+% 	\vspace*{9\baselineskip}
+% 	\vspace*{\parskip}
+% 	\begin{center}
+% 		% In the title page, \huge is set after the komafont for title
+% 		\usekomafont{title}\huge\@title
+% 	\end{center}
+% }
+% \makeatother
 
 %----------------------------------------------------------------------------------------
 %	COPYRIGHT PAGE
@@ -184,6 +183,13 @@
 \dedication{
 	The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
 	\flushright -- D'Arcy Wentworth Thompson
+	% \flushleft - ¿Quieres que te cuente el cuento del rábano pimiento? \\
+	% \flushright - ¡Vale! \\
+	% \flushleft - No te he preguntado si \textit{vale}, te he preguntado que si\\ quieres 
+	% que te cuente el cuento del rábano pimiento. \\
+	% \flushright-Sí, una vez más, por favor. \\
+	% \vspace{5ex}
+	% \flushleft\textit{Un abuelo y su nieto}
 }
 
 %----------------------------------------------------------------------------------------
@@ -229,6 +235,8 @@
 
 \listoflstlistings % Output the list of listings
 
+% TODO: Add \listofcontributions
+
 \endgroup
 
 %----------------------------------------------------------------------------------------
@@ -237,6 +245,266 @@
 
 \mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
 \setchapterstyle{kao} % Choose the default chapter heading style
+
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+\pagelayout{wide} % No margins
+\addpart{Introduction}
+\pagelayout{margin} % Restore margins
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Context and motivation}
+\labch{intro:context}
+
+asdad
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Thermal desalination overview}
+\labch{intro:desalination}
+
+asdad
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{CSP overview}
+\labch{intro:csp}
+
+asdad
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Cooling overview}
+\labch{intro:cooling}
+
+asdad
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Modelling overview}
+\labch{intro:modelling}
+
+asdad
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Sensitivity analysis}
+\labch{intro:sensitivity}
+
+asdad
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Control overview}
+\labch{intro:control}
+
+asdad
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Optimization overview}
+\labch{intro:optimization}
+
+asdad
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Research plan}
+\labch{intro:plan}
+
+asdad
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Contributions}
+\labch{intro:contributions}
+
+asdad
+
+%----------------------------------------------------------------------------------------
+%	SOLARMED
+%----------------------------------------------------------------------------------------
+\pagelayout{wide} % No margins
+\addpart{Energy management in MED processes driven by variable energy sources}
+\pagelayout{margin} % Restore margins
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+\section*{TL;DR}
+\addcontentsline{toc}{section}{TL;DR}
+
+\section*{Derived scientific contributions}
+\addcontentsline{toc}{section}{Derived scientific contributions}
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Performance evaluation in MED processes: standard methodology proposal}
+\labch{solarmed:standardization}
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Influence of increasing Top Brine Temperature on MED performance}
+\labch{solarmed:tbt}
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Optimal coupling and operation of a Solar MED system}
+\labch{solarmed:optimization}
+
+
+%----------------------------------------------------------------------------------------
+%	COMBINED COOLING
+%----------------------------------------------------------------------------------------
+\pagelayout{wide} % No margins
+\addpart{Optimal water and electricity management in a combined cooling system}
+\pagelayout{margin} % Restore margins
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+\section*{TL;DR}
+\addcontentsline{toc}{section}{TL;DR}
+
+\section*{Derived scientific contributions}
+\addcontentsline{toc}{section}{Derived scientific contributions}
+
+% \input{chapters/results_combined_cooling_andasol.tex}
+% \input{chapters/results_solarmed.tex}
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Modelling of a combined cooling system}
+\labch{solhycool:modelling}
+
+Decripción del modelo completo, cómo se integran los componentes, y después se describe cada component.
+
+\section{Wet cooler}
+
+\subsection{Samples generation for FP to data-based model}
+
+\section{Dry cooler}
+
+\subsection{Samples generation for FP to data-based model}
+
+\section{Other components}
+\section{Complete system}
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Optimization of a combined cooling system}
+\labch{solhycool:optimization}
+
+\section{Static optimization}
+\section{Shrinking horizon optimization}
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Optimization strategy experimental validation}
+\labch{solhycool:validation}
+
+\section{Modelling}
+\subsection{Wet cooler}
+
+\begin{enumerate}
+	\item FP model
+	\item DB from experimental campaign
+	\item DB from FP
+	\item Comparison
+\end{enumerate}
+Tabla tocha añadiendo casos (GPR, DB from FP)
+
+\subsection{Dry cooler}
+\begin{enumerate}
+	\item FP model
+	\item DB from experimental campaign
+	\item DB from FP
+	\item Comparison
+\end{enumerate}
+Tabla tocha añadiendo casos (GPR, DB from FP)
+
+\subsection{Complete system}
+\begin{enumerate}
+	\item solo DB from FP
+\end{enumerate}
+
+\section{Control and optimization: hierarchical control}
+\begin{enumerate}
+	\item CC horizon todo bien
+	\item CC horizon cambio planeado
+	\item CC horizon cambio imprevisto
+\end{enumerate}
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Annual analysis: CSP and inland-MED}
+\labch{solhycool:simulation}
+
+\section{ANDASOL-II CSP plant}
+\subsection{WCT static}
+\subsection{DC static}
+\subsection{CC static}
+\subsection{CC horizon}
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSIONS
+%----------------------------------------------------------------------------------------
+\pagelayout{wide} % No margins
+\addpart{Conclusions and outlook}
+\pagelayout{margin} % Restore margins
+
+\section*{Conclusions}
+\addcontentsline{toc}{section}{Conclusions}
+
+
+
+\section*{Outlook}
+\addcontentsline{toc}{section}{Outlook}
+
+\textbf{MED}
+\begin{enumerate}
+	\item Configuraciones alternativas para procesos MED para aplicaciones de concentración de salmueras: geometría variable de efectos fuentes externas en efectos distintos al primero
+	\item Configuraciones alternativas para el proceso solar MED (almacenamiento
+	con distintos puntos de carga y descarga, MED con distintos puntos de fuente
+	externa, etc. Incluir diagrama de draw.io con las distintas configuraciones)
+	\item Configuraciones híbridas MED-MSF para aplicaciones de concentración de salmueras
+\end{enumerate}
+
+\section*{Derived scientific contributions}
+\addcontentsline{toc}{section}{Derived scientific contributions}
+
+% \begingroup % Local scope for the following commands
+
+% % Define the style for the TOC, LOF, and LOT
+% %\setstretch{1} % Uncomment to modify line spacing in the ToC
+% %\hypersetup{linkcolor=blue} % Uncomment to set the colour of links in the ToC
+% \setlength{\textheight}{230\hscale} % Manually adjust the height of the ToC pages
+
+% % Turn on compatibility mode for the etoc package
+% \etocstandarddisplaystyle % "toc display" as if etoc was not loaded
+% \etocstandardlines % "toc lines as if etoc was not loaded
+
+% % TODO: Add \listofcontributions
+
+% \endgroup
+
+\begin{enumerate}
+	\item Publicaciones en revista
+	\item Contribuciones a congreso
+	\item Coloquios doctorales
+	\item Colaboraciones en proyectos de investigación
+	\item Estancias de investigación
+	\item Repositorios de código
+	\item Repositorios de datos
+	\item Herramientas interactivas
+	\item Contribuciones a librerías de código abierto?
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+%	APPENDIX
+%----------------------------------------------------------------------------------------
+
+
+% \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
+
+% \pagelayout{wide} % No margins
+% \addpart{Appendix}
+% \pagelayout{margin} % Restore margins
+
+% \input{chapters/appendix.tex}
+
+
+%----------------------------------------------------------------------------------------
+%	EXAMPLE
+%----------------------------------------------------------------------------------------
+\pagelayout{wide} % No margins
+\addpart{Template content}
+\pagelayout{margin} % Restore margins
 
 \input{chapters/introduction.tex}
 
