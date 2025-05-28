@@ -1,6 +1,5 @@
 ## Custom exclusions
-article-template.pdf
-book-template.pdf
+out_dir/main.bcf-SAVE-ERROR
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

@@ -135,6 +135,20 @@
 	]
 	},
 
+	"Chapter Labeled":{
+	"prefix": ["\\chapter"],
+	"body": [
+		"",
+		"%===================================",
+		"%===================================",
+		"%===================================",
+		"\\setchapterpreamble[u]{\\margintoc}",
+		"\\chapter{$TM_SELECTED_TEXT${1:Header}}",
+		"\\labch{part:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+		"$0"
+	]
+	},
+
 	"Section Labeled":{
 	// "prefix": ["\\sectionlabeled"],
 	"prefix": ["\\section"],
@@ -143,7 +157,7 @@
 		"%===================================",
 		"%===================================",
 		"\\section{$TM_SELECTED_TEXT${1:Header}}",
-		"\\label{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+		"\\labsec{part:chapter:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
 		"$0"
 	]
 	},
@@ -153,16 +167,16 @@
 		"",
 		"%================================",
 		"\\subsection{$TM_SELECTED_TEXT${1:Header}}",
-		"\\label{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
+		"\\labsec{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
 		"$0"
 	]
 	},
-	"Subsubsction":{
+	"Subsubsection":{
 	"prefix": ["\\subsubsection"],
 	"body": [
 		"",
 		"\\subsubsection{$TM_SELECTED_TEXT${1:Header}}",
-		"\\label{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
+		"\\labsec{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
 		"$0"
 	]
 	},
