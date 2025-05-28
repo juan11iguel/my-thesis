@@ -1,5 +1,8 @@
 # Thesis title
 
+## How to use
+
+
 
 ## Compile Document
 
@@ -17,5 +20,11 @@ inspired by... In particular:
 - TODO Changed colors for paragraphs in the margins (margin@par) to a lighter gray (`kao.sty`)
 - TODO Changed font to Fira Sans, as used in TheoWinterhalter-PhD (`main.tex`)
 - Changed side citations to a dark gray, as used in TheoWinterhalter-PhD (`main.tex`)
+
+## Environment
+
+Most of 
+
+thanks to [Paul Wintz](https://paulwintz.com/latex-in-vscode/)
 
 ## TODOs

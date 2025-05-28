@@ -1,0 +1,12 @@
+[
+  {
+    "key": "ctrl+enter",
+    "command": "latex-workshop.build",
+    "when": "editorLangId =~ /latex/"
+  },
+  {
+      "key": "ctrl+enter",
+      "command": "latex-workshop.build",
+      "when": "!config.latex-workshop.bind.altKeymap.enabled && !virtualWorkspace && editorLangId =~ /^latex$|^latex-expl3$|^doctex$|^rsweave$|^jlweave$|^pweave$/"
+  },
+]

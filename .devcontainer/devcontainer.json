@@ -1,4 +1,13 @@
 {
+    /*
+    This is a devcontainer.json file for a LaTeX development environment.
+    It is designed to be used with Visual Studio Code's Remote - Containers extension.
+    It is based on: 
+        - [M21 TU Hamburg](https://collaborating.tuhh.de/m21/public/theses/itt-latex-template/-/tree/master?ref_type=heads)
+        - [Paul Wintz](https://paulwintz.com/latex-in-vscode/) great blog post
+        - Some personal additions
+    */
+
     "name": "LaTeX",
     // Instead of *building* the accompanying Dockerfile and its whole context, like:
     //
@@ -6,38 +15,196 @@
         "context": "..",
         "dockerfile": "Dockerfile"
     },
-    //
-    // simply download the prepared image the author has already uploaded, based on
-    // what's found inside the `image/` directory.
-    // Advantages:
-    // - build process is slow (downloads from TeX servers), each user doing it every
-    //   time is too much. It can take *hours* in worst-cases
-    // - build might fail for various reasons
-    // It is much easier to download the ready-made image.
-    // Disadvantages:
-    // - cannot easily iterate on the Docker image, need to go through Docker Hub.
-    //   Recourse: simply change the below to use the *local image temporarily*
-    // - Upstream image on Docker Hub might not be the latest
-    // "image": "registry.collaborating.tuhh.de/m21/public/theses/latex_dockerfile:latest",
-    // For using not the latest version but a specific version use this command, there is an image
-    // for the last 12 month with the syntax YEAR-MONTH, e.g. 2023-09
-    // "image": "registry.collaborating.tuhh.de/m21/public/theses/latex_dockerfile:2023-09",
     "customizations": {
         "vscode": {
             // Set *default* container specific settings.json values on container create.
             "settings": {
+                // --------------------------------------------------------
+                // General settings
+                // --------------------------------------------------------
                 "terminal.integrated.defaultProfile.linux": "bash",
-                "latex-workshop.latex.recipe.default": "lastUsed",
+                "rewrap.autoWrap.enabled": true,
+                "git.confirmSync": false,
+                "git.autofetch": true,
+                "editor.wordWrap": "on",
+                "editor.wrappingIndent": "indent",
+                
+                // --------------------------------------------------------
+                // Latex Workshop settings
+                // --------------------------------------------------------
+                "latex-workshop.latex.recipe.default": "latexmk (latexmkrc)", //"lastUsed",
+                "latex-workshop.linting.chktex.enabled": true,
+                "latex-workshop.linting.run": "onSave",
+                "files.autoSave": "onFocusChange",
+                // "latex-workshop.latex.autoBuild.run": "never",
+                // By default, LaTeX Workshop rebuilds each time a build fails. 
+                // This is horrendously annoying, in my experience, since a build 
+                // failure almost always requires manual intervention. To turn 
+                // of auto re-building, use the following setting
+                "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false,
+                "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+                "latex-workshop.view.pdf.viewer": "tab",
+                
+                // Treat new files (before first save) as LaTeX files.
+                "files.defaultLanguage": "latex",
+                // Treat LaTeX package (.sty) and class (.cls) files as LaTeX files.
+                "files.associations": {
+                    "*.sty": "latex",
+                    "*.cls": "latex"
+                },
+                // Hide the following file types from the VS Code folder list.
+                "files.exclude": {
+                    "**/*.4ct": true,
+                    "**/*.4tc": true,
+                    "**/*.fdb_latexmk": true,
+                    "**/*.idv": true,
+                    "**/*.lg": true,
+                    "**/*.lof": true,
+                    "**/*.synctex.gz": true,
+                    "**/*.synctex(busy)": true,
+                    "**/*.tmp": true,
+                    "**/*.xref": true,
+                    "**/*.fls": true,
+                    "**/*.loc": true,
+                    "**/*.run.xml": true,
+                    "**/*.soc": true,
+                    "**/*.snm": true,
+                    "**/*.blg": true,
+                    "**/*-SAVE-ERROR": true
+                },
+                // To avoid clutter and allow for build files to be quickly 
+                // deleted, change the out directory
+                "latex-workshop.latex.outDir": "%DIR%/out_dir",
+                "latex-workshop.latex.clean.subfolder.enabled": true,
+
+                // PDF viewer settings
+                // change the background color beyond the border of pages to a shade of green
+                "latex-workshop.view.pdf.color.dark.backgroundColor": "#809080",
+                "latex-workshop.view.pdf.color.light.backgroundColor": "#809080",
+                "latex-workshop.view.pdf.color.dark.pageBorderColor": "#809080",
+                "latex-workshop.view.pdf.color.light.pageBorderColor": "#809080",
+
+                // --------------------------------------------------------
+                // LTeX+ settings
+                // --------------------------------------------------------
+                // By default, LTeX+ only highlights spelling and grammar errors, 
+                // but it also can provide a broader range of suggestions for 
+                // “picky” rules. Many of the picky rules regard writing style, 
+                // such as alerting you to sentences that are too long, or when 
+                // several sentences in a row start with the same word.
+                "ltex.additionalRules.enablePickyRules": true,
+                "ltex.diagnosticSeverity": {
+                    "default": "information", 
+                    "MORFOLOGIK_RULE_EN_US": "warning", // Spelling errors.
+                    "PASSIVE_VOICE": "hint",
+                    "ENGLISH_WORD_REPEAT_BEGINNING_RULE": "hint",
+                    "TOO_LONG_SENTENCE": "hint"
+                },
+                "ltex.latex.commands": {
+                    "\\tableofcontents[]": "ignore", 
+                    "\\@ifclassloaded{}{}{}": "ignore",
+                    "\\includeonly{}": "ignore",  
+                    "\\texttt{}": "dummy", // Inline formatting for code.
+                    "\\newbool{}": "ignore",  
+                    "\\setbool{}": "ignore",
+                    "\\setbool{}{}": "ignore",
+                    // Macros and environments definitions
+                    "\\newcommand{}{}": "ignore",  
+                    "\\renewcommand{}{}": "ignore", 
+                    "\\newenvironment{}[][]{}{}": "ignore", 
+                    "\\newenvironment{}[]{}{}": "ignore", 
+                    "\\newenvironment{}": "ignore",  
+                    "\\NewDocumentCommand{}{}{}": "ignore",  
+                    "\\NewEnviron{}[]{}": "ignore",  
+                    "\\newtheoremstyle{}{}{}{}{}{}{}{}{}": "ignore",  
+                    "\\DeclarePairedDelimiterX{}[]{}{}": "ignore", 
+                    "\\DeclarePairedDelimiter{}{}{}": "ignore", 
+                    // Beamer
+                    "\\setbeamertemplate{}[]{}": "ignore", 
+                    "\\setbeamercolor{}{}": "ignore",  
+                    "\\setbeamerfont{}{}": "ignore", 
+                    "\\usebeamercolor[]{}": "ignore", 
+                    "\\usebeamertemplate{}[]": "ignore",
+                    "\\setbeamertemplate{}{}": "ignore", 
+                    "\\setbeamertemplate{}[]": "ignore", 
+                    "\\usebeamertemplate{}[]{}": "ignore",
+                    "\\setbeamerfont{}": "ignore", 
+                    "\\addtolength{}{}": "ignore", 
+                    "\\movie{}{}": "ignore",
+                    "\\movie[]{}{}": "ignore",
+                    // Citations and references
+                    "\\cite{}": "dummy",
+                    "\\nocite{}": "ignore",
+                    "\\cref[]{}": "dummy", 
+                    "\\crefformat{}{}": "ignore",  
+                    "\\Crefformat{}{}": "ignore", 
+                    "\\crefmultiformat{}{}{}{}{}": "ignore",  
+                    "\\Crefmultiformat{}{}{}{}{}": "ignore", 
+                    "\\crtcrefreference{}": "dummy",  
+                    // Changes annotations
+                    "\\deleted{}": "ignore",
+                    "\\todo{}": "ignore",
+                    "\\todo[]{}": "ignore",
+                    // ...
+                },
+                // In BibTeX files, I typically have entries automatically 
+                // generated by Zotero. Typically, each entry has an abstract 
+                // and these tend to have a lot of false positives but are 
+                // not included in the output. Instead of handling each 
+                // issue individually, I use the "ltex.bibtex.fields" setting 
+                // to disable LTeX+-checking of bibliography abstracts.
+                "ltex.bibtex.fields": {
+                    // Abstracts in bibliography entries typically are not 
+                    // typed by the user and are rarely inserted into the 
+                    // document, but tend to have a lot of LTeX+ warnings, 
+                    // so I disable warnings for the abstracts.
+                    "abstract": false
+                },
+
+                // --------------------------------------------------------
+                // Paste Image settings
+                // --------------------------------------------------------
+                // Where to place the files for pasted images.
+                "pasteImage.path": "${workspaceFolder}/images",
+                // The code to insert into LaTeX. (Since the images are placed in 
+                // a directory named pasted-images/ that is in the same directory 
+                // as the current TeX file, the relative path to the file is 
+                // pasted-images/${imageFileName}.)
+                "pasteImage.insertPattern": 
+                "\\begin{center}\n\t\t\\includegraphics[width=\\linewidth]{images/${imageFileName}}\n\t\\end{center}",
+                // Make Paste Images ask you what to name the file so you don't 
+                // end up with a bunch of files named things like "12-03-2024-12-44-23.png"
+                "pasteImage.showFilePathConfirmInputBox": true,
+                // Only ask for the name of the created file, instead of the full path.
+                "pasteImage.filePathConfirmInputBoxMode": "onlyName",
+                // Default name.
+                "pasteImage.defaultName": "${currentFileNameWithoutExt}", // _HH-mm-ss
+                // Don't encode the path for HTML. 
+                "pasteImage.encodePath": "none",
+                // I don't remember what this does 
+                "pasteImage.basePath": "${workspaceFolder}",
             },
+            
             // Add the IDs of extensions you want installed when the container is created.
             // Browse for extensions here: https://marketplace.visualstudio.com/
             // then look for 'Unique Identifier' on the extension's page.
             "extensions": [
+                // Comprehensive support for LaTeX projects, including auto-completion, document compiling, syntax highlighting, and PDF preview
                 "James-Yu.latex-workshop",
+                
+                // Grammar and spell-checking with support for LaTeX syntax
+                "ltex-plus.vscode-ltex-plus",
+                
+                // Simplifies inserting images into your project, allowing
+                // images to be directly pasted into LaTeX documents
+                "mushan.vscode-paste-image",
+
                 "streetsidesoftware.code-spell-checker",
-                "James-Yu.latex-workshop",
                 "cyberBabushkin.filesize-hover-explorer",
-                "mutantdino.resourcemonitor"
+                "mutantdino.resourcemonitor",
+                "piousdeer.adwaita-theme",
+                "stkb.rewrap",
+
             ]
         }
     },

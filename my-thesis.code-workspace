@@ -4,11 +4,22 @@
 			"path": "."
 		},
 		{
-			"path": "reference documents/kaobook"
+			"path": "chapters"
 		},
 		{
-			"path": "../phd-thesis_from_TheoWinterhalter"
+			"path": "images"
 		}
 	],
-	"settings": {}
+	"settings": {
+		// Here we are only setting visual settings, for more functional settings
+		// check .devcontainer/devcontainer.json and .vscode/settings.json
+		// Editor style settings
+		"editor.minimap.enabled": false,
+		"workbench.editor.showTabs": "single",
+		"zenMode.showTabs": "none",
+		"window.autoDetectColorScheme": true,
+		"workbench.productIconTheme": "adwaita",
+		"workbench.preferredLightColorTheme": "Adwaita Light & colorful status bar",
+		"workbench.preferredDarkColorTheme": "Adwaita Dark & colorful status bar",
+	}
 }

@@ -1,0 +1,200 @@
+{
+	// Place your my-thesis workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	// Source for the snippets:
+	// https://paulwintz.com/latex-in-vscode/
+
+	// Equations
+	"Display Equation":{
+	"prefix": ["\\["],
+	"body": [
+		// If the current line is not empty, then insert an empty line.
+		"${TM_CURRENT_LINE/(?:^(\\s*)\\S.*$|(^\\s*$))/${1:+\n}$1/}\\[",
+		"\t$TM_SELECTED_TEXT$1",
+		"\\] $0"
+	],
+	"description": "Insert block equation with line-breaks and indentation."
+	},
+	"Inline Equation":{
+	"body": [
+		"$$TM_SELECTED_TEXT$1$$0"
+	],
+	"description": "Insert inline equation."
+	},
+	"Equation Environment":{
+	"prefix": ["\\equation"],
+	"body": [
+		"\\begin{equation}",
+		"\t\\label{eq:$RANDOM_HEX}",
+		// Regex (unescaped): \s*(?:\\\[\s*((?:.(?:\s*)??)*)\s*\\\]|((?:.|\s)+))\s*
+		//   Match either "  \[ \n .... \] " or just the entire contents and insert it as the body of the equation.
+		//   Explanation:
+		//      (?:\s*)??: Match any number of spaces *including line breaks* but 
+		//								 only if needed to allow for subsequent non-space characters.
+		"\t${TM_SELECTED_TEXT/\\s*(?:\\s*\\\\\\[\\s*((?:.(?:\\s*\\S)?)*)\\s*\\\\\\]\\s*|((?:.|\\s)+))\\s*/$1$2/}$1$0",
+		"\\end{equation}",
+		""
+	],
+	"description": "Insert equation environment with a random hexadecimal label."
+	},
+	"Generate Equation Label":{
+	"prefix": ["\\eqlabel"],
+	"body": [
+		// Automatically generate a label from the contents of the equation, deleting any backslashes or ambersands.
+		"\\label{eq:${TM_SELECTED_TEXT/[\\\\&,]//g}${1/[\\\\&,]//g}$1}",
+		"$TM_SELECTED_TEXT$0"
+	],
+	"description": "Create an equation label that is automatically generated from the selected text."
+	},
+	"Display Equation to Equation Environment":{
+	"body": [
+		// Group 1: Before text. "(.*?)"
+		// Group 2: Tab spaces before equation delimiter. "(\\h*)"
+		// Group 3: Equation contents "(.*?)"
+		// Group 4: After text "(.*)"
+		"${TM_SELECTED_TEXT/(.*?)(\\h*)\\\\\\[\\s*(.*?)\\s*\\\\\\](.*)/$1$2\\begin{equation}\n$2\t$3\n$2\\end{equation}\n/s}"
+	],
+	"description": "Convert a display equation to an equation environment."
+	},
+	"Convert inline to display equation":{
+	"body": [
+		// Unescaped RegEx: ([\S\s]*)\$\s*(.*?)\s*\$([,.]{0,1})([\S\s]*)
+		// Group 1: Content before equation. ("[\S\s]" matches any character)
+		// Group 2: Contents of equation, stripping white space.
+		// Group 3: Punctuation after equation ("[,.]{0,1}" matches "," or "." zero or one times)
+		// Group 4: Content after equation
+		// We duplicate the Regex for each line so that VS code automatically inserts the correct indentation for us, instead of handling it in the regex.
+		"${TM_SELECTED_TEXT/([\\S\\s]*)\\$\\s*(.*?)\\s*\\$([,.]{0,1})\\s*([\\S\\s]*)/$1/s}",
+		"\\[",
+		// It's important to put "\t" before "${TM_SELECTED_TEXT...}" instead of inside it so that VS code inserts tabs or spaces according to you configuration. If it's inside the regex, then it inserts a tab character.
+		"\t${TM_SELECTED_TEXT/([\\S\\s]*)\\$\\s*(.*?)\\s*\\$([,.]{0,1})\\s*([\\S\\s]*)/$2$3/s}",
+		"\\]",
+		"${TM_SELECTED_TEXT/([\\S\\s]*)\\$\\s*(.*?)\\s*\\$([,.]{0,1})\\s*([\\S\\s]*)/$4/s}",
+	],
+	"description": "Convert an inline equation to a display equation."
+	},
+	"Convert display to inline equation":{
+	"body": [
+		// Regular expression (unescaped): (.*)\\\[\s*\n*\s*(.*?)\s*\n*\s*\\\](.*)
+		// - "\s*" matches any number of spaces and line breaks around it.
+		// - "[\s\S]" matches any character, including line breaks and spaces.
+		// - "\\\[" Matches "\[" (there are three backslashes because "\\" matches "\" and "\[" matches "[").
+		// Group 1: All the content before the equation.
+		// Group 2: All the content in the equation, except for final punctuation  
+		// Group 3: Final punctuation ("[,.]{0,1}").
+		// Group 4: All the content after the equation.
+		"${TM_SELECTED_TEXT/([\\S\\s]*)\\\\\\[\\s*([\\S\\s]*?)\\s*([,.]{0,1})\\s*\\\\\\]([\\S\\s]*)/$1$$2$$3$4/s}",
+		
+	],
+	"description": "Convert a display equation to an inline equation."
+	},
+
+	"Subequations":{
+	"prefix": ["\\subequations", "\\begin{subequations}", "equations group", "equation group"],
+	"description": "Insert a group of equations that share the number, e.g., (3a), (3b), (3c).",
+	"body": [
+		"\\begin{subequations}",
+		"\t\\label{eq:${1:equation block label}}",
+		"\t\\begin{align}",
+		"\t\t$0",
+		"\t\\end{align}",
+		"\\end{subequations}"
+	]
+	},
+
+	// Lists: Enumerate, Itemize, and Description
+	"Add \\item after each line break":{
+	"prefix": ["\\itemafterlines"],
+	"body": [
+		"${TM_SELECTED_TEXT/(\\n)(\\s*)/$1$2\\item /g}"
+	],
+	"description": "Insert a citation."
+	},
+	"Itemize with \\item after each line":{
+	"prefix": ["\\itemize"],
+	"body": [
+		"\\begin{itemize}",
+		"\t\\item ${TM_SELECTED_TEXT/(\\n)(\\s*)/$1$2\\item /g}",
+		"\\end{itemize}",
+		""
+	]
+	},
+
+	"Section Labeled":{
+	// "prefix": ["\\sectionlabeled"],
+	"prefix": ["\\section"],
+	"body": [
+		"",
+		"%===================================",
+		"%===================================",
+		"\\section{$TM_SELECTED_TEXT${1:Header}}",
+		"\\label{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+		"$0"
+	]
+	},
+	"Subsection":{
+	"prefix": ["\\subsection"],
+	"body": [
+		"",
+		"%================================",
+		"\\subsection{$TM_SELECTED_TEXT${1:Header}}",
+		"\\label{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
+		"$0"
+	]
+	},
+	"Subsubsction":{
+	"prefix": ["\\subsubsection"],
+	"body": [
+		"",
+		"\\subsubsection{$TM_SELECTED_TEXT${1:Header}}",
+		"\\label{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
+		"$0"
+	]
+	},
+
+	"Emphasis":{
+	"prefix": ["epmh","\\emph"],
+	"body": [
+		"\\emph{$TM_SELECTED_TEXT$1}$0"
+	]
+	},
+	"Bold":{
+	"prefix": ["bold","\\bold"],
+	"body": [
+		"\\textbf{$TM_SELECTED_TEXT$1}$0"
+	]
+	},
+	"Teletype":{
+	"prefix": ["t","\\tt"],
+	"body": [
+		"\\texttt{$TM_SELECTED_TEXT$1}$0"
+	]
+	},
+		"Hyperlink (includes link)":{
+	"prefix": ["\\href","\\hyperlink", "\\url"],
+	"body": [
+		"\\href{${1:url}}{$TM_SELECTED_TEXT$2}$0"
+	]
+	},
+	"Hyperlink (no link)":{
+	"prefix": ["\\url"],
+	"body": [
+		"\\url{$TM_SELECTED_TEXT$2}$0"
+	]
+	}
+}

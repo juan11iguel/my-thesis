@@ -48,6 +48,12 @@
 # 5: xelatex, as specified by the $xelatex variable (second best)
 $pdf_mode = 4;
 
+# Output directory: place all auxiliary and output files in the 'out_dir' folder.
+# This must match what is set in LaTeX Workshop's `latex-workshop.latex.outDir` setting
+# to allow preview, synctex, etc., to work correctly.
+# Note: Do NOT include trailing slash.
+$out_dir = 'out_dir';
+
 # Treat undefined references and citations as well as multiply defined references as
 # ERRORS instead of WARNINGS.
 # This is only checked in the *last* run, since naturally, there are undefined references
