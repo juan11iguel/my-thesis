@@ -1,29 +1,51 @@
 \setchapterpreamble[u]{\margintoc}
-\chapter{Template chapter}
-\labch{template}
+\chapter{Introduction}
+\labch{intro}
 
 \section{The Main Ideas}
-\section{Introduction}
-\section[Short version]{Very long section title that would not fit well in the margin so that 
-it requires an alternative}
-\subsection{Very long }
 
+Many modern printed textbooks have adopted a layout with prominent 
+margins where small figures, tables, remarks and just about everything 
+else can be displayed. Arguably, this layout helps to organise the 
+	discussion by separating the main text from the ancillary material, 
+	which at the same time is very close to the point in the text where 
+	it is referenced.
 
-\begin{itemize}
-    \item[href] \href{https://3d.bk.tudelft.nl/ken/en/2016/04/17/a-1.5-column-layout-in-latex.html}{blog 
-	post}
-    \item[another href] \href{https://github.com/Tufte-LaTeX/tufte-latex}{Tufte-Latex Class}
-    \item[class command] Use of the Class command: \Class{kaobook} class focuses
-    \item[Reference section] Referencing another section: \vrefsec{doesnot}
-    \item[Side notes] This item has a complementary sidenote. \sidenote{This also means that understanding and contributing to the class development is made easier. 
+This document does not aim to be an apology of wide margins, for there 
+are many better suited authors for this task; the purpose of all these 
+words is just to fill the space so that the reader can see how a book 
+written with the kaobook class looks like. Meanwhile, I shall also try 
+to illustrate the features of the class.
+
+The main ideas behind kaobook come from this 
+\href{https://3d.bk.tudelft.nl/ken/en/2016/04/17/a-1.5-column-layout-in-latex.html}{blog 
+	post}, and actually the name of the class is dedicated to the author 
+of the post, Ken Arroyo Ohori, which has kindly allowed me to create a 
+class based on his thesis. Therefore, if you want to know more reasons 
+to prefer a 1.5-column layout for your books, be sure to read his blog 
+post.
+
+Another source of inspiration, as you may have noticed, is the 
+\href{https://github.com/Tufte-LaTeX/tufte-latex}{Tufte-Latex Class}. 
+The fact that the design is similar is due to the fact that it is very 
+difficult to improve something which is already so good. However, I like 
+to think that this class is more flexible than Tufte-Latex. For 
+instance, I have tried to use only standard packages and to implement as 
+little as possible from scratch;\sidenote{This also means that 
+understanding and contributing to the class development is made easier. 
 Indeed, many things still need to be improved, so if you are interested, 
-check out the repository on github!}
-\end{itemize}
+check out the repository on github!} therefore, it should be pretty easy 
+to customise anything, provided that you read the documentation of the 
+package that provides that feature.
+
+In this book I shall illustrate the main features of the class and 
+provide information about how to use and change things. Let us get 
+started.
 
 \section{What This Class Does}
 \labsec{does}
 
-The  more about the document structure than 
+The \Class{kaobook} class focuses more about the document structure than 
 about the style. Indeed, it is a well-known \LaTeX\xspace principle that 
 structure and style should be separated as much as possible (see also 
 \vrefsec{doesnot}). This means that this class will only provide 

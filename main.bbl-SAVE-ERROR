@@ -1,0 +1,275 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{Visscher2008}{article}{}{3}
+      \name{author}{3}{}{%
+        {{hash=d5ce32204ec6f41d2698be960fbf332a}{%
+           family={Visscher},
+           familyi={V\bibinitperiod},
+           given={Peter\bibnamedelima M},
+           giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=3c7d8fa96ecc42be051f077455d1e127}{%
+           family={Hill},
+           familyi={H\bibinitperiod},
+           given={William\bibnamedelima G},
+           giveni={W\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=601ade67fef12883b9e486989c24ef70}{%
+           family={Wray},
+           familyi={W\bibinitperiod},
+           given={Naomi\bibnamedelima R},
+           giveni={N\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{d0ba450df579621e044362f25a4ed314}
+      \strng{fullhash}{d0ba450df579621e044362f25a4ed314}
+      \strng{fullhashraw}{d0ba450df579621e044362f25a4ed314}
+      \strng{bibnamehash}{d0ba450df579621e044362f25a4ed314}
+      \strng{authorbibnamehash}{d0ba450df579621e044362f25a4ed314}
+      \strng{authornamehash}{d0ba450df579621e044362f25a4ed314}
+      \strng{authorfullhash}{d0ba450df579621e044362f25a4ed314}
+      \strng{authorfullhashraw}{d0ba450df579621e044362f25a4ed314}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Heritability allows a comparison of the relative importance of genes and environment to the variation of traits within and across populations. The concept of heritability and its definition as an estimable, dimensionless population parameter was introduced by Sewall Wright and Ronald Fisher nearly a century ago. Despite continuous misunderstandings and controversies over its use and application, heritability remains key to the response to selection in evolutionary biology and agriculture, and to the prediction of disease risk in medicine. Recent reports of substantial heritability for gene expression and new estimation methods using marker data highlight the relevance of heritability in the genomics era.}
+      \field{eprinttype}{arXiv}
+      \field{issn}{1471-0064}
+      \field{journaltitle}{Nat. Rev. Genet.}
+      \field{number}{4}
+      \field{title}{{Heritability in the genomics era--concepts and misconceptions.}}
+      \field{volume}{9}
+      \field{year}{2008}
+      \field{pages}{255\bibrangedash 266}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1038/nrg2322
+      \endverb
+      \verb{eprint}
+      \verb arXiv:1011.1669v3
+      \endverb
+      \warn{\item Datamodel: article entry 'Visscher2008' (main.bib): Field 'arxivid' invalid in data model - ignoring}
+      \warn{\item Datamodel: article entry 'Visscher2008' (main.bib): Field 'pmid' invalid in data model - ignoring}
+    \endentry
+    \entry{James2013}{book}{}{7}
+      \name{author}{4}{}{%
+        {{hash=df184c5fa522ac8a515ec4de13aef234}{%
+           family={James},
+           familyi={J\bibinitperiod},
+           given={Gareth},
+           giveni={G\bibinitperiod}}}%
+        {{hash=1ab16961e0de50711fa6bd9425f9b4a6}{%
+           family={Witten},
+           familyi={W\bibinitperiod},
+           given={Daniela},
+           giveni={D\bibinitperiod}}}%
+        {{hash=0cb8fe4210baa81c4b0e67913b4d2768}{%
+           family={Hastie},
+           familyi={H\bibinitperiod},
+           given={Trevor},
+           giveni={T\bibinitperiod}}}%
+        {{hash=88eea600247d798f8b2ce0b2dc614492}{%
+           family={Tibshirani},
+           familyi={T\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{fullhash}{da61646157a6be769f34984f5cb603b0}
+      \strng{fullhashraw}{da61646157a6be769f34984f5cb603b0}
+      \strng{bibnamehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{authorbibnamehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{authornamehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{authorfullhash}{da61646157a6be769f34984f5cb603b0}
+      \strng{authorfullhashraw}{da61646157a6be769f34984f5cb603b0}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{... But ESL is intended for individuals with ad- vanced training in the mathematical sciences. An Introduction to Statistical Learning (ISL) arose from the perceived need for a broader and less tech- nical treatment of these topics. ... $\backslash$n}
+      \field{booktitle}{An Introd. to Stat. Learn.}
+      \field{eprinttype}{arXiv}
+      \field{isbn}{978-1-4614-7137-0}
+      \field{issn}{01621459}
+      \field{title}{{An Introduction to Statistical Learning}}
+      \field{year}{2013}
+      \verb{doi}
+      \verb 10.1007/978-1-4614-7138-7
+      \endverb
+      \verb{eprint}
+      \verb arXiv:1011.1669v3
+      \endverb
+      \verb{urlraw}
+      \verb http://www.google.com
+      \endverb
+      \verb{url}
+      \verb http://www.google.com
+      \endverb
+      \warn{\item Datamodel: book entry 'James2013' (main.bib): Field 'arxivid' invalid in data model - ignoring}
+      \warn{\item Datamodel: book entry 'James2013' (main.bib): Field 'pmid' invalid in data model - ignoring}
+      \warn{\item Datamodel: book entry 'James2013' (main.bib): Invalid field 'booktitle' for entrytype 'book'}
+      \warn{\item Datamodel: book entry 'James2013' (main.bib): Invalid field 'issn' for entrytype 'book'}
+    \endentry
+    \entry{Battle2014}{article}{}{3}
+      \name{author}{14}{}{%
+        {{hash=0cc0ef4ca4ed3d3d064203aa924792e9}{%
+           family={Battle},
+           familyi={B\bibinitperiod},
+           given={Alexis},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5448f2cd30019b2266533b406a9b9b52}{%
+           family={Mostafavi},
+           familyi={M\bibinitperiod},
+           given={Sara},
+           giveni={S\bibinitperiod}}}%
+        {{hash=268f8eab3c57fdef03777aa7562f65a0}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Xiaowei},
+           giveni={X\bibinitperiod}}}%
+        {{hash=5d0ab795dee83bfa1f24140f544cf5f0}{%
+           family={Potash},
+           familyi={P\bibinitperiod},
+           given={James\bibnamedelima B.},
+           giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=faaf73ee66507f048cb54c67aaa5ef71}{%
+           family={Weissman},
+           familyi={W\bibinitperiod},
+           given={Myrna\bibnamedelima M.},
+           giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=04006b98bc85c8bfb4b61c505f593730}{%
+           family={McCormick},
+           familyi={M\bibinitperiod},
+           given={Courtney},
+           giveni={C\bibinitperiod}}}%
+        {{hash=12a491fecc5bea000bd81cfac32509e8}{%
+           family={Haudenschild},
+           familyi={H\bibinitperiod},
+           given={Christian\bibnamedelima D.},
+           giveni={C\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=8a1bdb8290da6a01f8bc14ae77c7fe3b}{%
+           family={Beckman},
+           familyi={B\bibinitperiod},
+           given={Kenneth\bibnamedelima B.},
+           giveni={K\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=3b4049dd6270ee11f4666536f2e7243f}{%
+           family={Shi},
+           familyi={S\bibinitperiod},
+           given={Jianxin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=92027aec824054b92fb118d1dfbee6b2}{%
+           family={Mei},
+           familyi={M\bibinitperiod},
+           given={Rui},
+           giveni={R\bibinitperiod}}}%
+        {{hash=4fab281011c5404d16f6f65c91421ac3}{%
+           family={Urban},
+           familyi={U\bibinitperiod},
+           given={Alexander\bibnamedelima E.},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=dd3272005bba3c990058e471cbb78d27}{%
+           family={Montgomery},
+           familyi={M\bibinitperiod},
+           given={Stephen\bibnamedelima B.},
+           giveni={S\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=7c11290cc18640b9e83377e0c533c018}{%
+           family={Levinson},
+           familyi={L\bibinitperiod},
+           given={Douglas\bibnamedelima F.},
+           giveni={D\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=9c785bcf6b8a0b99e44695299a6aecb2}{%
+           family={Koller},
+           familyi={K\bibinitperiod},
+           given={Daphne},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{1d574acd88da6c7ed70be31ed8914448}
+      \strng{fullhash}{9ec8d34f16274c4be9c916f9a37f0d61}
+      \strng{fullhashraw}{9ec8d34f16274c4be9c916f9a37f0d61}
+      \strng{bibnamehash}{1d574acd88da6c7ed70be31ed8914448}
+      \strng{authorbibnamehash}{1d574acd88da6c7ed70be31ed8914448}
+      \strng{authornamehash}{1d574acd88da6c7ed70be31ed8914448}
+      \strng{authorfullhash}{9ec8d34f16274c4be9c916f9a37f0d61}
+      \strng{authorfullhashraw}{9ec8d34f16274c4be9c916f9a37f0d61}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Understanding the consequences of regulatory variation in the human genome remains a major challenge, with important implications for understanding gene regulation and interpreting the many disease-risk variants that fall outside of protein-coding regions. Here, we provide a direct window into the regulatory consequences of genetic variation by sequencing RNA from 922 genotyped individuals. We present a comprehensive description of the distribution of regulatory variation--by the specific expression phenotypes altered, the properties of affected genes, and the genomic characteristics of regulatory variants. We detect variants influencing expression of over ten thousand genes, and through the enhanced resolution offered by RNA-sequencing, for the first time we identify thousands of variants associated with specific phenotypes including splicing and allelic expression. Evaluating the effects of both long-range intra-chromosomal and trans (cross-chromosomal) regulation, we observe modularity in the regulatory network, with three-dimensional chromosomal configuration playing a particular role in regulatory modules within each chromosome. We also observe a significant depletion of regulatory variants affecting central and critical genes, along with a trend of reduced effect sizes as variant frequency increases, providing evidence that purifying selection and buffering have limited the deleterious impact of regulatory variation on the cell. Further, generalizing beyond observed variants, we have analyzed the genomic properties of variants associated with expression and splicing and developed a Bayesian model to predict regulatory consequences of genetic variants, applicable to the interpretation of individual genomes and disease studies. Together, these results represent a critical step toward characterizing the complete landscape of human regulatory variation.}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Genome Res.}
+      \field{number}{1}
+      \field{title}{{Characterizing the genetic basis of transcriptome diversity through RNA-sequencing of 922 individuals}}
+      \field{volume}{24}
+      \field{year}{2014}
+      \field{pages}{14\bibrangedash 24}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1101/gr.155192.113
+      \endverb
+      \verb{eprint}
+      \verb NIHMS150003
+      \endverb
+      \warn{\item Datamodel: article entry 'Battle2014' (main.bib): Field 'arxivid' invalid in data model - ignoring}
+      \warn{\item Datamodel: article entry 'Battle2014' (main.bib): Field 'pmid' invalid in data model - ignoring}
+    \endentry
+    \entry{Zou2005}{article}{}{2}
+      \name{author}{2}{}{%
+        {{hash=f15b129e88b4820c7ed982265e79986b}{%
+           family={Zou},
+           familyi={Z\bibinitperiod},
+           given={Hui},
+           giveni={H\bibinitperiod}}}%
+        {{hash=0cb8fe4210baa81c4b0e67913b4d2768}{%
+           family={Hastie},
+           familyi={H\bibinitperiod},
+           given={Trevor},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{c346171da05683239c65d0053413406e}
+      \strng{fullhash}{c346171da05683239c65d0053413406e}
+      \strng{fullhashraw}{c346171da05683239c65d0053413406e}
+      \strng{bibnamehash}{c346171da05683239c65d0053413406e}
+      \strng{authorbibnamehash}{c346171da05683239c65d0053413406e}
+      \strng{authornamehash}{c346171da05683239c65d0053413406e}
+      \strng{authorfullhash}{c346171da05683239c65d0053413406e}
+      \strng{authorfullhashraw}{c346171da05683239c65d0053413406e}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We propose the elastic net, a new regularization and variable selection method. Real world data and a simulation study show that the elastic net often outperforms the lasso, while enjoying a similar sparsity of representation. In addition, the elastic net encourages a grouping effect, where strongly correlated predictors tend to be in or out of the model together. The elastic net is particularly useful when the number of predictors (p) is much bigger than the number of observations (n). By contrast, the lasso is not a very satisfactory variable selection method in the p≫n case. An algorithm called LARS-EN is proposed for computing elastic net regularization paths efficiently, much like algorithm LARS does for the lasso.}
+      \field{journaltitle}{J. R. Stat. Soc.}
+      \field{number}{2}
+      \field{title}{{Regularization and variable selection via the elastic-net}}
+      \field{volume}{67}
+      \field{year}{2005}
+      \field{pages}{301\bibrangedash 320}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1111/j.1467-9868.2005.00503.x
+      \endverb
+      \keyw{grouping effect,lars algorithm,lasso,p,penalization}
+      \warn{\item Datamodel: article entry 'Zou2005' (main.bib): Field 'pmid' invalid in data model - ignoring}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
