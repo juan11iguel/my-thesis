@@ -28,3 +28,7 @@ Most of
 thanks to [Paul Wintz](https://paulwintz.com/latex-in-vscode/)
 
 ## TODOs
+
+- [ ] Añadir List of open-source software used. Not an extensive list but the
+  main ones.
+

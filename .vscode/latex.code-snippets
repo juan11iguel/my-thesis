@@ -21,194 +21,268 @@
 
 	// Equations
 	"Display Equation":{
-	"prefix": ["\\["],
-	"body": [
-		// If the current line is not empty, then insert an empty line.
-		"${TM_CURRENT_LINE/(?:^(\\s*)\\S.*$|(^\\s*$))/${1:+\n}$1/}\\[",
-		"\t$TM_SELECTED_TEXT$1",
-		"\\] $0"
-	],
-	"description": "Insert block equation with line-breaks and indentation."
-	},
-	"Inline Equation":{
-	"body": [
-		"$$TM_SELECTED_TEXT$1$$0"
-	],
-	"description": "Insert inline equation."
+		"prefix": ["\\["],
+		"body": [
+			// If the current line is not empty, then insert an empty line.
+			"${TM_CURRENT_LINE/(?:^(\\s*)\\S.*$|(^\\s*$))/${1:+\n}$1/}\\[",
+			"\t$TM_SELECTED_TEXT$1",
+			"\\] $0"
+		],
+		"description": "Insert block equation with line-breaks and indentation."
+		},
+		"Inline Equation":{
+		"body": [
+			"$$TM_SELECTED_TEXT$1$$0"
+		],
+		"description": "Insert inline equation."
 	},
 	"Equation Environment":{
-	"prefix": ["\\equation"],
-	"body": [
-		"\\begin{equation}",
-		"\t\\label{eq:$RANDOM_HEX}",
-		// Regex (unescaped): \s*(?:\\\[\s*((?:.(?:\s*)??)*)\s*\\\]|((?:.|\s)+))\s*
-		//   Match either "  \[ \n .... \] " or just the entire contents and insert it as the body of the equation.
-		//   Explanation:
-		//      (?:\s*)??: Match any number of spaces *including line breaks* but 
-		//								 only if needed to allow for subsequent non-space characters.
-		"\t${TM_SELECTED_TEXT/\\s*(?:\\s*\\\\\\[\\s*((?:.(?:\\s*\\S)?)*)\\s*\\\\\\]\\s*|((?:.|\\s)+))\\s*/$1$2/}$1$0",
-		"\\end{equation}",
-		""
-	],
-	"description": "Insert equation environment with a random hexadecimal label."
+		"prefix": ["\\equation"],
+		"body": [
+			"\\begin{equation}",
+			"\t\\label{eq:$RANDOM_HEX}",
+			// Regex (unescaped): \s*(?:\\\[\s*((?:.(?:\s*)??)*)\s*\\\]|((?:.|\s)+))\s*
+			//   Match either "  \[ \n .... \] " or just the entire contents and insert it as the body of the equation.
+			//   Explanation:
+			//      (?:\s*)??: Match any number of spaces *including line breaks* but 
+			//								 only if needed to allow for subsequent non-space characters.
+			"\t${TM_SELECTED_TEXT/\\s*(?:\\s*\\\\\\[\\s*((?:.(?:\\s*\\S)?)*)\\s*\\\\\\]\\s*|((?:.|\\s)+))\\s*/$1$2/}$1$0",
+			"\\end{equation}",
+			""
+		],
+		"description": "Insert equation environment with a random hexadecimal label."
 	},
 	"Generate Equation Label":{
-	"prefix": ["\\eqlabel"],
-	"body": [
-		// Automatically generate a label from the contents of the equation, deleting any backslashes or ambersands.
-		"\\label{eq:${TM_SELECTED_TEXT/[\\\\&,]//g}${1/[\\\\&,]//g}$1}",
-		"$TM_SELECTED_TEXT$0"
-	],
-	"description": "Create an equation label that is automatically generated from the selected text."
-	},
-	"Display Equation to Equation Environment":{
-	"body": [
-		// Group 1: Before text. "(.*?)"
-		// Group 2: Tab spaces before equation delimiter. "(\\h*)"
-		// Group 3: Equation contents "(.*?)"
-		// Group 4: After text "(.*)"
-		"${TM_SELECTED_TEXT/(.*?)(\\h*)\\\\\\[\\s*(.*?)\\s*\\\\\\](.*)/$1$2\\begin{equation}\n$2\t$3\n$2\\end{equation}\n/s}"
-	],
-	"description": "Convert a display equation to an equation environment."
+		"prefix": ["\\eqlabel"],
+		"body": [
+			// Automatically generate a label from the contents of the equation, deleting any backslashes or ambersands.
+			"\\label{eq:${TM_SELECTED_TEXT/[\\\\&,]//g}${1/[\\\\&,]//g}$1}",
+			"$TM_SELECTED_TEXT$0"
+		],
+		"description": "Create an equation label that is automatically generated from the selected text."
+		},
+		"Display Equation to Equation Environment":{
+		"body": [
+			// Group 1: Before text. "(.*?)"
+			// Group 2: Tab spaces before equation delimiter. "(\\h*)"
+			// Group 3: Equation contents "(.*?)"
+			// Group 4: After text "(.*)"
+			"${TM_SELECTED_TEXT/(.*?)(\\h*)\\\\\\[\\s*(.*?)\\s*\\\\\\](.*)/$1$2\\begin{equation}\n$2\t$3\n$2\\end{equation}\n/s}"
+		],
+		"description": "Convert a display equation to an equation environment."
 	},
 	"Convert inline to display equation":{
-	"body": [
-		// Unescaped RegEx: ([\S\s]*)\$\s*(.*?)\s*\$([,.]{0,1})([\S\s]*)
-		// Group 1: Content before equation. ("[\S\s]" matches any character)
-		// Group 2: Contents of equation, stripping white space.
-		// Group 3: Punctuation after equation ("[,.]{0,1}" matches "," or "." zero or one times)
-		// Group 4: Content after equation
-		// We duplicate the Regex for each line so that VS code automatically inserts the correct indentation for us, instead of handling it in the regex.
-		"${TM_SELECTED_TEXT/([\\S\\s]*)\\$\\s*(.*?)\\s*\\$([,.]{0,1})\\s*([\\S\\s]*)/$1/s}",
-		"\\[",
-		// It's important to put "\t" before "${TM_SELECTED_TEXT...}" instead of inside it so that VS code inserts tabs or spaces according to you configuration. If it's inside the regex, then it inserts a tab character.
-		"\t${TM_SELECTED_TEXT/([\\S\\s]*)\\$\\s*(.*?)\\s*\\$([,.]{0,1})\\s*([\\S\\s]*)/$2$3/s}",
-		"\\]",
-		"${TM_SELECTED_TEXT/([\\S\\s]*)\\$\\s*(.*?)\\s*\\$([,.]{0,1})\\s*([\\S\\s]*)/$4/s}",
-	],
-	"description": "Convert an inline equation to a display equation."
-	},
+		"body": [
+			// Unescaped RegEx: ([\S\s]*)\$\s*(.*?)\s*\$([,.]{0,1})([\S\s]*)
+			// Group 1: Content before equation. ("[\S\s]" matches any character)
+			// Group 2: Contents of equation, stripping white space.
+			// Group 3: Punctuation after equation ("[,.]{0,1}" matches "," or "." zero or one times)
+			// Group 4: Content after equation
+			// We duplicate the Regex for each line so that VS code automatically inserts the correct indentation for us, instead of handling it in the regex.
+			"${TM_SELECTED_TEXT/([\\S\\s]*)\\$\\s*(.*?)\\s*\\$([,.]{0,1})\\s*([\\S\\s]*)/$1/s}",
+			"\\[",
+			// It's important to put "\t" before "${TM_SELECTED_TEXT...}" instead of inside it so that VS code inserts tabs or spaces according to you configuration. If it's inside the regex, then it inserts a tab character.
+			"\t${TM_SELECTED_TEXT/([\\S\\s]*)\\$\\s*(.*?)\\s*\\$([,.]{0,1})\\s*([\\S\\s]*)/$2$3/s}",
+			"\\]",
+			"${TM_SELECTED_TEXT/([\\S\\s]*)\\$\\s*(.*?)\\s*\\$([,.]{0,1})\\s*([\\S\\s]*)/$4/s}",
+		],
+		"description": "Convert an inline equation to a display equation."
+		},
 	"Convert display to inline equation":{
-	"body": [
-		// Regular expression (unescaped): (.*)\\\[\s*\n*\s*(.*?)\s*\n*\s*\\\](.*)
-		// - "\s*" matches any number of spaces and line breaks around it.
-		// - "[\s\S]" matches any character, including line breaks and spaces.
-		// - "\\\[" Matches "\[" (there are three backslashes because "\\" matches "\" and "\[" matches "[").
-		// Group 1: All the content before the equation.
-		// Group 2: All the content in the equation, except for final punctuation  
-		// Group 3: Final punctuation ("[,.]{0,1}").
-		// Group 4: All the content after the equation.
-		"${TM_SELECTED_TEXT/([\\S\\s]*)\\\\\\[\\s*([\\S\\s]*?)\\s*([,.]{0,1})\\s*\\\\\\]([\\S\\s]*)/$1$$2$$3$4/s}",
-		
-	],
-	"description": "Convert a display equation to an inline equation."
+		"body": [
+			// Regular expression (unescaped): (.*)\\\[\s*\n*\s*(.*?)\s*\n*\s*\\\](.*)
+			// - "\s*" matches any number of spaces and line breaks around it.
+			// - "[\s\S]" matches any character, including line breaks and spaces.
+			// - "\\\[" Matches "\[" (there are three backslashes because "\\" matches "\" and "\[" matches "[").
+			// Group 1: All the content before the equation.
+			// Group 2: All the content in the equation, except for final punctuation  
+			// Group 3: Final punctuation ("[,.]{0,1}").
+			// Group 4: All the content after the equation.
+			"${TM_SELECTED_TEXT/([\\S\\s]*)\\\\\\[\\s*([\\S\\s]*?)\\s*([,.]{0,1})\\s*\\\\\\]([\\S\\s]*)/$1$$2$$3$4/s}",
+			
+		],
+		"description": "Convert a display equation to an inline equation."
 	},
 
 	"Subequations":{
-	"prefix": ["\\subequations", "\\begin{subequations}", "equations group", "equation group"],
-	"description": "Insert a group of equations that share the number, e.g., (3a), (3b), (3c).",
-	"body": [
-		"\\begin{subequations}",
-		"\t\\label{eq:${1:equation block label}}",
-		"\t\\begin{align}",
-		"\t\t$0",
-		"\t\\end{align}",
-		"\\end{subequations}"
-	]
+		"prefix": ["\\subequations", "\\begin{subequations}", "equations group", "equation group"],
+		"description": "Insert a group of equations that share the number, e.g., (3a), (3b), (3c).",
+		"body": [
+			"\\begin{subequations}",
+			"\t\\label{eq:${1:equation block label}}",
+			"\t\\begin{align}",
+			"\t\t$0",
+			"\t\\end{align}",
+			"\\end{subequations}"
+		]
 	},
 
 	// Lists: Enumerate, Itemize, and Description
 	"Add \\item after each line break":{
-	"prefix": ["\\itemafterlines"],
-	"body": [
-		"${TM_SELECTED_TEXT/(\\n)(\\s*)/$1$2\\item /g}"
-	],
-	"description": "Insert a citation."
+		"prefix": ["\\itemafterlines"],
+		"body": [
+			"${TM_SELECTED_TEXT/(\\n)(\\s*)/$1$2\\item /g}"
+		],
+		"description": "Insert a citation."
 	},
 	"Itemize with \\item after each line":{
-	"prefix": ["\\itemize"],
-	"body": [
-		"\\begin{itemize}",
-		"\t\\item ${TM_SELECTED_TEXT/(\\n)(\\s*)/$1$2\\item /g}",
-		"\\end{itemize}",
-		""
-	]
+		"prefix": ["\\itemize"],
+		"body": [
+			"\\begin{itemize}",
+			"\t\\item ${TM_SELECTED_TEXT/(\\n)(\\s*)/$1$2\\item /g}",
+			"\\end{itemize}",
+			""
+		]
 	},
 
 	"Chapter Labeled":{
-	"prefix": ["\\chapter"],
-	"body": [
-		"",
-		"%===================================",
-		"%===================================",
-		"%===================================",
-		"\\setchapterpreamble[u]{\\margintoc}",
-		"\\chapter{$TM_SELECTED_TEXT${1:Header}}",
-		"\\labch{part:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
-		"$0"
-	]
+		"prefix": ["\\chapter"],
+		"body": [
+			"",
+			"%===================================",
+			"%===================================",
+			"%===================================",
+			"\\setchapterpreamble[u]{\\margintoc}",
+			"\\chapter{$TM_SELECTED_TEXT${1:Header}}",
+			"\\labch{part:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+			"$0"
+		]
 	},
 
 	"Section Labeled":{
-	// "prefix": ["\\sectionlabeled"],
-	"prefix": ["\\section"],
-	"body": [
-		"",
-		"%===================================",
-		"%===================================",
-		"\\section{$TM_SELECTED_TEXT${1:Header}}",
-		"\\labsec{part:chapter:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
-		"$0"
-	]
+		// "prefix": ["\\sectionlabeled"],
+		"prefix": ["\\section"],
+		"body": [
+			"",
+			"%===================================",
+			"%===================================",
+			"\\section{$TM_SELECTED_TEXT${1:Header}}",
+			"\\labsec{part:chapter:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+			"$0"
+		]
 	},
 	"Subsection":{
-	"prefix": ["\\subsection"],
-	"body": [
-		"",
-		"%================================",
-		"\\subsection{$TM_SELECTED_TEXT${1:Header}}",
-		"\\labsec{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
-		"$0"
-	]
+		"prefix": ["\\subsection"],
+		"body": [
+			"",
+			"%================================",
+			"\\subsection{$TM_SELECTED_TEXT${1:Header}}",
+			"\\labsec{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
+			"$0"
+		]
 	},
 	"Subsubsection":{
-	"prefix": ["\\subsubsection"],
-	"body": [
-		"",
-		"\\subsubsection{$TM_SELECTED_TEXT${1:Header}}",
-		"\\labsec{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
-		"$0"
-	]
+		"prefix": ["\\subsubsection"],
+		"body": [
+			"",
+			"\\subsubsection{$TM_SELECTED_TEXT${1:Header}}",
+			"\\labsec{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
+			"$0"
+		]
 	},
 
 	"Emphasis":{
-	"prefix": ["epmh","\\emph"],
-	"body": [
-		"\\emph{$TM_SELECTED_TEXT$1}$0"
-	]
+		"prefix": ["epmh","\\emph"],
+		"body": [
+			"\\emph{$TM_SELECTED_TEXT$1}$0"
+		]
 	},
 	"Bold":{
-	"prefix": ["bold","\\bold"],
-	"body": [
-		"\\textbf{$TM_SELECTED_TEXT$1}$0"
-	]
+		"prefix": ["bold","\\bold"],
+		"body": [
+			"\\textbf{$TM_SELECTED_TEXT$1}$0"
+		]
 	},
 	"Teletype":{
-	"prefix": ["t","\\tt"],
-	"body": [
-		"\\texttt{$TM_SELECTED_TEXT$1}$0"
-	]
+		"prefix": ["t","\\tt"],
+		"body": [
+			"\\texttt{$TM_SELECTED_TEXT$1}$0"
+		]
 	},
-		"Hyperlink (includes link)":{
-	"prefix": ["\\href","\\hyperlink", "\\url"],
-	"body": [
-		"\\href{${1:url}}{$TM_SELECTED_TEXT$2}$0"
-	]
+	"Hyperlink (includes link)":{
+		"prefix": ["\\href","\\hyperlink", "\\url"],
+		"body": [
+			"\\href{${1:url}}{$TM_SELECTED_TEXT$2}$0"
+		]
 	},
 	"Hyperlink (no link)":{
-	"prefix": ["\\url"],
-	"body": [
-		"\\url{$TM_SELECTED_TEXT$2}$0"
-	]
-	}
+		"prefix": ["\\url"],
+		"body": [
+			"\\url{$TM_SELECTED_TEXT$2}$0"
+		]
+	},
+	"Margin figure":{
+		"prefix": ["\\marginfigure"],
+		"body": [
+			"\\begin{marginfigure}",
+			"\t\\includegraphics[]{figures/$TM_SELECTED_TEXT$1.png}",
+			"\t\\caption{$2}",
+			"\t\\labfig{chapter:section:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+			"\\end{marginfigure}",
+			"$0"
+		]
+	},
+
+	"Figure": {
+		"prefix": ["\\figure"],
+		"body": [
+			"\\begin{figure}",
+			"\t\\includegraphics[width=.7\\textwidth]{figures/$TM_SELECTED_TEXT$1.png}",
+			"\t\\caption{$2}",
+			"\t\\labfig{chapter:section:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+			"\\end{figure}",
+			"$0"
+		]
+	},
+
+	"Wide figure":{
+		"prefix": ["\\widefigure"],
+		"body": [
+			"\\begin{figure*}[h!]",
+			"\t\\includegraphics[]{figures/$TM_SELECTED_TEXT$1.png}",
+			"\t\\caption{$2}",
+			"\t\\labfig{chapter:section:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+			"\\end{figure*}",
+			"$0"
+		]
+	},
+
+	"Figure with QR code": {
+		"prefix": ["\\qrfigure"],
+		"body": [
+			"\\begin{figure}",
+			"\t\\includegraphics[width=.7\\textwidth]{figures/$TM_SELECTED_TEXT$1.png}",
+			"\t\\savebox\\captionqr{\\qrcode[hyperlink,height=0.5in]{\\repositoryBaseUrl/figures/$TM_SELECTED_TEXT$1.html}}",
+			"\t\\caption[$2]{${2:Figure caption}.\\\\\\[1ex] \\usebox\\captionqr}",
+			"\t\\labfig{$3:$4:$5}",
+			"\\end{figure}",
+			"$0"
+		]
+	},
+
+	"Wide figure with QR code": {
+		"prefix": ["\\qrwidefigure"],
+		"body": [
+			"\\begin{figure*}[h!]",
+			"\t\\includegraphics[]{figures/$TM_SELECTED_TEXT$1.png}",
+			"\t\\savebox\\captionqr{\\qrcode[hyperlink,height=0.5in]{\\repositoryBaseUrl/figures/$TM_SELECTED_TEXT$1.html}}",
+			"\t\\caption[$2]{${2:Figure caption}.\\hspace{1ex}\\usebox\\captionqr}",
+			"\t\\labfig{$3:$4:$5}",
+			"\\end{figure*}",
+			"$0"
+		]
+	},
+
+	"Margin figure with QR code":{
+		"prefix": ["\\qrmarginfigure"],
+		"body": [
+			"\\begin{marginfigure}",
+			"\t\\includegraphics[]{figures/$TM_SELECTED_TEXT$1.png}",
+			"\t\\savebox\\captionqr{\\qrcode[hyperlink,height=0.4in]{\\repositoryBaseUrl/figures/$TM_SELECTED_TEXT$1.html}}",
+			"\t\\caption[$2]{${2:Figure caption}.\\hspace{1ex}\\usebox\\captionqr}",
+			"\t\\labfig{$3:$4:$5}",
+			"\\end{marginfigure}",
+			"$0"
+		]
+	},
 }

@@ -1,9 +1,49 @@
 \setchapterpreamble[u]{\margintoc}
-\chapter{Optimization strategy experimental validation}
+\chapter{Validation} % Optimization strategy experimental validation
 \labch{solhycool:validation}
 
+% ====================================
+% ====================================
 \section{Modelling}
+
+% ================================
 \subsection{Wet cooler}
+
+With the aim of comparing two modelling strategies established to predict the
+outlet water temperature and the water consumption of WCT (physical
+equation-based and ANN-based models), three different experimental campaigns
+have been carried out at the pilot plant of combined cooling systems located at
+PSA (see a detailed description in Section \ref{sec:description}): the first
+one for the calibration of the physical equation-based model, the second one
+for tuning the ANN-based model and the last one for the validation and
+comparison of the two modelling strategies. These strategies and the
+experimental campaigns are exhaustively detailed in Sections
+\ref{sec:modelling} and \ref{Sec:Exp}, respectively.  
+
+Fig.~\reffig{cc:validation:modelling:method} schematically shows the procedure followed for the
+calibration, tuning and validation of the two modelling strategies established
+as well as for the comparison between them. 
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{figures/Procedimiento_v2.png}
+	\caption{Calibration, tuning, validation and comparison procedure}
+	\labfig{cc:validation:modelling:method}
+\end{figure}
+
+As previously mentioned, three experimental campaigns have been performed,
+shown in  Fig. ~\reffig{cc:validation:modelling:method} as \textit{Exp 1}, \textit{Exp 2}, and
+\textit{Exp 3}. \textit{Exp 1} corresponds to the Poppe model calibration
+campaign and it was designed for the calibration of the first principles model.
+The aims of such campaign was to fit a function (mapping) that relates the air
+mass flow rate at the outlet of the tower, $\dot{m}_a$, with the frequency of
+the fan, $f_{fan}$, and to calibrate a WCT performance coefficient: the Merkel
+number, $\Me$. Exp 2, which corresponds to the ANN tuning experimental
+campaign, is a set of data obtained over several years of operation in a wide
+range of operating and ambient conditions that has been used for tuning the ANN
+model. Finally, in the validation and comparison experimental campaign (Exp 3),
+new data, not included in the other two campaigns, has been collected by
+applying a design of experiments in order to validate and compare the proposed
+modelling strategies.
 
 \begin{enumerate}
 	\item FP model
@@ -13,6 +53,11 @@
 \end{enumerate}
 Tabla tocha añadiendo casos (GPR, DB from FP)
 
+On the other hand, the robustness and reliability of the models have been
+evaluated by a sensitivity analysis.
+
+
+% =================================
 \subsection{Dry cooler}
 \begin{enumerate}
 	\item FP model
@@ -22,14 +67,23 @@ Tabla tocha añadiendo casos (GPR, DB from FP)
 \end{enumerate}
 Tabla tocha añadiendo casos (GPR, DB from FP)
 
+% =================================
 \subsection{Complete system}
 \begin{enumerate}
 	\item solo DB from FP
 \end{enumerate}
 
-\section{Control and optimization: hierarchical control}
-\begin{enumerate}
-	\item CC horizon todo bien
-	\item CC horizon cambio planeado
-	\item CC horizon cambio imprevisto
-\end{enumerate}
+\section{Control and optimization results}
+
+
+%================================
+\subsection{Regular operation}
+\labsec{solhycool:validation:regular-operation}
+
+%================================
+\subsection[Planned operation changes]{Planned changes in operation}
+\labsec{solhycool:validation:planned-operation}
+
+%================================
+\subsection[Unanticipated operation changes]{Unanticipated operational changes}
+\labsec{solhycool:validation:unanticipated-operation}

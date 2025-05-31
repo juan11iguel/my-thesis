@@ -95,7 +95,10 @@ $max_repeat=7;
 # `set_tex_cmds` applies to all *latex commands (latex, xelatex, lualatex, ...), so
 # no need to specify these each. This allows to simply change `$pdf_mode` to get a
 # different engine. Check if this works with `latexmk --commands`.
-set_tex_cmds("--shell-escape --synctex=1 %O %S");
+# set_tex_cmds("--shell-escape --synctex=1 %O %S");
+# Run in non-interactive mode
+set_tex_cmds("--shell-escape --synctex=1 -interaction=nonstopmode %O %S");
+
 
 # option 2 is same as 1 (run biber when necessary), but also deletes the
 # regeneratable bbl-file in a clenaup (`latexmk -c`). Do not use if original

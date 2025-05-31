@@ -2,8 +2,77 @@
 \chapter{Optimal coupling and operation of a Solar MED system}
 \labch{solarmed:optimization}
 
+
+%===================================
+%===================================
 \section{Introduction}
 
+%===================================
+%===================================
 \section[Proposed strategy]{Proposed optimization strategy}
+\labsec{solarmed:optimization:strategy}
 
-\subsection{Problem description}
+The behavior of the \textit{SolarMED} process is controlled by acting on two components, a discrete and a continuous one:
+\begin{itemize}
+    \item Operation state. It defines the discrete state of the system. The complete system is divided into two subsystems: the heat generation and storage subsystem and the separation subsystem. For the solar field and thermal storage subsystem (sfts), the states are simply defined based on whether water is being recirculated in each circuit, while for the MED various discrete modes can be found: \textit{off}, \textit{generating vacuum}, \textit{startup}, \textit{shutdown}, and \textit{idle} operation depending on the sequence of values of several process variables.
+    \item Process variables. Regulates the continuous-dynamic behavior of the process. Specifically, two recirculation flow rates for the sfts subsystem, five flow and temperature variables for the MED.
+\end{itemize}
+
+The goal is to design an operational strategy that enables the seamless
+integration of both subsystems in an autonomous and optimal manner, including
+decisions on when to start or stop each subsystem and how to regulate them
+during operation. Therefore, considering the whole system as a Mixed Integer
+Non-Linear Problem (MINLP). \marginnote{See
+\nrefsec{intro:optimization:minlp_problems} for a formal definition}
+
+% In order to achieve this objective, a hierarchical control approach was chosen consisting on three-layers: operation plan, operation optimization, and operation regulation. This scheme was chosen for two main reasons. On the one hand, the time scales of the different aspects of the operation of the system (operation mode changes, process variables setpoint changes, regulatory control, respectively) can differ substantially. Secondly, it allows to abstract process complexity from the more computationally demanding upper layers by allocating it into the downstream layers. The operation plan layer makes decisions for the operation state, the operation optimization layer sets the setpoints given to the continuous process variables that are to be followed by the low-level regulatory control layer.
+
+
+\input{chapters/solarmed-modelling.tex}
+
+
+%===================================
+%===================================
+\section{Problem description}
+\labsec{solarmed:optimization:problem-description}
+
+% First, two decision variables are defined to manipulate the discrete state of each subsystem ($med_{mode}$, $sfts_{mode}$). These binary variables establish whether the particular subsystem is active (=1) or inactive (=0), which is directly related to the operation state of the subsystem. Once the values for these decision variables are provided, the low-level control layer is in charge of safely transitioning between operation states (e.g. $med_{mode}: 0 \rightarrow 1$, med state: \textit{off} $\rightarrow$ \textit{generating vacuum} $\rightarrow$ \textit{start-up} $\rightarrow$ \textit{active}). This is accounted for in the models by the integrated finite-state machines. The resulting decision variables that make up the decision vector are then the following: $med_{mode}$, $sfts_{mode}$, $q_{sf}$, $q_{ts,src}$, $q_{med,s}$, $q_{med,f}$, $T_{med,s,in}$, $T_{med,c,out}$. In general $q$ represents flow rates while $T$ are temperatures and Fig.\ref{fig:med_diagram} can be consulted for subscript reference. 
+
+% The objective is to minimize the cost of operation ($J$) where fresh water ($q_{med,d}$) sold ($J_w$) is the positive term while (electrical) consumptions ($C_e$) make up the negative cost term ($J_e$) due to electricity use:
+
+% minimize
+% $J\:[u.m.] = \sum_{k=1}^{n_{steps}} \left( J_{e,k} - J_{w,k} \right)$
+
+% where:
+% \begin{itemize}
+%     \item $J_{w,k}=q_{d,k} \cdot P_{w,k}$ if \textit{valid operation} else 0
+%     \item $J_{e,k} = \sum^{n_{}}_{i=1} C_{e,i,k} \cdot {P_{e,k}}$
+% \end{itemize}
+
+% \textit{valid operation} conditions:
+% \begin{itemize}
+%     \item $T_{sf,out} \le \overline{T_{sf,out}}$
+% \end{itemize}
+
+% The benefit (B) of operation is simply the inverse of the cost of operation.
+
+% The problem is designed with a rolling window horizon, so the decision vector is formed by each individual decision variable repeated as many times as updates for it, $X_{nx \times \sum{n_{updates,xi}}}=[x_{1,k},\allowbreak\; \ldots,x_{1,n_{updates,x_{1}}},\allowbreak\; \ldots,x_{n_x, n_{updates, x_{nx}}}]$.  The number of updates of the decision variable ($n_{updates, x_i} \in [1,n_{steps}]$) can be chosen individually. More updates are assigned to variables regulating faster dynamics ($q_{sf}$, $q_{ts,src}$), and these updates of the decision variables are evenly distributed throughout the active period of the subsystem within the horizon. Finally, the environment for this MINLP problem includes weather variables (ambient temperature - $T_{amb}$, global direct irradiance - $I$, and feedwater salinity - $w_{med,f}$) and cost context (water sale price - $P_{w}$ and electricity price - $P_e$).
+
+% The optimization problem definition is similar between the operation plan and
+% the operation optimization layers, the only difference being that the operation
+% plan layer evaluates $n_{problems}$ combinations of $med_{mode}$ and
+% $sfts_{mode}$ and the evaluation result are the values of these two binary
+% decision variables. Then, in the operation optimization layer, these binary
+% variables can be moved to the environment, and thus instead of evaluating a
+% library of candidate problems, only one is. The periodic evaluation result of
+% this layer establishes the setpoint values of the continuous process variables.
+% In this report, focus is given to the upper operation plan layer, which is
+% detailed below.
+
+
+\section{Operation plan layer description}
+\subsection{Update times generation}
+\subsection{Candidate problems generation}
+\section{Operation optimization layer description}
+
+\input{chapters/solarmed-results.tex}

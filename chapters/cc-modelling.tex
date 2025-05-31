@@ -2,15 +2,214 @@
 \chapter{Modelling of a combined cooling system}
 \labch{solhycool:modelling}
 
-Decripción del modelo completo, cómo se integran los componentes, y después se describe cada component.
+\texttt{Decripción del modelo completo, cómo se integran los componentes, y después se
+describe cada component.}
 
+% Introducción de artículo: Wet cooling tower performance prediction in CSP
+% plants: A comparison between artificial neural networks and Poppe’s model
+
+
+%===================================
+%===================================
+\section{Introduction}
+\labsec{cc:modelling:introduction}
+
+% In order to perform such optimization, it is first necessary to develop the
+% modelling of the components of this combined cooling system. Since the
+% objective is performance prediction, this chapter focuses on the steady state
+% modelling of the WCT. More specifically, the aim is to compare two modelling
+% strategies: that based on physical equations and that based on black box models
+% such as Artificial Neural Networks (ANN), in order to see which one is more
+% suitable for its integration in the optimization of the complete process. 
+
+% This paper presents a novel and exhaustive comparison between the two modelling
+% approaches, at steady state and with a focus on optimization applications, in
+% terms of predictive capabilities, experimental and instrumentation
+% requirements, execution time, implementation and scalability. A sensitivity
+% analysis is performed to further analyze and compare each case study. It also
+% presents and evaluates all relevant aspects of interest in the development of
+% such models, specifically for ANNs, model configuration, architecture and
+% topology are discussed.
+
+
+% Estado del arte en modelado WCT
+
+%================================
+\subsection{Wet cooling tower modelling}
+
+% In the case of the models based on physical equations, the analysis of wet cooling
+% towers has its origin in~\cite{Merkel25}, in which the theory for their
+% performance evaluation was developed. Merkel proposed a model based on several
+% assumptions to simplify the heat and mass transfer equations to a simple hand
+% calculation. However, these assumptions mean that Merkel's method does not
+% reliably represent the physics of the heat and mass transfer process in a
+% cooling tower. This was already stated by
+% Bourillot~\cite{bourillot_hypotheses_1983} who concluded that the Merkel method
+% is simple to use and can correctly predict cold water temperature when an
+% appropriate value of the coefficient of evaporation is used. However, it is
+% insufficient for the estimation of the characteristics of the warm air leaving
+% the fill and for the calculation of changes in the water flow rate due to
+% evaporation. Jaber and Webb~\cite{jaber_design_1989} developed the equations
+% necessary to apply the effectiveness-NTU method directly to counterflow or
+% crossflow cooling towers. This approach is particularly useful in the latter
+% case and simpler compared to a more conventional numerical procedure. Notice
+% that the effectiveness-NTU method is based on the same simplifying assumptions
+% as the Merkel method. On the other hand, Poppe and Rögener~\cite{Poppe91}
+% developed the Poppe method. They derived the governing equations for heat and
+% mass transfer in a wet cooling tower and did not make any simplifying
+% assumptions as in the Merkel theory, which makes it a very precise model. As a
+% matter of fact, predictions from the Poppe formulation have resulted in values
+% of evaporated water flow rate that are in good agreement with full scale
+% cooling tower test results \cite{kloppers_critical_2005}. This model has
+% already been used for the evaluation of the thermal performance of solar power
+% plants using different condensation systems (wet, dry and hybrid system), as
+% can be found in Cutillas et al.~\cite{cutillas_energetic_2021}. 
+
+% In the case of black box models, numerous authors in the literature have
+% designed ANN models for WCT with different objectives, such as performance
+% prediction, simulation and optimization. One of the first works in this area is
+% the one described in \cite{hosozPerformancePredictionCooling2007} where an ANN
+% model was developed to predict the performance of a forced-counter flow cooling
+% tower at lab scale. In this case, the input variables were the dry bulb
+% temperature, the relative humidity of the air stream entering the tower, the
+% temperature of the water entering the tower, the air volume flow rate and the
+% cooling water mass flow rate. The outputs of this model were the heat rejection
+% rate at the tower, the mass flow rate of water evaporated, the temperature of
+% the cooling water at the tower outlet, the dry bulb temperature and the
+% relative humidity of the air at the outlet of the tower. The results obtained
+% with a 5-5-5\footnote{The notation $n_1$-...-$n_l$ represents the architecture
+% of the ANN model, where $l$ is the number of layers and $n_i$ are the nodes in
+% each one of the layers.} ANN demonstrated that wet cooling towers at lab-scale
+% can be modelled using ANNs with a high degree of accuracy. There are also ANN
+% models for Natural Draft Counter-flow Wet Cooling Towers (NDWCT) at lab-scale,
+% such as the one proposed by \cite{gaoArtificialNeuralNetwork2013}. In this
+% case, the authors used a 4-8-6 ANN structure and considered some additional
+% variables, such as air gravity, wind velocity, heat transfer coefficients and
+% efficiency as outputs. All these works can be useful to validate the model
+% development methodology but may fail predicting the performance of WCT at
+% larger scale. In this sense, special attention deserves the study carried out
+% by \sidecite{songNovelApproachEnergy2021} where an 8-14-2 ANN model was proposed to
+% predict the performance (the cooling number and the evaporative loss
+% proportion) of NDWCTs at commercial scale. The model is based on 638 sets of
+% field experimental data collected from 36 diverse NDWCTs used in power plants.
+% It is a very challenging work since it covers samples from a wide range of
+% tower sizes and capacities being the Mean Relative Error (MRE) below 5 \%. 
+
+% From the literature review, it can be stated that there are works based on
+% Poppe and ANN models that evaluate the main output variables of WCTs.
+% Nevertheless, to the author knowledge, there are no studies focused on the
+% comparison between both modelling strategies. Also lacking is a comprehensive
+% analysis of the different aspects that affect the models development and
+% performance.
+
+%===================================
+%===================================
 \section{Wet cooler}
 
-\subsection{Samples generation for FP to data-based model}
+% The static models presented in this section have been developed to predict two
+% main outputs, the water temperature at the outlet of the WCT, $T_{w,o}$, and
+% the water consumed due to evaporation losses, $\dot{m}_{w,lost}$. The inputs
+% variables required by both modelling approaches, Poppe model and ANN models,
+% are: the cooling water flow rate ($\dot{m}_w$), the water temperature at the
+% inlet of the WCT ($T_{w,i}$), the ambient temperature ($T_{\infty}$), the
+% ambient relative humidity ($\phi_{\infty}$) and the frequency percentage of the
+% fan ($f_{fan}$) (or its equivalence in air mass flow rate\footnote{ANN uses as
+%  input $f_{fan}$ whereas Poppe's model uses $\dot{m}_a$.}, $\dot{m}_a$).
 
+% %====================================
+% \subsection{Poppe model}
+% \labsec{cc:modelling:met_poppe}
+
+% The well-known Merkel number is accepted as the performance coefficient of a
+% wet cooling tower \cite{NAVARRO2022118719}. This dimensionless number is
+% defined in Eq. \ref{eq:Me}, and it measures the degree of difficulty of the
+% mass transfer processes occurring in the exchange area of a wet cooling tower.
+
+% \begin{equation}
+% Me = \frac{h_D a_v V}{\dot{m}_w},
+% \label{eq:Me}
+% \end{equation}
+% % , 
+% where $h_D$ is the mass transfer coefficient, $a_V$ is the surface area of
+% exchange per unit of volume and $V$ is the volume of the transfer region, as
+% described in the Nomenclature Section.\\
+
+% The Merkel number can be calculated using the Merkel and Poppe theories for the
+% performance evaluation of cooling towers. On the one hand, the Merkel theory
+% \cite{Merkel25} relies on several critical assumptions, such as the Lewis
+% factor (Le) being equal to 1, the air exiting the tower being saturated with
+% water vapour and it neglects the reduction of water flow rate by evaporation in
+% the energy balance. On the other hand, the Poppe theory \cite{Poppe91}, which
+% is the one used in this work, do not consider simplifying assumptions, thus
+% being the one most usually preferred. In this theory, the authors derived the
+% governing equations for heat and mass transfer in the transfer region of the
+% wet cooling tower (control volume shown in Fig. \ref{fig:TransferArea})
+% assuming a one dimensional problem. In this figure, the red and green dashed
+% lines indicate the fill and air-side control volumes, respectively.
+
+% \vspace{1.5 cm}
+% \begin{figure}[htbp]
+% 	\centering
+% 	\begin{overpic}[width=10 cm]
+% 		{figures/Control Volume.pdf}
+% 		\put(-3.3,26){$dz$}
+% 		\put(13,65){$\dot{m}_w+d\dot{m}_w$}
+% 		\put(14,57){$h_w+dh_w$}
+% 		\put(15,-7){$\dot{m}_w$, $h_w$}
+% 		\put(60.5,65){$\dot{m}_a\left(1+\omega+d\omega\right)$}
+% 		\put(65,57){$h+dh$}
+% 		\put(55,-7){$\dot{m}_a\left(1+\omega\right)$, $ h $}
+% 		\put(44,30){$d\dot{m}_w=h_D\left(\omega_{s,w}-\omega\right)dA$}
+% 		\put(44,22){$h_C\left(T_{w}-T\right)dA$}		
+% 	\end{overpic}
+% 	\vspace{1 cm}
+% 	\caption {Control volume in the exchange area of a wet cooling tower for counterflow arrangement. 
+% 	}
+%     \label{fig:TransferArea}
+% \end{figure}
+
+% Following the detailed derivation process and simplification of the previously-mentioned governing equations described in \cite{NAVARRO2022118719}, the major following equations for the heat and mass transfer obtained, according to the Poppe theory, are:
+% \begin{eqnarray}
+% & & 
+% \frac{d\omega}{dT_w} = \frac{c_{p_w} \frac{\dot{m}_w}{\dot{m}_a}\left(\omega_{s,w} - \omega \right) }{\left(h_{s,w}-h\right)+\left(\lew-1 \right)\left[\left(h_{s,w}-h\right)-\left(\omega_{s,w} - \omega \right)h_v\right] -\left(\omega_{s,w} - \omega \right)h_w } \\
+% & & 
+% \frac{dh}{dT_w} = 
+% c_{p_w}\frac{\dot{m}_w}{\dot{m}_a} \left[1+\frac{\left(\omega_{s,w} - \omega  \right)c_{p_w} T_w}{\left(h_{s,w}-h\right)+\left(\lew-1 \right)\left[\left(h_{s,w}-h\right)-\left(\omega_{s,w} - \omega \right)h_v\right] -\left(\omega_{s,w} - \omega \right)h_w}\right] \\
+% & & 
+% \frac{d\Me}{dT_w} = \frac{c_{p_w}  }{\left(h_{s,w}-h\right)+\left(\lew-1 \right)\left[\left(h_{s,w}-h\right)-\left(\omega_{s,w} - \omega \right)h_v\right] -\left(\omega_{s,w} - \omega \right)h_w },
+% \label{eq:Me1}
+% \end{eqnarray}
+
+% where the quantity referred to as $\Me $ in Eq. \ref{eq:Me1}, is the Merkel number calculated according to the Poppe theory. The above described governing equations can be solved by the fourth order Runge-Kutta method to provide the evolution of the air humidity ratio, air enthalpy and Merkel number inside the transfer area of the cooling tower (fill). Once these profiles are known, the amount of water lost due evaporation can be calculated as per Eq. \eqref{eq:mwlost}. Refer to \cite{NAVARRO2022118719} for additional information concerning the calculation procedure.
+
+% % \begin{equation}
+% % Me = \frac{h_D a_v V}{\dot{m}_w},
+% % \label{eq:Me}
+% % \end{equation}
+
+% \begin{equation}
+% \dot{m}_{w,lost}=\dot{m}_a (\omega_{a,o}-\omega_{a,i})
+% \label{eq:mwlost}
+% \end{equation}
+
+
+% It is important to mention that the Merkel number varies with the operation conditions and its value can be obtained using a correlation with the water-to-air mass flow ratio as an independent variable. One of the proposed correlations in ASHRAE~\cite{Ashrae04} is:
+% $\Me = c\left({\dot{m}_w}/{\dot{m}_a}\right)^{-n}$, where the constants $c$ and $n$ have been obtained from the fitting of the experimental data, as it is shown in Section \ref{sec:PoppeModel}. 
+
+%=====================================
+\subsection{Samples generation for FP to data-driven model}
+
+%=====================================
+%=====================================
 \section{Dry cooler}
 
-\subsection{Samples generation for FP to data-based model}
+%=====================================
+\subsection{Samples generation for FP to data-driven model}
 
+%=====================================
+%=====================================
 \section{Other components}
+
+%=====================================
+%=====================================
 \section{Complete system}

@@ -189,22 +189,15 @@
             // Browse for extensions here: https://marketplace.visualstudio.com/
             // then look for 'Unique Identifier' on the extension's page.
             "extensions": [
-                // Comprehensive support for LaTeX projects, including auto-completion, document compiling, syntax highlighting, and PDF preview
                 "James-Yu.latex-workshop",
-                
-                // Grammar and spell-checking with support for LaTeX syntax
                 "ltex-plus.vscode-ltex-plus",
-                
-                // Simplifies inserting images into your project, allowing
-                // images to be directly pasted into LaTeX documents
                 "mushan.vscode-paste-image",
-
                 "streetsidesoftware.code-spell-checker",
                 "cyberBabushkin.filesize-hover-explorer",
                 "mutantdino.resourcemonitor",
                 "piousdeer.adwaita-theme",
-                "stkb.rewrap",
-
+                "dnut.rewrap-revived",
+                "mkvoya.eps-preview"
             ]
         }
     },
