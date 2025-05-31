@@ -31,4 +31,6 @@ thanks to [Paul Wintz](https://paulwintz.com/latex-in-vscode/)
 
 - [ ] Añadir List of open-source software used. Not an extensive list but the
   main ones.
+- [ ] Add \listofcontributions
+- [ ] Glosary is not being printed
 

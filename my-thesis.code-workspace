@@ -19,7 +19,7 @@
 		"zenMode.showTabs": "none",
 		"window.autoDetectColorScheme": true,
 		"workbench.productIconTheme": "adwaita",
-		"workbench.preferredLightColorTheme": "Adwaita Light & colorful status bar",
+		"workbench.preferredLightColorTheme": "Quiet Light",
 		"workbench.preferredDarkColorTheme": "Adwaita Dark & colorful status bar",
 	}
 }

@@ -75,7 +75,6 @@
 
 \makeglossaries % Make LaTeX produce the files required to compile the glossary
 \input{glossary.tex} % Include the glossary definitions
-
 \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
 % Reset sidenote counter at chapters
@@ -87,9 +86,10 @@
 
 \usepackage{subfig} % For subfigures
 \usepackage{qrcode}
-\usepackage{fancyqr}
+% \usepackage{fancyqr}
 \usepackage{fontspec}
 \usepackage{etoolbox}
+\usepackage[percent]{overpic}
 \newsavebox\captionqr
 
 % Set custom font, from TheoWinterhalter-PhD
@@ -120,6 +120,7 @@
 %----------------------------------------------------------------------------------------
 
 \begin{document}
+
 
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
@@ -253,6 +254,7 @@
 
 \endgroup
 
+
 % \input{chapters/how-to-read-this-thesis.tex}
 % \input{chapters/about-the-author.tex}
 
@@ -277,33 +279,19 @@
 % \input{chapters/solarmed-tbt.tex}
 % \input{chapters/solarmed-optimization.tex}
 
-% %----------------------------------------------------------------------------------------
-% %	COMBINED COOLING
-% %----------------------------------------------------------------------------------------
-% \input{chapters/cc.tex}
-% \input{chapters/cc-modelling.tex}
-% \input{chapters/cc-optimization.tex}
-% \input{chapters/cc-validation.tex}
-% \input{chapters/cc-simulation.tex}
-
-% %----------------------------------------------------------------------------------------
-% %	CONCLUSIONS
-% %----------------------------------------------------------------------------------------
-% \input{chapters/conclusions.tex}
+%----------------------------------------------------------------------------------------
+%	COMBINED COOLING
+%----------------------------------------------------------------------------------------
+\input{chapters/cc.tex}
+\input{chapters/cc-modelling.tex}
+\input{chapters/cc-optimization.tex}
+\input{chapters/cc-validation.tex}
+\input{chapters/cc-simulation.tex}
 
 %----------------------------------------------------------------------------------------
-%	APPENDIX
+%	CONCLUSIONS
 %----------------------------------------------------------------------------------------
-
-
-\appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
-
-\pagelayout{wide} % No margins
-\addpart{Appendix}
-\pagelayout{margin} % Restore margins
-
-% \input{chapters/appendix.tex}
-
+\input{chapters/conclusions.tex}
 
 % ----------------------------------------------------------------------------------------
 % 	EXAMPLE
@@ -330,18 +318,32 @@
 \input{chapters/template-layout.tex}
 \input{chapters/template-mathematics.tex}
 
-\appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
+% \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
-\pagelayout{wide} % No margins
-\addpart{Appendix}
-\pagelayout{margin} % Restore margins
+% \pagelayout{wide} % No margins
+% \addpart{Appendix}
+% \pagelayout{margin} % Restore margins
 
-\input{chapters/template-appendix.tex}
+% \input{chapters/template-appendix.tex}
 
-\pagelayout{wide}
-\setchapterstyle{kao}
-\chapter{Test}
-\blindtext
+% \pagelayout{wide}
+% \setchapterstyle{kao}
+% \chapter{Test}
+% \blindtext
+
+
+%----------------------------------------------------------------------------------------
+%	APPENDIX
+%----------------------------------------------------------------------------------------
+
+
+% \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
+
+% \pagelayout{wide} % No margins
+% \addpart{Appendix}
+% \pagelayout{margin} % Restore margins
+
+% \input{chapters/appendix.tex}
 
 %----------------------------------------------------------------------------------------
 
@@ -376,31 +378,31 @@
 % 	Originally from https://gitlab.com/jim.hefferon/linear-algebra
 %----------------------------------------------------------------------------------------
 
-\vspace{1cm}
+% \vspace{1cm}
 
-{\usekomafont{chapter}Greek Letters with Pronunciations} \\[2ex]
-\begin{center}
-	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
-	\begin{tabular}{l l @{\hspace*{3em}} l l}
-		\toprule
-		Character & Name & Character & Name \\ 
-		\midrule
-		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
-		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\ 
-		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
-		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
-		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
-		$\zeta$ & zeta \pronounced{ZAY-tuh} & $\sigma$, $\Sigma$ & sigma \pronounced{SIG-muh} \\
-		$\eta$ & eta \pronounced{AY-tuh} & $\tau$ & tau \pronounced{TOW (as in cow)} \\
-		$\theta$, $\Theta$ & theta \pronounced{THAY-tuh} & $\upsilon$, $\Upsilon$ & upsilon \pronounced{OOP-suh-LON} \\
-		$\iota$ & iota \pronounced{eye-OH-tuh} & $\phi$, $\Phi$ & phi \pronounced{FEE, or FI (as in hi)} \\
-		$\kappa$ & kappa \pronounced{KAP-uh} & $\chi$ & chi \pronounced{KI (as in hi)} \\
-		$\lambda$, $\Lambda$ & lambda \pronounced{LAM-duh} & $\psi$, $\Psi$ & psi \pronounced{SIGH, or PSIGH} \\
-		$\mu$ & mu \pronounced{MEW} & $\omega$, $\Omega$ & omega \pronounced{oh-MAY-guh} \\
-		\bottomrule
-	\end{tabular} \\[1.5ex]
-	Capitals shown are the ones that differ from Roman capitals.
-\end{center}
+% {\usekomafont{chapter}Greek Letters with Pronunciations} \\[2ex]
+% \begin{center}
+% 	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
+% 	\begin{tabular}{l l @{\hspace*{3em}} l l}
+% 		\toprule
+% 		Character & Name & Character & Name \\ 
+% 		\midrule
+% 		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
+% 		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\ 
+% 		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
+% 		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
+% 		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
+% 		$\zeta$ & zeta \pronounced{ZAY-tuh} & $\sigma$, $\Sigma$ & sigma \pronounced{SIG-muh} \\
+% 		$\eta$ & eta \pronounced{AY-tuh} & $\tau$ & tau \pronounced{TOW (as in cow)} \\
+% 		$\theta$, $\Theta$ & theta \pronounced{THAY-tuh} & $\upsilon$, $\Upsilon$ & upsilon \pronounced{OOP-suh-LON} \\
+% 		$\iota$ & iota \pronounced{eye-OH-tuh} & $\phi$, $\Phi$ & phi \pronounced{FEE, or FI (as in hi)} \\
+% 		$\kappa$ & kappa \pronounced{KAP-uh} & $\chi$ & chi \pronounced{KI (as in hi)} \\
+% 		$\lambda$, $\Lambda$ & lambda \pronounced{LAM-duh} & $\psi$, $\Psi$ & psi \pronounced{SIGH, or PSIGH} \\
+% 		$\mu$ & mu \pronounced{MEW} & $\omega$, $\Omega$ & omega \pronounced{oh-MAY-guh} \\
+% 		\bottomrule
+% 	\end{tabular} \\[1.5ex]
+% 	Capitals shown are the ones that differ from Roman capitals.
+% \end{center}
 
 %----------------------------------------------------------------------------------------
 %	GLOSSARY
@@ -408,8 +410,11 @@
 
 % The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
 % TODO: This is not showing, maybe because we are compiling with lualatex?
-\setglossarystyle{listgroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
-\printglossary[title=Special Terms, toctitle=List of Terms] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
+% \setglossarystyle{list} % listgroup % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
+% \printglossary[title=Special Terms, toctitle=List of Terms] 
+% Output the glossary, 'title' is the chapter heading for the glossary,
+% toctitle is the table of contents heading
+
 
 %----------------------------------------------------------------------------------------
 %	INDEX

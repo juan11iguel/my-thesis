@@ -214,7 +214,7 @@
 	"Margin figure":{
 		"prefix": ["\\marginfigure"],
 		"body": [
-			"\\begin{marginfigure}",
+			"\\begin{marginfigure}[-5.5cm]",
 			"\t\\includegraphics[]{figures/$TM_SELECTED_TEXT$1.png}",
 			"\t\\caption{$2}",
 			"\t\\labfig{chapter:section:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
@@ -276,7 +276,7 @@
 	"Margin figure with QR code":{
 		"prefix": ["\\qrmarginfigure"],
 		"body": [
-			"\\begin{marginfigure}",
+			"\\begin{marginfigure}[-5.5cm]",
 			"\t\\includegraphics[]{figures/$TM_SELECTED_TEXT$1.png}",
 			"\t\\savebox\\captionqr{\\qrcode[hyperlink,height=0.4in]{\\repositoryBaseUrl/figures/$TM_SELECTED_TEXT$1.html}}",
 			"\t\\caption[$2]{${2:Figure caption}.\\hspace{1ex}\\usebox\\captionqr}",
@@ -284,5 +284,32 @@
 			"\\end{marginfigure}",
 			"$0"
 		]
+	},
+
+	"Margin figures":{
+		"prefix": ["\\marginfigures"],
+		"body": [
+			"\\begin{marginfigure}[-10cm]",
+			"\t\\includegraphics[]{figures/$TM_SELECTED_TEXT$1.png\\\\\\[1ex]}",
+			"\t{\\footnotesize \\textbf{(a)} $2}",
+			"\t\\vspace{2ex}",
+			"\t",
+			"\t\\includegraphics[]{figures/$TM_SELECTED_TEXT$3.png}",
+			"\t{\\footnotesize \\textbf{(b)} $4}",
+			"\t",
+			"\t\\caption{$5}",
+			"\t\\labfig{$6:$7:$8}",
+			"\\end{marginfigure}",
+			"$0"
+		]
+	},
+
+	"Long acronym":{
+		"prefix": ["\\longgls"],
+		"body": [
+			"\\gls[format=long]{${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+			"$0"
+		],
+		"description": "Insert a long acronym."
 	},
 }
