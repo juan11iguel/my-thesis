@@ -117,9 +117,68 @@
 % Used for QR codes to link to the interactive version of some figures
 \newcommand{\repositoryBaseUrl}{https://github.com/juan11iguel/my-thesis/blob/main} % Replace with your actual ID
 
+% TODO: Move into macros.tex
+% Reminder box
+% \newcommand{\reminder}[3][0pt]{%
+%   \marginnote[#1]{%
+%     \begin{kaobox}[
+%     %   title=Reminder: #2,
+%     %   colback=YellowGreen!25!white,
+%     %   colbacktitle=YellowGreen!25!white,
+%     %   colframe=black,
+%     %   fonttitle=\bfseries,
+%     %   titlerule=0.4pt
+%     ]
+%       #3
+%     \end{kaobox}
+%   }%
+% }
+\newcommand{\marginreminder}[3][0pt]{%
+  \marginnote[#1]{%
+    \begingroup
+      \edef\tempTitle{Reminder: #2}%
+      \begin{kaobox}[title=\tempTitle,
+        colback=YellowGreen!25!white,
+        colbacktitle=YellowGreen!25!white,
+        colframe=black,
+        fonttitle=\bfseries,
+        titlerule=0.4pt
+      ]
+        #3
+      \end{kaobox}
+    \endgroup
+  }%
+}
+
+\newcommand{\reminder}[2]{%
+  \begingroup
+    \edef\tempTitle{Reminder: #1}%
+    \begin{kaobox}[title=\tempTitle,
+      colback=YellowGreen!25!white,
+      colbacktitle=YellowGreen!25!white,
+      colframe=black,
+      fonttitle=\bfseries,
+      titlerule=0.4pt
+    ]
+      #2
+    \end{kaobox}
+  \endgroup
+}
 %----------------------------------------------------------------------------------------
 
 \begin{document}
+% \reminder[title=test]{How to interpret SA results}
+% {
+% The results are different sensitivity indices such as total sensitivity
+% indices (total-order), first-order sensitivity indices (first-order), and
+% interaction sensitivity indices (second-order). First-order measures the direct
+% effect of an input variable on the output, excluding interaction effects with
+% other variables, while the second-order measures specifically these interaction
+% effects. Finally, total-order indices account for the total effect of an input
+% variable, including both direct and interaction effects.\\
+% More in 
+% %\nrefsec{intro:sa}.
+% }
 
 
 %----------------------------------------------------------------------------------------
@@ -275,6 +334,7 @@
 %	SOLARMED
 %----------------------------------------------------------------------------------------
 % \input{chapters/solarmed.tex}
+% \input{chapters/solarmed-facility.tex}
 % \input{chapters/solarmed-standardization.tex}
 % \input{chapters/solarmed-tbt.tex}
 % \input{chapters/solarmed-optimization.tex}
@@ -285,8 +345,9 @@
 \input{chapters/cc.tex}
 \input{chapters/cc-modelling.tex}
 \input{chapters/cc-optimization.tex}
+\input{chapters/cc-facility.tex}
 \input{chapters/cc-validation.tex}
-\input{chapters/cc-simulation.tex}
+% \input{chapters/cc-simulation.tex}
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSIONS

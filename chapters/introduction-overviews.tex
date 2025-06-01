@@ -21,27 +21,6 @@ circular economy approaches, allowing the concentration of brine and the
 recovery of valuable minerals such as lithium or magnesium, an emerging field
 known as brine mining.
 
-%===================================
-%===================================
-\section{(Pendiente mover) SolarMED pilot plant description}
-\labsec{intro:desalination:solarmed-pilot-plant}
-
-The \gls{solarmedLabel} system is an \gls{medLabel} plant that receives its
-thermal energy from a solar field + thermal storage system as depicted in
-\reffig{intro:desalination:solarmed-pilot-plant-diagram}: a flat plate
-collector solar field which is the heat source, a pressurized hot water
-two-tank thermal storage system, and an \gls{medLabel} plant which uses this
-heat to separate seawater into fresh water and brine. The solar field and
-thermal storage circuits are separated by a heat exchanger.
-
-% TODO: A esta figura quitar colores de decision variable and environment
-% variables, solo color neutro
-\begin{figure*}[h!]
-	\includegraphics[]{figures/SolarMED-process-diagram.png}
-	\caption{\gls{solarmedLabel} process diagram}
-	\labfig{intro:desalination:solarmed-pilot-plant-diagram}
-\end{figure*}
-
 
 %===================================
 %===================================
@@ -145,117 +124,6 @@ an optimum water and electricity consumption compromise
 combined with energy demand forecasting as described in
 \sidecite{wazirali_stateoftheart_2023}, the expected results can be even
 better.
-
-%===================================
-%===================================
-\section{(Pendiente mover) Combined cooling pilot plant description}
-\labsec{intro:cooling:cc-pilot-plant-description}
-
-% TODO: Aquí habría que añadir una figura estilo diagrama de bloques, que no
-% incluya solo el circuito de refrigeración, sino también los circuitos de
-% intercambio y generación de calor.
-
-The combined cooling pilot plant at the Plataforma Solar de Almería (shown in
-Figure \reffig{intro:cooling:cc-pilot-plant-diagram}) consists of three
-circuits: cooling circuit, exchange circuit and heating circuit. In the cooling
-circuit, water circulating inside the tube bundle of a surface condenser is
-cooled through a \gls{wctLabel} and/or a \gls{dcLabel} of the \gls{acheLabel}
-type. Valves 1 and 2 (R$_p$, R$_s$, respectively) allow operation in different
-configurations: \gls{dcLabel} only, \gls{wctLabel} only, in series, in parallel
-with different opening percentages, or parallel-series. In the exchange
-circuit, a saturated steam generator generates steam at different pressures,
-which is in turn condensed through the Surface Condenser, transferring its
-latent heat to the cooling water that is thus heated. Finally, in the heating
-circuit, a static solar field provides the thermal energy required by the steam
-generator using hot water as heat transfer fluid. A more detailed description
-of this installation can be found in Palenzuela et
-al.~\cite{palenzuela_experimental_2022}.
-
-% TODO: A la salida de la segunda válvula hay que añadir una flecha para que
-% sea más legible, renombrar válvulas V1 y V2 a Vp y Vs.
-\begin{figure*}[h!]
-	\includegraphics[]{figures/WASCOP-facility-diagram.png}
-	\caption{\gls{psaLabel} combined cooling system facility}
-	\labfig{intro:cooling:cc-pilot-plant-diagram}
-\end{figure*}
-
-% Sacado de: Wet cooling tower performance prediction in \gls{cspLabel} plants:
-% A comparison between artificial neural networks and Poppe’s model
-The pilot plant of combined cooling systems located at \gls{psaLabel} (see the
-layout in \reffig{intro:cc:pilot-plant-pid}) consists of three circuits:
-cooling, exchange and heating. In the cooling circuit (see a picture in
-\reffig{intro:cc:pilot-plant-wct}), water circulating inside the tube bundle of
-a Surface Condenser (SC) can be cooled through a Wet Cooling Tower and/or a Dry
-Cooling Tower (type Air Cooled Heat Exchanger, ACHE), both with a designed
-thermal power of 204~kW$_{th}$. In the exchange circuit, a saturated steam
-generator of 80~kW$_{th}$ (on the design point), generates steam at different
-pressures (in the range between 82~mbar and 200~mbar), which is in turn
-condensed in the surface condenser. In this way, the steam transfers its latent
-heat of condensation to the refrigeration water, that is heated. Finally, in
-the heating circuit, a solar field with a thermal power of 300~kW$_{th}$ at the
-design point, provides the energy required by the steam generator, in the form
-of hot water. It is a unique, very flexible, fully instrumented and versatile
-facility, able to operate in different operation modes: series and parallel
-mode, conventional dry-only mode (all water flow is cooled through the dry
-cooling tower) and wet-only mode (all water flow is cooled through the wet
-cooling tower). The instrumentation related to the WCT is described in Table
-\reftab{intro:cc:pilot-plant-instr}. Note that the sensors measuring the air
-velocity and temperature and relative humidity at the outlet area of the wet
-cooling tower have not been installed in the plant. Portable sensors were used
-instead in some experiments, as described in Section \ref{sec:Data1}.
-
-\begin{marginfigure}[-7cm]
-    \includegraphics[]{figures/WASCOP-facility-WCT.png}
-    % \caption{Back view of the WCT}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.4in]{\repositoryBaseUrl/figures/day_viz_20220614_eval_at_20250414T1247_test_water_price.html}}
-	\caption[Back view of the WCT]{Back view of the
-	WCT.\hspace{1ex}\usebox\captionqr}
-    \labfig{intro:cc:pilot-plant-wct}
-\end{marginfigure}
-
-In regards to operational aspects of the system, note that the cooling water
-and air flow rates at the experimental facility ($\dot{m}_w$, and air,
-$\dot{m}_a$, respectively), are modified with the \textit{Pump 1} and the fan
-frequency percentage \texttt{SC-001}, respectively (see
-\reffig{intro:cc:pilot-plant-pid}). 
-
-
-\begin{table}[h]
-\caption{Characteristics of instrumentation ($^a$ value of the temperature in $^\circ$C, $^b$ of reading, $^c$ full scale, $^d$ mean value).} 
-\labtab{intro:cc:pilot-plant-instr}
-\resizebox{\linewidth}{!}{
-\begin{tabular}{cccc} 
-    \toprule
-    \textbf{Measured variable} & \textbf{Instrument} & \textbf{Range}  &
-    \textbf{Measurement uncertainty}\\
-    \midrule
-    Water temperature & Pt100 & 0 - 100 $^\circ$C & 0.03 + 0.005$\cdot T^a$\\
-    (\texttt{TT-001}, \texttt{TT-006}) & & &\\
-    Cooling water flow rate & Vortex flow meter & 9.8 - 25 m$^3$/h & $\pm$ 0.65
-    \% o.r.$^b$\\
-    (\texttt{FT-001})  & & &\\
-    Water flow rate  & Paddle wheel & 0.05 - 2 m$^3$/h & $\pm$ 0.5 \% of
-    F.S$^c$  \\
-    (\texttt{FT-004}) & flow meter  & & + 2.5 \% o.r\\
-    Ambient temperature & Pt1000 & -40 - 60 $^\circ$C  & $\pm$ 0.4 $@$20
-    $^\circ$C \\
-    Relative humidity & Capacitive sensor & 0 - 98\% & $\pm$ 3 \% o.r $@$20
-    $^\circ$C  \\
-            Air velocity & Impeller anemometer & 0.1-15$~\mbox{m s$^{-1}$}$ &
-            $\pm$ 0.1$~\mbox{m s$^{-1}$}$ + 1.5 \%  o.r \\
-            Outlet air temperature & Pt100   & -20-70$^\circ$C & $\pm
-            0.5^\circ$C \\
-            Outlet air humidity & Capacitive sensor   & 0-100\%& $\pm$ 2\% \\
-    \bottomrule
-\end{tabular}
-}
-\end{table}
-
-\begin{figure}
-    \includegraphics[width=1\textwidth]{figures/WASCOP-facility-PID.png}
-    \caption{Layout of combined cooling systems pilot plant at \gls{psaLabel}.}
-    \labfig{intro:cc:pilot-plant-pid}
-\end{figure}
 
 %===================================
 %===================================
@@ -511,7 +379,6 @@ from 0.1 to 30 have been tested for this parameter.
 \subsection{Gradient Boosting}
 \labsec{intro:modelling::gradient-boosting}
 
-
 %===================================
 %===================================
 \section{Hybrid modelling}
@@ -519,12 +386,16 @@ from 0.1 to 30 have been tested for this parameter.
 
 %===================================
 %===================================
-\section[DD from FP. Sample generation]{Data-driven from first-principles models. Sample generation}
+\section[Data-driven from first-principles models. Sample generation]{Data-driven from first-principles models. Sample generation}[DD from FP. Sample generation]
 \labsec{intro:modelling:sample-generation}
 
 % Mencionar modelos basados en datos a partir de modelos físicos. Describir
 % combinatoria sin detallar la combinatoria particular seguida para el modelo
 % del CC.
+One important advantage that first-principles models have over data-driven is
+their scalability.
+
+Another advantage is their performance in diverse operating and environment conditions.
 
 %===================================
 %===================================
@@ -541,7 +412,15 @@ into contributions from individual input parameters and their interactions. By
 quantifying the relative importance of each parameter, Sobol analysis
 facilitates the identification of influential factors, enabling a more nuanced
 understanding of complex systems characterized by numerous interacting
-variables. 
+variables.
+
+The analysis results are different sensitivities indices such as total sensitivity
+indices (total-order), first-order sensitivity indices (first-order), and
+interaction sensitivity indices (second-order). First-order measures the direct
+effect of an input variable on the output, excluding interaction effects with
+other variables, while the second-order measures specifically this interaction
+effects. Finally, total-order indices account for the total effect of an input
+variable, including both direct and interaction effects.
 
 
 %===================================

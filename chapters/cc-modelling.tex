@@ -35,7 +35,7 @@ discussed in \nrefsec{cc:modelling:complete-model}.
 %===================================
 %===================================
 \section{Wet cooler}
-
+\labsec{cc:modelling:wct}
 
 % Estado del arte en modelado \gls{wctLabel}
 %================================
@@ -124,7 +124,7 @@ input $f_{fan}$ whereas Poppe's model uses $\dot{m}_a$.}, $\dot{m}_a$).
 
 %====================================
 \subsection{Poppe model} 
-\labsec{cc:modelling:met_poppe}
+\labsec{cc:modelling:wct:poppe}
 
 The well-known Merkel number is accepted as the performance coefficient of a
 wet cooling tower \sidecite{navarro_critical_2022}. This dimensionless number is
@@ -216,20 +216,31 @@ for additional information concerning the calculation procedure.
 It is important to mention that the Merkel number varies with the operation
 conditions and its value can be obtained using a correlation with the
 water-to-air mass flow ratio as an independent variable. One of the proposed
-correlations in ASHRAE~\sidecite[*-2]{ashrae_hvac_2004} is: $\Me =
-c\left({\dot{m}_w}/{\dot{m}_a}\right)^{-n}$, where the constants $c$ and $n$
-can be obtained from the fitting of experimental data\sidenote[][*-1]{See
- \nrefsec{cc:validation:poppe}}. 
+correlations in ASHRAE~\sidecite[*-2]{ashrae_hvac_2004} is:
+
+\begin{equation}
+    \Me = c\left({\dot{m}_w}/{\dot{m}_a}\right)^{-n}
+    \labeq{cc:Me-corr}
+\end{equation}
+
+where the constants $c$ and $n$ can be obtained from the fitting of
+ experimental data\sidenote[][*-1]{See \nrefsec{cc:validation:wct}}. 
 
 %=====================================
-\subsection{Samples generation for FP to data-driven model}
+\subsection{Samples generation for first-principles to data-driven models}
+Aquí describir los rangos en los que se han movido las variables de entrada y
+el criterio para elegir esas variable de entrada para construir la combinatoria
+de valores de entrada.
 
 %=====================================
 %=====================================
 \section{Dry cooler}
 
 %=====================================
-\subsection{Samples generation for FP to data-driven model}
+\subsection{Samples generation for first-principles to data-driven models}
+Aquí describir los rangos en los que se han movido las variables de entrada y
+el criterio para elegir esas variable de entrada para construir la combinatoria
+de valores de entrada.
 
 %=====================================
 %=====================================
