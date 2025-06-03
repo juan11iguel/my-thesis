@@ -15,29 +15,21 @@
 % incluya solo el circuito de refrigeración, sino también los circuitos de
 % intercambio y generación de calor.
 
-The combined cooling pilot plant at the Plataforma Solar de Almería (shown in
-Figure \reffig{intro:cooling:cc-pilot-plant-diagram}) consists of three
-circuits: cooling circuit, exchange circuit and heating circuit. In the cooling
-circuit, water circulating inside the tube bundle of a surface condenser is
-cooled through a \gls{wctLabel} and/or a \gls{dcLabel} of the \gls{acheLabel}
-type. Valves 1 and 2 (R$_p$, R$_s$, respectively) allow operation in different
-configurations: \gls{dcLabel} only, \gls{wctLabel} only, in series, in parallel
-with different opening percentages, or parallel-series. In the exchange
-circuit, a saturated steam generator generates steam at different pressures,
-which is in turn condensed through the Surface Condenser, transferring its
-latent heat to the cooling water that is thus heated. Finally, in the heating
-circuit, a static solar field provides the thermal energy required by the steam
-generator using hot water as heat transfer fluid. A more detailed description
-of this installation can be found in Palenzuela et
-al.~\cite{palenzuela_experimental_2022}.
-
-% TODO: A la salida de la segunda válvula hay que añadir una flecha para que
-% sea más legible, renombrar válvulas V1 y V2 a Vp y Vs.
-\begin{figure*}[h!]
-	\includegraphics[]{figures/WASCOP-facility-diagram.png}
-	\caption{\gls{psaLabel} combined cooling system facility}
-	\labfig{intro:cooling:cc-pilot-plant-diagram}
-\end{figure*}
+% The combined cooling pilot plant at the Plataforma Solar de Almería consists of three
+% circuits: cooling circuit, exchange circuit and heating circuit. In the cooling
+% circuit (shown in
+% Figure \reffig{intro:cooling:cc-pilot-plant-diagram}), water circulating inside the tube bundle of a surface condenser is
+% cooled through a \gls{wctLabel} and/or a \gls{dcLabel} of the \gls{acheLabel}
+% type. Valves 1 and 2 (R$_p$, R$_s$, respectively) allow operation in different
+% configurations: \gls{dcLabel} only, \gls{wctLabel} only, in series, in parallel
+% with different opening percentages, or parallel-series. In the exchange
+% circuit, a saturated steam generator generates steam at different pressures,
+% which is in turn condensed through the Surface Condenser, transferring its
+% latent heat to the cooling water that is thus heated. Finally, in the heating
+% circuit, a static solar field provides the thermal energy required by the steam
+% generator using hot water as heat transfer fluid. A more detailed description
+% of this installation can be found in Palenzuela et
+% al.~\cite{palenzuela_experimental_2022}.
 
 % Sacado de: Wet cooling tower performance prediction in \gls{cspLabel} plants:
 % A comparison between artificial neural networks and Poppe’s model
@@ -64,6 +56,15 @@ velocity and temperature and relative humidity at the outlet area of the wet
 cooling tower have not been installed in the plant. Portable sensors were used
 instead in some experiments, as described in Section \ref{sec:Data1}.
 
+% TODO: A la salida de la segunda válvula hay que añadir una flecha para que
+% sea más legible, renombrar válvulas V1 y V2 a Vp y Vs.
+\begin{figure*}[h!]
+	\includegraphics[]{figures/WASCOP-facility-diagram.png}
+	\caption{\gls{psaLabel} combined cooling system facility}
+	\labfig{intro:cooling:cc-pilot-plant-diagram}
+\end{figure*}
+
+
 \begin{marginfigure}[-7cm]
     \includegraphics[]{figures/WASCOP-facility-WCT.png}
     % \caption{Back view of the WCT}
@@ -77,8 +78,7 @@ In regards to operational aspects of the system, note that the cooling water
 and air flow rates at the experimental facility ($\dot{m}_w$, and air,
 $\dot{m}_a$, respectively), are modified with the \textit{Pump 1} and the fan
 frequency percentage \texttt{SC-001}, respectively (see
-\reffig{cc:facility:pid}). 
-
+\reffig{cc:facility:pid}).
 
 \begin{table}[h]
 \caption{Characteristics of instrumentation ($^a$ value of the temperature in $^\circ$C, $^b$ of reading, $^c$ full scale, $^d$ mean value).} 

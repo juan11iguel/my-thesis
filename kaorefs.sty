@@ -168,6 +168,8 @@
 \newcommand{\labremark}[1]{\label{remark:#1}}
 \newcommand{\labexample}[1]{\label{example:#1}}
 \newcommand{\labexercise}[1]{\label{exercise:#1}}
+\newcommand{\labmod}[1]{\label{mod:#1}}
+\newcommand{\labprob}[1]{\label{prob:#1}}
 
 
 %----------------------------------------------------------------------------------------
@@ -244,6 +246,10 @@
 \newcommand{\refexercise}[1]{\hyperref[exercise:#1]\exercisename\xspace\ref{exercise:#1}}
 \newcommand{\vrefexercise}[1]{\hyperref[exercise:#1]\exercisename\xspace\vref{exercise:#1}}
 
+% Custom commands for models and problems
+\newcommand{\refmod}[1]{\hyperref[mod:#1]{Model~\ref{mod:#1}}}
+\newcommand{\nrefmod}[1]{\hyperref[mod:#1]{Model~\ref{mod:#1} (\nameref{mod:#1})}}
+\newcommand{\refprob}[1]{\hyperref[prob:#1]{Problem~\ref{prob:#1}}}
 
 %----------------------------------------------------------------------------------------
 %	CLEVEREF CUSTOMISATION

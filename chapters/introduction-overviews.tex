@@ -165,7 +165,7 @@ between the predicted and observed values and it has its units.
 
 % \marginnote{
 \begin{equation*}
-    \mbox{R\gls{mseLabel}} = \sqrt{\frac{1}{n} \sum\limits_{i=1}^n (y_i - \hat{y}_i)^2}
+    \mbox{RMSE} = \sqrt{\frac{1}{n} \sum\limits_{i=1}^n (y_i - \hat{y}_i)^2}
 \end{equation*}
 % }
 
@@ -393,9 +393,38 @@ from 0.1 to 30 have been tested for this parameter.
 % combinatoria sin detallar la combinatoria particular seguida para el modelo
 % del CC.
 One important advantage that first-principles models have over data-driven is
-their scalability.
+their scalability, that is, the ability to adapt a model developed and
+validated in a pilot-scale system, to a large scale one. This is true for many
+systems as long as the system configuration remains the same. This allows to
+study and analyze pilot scale plants and extrapolate the results to industrial
+sized plants. In addition, these type of model are also capable of predicting
+the behaviour of the modelled systems in conditions that have not been tested
+(\eg different operating or environmental conditions), although the
+reliability of the model could be lower if these conditions move away from
+those experimentally used for some parameter calibration.
 
-Another advantage is their performance in diverse operating and environment conditions.
+On the contrary, data-driven models are very specific to the system and
+operating ranges they are trained for. That is why training/calibrating a
+data-driven model with data from a first-principles model is a common practice
+to obtain a model that can be used in a larger range of operating conditions...
+
+The process of generating samples from a first-principles model to train a
+data-driven model is called sample generation. It consists of running the
+first-principles model for a set of input parameters, which can be selected
+randomly or following a specific distribution, and then using the outputs of
+the first-principles model as the training data for the data-driven model.
+
+The first step is to define the input parameters and their ranges. This can be
+done by selecting the most relevant parameters for the system and determining
+their ranges based on the system's operating conditions. The next step is to
+generate a set of input parameters, which can be done using different methods
+such as Latin Hypercube Sampling, Monte Carlo Sampling, Sobol Sampling, or
+simply grid sampling. These methods allow to generate a set of input parameters
+that cover the entire range of the input parameters and ensure that the
+generated samples are representative of the system's behaviour. Once the input
+parameters are defined, the first-principles model is run for each set of input
+parameters, and the outputs of the model are recorded. Finally, the recorded
+outputs are used to train the data-driven model.
 
 %===================================
 %===================================
@@ -474,8 +503,41 @@ asdad
 \chapter{Optimization overview}
 \labch{intro:optimization}
 
-asdad
 
+A general expression to define an optimization problem is:
+\begin{equation}
+    \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) 
+    \quad \text{s.t.} \quad g_i(\mathbf{x}) \leq 0, \quad i = 1, \ldots, m
+    \labeq{intro:optimization:general-expression}
+\end{equation}
+
+where $\mathbf{x}$ is the vector of decision variables, $f(\mathbf{x})$ is the
+objective function to be minimized, and $g_i(\mathbf{x})$ are the constraints
+of the problem. The objective function is a scalar function that maps the
+decision variables to a real number, representing the cost or performance of the
+system. The constraints are functions that restrict the feasible region of the
+problem, defining the set of values that the decision variables can take. The
+optimization problem is to find the values of the decision variables that minimize
+the objective function while satisfying the constraints. 
+
+Regarding the constraints, they can be categorized in two types depending
+whether they can be evaluated before evaluating the objective function or not.:
+\begin{itemize}
+    \item \textbf{Bounds}. These are constraints that limit the range of the decision variables, such as
+    \begin{equation*}
+        x_i \in [l_i, u_i], \quad i = 1, \ldots, n
+    \end{equation*}
+    where $l_i$ and $u_i$ are the lower and upper bounds of the decision
+    variable $x_i$, respectively\sidenote{Also known as box-bounds}.
+    \item \textbf{Constraints}. These are constraints that restrict the
+    feasible region of the problem, such as
+    \begin{equation*}
+        g_i(\mathbf{x}) \leq 0, \quad i = 1, \ldots, m
+    \end{equation*}
+    where $g_i(\mathbf{x})$ are the constraint functions that depend on the
+    decision variables $\mathbf{x}$, and $m$ is the number of constraints. They
+    can only be known after evaluating the objective function.
+\end{itemize}
 
 %===================================
 %===================================

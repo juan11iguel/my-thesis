@@ -84,6 +84,8 @@
 %	PERSONAL MODIFICATIONS
 %----------------------------------------------------------------------------------------
 
+% \usepackage{amsmath, amssymb, algorithm, algpseudocode}
+
 \usepackage{subfig} % For subfigures
 \usepackage{qrcode}
 % \usepackage{fancyqr}
@@ -164,22 +166,194 @@
     \end{kaobox}
   \endgroup
 }
+
+\newcommand{\tldrbox}[1]{%
+    \begin{kaobox}[title=TL;DR,
+      colback=Orchid!25!white,
+      colbacktitle=Orchid!25!white,
+    %   colframe=black,
+      fonttitle=\bfseries,
+      titlerule=0.05pt
+    ]
+	#1
+    \end{kaobox}
+}
+
+% TODO: This should be a box with a counter so it can be referenced
+\newcommand{\problemdefinitionbox}[2]{%
+  \begingroup
+    \edef\tempTitle{Problem: #1}%
+    \begin{kaobox}[title=\tempTitle,
+      colback=Snow3!25!white,
+      colbacktitle=Snow3!25!white,
+    ]
+	#2
+    \end{kaobox}
+  \endgroup
+}
+
+\newcommand{\fullgls}[1]{\gls[format=long]{#1}}
+
 %----------------------------------------------------------------------------------------
 
 \begin{document}
-% \reminder[title=test]{How to interpret SA results}
-% {
-% The results are different sensitivity indices such as total sensitivity
-% indices (total-order), first-order sensitivity indices (first-order), and
-% interaction sensitivity indices (second-order). First-order measures the direct
-% effect of an input variable on the output, excluding interaction effects with
-% other variables, while the second-order measures specifically these interaction
-% effects. Finally, total-order indices account for the total effect of an input
-% variable, including both direct and interaction effects.\\
-% More in 
-% %\nrefsec{intro:sa}.
+
+\begin{modelcounter}{Test}
+	\begin{align*}
+    T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,out} = \mathrm{combined\:cooler\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR_i,T_{v},\dot{m}_{v}) \\
+    & T_{cc,in}=T_{c,out} \\
+    & T_{dc,in}=T_{cc,in} \\
+    % three-way valves
+    & q_{dc} = q_{c} \cdot (1-R_{p}) \\
+    & q_{wct,p} = q_{c} \cdot R_{p} \\
+    & q_{wct,s} = q_{dc} \cdot R_{s} \\
+    % dc model
+    & T_{dc,out},\,C_{e,dc} = \mathrm{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in}) \\
+    % first mixer
+    & q_{wct},\,T_{wct,in} = \mathrm{mixer\:model}(q_{wct,p},\,T_{T{cc,in}},\, q_{wct,s},\, T_{dc,out}) \\
+    % wct model
+    & T_{wct,out},\,C_{e,wct},\,C_{w,wct} = \mathrm{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in}) \\
+    % condenser model
+    & T_{c,in},\,T_{c,out} = \mathrm{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
+    % final mixer
+    & q_{cc},\,T_{cc,out} = \mathrm{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
+    % totals
+    & C_{e} = C_{e,dc} + C_{e,wct} + C_{e,c} \\
+    & C_{w} = C_{w,wct}
+    \end{align*}
+	\labmod{test}
+\end{modelcounter}
+
+As can be seen in \refmod{test}, the counter is working.
+
+\begin{problemcounter}{Test}
+	\blindtext
+  \begin{equation*}
+	\min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = f(x)
+  \end{equation*}
+
+  \textbf{with}:
+  \begin{itemize}
+	\item Model name model
+	\[
+	  out_1,\, out_2 = f(in_1,\, in_2,\, \ldots,\, in_N)
+	\]
+	\item Decision variables
+	\[
+	  \mathbf{x} = [x_1,\, x_2]
+	\]
+	\item Environment variables
+	\[
+	  \mathbf{e} = [e_1,\, e_2,\, \ldots,\, e_3]
+	\]
+	\item Fixed parameters
+	\[
+	  \boldsymbol{\theta} = [\theta_1 = X,\, \theta_2 = Y]
+	\]
+  \end{itemize}
+
+  \textbf{subject to}:
+  \begin{itemize}
+	\item Box-bounds
+	\begin{itemize}
+	  \item \( x_{1} \in [\underline{x}_{1}, \overline{x}_{1}] \)
+	  \item \( x_{2} \in [\underline{x}_{2}, \overline{x}_{2}] \)
+	\end{itemize}
+	\item Constraints
+	\begin{itemize}
+	  \item \( \left| out_X - out_Y \right| \leq \epsilon_1 \)
+	  \item \( out_X \leq out_Z - \Delta Z \)
+	\end{itemize}
+  \end{itemize}
+  \labprob{test}
+\end{problemcounter}
+
+As can be seen in \refprob{test}, the counter is working.
+
+\tldrbox{test test}
+% \blindtext\blindtext
+
+\problemdefinitionbox{Test}{
+  \begin{equation*}
+	\min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = f(x)
+  \end{equation*}
+
+  \textbf{with}:
+  \begin{itemize}
+	\item Model name model
+	\[
+	  out_1,\, out_2 = f(in_1,\, in_2,\, \ldots,\, in_N)
+	\]
+	\item Decision variables
+	\[
+	  \mathbf{x} = [x_1,\, x_2]
+	\]
+	\item Environment variables
+	\[
+	  \mathbf{e} = [e_1,\, e_2,\, \ldots,\, e_3]
+	\]
+	\item Fixed parameters
+	\[
+	  \boldsymbol{\theta} = [\theta_1 = X,\, \theta_2 = Y]
+	\]
+  \end{itemize}
+
+  \textbf{subject to}:
+  \begin{itemize}
+	\item Box-bounds
+	\begin{itemize}
+	  \item $x_{1} \in [\underline{x}_{1}, \overline{x}_{1}]$
+	  \item $x_{2} \in [\underline{x}_{2}, \overline{x}_{2}]$
+	\end{itemize}
+	\item Constraints
+	\begin{itemize}
+	  \item $\left| out_X - out_Y \right| \leq \epsilon_1$
+	  \item $out_X \leq out_Z - \Delta Z$
+	\end{itemize}
+  \end{itemize}
+}
+
+
+% \marginreminder{Pareto front}{
+% When dealing with multiple objectives where no single solution is optimal, but
+% improvements in one objective lead to trade-offs in others, we obtain a set of
+% points that represent the best trade-offs between the objectives, known as a
+% Pareto front\footnote{See \nrefsec{intro:optimization:multi-objective}}
 % }
 
+% \section*{Two-Level Pareto Path Optimization}
+
+% We consider a complex optimization problem over a prediction horizon of length $N$. At each stage $t = 1, \dots, N$, we define and solve a multi-objective optimization problem:
+
+% \[
+% \text{Find } \mathcal{P}_t = \text{ParetoFront}(f_t(x_t)), \quad x_t \in \mathcal{X}_t
+% \]
+
+% where $f_t : \mathcal{X}_t \rightarrow \mathbb{R}^k$ defines $k$ objectives at stage $t$. The result is a set of Pareto-optimal solutions $\mathcal{P}_t$.
+
+% The second-level problem seeks a sequence of decisions $(x_1^*, \dots, x_N^*)$ with $x_t^* \in \mathcal{P}_t$ that minimizes a cumulative cost function:
+
+% \[
+% \min_{x_1 \in \mathcal{P}_1, \dots, x_N \in \mathcal{P}_N} \sum_{t=1}^{N-1} c(x_t, x_{t+1}) + \sum_{t=1}^{N} g(x_t)
+% \]
+
+% where $c(x_t, x_{t+1})$ encodes transition costs and $g(x_t)$ may represent stage-specific penalties.
+
+% \bigskip
+
+% \begin{algorithm}[H]
+% \caption{Two-Level Pareto Path Optimization}
+% \begin{algorithmic}[1]
+% \State \textbf{Input:} Horizon length $N$
+% \For{$t = 1$ to $N$}
+%     \State Solve multi-objective optimization at stage $t$ to get Pareto set $\mathcal{P}_t$
+% \EndFor
+% \State Define graph $\mathcal{G}$ with layers $\mathcal{P}_1, \dots, \mathcal{P}_N$
+% \State Add edges between layers: connect each $x_t \in \mathcal{P}_t$ to all $x_{t+1} \in \mathcal{P}_{t+1}$ with weight $c(x_t, x_{t+1})$
+% \State Solve shortest path or path optimization on $\mathcal{G}$ to find optimal path $(x_1^*, \dots, x_N^*)$
+% \State \textbf{Return} path and corresponding objective values
+% \end{algorithmic}
+% \end{algorithm}
 
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
@@ -347,7 +521,7 @@
 \input{chapters/cc-optimization.tex}
 \input{chapters/cc-facility.tex}
 \input{chapters/cc-validation.tex}
-% \input{chapters/cc-simulation.tex}
+\input{chapters/cc-simulation.tex}
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSIONS
@@ -426,8 +600,7 @@
 
 % The nomenclature needs to be compiled on the command line with 'makeindex main.nlo -s nomencl.ist -o main.nls' from the template directory
 
-\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
-\nomenclature{$h$}{Planck constant}
+\input{nomenclature.tex}
 
 \renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
 \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.} % Prepend this text to the nomenclature
@@ -472,7 +645,7 @@
 % The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
 % TODO: This is not showing, maybe because we are compiling with lualatex?
 % \setglossarystyle{list} % listgroup % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
-% \printglossary[title=Special Terms, toctitle=List of Terms] 
+\printglossary[title=Special Terms, toctitle=List of Terms] 
 % Output the glossary, 'title' is the chapter heading for the glossary,
 % toctitle is the table of contents heading
 

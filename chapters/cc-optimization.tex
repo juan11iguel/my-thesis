@@ -1,6 +1,371 @@
 \setchapterpreamble[u]{\margintoc}
 \chapter{Optimization of a combined cooling system}
-\labch{solhycool:optimization}
+\labch{cc:optimization}
+
+\tldrbox{
+    This chapter describes optimization problems for a combined cooling system,
+    a \gls{dcLabel} and a \gls{wctLabel} as well as different optimization
+    strategies propositions to solve them. The objective is to minimize the
+    daily cost of operation made up by the electricity and water costs, while
+    ensuring the cooling demand is met. They key challenge is to manage the
+    available water resource, since there is a limited amount of cheap
+    rainwater available and any excess water required must be purchased at a
+    significantly higher cost. From the alternatives, this can only be
+    effectively achieved by the shrinking horizon optimization strategy applied
+    to the combined cooler.
+}
+
+\section{Environment definition}
+
+
+%================================
+\subsection{Water resource availability}
+\labsec{cc:optimization:environment-water}
+ Two sources of water are available, one of them, the cheaper one coming from a
+ dam is limited in volume ($V_{avail,0}$). The cheaper source is prioritized
+ until it is depleted, then the alternative source is used.
 
 \section{Static optimization}
-\section{Shrinking horizon optimization}
+
+As a first approach, the optimization problems evaluated are static. They are
+defined in a particular time given an environment, and decisions do not take
+into account prior decisions, neither consider the effect on future state.
+
+\reminder{Optimization problem definition}{
+    The general optimization function is defined as:\footnote{See \nrefsec{intro:optimization}}
+    \begin{equation*}
+    \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) 
+        \quad \text{s.t.} \quad g_i(\mathbf{x}) \leq 0, \quad i = 1, \ldots, m
+    \end{equation*}
+
+    where \(x\) is the decision vector, \(e\) represents the environment, and \(\theta\) contains the fixed parameters.
+}
+
+%================================
+\subsection{Dry cooler}
+\labsec{cc:optimization:static:dc}
+
+In the first case study, only the dry cooler is involved, and so all terms
+related to the wet cooler are set to zero and every water resource related term
+can be ignored as can be seen in \reffig{cc:optimization:diagram-dc}. The components are defined as follows:
+
+\marginnote[*5]{See \nrefsec{cc:modelling:dc} for a detailed description of the
+dry cooler and condenser model.}
+
+\problemdefinitionbox{\gls{dcLabel} - static}{
+    \begin{equation*}
+        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = C_e \cdot P_e
+    \end{equation*}
+
+    \textbf{with}:
+    \begin{align*}
+        T_{dc,out},\,C_e,\,T_{c,out} &= f(q_c,\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_v,\, \dot{m}_v)
+    \end{align*}
+    \begin{itemize}
+        \item Decision variables
+        \[
+        x = [q_c,\, \omega_{\text{dc}}]
+        \]
+        \item Environment variables
+        \[
+        e = [T_{\text{amb}},\, P_e,\, T_v,\, \dot{m}_v]
+        \]
+        \item Fixed parameters
+        \[
+        \theta = [R_p = 0,\, R_s = 0,\, \omega_{\text{wct}} = 0]
+        \]
+
+    \end{itemize}
+
+    \textbf{subject to}:
+    \begin{itemize}
+        
+        \item Box-bounds
+        \begin{itemize}
+                \item $w_{dc} \in [\underline{w}_{dc}, \overline{w}_{dc}]$
+                % \item $w_{wct} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
+                \item $q_{c} \in [\underline{q}_{c}, \overline{q}_{c}]$
+                % \item $R_p \in [0,1]$
+                % \item $R_s \in [0,1]$
+        \end{itemize}
+
+        \item Constraints
+        \begin{itemize}
+            \item $\left| T_{\text{dc,out}} - T_{\text{c,in}} \right| \leq \epsilon_1$
+            \item $T_{\text{c,out}} \leq T_v - \Delta T_{\text{c-v,min}}$
+            \item $\left| Q_{\text{dc}}- Q_{\text{c,released}} \right| \leq \epsilon_2$
+        \end{itemize}
+
+    \end{itemize}
+    }
+
+\begin{marginfigure}[*-20]
+    \includegraphics[]{figures/wascop-optimization-dc-diagram.png}
+    \caption{Diagram of the dry cooler only cooling problem}
+    \labfig{cc:optimization:diagram-dc}
+\end{marginfigure}
+
+
+
+%================================
+\subsection{Wet cooler}
+\labsec{cc:optimization:static:wct}
+
+\marginnote[*5]{See \nrefsec{cc:modelling:wct} for a detailed description of the
+wet cooler and condenser model.}
+
+\problemdefinitionbox{\gls{wctLabel} - static}{
+    \begin{equation*}
+        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = J_e + J_w
+    \end{equation*}
+
+    \textbf{with}:
+    \begin{align*}
+        J_e &= C_e \cdot P_e \\
+        J_{w} &= C_{w,s1} \cdot P_{w,s1} + C_{w,s2} \cdot P_{w,s2} \\
+        C_{w,s1} &= \min \left((V_{avail}, C_{w} \cdot T_s)/T_s \right) \\
+        C_{w,s2} &= C_w-C_{w,s1} \\
+        T_{wct,out},\,C_e,\,C_w,\,T_{c,out}&=f(q_c, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
+    \end{align*}
+    \begin{itemize}
+        \item Decision variables
+        \[
+        x = [q_c,\, \omega_{\text{wct}}]
+        \]
+        \item Environment variables
+        \[
+        e = [T_{\text{amb}}, HR,\, P_e,\, P_{w,s1},\, P_{w,s2}, V_{avail},\, T_v,\, \dot{m}_v]
+        \]
+        \item Fixed parameters
+        \[
+        \theta = [R_p = 1,\, R_s = 0,\, \omega_{\text{dc}} = 0]
+        \]
+
+    \end{itemize}
+
+    \textbf{subject to}:
+    \begin{itemize}
+        
+        \item Box-bounds
+        \begin{itemize}
+                \item $w_{wct} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
+                % \item $w_{wct} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
+                \item $q_{c} \in [\underline{q}_{c}, \overline{q}_{c}]$
+                % \item $R_p \in [0,1]$
+                % \item $R_s \in [0,1]$
+        \end{itemize}
+
+        \item Constraints
+        \begin{itemize}
+            \item $\left| T_{\text{wct,out}} - T_{\text{c,in}} \right| \leq \epsilon_1$
+            \item $T_{\text{c,out}} \leq T_v - \Delta T_{\text{c-v,min}}$
+            \item $\left| Q_{\text{wct}} - Q_{\text{c,released}} \right| \leq \epsilon_2$
+        \end{itemize}
+
+    \end{itemize}
+}
+
+\begin{marginfigure}[*-20]
+    \includegraphics[]{figures/wascop-optimization-wct-diagram.png}
+    \caption{Diagram of the wet cooler only cooling problem}
+    \labfig{cc:optimization:diagram-wct}
+\end{marginfigure}
+
+
+%================================
+\subsection{Combined cooler}
+\labsec{cc:optimization:static:cc}
+
+
+\marginnote[*5]{See \nrefsec{cc:modelling:complete-model} for a detailed description of the
+combined cooler and condenser model.}
+
+\problemdefinitionbox{\gls{ccLabel} - static}{
+    \begin{equation*}
+        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = J_e + J_w
+    \end{equation*}
+
+    \textbf{with}:
+    \begin{align*}
+        J_e &= C_e \cdot P_e \\
+        J_{w} &= C_{w,s1} \cdot P_{w,s1} + C_{w,s2} \cdot P_{w,s2} \\
+        C_{w,s1} &= \frac{\min(V_{avail}, C_{w} \cdot T_s)}{T_s} \\
+        C_{w,s2} &= C_w-C_{w,s1} \\
+        T_{cc,out},\,C_e,\,C_w,\,T_{c,out}&=f(q_c, R_p, R_s, \omega_{dc}, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
+    \end{align*}
+    \begin{itemize}
+        \item Decision variables
+        \[
+        x = [q_c, R_p, R_s, \omega_{\text{dc}}, \omega_{\text{wct}}]
+        \]
+        \item Environment variables
+        \[
+        e = [T_{\text{amb}}, HR,\, P_e,\, P_{w,s1},\, P_{w,s2}, V_{avail},\, T_v,\, \dot{m}_v]
+        \]
+        \item Fixed parameters
+        \[
+        \theta = [R_p = 1,\, R_s = 0,\, \omega_{\text{dc}} = 0]
+        \]
+
+    \end{itemize}
+
+    \textbf{subject to}:
+    \begin{itemize}
+        
+        \item Box-bounds
+        \begin{itemize}
+                \item $w_{dc} \in [\underline{w}_{dc}, \overline{w}_{dc}]$
+                \item $w_{wct} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
+                \item $q_{c} \in [\underline{q}_{c}, \overline{q}_{c}]$
+                \item $R_p \in [0,1]$
+                \item $R_s \in [0,1]$
+        \end{itemize}
+
+        \item Constraints
+        \begin{itemize}
+            \item $\left| T_{\text{cc,out}} - T_{\text{c,in}} \right| \leq \epsilon_1$
+            \item $T_{\text{c,out}} \leq T_v - \Delta T_{\text{c-v,min}}$
+            \item $\left| Q_{\text{cc}} - Q_{\text{c,released}} \right| \leq \epsilon_2$
+        \end{itemize}
+
+    \end{itemize}
+}
+
+\begin{marginfigure}[*-20]
+    \includegraphics[]{figures/wascop-optimization-cc-diagram.png}
+    \caption{Diagram of the combined cooler and condenser problem}
+    \labfig{cc:optimization:diagram-cc}
+\end{marginfigure}
+
+
+\section[]{Shrinking horizon optimization}[Horizon optimization]
+
+\marginnote[*5]{$\forall i = 1 \ldots n_{steps}$ is a notation to indicate that
+    a condition must be held at every step $i$ in the optimization horizon
+    ($n_{steps}$)}
+
+\problemdefinitionbox{\gls{ccLabel} - horizon}{
+    \begin{equation*}
+        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = \sum_{i=1}^{n_{steps}} \left( J_{e,i} + J_{w,i} \right) \cdot T_s
+    \end{equation*}
+
+    \textbf{with}:
+    \begin{align*}
+        \quad for\: i &= 1 \ldots n_{steps}: \\
+        & \quad J_{e,i} = C_{e,i} \cdot P_{e,i} \\
+        & \quad J_{w,i} = C_{w,s1,i} \cdot P_{w,s1,i} + C_{w,s2,i} \cdot P_{w,s2,i} \\
+        & \quad C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} \\
+        & \quad C_{w,s2,i} = C_{w,i}-C_{w,s1,i} \\
+        & \quad V_{avail,i} = V_{avail,i-1}-C_{w,s1,i}\cdot T_s \\
+        & \quad T_{cc,out,i},\,C_{e,i},\,C_{w,i},\,T_{c,out,i}=f(q_{c,i}, R_{p,i}, R_{s,i}, \omega_{dc,i}, \omega_{wct,i},T_{amb,i},HR_i,T_{v,i},\dot{m}_{v,i})
+    \end{align*}
+    \begin{itemize}
+        \item Decision variables
+        \[
+        \mathbf{x} = [\mathbf{q_c}, \mathbf{R_p}, \mathbf{R_s}, \mathbf{\omega_{\text{dc}}}, \mathbf{\omega_{\text{wct}}}]
+        \]
+        where $x=[x_{0,0},\,\ldots\, x_{0,n_{steps}},\, \ldots,\, x_{n_{x},n_{steps}}]$
+        \item Environment variables
+        \[
+        \mathbf{e} = [\mathbf{T_{\text{amb}}}, \mathbf{HR},\, \mathbf{P_e},\, \mathbf{P_{w,s1}},\, \mathbf{P_{w,s2}}, \mathbf{V_{avail,0}},\, \mathbf{T_v},\, \mathbf{\dot{m}_v}]
+        \]
+        where $e=[e_{0,0},\,\ldots\, e_{0,n_{steps}},\, \ldots,\, e_{n_{e},n_{steps}}]$
+
+    \end{itemize}
+
+    \textbf{subject to}:
+    \begin{itemize}
+        
+        \item Box-bounds
+        \begin{itemize}
+                \item $\mathbf{w_{dc}} \in [\underline{w}_{dc}, \overline{w}_{dc}]$
+                \item $\mathbf{w_{wct}} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
+                \item $\mathbf{q_{c}} \in [\underline{q}_{c}, \overline{q}_{c}]$
+                \item $\mathbf{R_p} \in [0,1]$
+                \item $\mathbf{R_s} \in [0,1]$
+        \end{itemize}
+
+        \item Constraints, $\forall i = 1 \ldots n_{steps}$:
+        \begin{itemize}
+            \item $\left| T_{\text{cc,out},i} - T_{\text{c,in},i} \right| \leq \epsilon_1$
+            \item $T_{\text{c,out},i} \leq T_{v,i} - \Delta T_{\text{c-v,min}}$
+            \item $\left| Q_{\text{cc},i} - Q_{\text{c,released},i} \right| \leq \epsilon_2$
+        \end{itemize}
+
+    \end{itemize}
+}
+
+%================================
+\subsection[]{A discussion on solving the optimization problem}[Problem discussion]
+Aquí comentar cómo no es factible resolver el problema directamente porque es
+muy difícil encontrar soluciones factibles debido a la estructura del problema.
+
+%================================
+\subsection[]{Proposed solution: Decomposition-based multi-objective optimization with trajectory planning}[Proposed solution]
+
+We propose a two-level optimization strategy for a multi-stage decision
+problem\sidenote[][*-5]{Alternative wording: Pareto front chaining, multi-stage
+Pareto optimization, path planning on Pareto surfaces. }. At each stage of a
+prediction horizon, we independently solve a multi-objective optimization
+problem, yielding a Pareto front\marginreminder[*-3]{Pareto front}{
+When dealing with multiple objectives where no single solution is optimal, but
+improvements in one objective lead to trade-offs in others, we obtain a set of
+points that represent the best trade-offs between the objectives, known as a
+Pareto front\footnote{See \nrefsec{intro:optimization:multi-objective}}
+}. We then formulate a global optimization problem to select a consistent path
+through the sequence of Pareto fronts, minimizing a cumulative objective (e.g.,
+cost or distance), similar to a pathfinding or TSP-like problem over
+Pareto-optimal points.
+
+\begin{enumerate}
+    \item Decompose a multi-stage problem into $N$ stages.
+    \item Solve a multi-objective optimization problem at each stage
+    independently to obtain a Pareto front.
+    \item Formulate a second-level problem to select a path through these
+    Pareto fronts that minimizes a global objective, the cumulative operation
+    cost\sidenote{analogously to a Traveling Salesman Problem (TSP) on the
+    Pareto surfaces}.
+\end{enumerate}
+
+\subsubsection{Solving the multi-objective optimization problems}
+
+\subsubsection{Path selection subproblem}
+
+Problem nature description.
+
+The path selection subproblem can be formulated as a graph traversal problem,
+where each node represents a point in the Pareto front of a stage, and edges
+represent the transition costs between these points. The goal is to find a path
+through the graph that minimizes the cumulative cost. This subproblem is a combinatorial
+optimization problem, in particular, a layered weighted directed graph.
+
+Definición formal del problema
+
+The transition cost is correlated to the current resource availability and will
+depend on the current state of the system, which is a function of the
+previous decisions.
+
+
+Mencionar algoritmo seleccionado
+
+The path optimization could be handled via dynamic programming, graph search
+(like Dijkstra or A*), or metaheuristics depending on the problem size.
+Metaheuristics:
+- Genetic Algorithms
+- Simulated Annealing
+- Ant Colony Optimization
+- Tabu Search
+- Particle Swarm Optimization
+
+%===================================
+%===================================
+\section{Limitations}
+\labsec{cc:optimization:limitations}
+
+Modelado de disponibilidad de agua en función de las precipitaciones. Esto es
+lo más complejo. Aunque haya mucha disponibilidad, puede ser que haya mucha
+demanda de agua (agricultura, etc), si hay poca disponibilidad puede que ni
+siquiera se permitiese su implementación. Si finalmente se ajusta el volumen
+máximo para que coincida con lo que consumiría el sistema húmedo
+exclusivamente, esto va a hacer que el húmedo no sea factible parte del año.
+Discutir.

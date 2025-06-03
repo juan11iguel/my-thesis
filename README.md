@@ -33,4 +33,18 @@ thanks to [Paul Wintz](https://paulwintz.com/latex-in-vscode/)
   main ones.
 - [ ] Add \listofcontributions
 - [ ] Glosary is not being printed
+- [ ] Mirar la posibilidad de incluir citas en páginas en blanco entre
+  capítulos
+- [ ] Caja TL;DR para inicio de cada capítulo
 
+
+Si finalmente se hace un capíutlo de instalaciones experimentales, se puede
+hacer una introducción donde se ponga esta imagen con marcas:
+
+![](temp/PXL_20220805_071840783.jpg)
+
+Indicando el campo solar, el circuito de intercambio, generación de vapor,
+refrigeración combinada, etc. y la MED
+
+
+![alt text](image.png)

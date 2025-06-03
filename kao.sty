@@ -40,7 +40,7 @@
 \RequirePackage{kvoptions} % Handle package options
 \RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 \RequirePackage{calc} % Make calculations
-\RequirePackage[usenames,dvipsnames,table]{xcolor} % Colours
+\RequirePackage[usenames,dvipsnames,table,x11names]{xcolor} % Colours
 \RequirePackage{iftex} % Check whether XeTeX is being used
 \RequirePackage{xifthen} % Easy conditionals
 \RequirePackage{options} % Manage class options
@@ -1377,6 +1377,46 @@
 	Comment~\thekaocounter\csname autodot\endcsname}
 \newcommand*{\fnum@kaocounter}{\kaocounterformat}
 
+
+%----------------------------------------------------------------------------------------
+%	MODEL ENVIRONMENT
+%----------------------------------------------------------------------------------------
+% Define an environment titled 'Model' and numbered incrementally
+% Define the counter *before* using it
+\newcounter{modelcounter}
+\counterwithin{modelcounter}{chapter}
+% Format command for display
+\newcommand*{\modelcounterformat}{Model~\themodelcounter\csname autodot\endcsname}
+% Environment definition using kaobox
+\newenvironment{modelcounter}[1]{
+	\refstepcounter{modelcounter}
+	\begingroup
+    \edef\tempTitle{\modelcounterformat: #1}%
+	\begin{kaobox}[title=\tempTitle,colback=Tan!25!white,colbacktitle=Tan!25!white]
+}{
+	\end{kaobox}
+	\endgroup
+}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM ENVIRONMENT
+%----------------------------------------------------------------------------------------
+% Define an environment titled 'Problem' and numbered incrementally
+% Define the counter *before* using it
+\newcounter{problemcounter}
+\counterwithin{problemcounter}{part}
+% Format command for display
+\newcommand*{\problemcounterformat}{Problem~\theproblemcounter\csname autodot\endcsname}
+% Environment definition using kaobox
+\newenvironment{problemcounter}[1]{
+	\refstepcounter{problemcounter}
+	\begingroup
+    \edef\tempTitle{\problemcounterformat: #1}%
+	\begin{kaobox}[title=\tempTitle,colback=Snow3!25!white,colbacktitle=Snow3!25!white]
+}{
+	\end{kaobox}
+	\endgroup
+}
 
 %----------------------------------------------------------------------------------------
 %	FLOATING ENVIRONMENT WITH TOC ENTRIES

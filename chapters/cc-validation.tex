@@ -1,6 +1,6 @@
 \setchapterpreamble[u]{\margintoc}
 \chapter{Validation} % Optimization strategy experimental validation
-\labch{solhycool:validation}
+\labch{cc:validation}
 
 \begin{kaobox}[title=To Do]
 After the chapter is complete, find and replace all mentions to RBF, ANN, RMSE
@@ -243,8 +243,7 @@ alternative.
     effects with other variables, while the second-order measures specifically
     these interaction effects. Finally, total-order indices account for the
     total effect of an input variable, including both direct and interaction
-    effects.\\
-    More in \nrefch{intro:sa}. 
+    effects.\footnote{More in \nrefch{intro:sa}}. 
 }
 
 In \reffig{cc:validation:wct:sa}, only total-order sensitivity
@@ -257,16 +256,14 @@ indices\marginreminder{
     effects with other variables, while the second-order measures specifically
     these interaction effects. Finally, total-order indices account for the
     total effect of an input variable, including both direct and interaction
-    effects.\\
-    More in \nrefch{intro:sa}. 
-} are
-represented in the y-axis for the two output variables (outlet temperature on
-the top and water consumption on the bottom). Its value ranges from 0 to 1,
-where 0 means the variable has no effect, and 1 means it has a significant
-effect on the output\sidenote{values can go slightly above 1 due to computing
-errors. This is due to the Sobol' sequence sample generator producing some
-unfeasible test samples that need to be discarded}. The x-axis represents the
-system's inputs and includes a bar for some of the obtained models with
+    effects.\footnote{More in \nrefch{intro:sa}} 
+} are represented in the y-axis for the two output variables (outlet
+temperature on the top and water consumption on the bottom). Its value ranges
+from 0 to 1, where 0 means the variable has no effect, and 1 means it has a
+significant effect on the output\sidenote{values can go slightly above 1 due to
+computing errors. This is due to the Sobol' sequence sample generator producing
+some unfeasible test samples that need to be discarded}. The x-axis represents
+the system's inputs and includes a bar for some of the obtained models with
 different calibration or training data points. 
 
 Comparing the results obtained for the different modelling approaches in
@@ -308,6 +305,58 @@ La tabla debe incluir el tiempo de computación
 \subsubsection{Experimental data requirements}
 \subsubsection{Sensitivity analysis}
 
+
+
+%================================
+\subsection{Main components modelling conclusions}
+
+This section presents a comparison between two modelling alternatives:
+data-driven and first-principles. It is applied to wet
+cooling towers and dry coolers when they are integrated into combined cooling
+systems, with the aim of optimizing this integration. The main conclusions
+obtained during the investigation and final recommendations can be summarized
+as follows:
+
+Regarding the prediction of the output variables, in the case of the outlet
+water temperature, both models reported good results, with low errors falling
+within the uncertainty range of the experimental equipment. Nonetheless, the
+physical model performs better than the best ANN alternative (MIMO RBF):
+$R^2=0.98$ and RMSE$=0.33 \: ^\circ$C compared to $R^2=0.95$ and RMSE$=0.51 \:
+^\circ$C, respectively.
+
+For the predictions of water consumption, it was shown that the Poppe model
+accurately predicts this variable, with results of $R^2=0.97$ and RMSE$=8.47$
+l/h. The best ANN alternative (cascade CF) achieves close results with an
+$R^2=0.95$ and RMSE$=11.24$ l/h.
+
+However, the Poppe model reached such reliable prediction levels with a much
+lower number of tests, needing only 2. In comparison, the ANN alternatives need
+more data, at least 10 (with a good distribution over the operating range) for
+the FF and CF ANN models.
+
+One of the main strengths of the Poppe model is its ability to predict the
+operation of the tower regardless of the conditions tested. This model is
+recommended to be used when it is necessary to scale up to larger systems, as
+long as the system design remains the same. In the case of the ANN model, it is
+only applicable to the same conditions and the same tower for which the model
+was developed.
+
+The ANN model also has several strengths compared to the Poppe model. The most
+important one is the lower execution time. The ANN model is faster by orders of
+magnitude, it can be vectorized and its execution time is more constant
+regardless of the input conditions, in the order of milliseconds. Another
+advantage is that it can be developed and implemented without knowledge of the
+physical processes that take place in a wet cooling tower.
+
+That is why in the end it was decided to make use of the best performing
+data-driven model, the \gls{gprLabel} calibrated using data from the
+first-principle models,  where physical models can be adapted dynamically to
+the required scale, calibration data generated for the particular case study
+environment, and finally the data-driven model can be generated. This approach
+provides a way of having on-demand models that can be adapted to the particular
+case study, while still being fast and efficient in terms of computational
+resources.
+
 % =================================
 \subsection{Complete system model validation}
 \labsec{cc:validation:complete-system}
@@ -318,15 +367,63 @@ La tabla debe incluir el tiempo de computación
 %================================
 %================================
 \section{Control and optimization results}
+\labsec{cc:validation:optimization}
+
+See \reffig{cc:validation:optimization:diagram}, for now, just see it, not much
+more to say about it.
+
+\begin{figure}
+    \includegraphics[]{figures/wascop-validation-optimization-diagram.png}
+    \caption{Proposed optimization strategy implementation. It is a
+    hierarchical control strategy that combines a high-level optimization
+    strategy with a low-level control strategy. The optimization strategy
+    determines the optimal operation of the system, while the control strategy
+    ensures that the system operates within the defined constraints and
+    achieves the desired performance. 
+    }
+    \labfig{cc:validation:optimization:diagram}
+\end{figure}
+
+%TODO: Aquí añadir una tabla con los distintos parámetros del problema
+% @dataclass
+% class ModelInputsRange:
+%     """ Real decision variables box bounds, as in: (lower bound, upper bound)"""
+%     qc: tuple[float, float] = (5.2211, 24.1543)
+%     Rp: tuple[float, float] = (0., 1.)
+%     Rs: tuple[float, float] = (0., 1.)
+%     wdc: tuple[float, float] = (11.0, 99.1800)
+%     wwct: tuple[float, float] = (21., 93.4161)
+%     Tamb: tuple[float, float] = (9.06, 38.75)
+%     HR: tuple[float, float] = (10.33, 89.25)
+%     Tdc_in: tuple[float, float] = (33.16, 41.92)
+%     Twct_in: tuple[float, float] = (31.17, 40.94)
+
+\begin{margintable}[*-6]
+    \caption{Box-bounds for the decision variables.}
+    \labtab{cc:validation:optimization-bounds}
+    \begin{tabular}{llll}
+        \toprule
+        $\mathbf{x}$ & \textbf{Units} & \textbf{lb} & \textbf{ub} \\
+        \midrule
+        $q_c$       & m$^3$/h            & 5.22   & 24.15   \\
+        $R_p$       & --            & 0.00   & 1.00    \\
+        $R_s$       & --            & 0.00   & 1.00    \\
+        $\omega_{\text{dc}}$   & \%         & 11.00  & 99.18   \\
+        $\omega_{\text{wct}}$  & \%         & 21.00  & 93.42   \\
+        $T_{\text{amb}}$       & $^\circ$C     & 9.06   & 38.75   \\
+        \bottomrule
+    \end{tabular}
+\end{margintable}
+
 
 %================================
 \subsection{Regular operation}
-\labsec{solhycool:validation:regular-operation}
+\labsec{cc:validation:regular-operation}
 
 %================================
 \subsection[Planned operation changes]{Planned changes in operation}
-\labsec{solhycool:validation:planned-operation}
+\labsec{cc:validation:planned-operation}
 
 %================================
 \subsection[Unanticipated operation changes]{Unanticipated operational changes}
-\labsec{solhycool:validation:unanticipated-operation}
+\labsec{cc:validation:unanticipated-operation}
