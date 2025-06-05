@@ -1,9 +1,102 @@
 \setchapterpreamble[u]{\margintoc}
 \chapter{Annual analysis: CSP and inland-MED}
-\labch{solhycool:simulation}
+\labch{cc:simulation}
+
+
+%===================================
+%===================================
+\section{Environment definition}
+\labsec{cc:simulation:environment}
+
+
+%================================
+\subsection{Water context}
+\labsec{cc:simulation:environment:water}
+
+- Explicar método seguido para estimar el volumen disponible de agua para cada
+día
+- Explicar fuente alternativa. Agua regenerada 
+
+%================================
+\subsection{Costs context}
+\labsec{cc:simulation:environment:costs}
+
+- Contar cómo se han sacado los datos de REE usando su API mensualmente, y que de
+ahí se han unido en un dataset continuo.
+- Explicar el cálculo de la fuente de agua alternativa, cómo es un cálculo a
+partir del precio de la electricidad aplicando un factor.
 
 \section{ANDASOL-II CSP plant}
-\subsection{WCT static}
-\subsection{DC static}
-\subsection{CC static}
-\subsection{CC horizon}
+
+Simulation data and parameters information:
+\begin{description}
+    \item[Weather data] Hourly weather data from \gls{tpyLabel} of Guadix
+    (Spain) for the year . Data was obtained from ...
+    \item[Thermal load] Hourly thermal load data from the power block of
+    ANDASOL-II CSP plant was generated using a plant model \sidecite{} fed with
+    the same weather data.
+    \item[Electricity price] Spanish electricity market from 2022.
+    \item[Maximum available water] The maximum available water for ...
+    \item[Alternative water source factor] 
+
+\end{description}
+
+\subsection{WCT}
+Anual muestreado cada 15 días. Versión interactiva sin muestrar
+\subsection{DC}
+\subsection{CC}
+\subsubsection{Static optimization}
+
+\begin{figure}
+    \includegraphics[width=1.2\textwidth]{figures/cc-static-simulation-med-year_viz_resampled.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-static-simulation-med-year_viz.html}}
+    \caption{Annual simulation results for the \gls{ccLabel} system optimized
+    with static optimization. Results are resampled every 15 days using their
+    mean values. The original frequency results can be found in the interactive
+    version:\\[1ex] \usebox\captionqr}
+    \labfig{cc:simulation:cc-static-year}
+\end{figure}
+
+\begin{figure*}[h!]
+    \includegraphics[]{figures/cc-static-simulation-med-year_viz_resampled.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-static-simulation-med-year_viz.html}}
+    \caption{Annual simulation results for the \gls{ccLabel} system optimized
+    with static optimization. Results are resampled every 15 days using their
+    mean values. The original frequency results can be found in the interactive
+    version:\\[1ex]\usebox\captionqr}
+    \labfig{cc:simulation:cc-static-year:wide}
+\end{figure*}
+
+
+
+\newgeometry{margin=0.5cm}  % Remove margins completely
+\begin{sidewaysfigure*}
+    \centering
+    \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
+    \caption{A rotated figure}
+\end{sidewaysfigure*}
+\restoregeometry
+
+
+\subsubsection{Horizon optimization}
+
+% TODO: añadir cumulative costs comparison
+\newgeometry{margin=0.5cm}  % Remove margins completely
+\begin{sidewaysfigure*}
+    \centering
+    \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
+    \caption{A rotated figure}
+\end{sidewaysfigure*}
+\restoregeometry
+
+
+\subsubsection{Comparison}
+
+
+\section{MED plant}
+
+% \begin{figure*}[h!]
+%     \includegraphics[\textwidth]{temp/test.png}
+%     \caption{Teeeeeeeest}
+%     \labfig{test:figure}
+% \end{figure*}

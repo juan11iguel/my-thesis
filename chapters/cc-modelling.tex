@@ -5,6 +5,17 @@
 Decripción del modelo completo, cómo se integran los componentes, y después se
 describe cada component.
 
+\tldrbox{
+    This chapter describes modelling of the different components of a combined
+    cooling system, mainly a \gls{wctLabel} and a \gls{dcLabel}. Different
+    alternatives are presented, including the generation of samples for
+    data-driven models trained using data from a physical model. Models are
+    also developed for the other components of the system and finally it is
+    shown how they are integrated into a complete system model.
+}
+
+\section*{Introduction}
+
 % Introducción de artículo: Wet cooling tower performance prediction in CSP
 % plants: A comparison between artificial neural networks and Poppe’s model
 In order to study the potential advantages of making use of a combined cooling
@@ -232,6 +243,19 @@ Aquí describir los rangos en los que se han movido las variables de entrada y
 el criterio para elegir esas variable de entrada para construir la combinatoria
 de valores de entrada.
 
+Finally, all valid thermodynamic and operational combinations are merged into a comprehensive sample set, enabling detailed system evaluations across a realistic and constrained input space.
+
+%incluir figura con distribución de muestras generadas
+
+
+\subsection{Model interface}
+
+\begin{modelcounter}{Wet cooling tower}
+    \begin{equation*}
+        T_{wct,out},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in})
+    \end{equation*}
+    \labmod{wct}
+\end{modelcounter}
 
 
 %=====================================
@@ -240,9 +264,37 @@ de valores de entrada.
 
 %=====================================
 \subsection{Samples generation for first-principles to data-driven models}
-Aquí describir los rangos en los que se han movido las variables de entrada y
-el criterio para elegir esas variable de entrada para construir la combinatoria
-de valores de entrada.
+
+% TODO: Esto es metodología, mover a cc:modelling y aquí solo comentar la tabla
+% de muestreos seguida y mostrar la gráfica de resultados
+In this work, sample generation is carried out using a structured grid-search
+approach to ensure comprehensive coverage of the input space. First, the most
+relevant input variables for the system are identified, and ranges are
+specified based on expected operating conditions. Then, the input space is
+discretized using a fixed number of resolution steps for each variable, as
+defined in Table .... Instead of generating values for the inlet temperature
+input variable, values are generated for the temperature difference with the
+dry-bulb temperature, therefore, a 2D grid is
+constructed using combinations of ambient temperature (Tamb) and the difference
+between inlet and ambient temperature (deltaTamb-Tin), with infeasible
+combinations filtered based on physical constraints. For each valid temperature
+pair (Tamb, Tdcin), additional independent variables (qdc, wdc) are combined
+via a Cartesian product, resulting in a full multidimensional
+grid of plausible operating points. This systematic procedure ensures a dense
+and uniform sampling across all relevant input dimensions
+
+%incluir figura con distribución de muestras generadas
+
+%================================
+\subsection{Model interface}
+
+\begin{modelcounter}{Dry cooler}
+    \begin{equation*}
+        T_{dc,out} = \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in})
+    \end{equation*}
+    \labmod{dc}
+\end{modelcounter}
+% \marginnote[*-2]{The condenser area ($A$) is a constant parameter}
 
 %=====================================
 %=====================================
@@ -251,45 +303,84 @@ de valores de entrada.
 
 
 %================================
+\subsection{Electrical consumption}
+
+Electrical consumption is modelled with polynomial regressions of order 3 from
+experimental data:
+
+\begin{modelcounter}{Electrical consumption}
+    \begin{align*}
+        C_{e} &= \mathrm{electrical\:consumption\:model}(x) \\
+        & C_{e} = p_1 \cdot x^3 + p_2 \cdot x^2 + p_3 \cdot x + p_4
+    \end{align*}
+    \labmod{electrical-consumption}
+\end{modelcounter}
+\marginnote[*-2]{$p_i$ are the coefficients of the polynomial regression. They need to be calibrated for each component.}
+
+where \(C_e\) is the electrical consumption and \(x\) is the input variable
+(\eg the recirculated cooling water flow rate, the dry cooler fan speed, etc.).
+
+%================================
 \subsection{Surface condenser}
 \labsec{cc:modelling:surface-condenser}
 
-The surface condenser (see Figure \ref{fig:model_diagram} - \textit{SC}) was modeled by applying an energy balance, where it is assumed that all the vapor that enters the condenser (at saturated conditions), leaves it as saturated liquid, so the outlet temperature from the cooling water can be estimated as:
+The surface condenser is a heat exchanger that condenses steam into water,
+assuming that all the vapor that enters the condenser (at saturated
+conditions), leaves it as saturated liquid, it can be modelled by applying the
+first law of thermodynamics, which states that the heat lost by the steam
+(\textit{released}) is equal to the heat gained by the cooling water
+(\textit{absorbed}), and equal to the heat transferred by the condenser heat
+transfer surfaces (\textit{transferred}).
 
-\begin{equation}
-    T_{c,out} = T_{c,in} + \frac{\dot{m}_v \lambda_{sat,v}(T_v)}{\dot{m}_c c_p(T_{c,in}, P_c)} \: ,
-\end{equation}
+\begin{modelcounter}{Surface condenser}
+    \begin{align*}
+        T_{c,in},\,T_{c,out}& = \mathrm{condenser\:model}(\dot{m}_{c}, T_{v},\dot{m}_{v}) \\
+        & LMTD = \frac{T_{c,out}-T_{c,in}}{\ln\left(\frac{T_{v}-T_{c,in}}{T_{v}-T_{c,out}}\right)} \\
+        & \dot{Q}_{released} = \dot{m}_v \cdot (h_{sat.vap}-h_{sat.liq}) \\
+        & \dot{Q}_{absorbed} = \dot{m}_c \cdot c_p(T_{c,out}-T_{c,in}) \\
+        & \dot{Q}_{transferred} = U\cdot A \cdot LMTD \\
+        & U = \ldots
+    \end{align*}
+    \labmod{sc}
+\end{modelcounter}
+\marginnote[*-2]{The condenser area ($A$) is a constant parameter}
 
-where $T_{c,in}$ and $T_{c,out}$, are the cooling water inlet and outlet temperatures, respectively, $\dot{m}_c,$ the cooling water mass flow rate, $T_v$, vapour temperature and $\dot{m}_v$ its mass flow rate. Finally $\lambda_{sat,v}$, is the phase change enthalpy of the saturated vapour and $c_p,$ the specific heat.
+
+where \(T_{c,in}\) and \(T_{c,out}\) are the cooling water inlet and outlet
+temperatures, respectively, \(\dot{m}_c\) the cooling water mass flow rate,
+\(T_v\) vapour temperature and \(\dot{m}_v\) its mass flow rate and
+\(h_{sat,vap}\) and \(h_{sat,liq}\) are the specific enthalpies of the steam at
+the inlet and outlet of the condenser, respectively. \(\dot{Q}\) represents the
+heat transfer rate \ie the thermal power.
 
 
-The surface condenser is a heat exchanger that condenses the steam from the
-turbine into water, allowing it to be reused in the cycle. The modelling of the
-surface condenser is based on the first law of thermodynamics, which states
-that the heat lost by the steam is equal to the heat gained by the cooling
-water. The heat transfer rate can be expressed as:
-\begin{equation}
-    \dot{Q} = \dot{m}_s (h_{s,i} - h_{s,o}) = \dot{m}_w (h_{w,o} - h_{w,i}),
-    \labeq{cc:modelling:surface-condenser:heat-transfer}
-\end{equation}  
 
-where $\dot{Q}$ is the heat transfer rate, $\dot{m}_s$ is the mass flow rate of
-steam, $h_{s,i}$ and $h_{s,o}$ are the specific enthalpies of the steam at the
-inlet and outlet of the condenser, respectively, $\dot{m}_w$ is the mass flow
-rate of cooling water, and $h_{w,i}$ and $h_{w,o}$ are the specific enthalpies of
-the cooling water at the inlet and outlet of the condenser, respectively. The
-enthalpies can be calculated using the steam tables or Mollier diagram for the
-steam side, and the specific heat capacity of water for the cooling water side.
+% TODO: Añadir unidades al lado como una notación al margen de cada bloque de modelo
+% \begin{modelcounter}{Condenser}
+%     \begin{align*}
+%         C_{e,c} &= \text{recirculation\:consumption}(q_c) \\
+%         & C_{e,c} = p_1 \cdot q_c^3 + p_2 \cdot q_c^2 + p_3 \cdot q_c + p_4
+%     \end{align*}
+% \end{modelcounter}
+    % q (m³/h) -> P_pump (kW)
+    % f(x) = p1*x^3 + p2*x^2 + p3*x + p4
+    %        p1 =    0.1461;
+    %        p2 =    5.763;
+    %        p3 =    -38.32;
+    %        p4 =    227.8;
+    % Ce_c =max((p1.*qc.^3 + p2.*qc.^2 + p3.*qc + p4)*1e-3, 0); %kW
 
 \subsection{Mixers}
 
-The mixers outlet flow ($q_{mix,out,i}$) and temperature ($T_{mix,out,i}$) can be determined with a simple mass and energy balances from its inlets streams ($q_{mix,in},\:T_{mix,in}$):
+The mixers outlet flow ($q_{mix,out,i}$) and temperature ($T_{mix,out,i}$) can
+be determined with a simple mass and energy balances from its inlets streams
+($q_{mix,in},\,T_{mix,in}$):
 
 
 % \modeldefinitionbox{Mixer model}{
 \begin{modelcounter}{Mixer model}
     \begin{align}
-        q_{mix,out},\,T_{mix,out} &= \mathrm{mixer\:model}(q_{mix,in,1},\,T_{mix,in,1},\,q_{mix,in,2},\,T_{mix,in,2}) \\
+        q_{mix,out},\,&T_{mix,out} = \text{mixer\:model}(q_{mix,in,1},\,T_{mix,in,1},\,q_{mix,in,2},\,T_{mix,in,2}) \\
         & q_{mix,out} = q_{mix,in,1} + q_{mix,in,2} \\
         & T_{mix,out} = T_{mix,in,1} \cdot \frac{c_p(T_{mix,in,1})}{c_p(T_{out,i})}\frac{q_{mix,in,1}}{q_{mix,out,i}} + \nonumber \\ &\qquad T_{mix,in,2} \cdot \frac{c_p(T_{mix,in,2})}{c_p(T_{out,i})}\frac{q_{mix,in,2}}{q_{mix,out,i}}
     \end{align}
@@ -297,21 +388,48 @@ The mixers outlet flow ($q_{mix,out,i}$) and temperature ($T_{mix,out,i}$) can b
 \end{modelcounter}
 % }
 
+where $c_p(\cdot)$ is the specific heat, which can be assumed to be the same for the
+mixing temperature differences of this type of system.
 
-where $c_p$ is the specific heat, which can be assumed to be the same for the mixing temperature differences of this type of system.
+\marginnote[*-2]{The audacious users might feel tempted to edit some of 
+these packages. I'd be immensely happy if they sent me examples of what 
+they have been able to do!}
 
 %=====================================
 %=====================================
 \section{Complete system}
 \labsec{cc:modelling:complete-model}
 
-The complete model of the combined cooling system is based on the
-integration of the models of the \gls{wctLabel} and the \gls{dcLabel} with the
-surface condenser and the mixers, and defined in \nrefmod{cc}.
+The complete model of the combined cooling system is based on the integration
+of the models of the \gls{wctLabel} and the \gls{dcLabel} with the surface
+condenser and the mixers, and defined in \nrefmod{cc}.\sidenote{The cooling
+water recirculation electrical consumption is associated with the condenser
+here but not all consumption can be attributed to the condenser, the hydraulic
+circuit and specially the dry cooler will also offer a significant circulation
+resistance}
+
+\begin{marginfigure}[]
+    \includegraphics[]{figures/cc-modelling-wct-io-diagram.png}
+    % {\footnotesize \textbf{(a)} \gls{mimoLabel} configuration\\}
+    
+    \vspace{1ex}
+
+    \includegraphics[]{figures/cc-modelling-dc-io-diagram.png}
+    % {\footnotesize \textbf{(a)} \gls{mimoLabel} configuration\\}
+    
+    \vspace{1ex}
+    
+    \includegraphics[]{figures/cc-modelling-c-io-diagram.png}
+    % {\footnotesize \textbf{(b)} Cascade configuration}
+    
+    \caption{Inputs-outputs block diagram of the main model components}
+    \labfig{intro:modelling:ann-model-configuration}
+\end{marginfigure}
+
 
 \begin{modelcounter}{Combined cooler}
     \begin{align*}
-        T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,out} = \mathrm{combined\:cooler\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR_i,T_{v},\dot{m}_{v}) \\
+        T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,out} = \text{combined\:cooling\:system\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR_i,T_{v},\dot{m}_{v}) \\
         & T_{cc,in}=T_{c,out} \\
         & T_{dc,in}=T_{cc,in} \\
         % three-way valves
@@ -319,15 +437,19 @@ surface condenser and the mixers, and defined in \nrefmod{cc}.
         & q_{wct,p} = q_{c} \cdot R_{p} \\
         & q_{wct,s} = q_{dc} \cdot R_{s} \\
         % dc model
-        & T_{dc,out},\,C_{e,dc} = \mathrm{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in}) \\
+        & T_{dc,out},\,C_{e,dc} = \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in}) \\
         % first mixer
-        & q_{wct},\,T_{wct,in} = \mathrm{mixer\:model}(q_{wct,p},\,T_{T{cc,in}},\, q_{wct,s},\, T_{dc,out}) \\
+        & q_{wct},\,T_{wct,in} = \text{mixer\:model}(q_{wct,p},\,T_{T{cc,in}},\, q_{wct,s},\, T_{dc,out}) \\
         % wct model
-        & T_{wct,out},\,C_{e,wct},\,C_{w,wct} = \mathrm{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in}) \\
+        & T_{wct,out},\,C_{e,wct},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in}) \\
         % condenser model
-        & T_{c,in},\,T_{c,out} = \mathrm{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
+        & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
         % final mixer
-        & q_{cc},\,T_{cc,out} = \mathrm{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
+        & q_{cc},\,T_{cc,out} = \text{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
+        % electrical consumptions
+        & C_{e,c} = \text{electrical\:consumption}(q_c) \\
+        & C_{e,dc} = \text{electrical\:consumption}(q_{dc}) \\
+        & C_{e,wct} = \text{electrical\:consumption}(q_{wct}) \\
         % totals
         & C_{e} = C_{e,dc} + C_{e,wct} + C_{e,c} \\
         & C_{w} = C_{w,wct}
@@ -335,3 +457,11 @@ surface condenser and the mixers, and defined in \nrefmod{cc}.
     \labmod{cc}
 \end{modelcounter}
 % }
+
+Finally, the complete model diagram with all its variables can be seen in \reffig{cc:modelling:complete-model-diagram}.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/cc-modelling-complete-model-diagram.png}
+    \caption{Complete model diagram of the combined cooling system}
+    \labfig{cc:modelling:complete-model-diagram}
+\end{figure}

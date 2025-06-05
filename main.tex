@@ -86,6 +86,7 @@
 
 % \usepackage{amsmath, amssymb, algorithm, algpseudocode}
 
+\usepackage{rotating} % in preamble
 \usepackage{subfig} % For subfigures
 \usepackage{qrcode}
 % \usepackage{fancyqr}
@@ -196,7 +197,35 @@
 
 %----------------------------------------------------------------------------------------
 
+
+
 \begin{document}
+
+% \newgeometry{margin=0cm}
+% \begin{figure*}[!p]    % Full-page float
+%     \centering
+%     \includegraphics[angle=90, width=\paperwidth,keepaspectratio]{figures/test.png}
+% 	\caption{This is a test figure. It is a full-page float, and it should be centered on the page.}
+% \end{figure*}
+% \restoregeometry
+
+\newgeometry{margin=0.5cm}  % Remove margins completely
+\begin{sidewaysfigure*}
+    \centering
+    \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
+    \caption{A rotated figure}
+\end{sidewaysfigure*}
+\restoregeometry
+
+% \newgeometry{margin=0cm}  % Remove margins completely
+% \begin{figure*}[!p]
+%     \centering
+%     \vspace*{\fill}  % Push content to vertical center
+%     \includegraphics[angle=90, height=.5\paperheight, keepaspectratio]{figures/test.png}
+%     \vspace*{\fill}  % Fill remaining vertical space
+%     \caption{This is a test figure. It is a full-page float, and it is centered on the page.}
+% \end{figure*}
+% \restoregeometry
 
 \begin{modelcounter}{Test}
 	\begin{align*}

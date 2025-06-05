@@ -2,11 +2,83 @@
 \addpart{Optimal water and electricity management in a combined cooling system}
 \pagelayout{margin} % Restore margins
 
+\section*{TL;DR}
+\addcontentsline{toc}{section}{TL;DR}
+
+In the pursuit of extending the use and feasibility of solar thermal
+applications, two case studies are analyzed in annual simulations where the
+cooling solution makes use of a novel combined cooling system (CCS). To obtain
+these results, a model of the CCS has been developed based on the same
+configuration as the \gls{psaLabel} pilot plant and different optimization
+strategies based on evolutionary algorithms were implemented to adapt the
+system operation to the changing conditions. They both were experimentally
+validated in the pilot plant. The CSP case study yields ... while the MED case
+as can be seen in ...\todo{In pie chart, rename pumping to recirculation}
+
+% TODO: Generate two figures, one for each case study, with a bar plot
+% comparting the specific cost (€/kWhth) of the different cooling alternatives
+% next to a pie plot with the breakdown of the costs, and next two pie charts
+% vertically distributed with a cooling power distribution between DC and WCT
+% and the other a hydraulic distribution
+
+\begin{figure}[htbp]
+    \includegraphics[width=\textwidth]{figures/cc-visual-abstract.png}
+    % {\footnotesize \textbf{(a)} Visual abstract of the part}
+    \vspace{2ex}
+    \includegraphics[]{figures/cc-visual-abstract-results.png}
+    {\footnotesize \textbf{(a)} CSP case study results}
+    \vspace{2ex}
+
+    \includegraphics[]{figures/cc-visual-abstract-results.png}
+    {\footnotesize \textbf{(b)} MED case study results}
+
+    \caption{Results for the two case studies analyzed in this part. The first bar plot compares the specific cost of the different cooling alternatives. Lower is better. The second pie chart shows the breakdown of the costs, and the third and fourth pie charts show the cooling power distribution between DC and WCT and the hydraulic distribution, respectively.}
+    \labfig{cc:visual-abstract}
+\end{figure}
+
+
+
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
 
-\section*{TL;DR}
-\addcontentsline{toc}{section}{TL;DR}
+% CSP
+The cooling of the power block in this technology plays a crucial role in its
+feasibility. The cheapest and most efficiency cooling technology is evaporative
+cooling, and that is why most plants, specially in Spain where built using this
+alternative (XX \% CSP data), however, the high-radiation areas in which they
+are located are usually regions with rapidly-degrading water availability due
+to climate change, so water has become a scarce resource. Nowadays most likely
+those plants would have been built with dry cooling technologies, significantly
+increasing the cost (up to 8\% during periods of high ambient temperatures when
+energy demand and prices peak). At Plataforma Solar de Almería, we would like
+to explore a third alternative; a combined cooling system that integrates both
+technologies in a flexible hydraulic configuration. This alternative enables
+the adaptation of the operation based on the changing conditions, if
+optimization strategies are integrated.
+
+On this part we analyze Andasol I, a 50 MW CSP plant with 8 hours of thermal
+storage located in Guadix (Spain), a region filled with renewable-power
+generation (PV and wind), thus representing the perfect scenario for what a
+renewable grid looks like. This plant was built in the 2000s and uses a WCT.
+The cooling system was replaced by the proposed CCS and yearly simulation
+results of the reduced-scale plant making use of the proposed combined cooling
+alternative yield...
+
+% MED
+
+% 
+To obtain these results, a physical model of the CCS has been developed based
+on the same configuration as the one located at Plataforma Solar de Almería
+facilities [2]. The model has been validated with experimental data and a
+static-optimization based on evolutionary algorithms [ref1,ref2] strategy has
+been implemented in order to adapt the system operation to the changing
+conditions. For the simulation environment two water sources are available, a
+cheaper source of water from reservoirs dependent on precipitation data and a
+significantly more expensive one from regenerated water. The next step is to
+scale the models in order to evaluate the full-scale system, and to include
+evaluations for the other two cooling alternatives (DC-only and WCT-only) in
+order to compare and draw a conclusion on which alternative is the most
+competitive on the given context.  
 
 \section*{Derived scientific contributions}
 \addcontentsline{toc}{section}{Derived scientific contributions}

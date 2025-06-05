@@ -12,18 +12,58 @@
     rainwater available and any excess water required must be purchased at a
     significantly higher cost. From the alternatives, this can only be
     effectively achieved by the shrinking horizon optimization strategy applied
-    to the combined cooler.
+    to the combined cooler for which an implementation methodology is proposed.
 }
 
 \section{Environment definition}
 
+The environment for the optimization problems described in this section
+includes the following components and is visualized in \reffig{cc:optimization:environment}:
 
-%================================
-\subsection{Water resource availability}
-\labsec{cc:optimization:environment-water}
- Two sources of water are available, one of them, the cheaper one coming from a
- dam is limited in volume ($V_{avail,0}$). The cheaper source is prioritized
- until it is depleted, then the alternative source is used.
+\begin{marginfigure}[+5.5cm]
+    \includegraphics[]{figures/cc-optimization-environment.png}
+    \caption{Block diagram of the environment components}
+    \labfig{cc:optimization:environment}
+\end{marginfigure}
+
+
+\begin{description}
+    \item[Costs context] The cooling system has mainly two associated
+    operational costs: electricity and water use. For the electricity the sale
+    price of electricity is used since whatever is consumed by the cooling
+    system, it's electricity that cannot be sold to the market in the case of a
+    CSP plant, and it is a electricity that needs to be purchased in the case
+    of an MED plant. As for the water, ... This module provides values for the price of
+    electricity ($P_e$) and the prices of water from source 1 ($P_{w,s1}$) and
+    source 2 ($P_{w,s2}$).
+
+    \item[Weather forecast] The only two weather variables that have an impact
+    on the cooling system are the ambient temperature ($T_{amb}$) and the
+    relative humidity ($HR$) since they set the dry and wet bulb temperatures,
+    and the psycrometric properties ... 
+
+    \item[Thermal load] 
+    
+    \item[Water resource availability] Two sources of water are available, one
+    of them, the cheaper one coming from a dam is limited in volume. The cheaper
+    source ($s_1$) is prioritized until it is depleted, then the alternative source
+    ($s_2$) is used:
+
+    \begin{align}
+        & \quad C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} \\
+        & \quad C_{w,s2,i} = C_{w,i}-C_{w,s1,i} \\
+        & \quad V_{avail,i} = V_{avail,i-1}-C_{w,s1,i}\cdot T_s
+    \end{align}
+
+    where $i$ represents the step, at every step the amount used from each source
+    is estimated and the dam-water left is updated accordingly.
+\end{description}
+
+
+% %================================
+% \subsection{Water resource availability}
+% \labsec{cc:optimization:environment-water}
+
 
 \section{Static optimization}
 
@@ -40,6 +80,11 @@ into account prior decisions, neither consider the effect on future state.
 
     where \(x\) is the decision vector, \(e\) represents the environment, and \(\theta\) contains the fixed parameters.
 }
+
+Every time a problem is evaluated, it will start with some initial volume
+($V_{avail,0}$) for the particular step, and this volume needs to be updated
+before evaluating the next step. This yields that in order to evaluate several
+consecutive steps, they must do so sequentially.
 
 %================================
 \subsection{Dry cooler}
@@ -240,6 +285,19 @@ combined cooler and condenser model.}
 
 \section[]{Shrinking horizon optimization}[Horizon optimization]
 
+The problem structure is very similar to the static alternative, the main
+difference is that now the decision and environment vectors are composed not
+from the expected value for the optimization step, but an array of values from
+the current optimization step until the end of the prediction horizon
+($n_{steps}$), this means that forecasts for each variable in the environment
+are needed, that is:
+\begin{enumerate} 
+    \item An operation plan of the thermal load (power block or MED operating
+    conditions) needs to be defined.
+    \item An estimation of the costs context evolution. Water price is unlikely
+    to change often, 
+\end{enumerate}
+
 \marginnote[*5]{$\forall i = 1 \ldots n_{steps}$ is a notation to indicate that
     a condition must be held at every step $i$ in the optimization horizon
     ($n_{steps}$)}
@@ -299,6 +357,9 @@ combined cooler and condenser model.}
 \subsection[]{A discussion on solving the optimization problem}[Problem discussion]
 Aquí comentar cómo no es factible resolver el problema directamente porque es
 muy difícil encontrar soluciones factibles debido a la estructura del problema.
+
+Comentar número de elementos en el vector de decisión, crecimiento exponencial
+de la complejidad del problema con el número de pasos en el horizonte, etc..
 
 %================================
 \subsection[]{Proposed solution: Decomposition-based multi-objective optimization with trajectory planning}[Proposed solution]

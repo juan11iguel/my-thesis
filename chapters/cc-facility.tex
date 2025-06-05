@@ -5,11 +5,42 @@
 \chapter{Combined cooling pilot plant at Plataforma Solar de Almería}
 \labch{cc:facility}
 
+\tldrbox{
+    In this chapter a detailed description of the combined cooling pilot plant
+    at \gls{psaLabel} is provided including a \gls{pYidLabel} diagram and the
+    methodology followed to perform the experimentation and data-processing.
+    Three experimental campaigns for the \gls{wctLabel} with XX, XX and XX
+    different operating points and one for the \gls{dcLabel} with XX operating
+    points are processed and made openly available in public repositories.
+}
+
+\section*{Introduction}
+
+The combined cooling pilot plant at Plataforma Solar de Almería is a unique
+facility that integrates a wet cooling tower and a dry cooler in a flexible
+hydraulic configuration. It allows for the study and validation of different
+cooling strategies and the development of models. 
+
+% Historia de la planta
+...
+
+This chapter describes the
+plant in \nrefsec{cc:facility:description} and the experimental campaigns carried
+out in \nrefsec{cc:facility:exp}.
+
+% TODO: A la salida de la segunda válvula hay que añadir una flecha para que
+% sea más legible, renombrar válvulas V1 y V2 a Vp y Vs.
+\begin{figure*}[h!]
+	\includegraphics[]{figures/WASCOP-facility-diagram.png}
+	\caption{\gls{psaLabel} combined cooling system facility}
+	\labfig{cc:facility:cc-pilot-plant-diagram}
+\end{figure*}
+
 
 %===================================
 %===================================
 \section{Plant description}
-\labsec{intro:cooling:cc-pilot-plant-description}
+\labsec{cc:facility:description}
 
 % TODO: Aquí habría que añadir una figura estilo diagrama de bloques, que no
 % incluya solo el circuito de refrigeración, sino también los circuitos de
@@ -18,7 +49,7 @@
 % The combined cooling pilot plant at the Plataforma Solar de Almería consists of three
 % circuits: cooling circuit, exchange circuit and heating circuit. In the cooling
 % circuit (shown in
-% Figure \reffig{intro:cooling:cc-pilot-plant-diagram}), water circulating inside the tube bundle of a surface condenser is
+% Figure \reffig{cc:facility:cc-pilot-plant-diagram}), water circulating inside the tube bundle of a surface condenser is
 % cooled through a \gls{wctLabel} and/or a \gls{dcLabel} of the \gls{acheLabel}
 % type. Valves 1 and 2 (R$_p$, R$_s$, respectively) allow operation in different
 % configurations: \gls{dcLabel} only, \gls{wctLabel} only, in series, in parallel
@@ -55,15 +86,6 @@ cooling tower). The instrumentation related to the WCT is described in Table
 velocity and temperature and relative humidity at the outlet area of the wet
 cooling tower have not been installed in the plant. Portable sensors were used
 instead in some experiments, as described in Section \ref{sec:Data1}.
-
-% TODO: A la salida de la segunda válvula hay que añadir una flecha para que
-% sea más legible, renombrar válvulas V1 y V2 a Vp y Vs.
-\begin{figure*}[h!]
-	\includegraphics[]{figures/WASCOP-facility-diagram.png}
-	\caption{\gls{psaLabel} combined cooling system facility}
-	\labfig{intro:cooling:cc-pilot-plant-diagram}
-\end{figure*}
-
 
 \begin{marginfigure}[-7cm]
     \includegraphics[]{figures/WASCOP-facility-WCT.png}

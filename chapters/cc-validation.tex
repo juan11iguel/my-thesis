@@ -235,16 +235,6 @@ alternative.
 
 \subsubsection{Sensitivity analysis}
 
-\reminder{How to interpret \gls{saLabel} results}{ 
-    The results are different sensitivity indices such as total sensitivity
-    indices (total-order), first-order sensitivity indices (first-order), and
-    interaction sensitivity indices (second-order). First-order measures the
-    direct effect of an input variable on the output, excluding interaction
-    effects with other variables, while the second-order measures specifically
-    these interaction effects. Finally, total-order indices account for the
-    total effect of an input variable, including both direct and interaction
-    effects.\footnote{More in \nrefch{intro:sa}}. 
-}
 
 In \reffig{cc:validation:wct:sa}, only total-order sensitivity
 indices\marginreminder{
@@ -260,7 +250,7 @@ indices\marginreminder{
 } are represented in the y-axis for the two output variables (outlet
 temperature on the top and water consumption on the bottom). Its value ranges
 from 0 to 1, where 0 means the variable has no effect, and 1 means it has a
-significant effect on the output\sidenote{values can go slightly above 1 due to
+significant effect on the output\sidenote[][*10]{values can go slightly above 1 due to
 computing errors. This is due to the Sobol' sequence sample generator producing
 some unfeasible test samples that need to be discarded}. The x-axis represents
 the system's inputs and includes a bar for some of the obtained models with
@@ -357,6 +347,46 @@ provides a way of having on-demand models that can be adapted to the particular
 case study, while still being fast and efficient in terms of computational
 resources.
 
+
+%================================
+\subsection{Condenser model validation}
+\labsec{cc:validation:condenser}
+
+For the surface condenser\sidenote{See
+\nrefsec{cc:modelling:surface-condenser}} a physical model is used, with
+the heat transfer coefficient as the only parameter to calibrate. Seven
+different alternative estimations of the heat transfer coefficient were
+calculated, using the data from the experimental campaign described in
+\nrefsec{cc:facility:exp-condenser}. They are as follows:
+
+\begin{enumerate}
+    \item A
+    \item B
+    \item C
+    \item D
+    \item E
+    \item F 
+\end{enumerate}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/cc-validation-condenser-U.png}
+    \caption{Heat transfer coefficient calibration results}
+    \labfig{cc:validation:condenser-U}
+\end{figure}
+
+The results of the calibration are shown in \reffig{cc:validation:condenser-U},
+where the y-axis shows the thermal
+power obtained and the x-axis holds different bars for the different heat transfer
+coefficient estimation methods, with bars also for the experimental heat
+released by the vapor and absorbed by the coolant. As can be seen in the
+figure. The shown results are for steady-state conditions with the condenser in
+an equilibrium state (\(Q_{\text{released}} \approx Q_{\text{absorbed}}\)), and with a
+large variation in the condenser conditions (120 to 200 kW, the whole operating
+range of the condenser). The results show that the heat transfer coefficient
+obtained with the method 3 is the one that best fits the experimental data,
+with a \gls{maeLabel} of 17.6 kW and a maximum error of 33.41 kW (15\%).
+
+
 % =================================
 \subsection{Complete system model validation}
 \labsec{cc:validation:complete-system}
@@ -401,7 +431,7 @@ more to say about it.
 \begin{margintable}[*-6]
     \caption{Box-bounds for the decision variables.}
     \labtab{cc:validation:optimization-bounds}
-    \begin{tabular}{llll}
+    \begin{tabular}{lccc}
         \toprule
         $\mathbf{x}$ & \textbf{Units} & \textbf{lb} & \textbf{ub} \\
         \midrule
@@ -410,7 +440,6 @@ more to say about it.
         $R_s$       & --            & 0.00   & 1.00    \\
         $\omega_{\text{dc}}$   & \%         & 11.00  & 99.18   \\
         $\omega_{\text{wct}}$  & \%         & 21.00  & 93.42   \\
-        $T_{\text{amb}}$       & $^\circ$C     & 9.06   & 38.75   \\
         \bottomrule
     \end{tabular}
 \end{margintable}
@@ -421,9 +450,9 @@ more to say about it.
 \labsec{cc:validation:regular-operation}
 
 %================================
-\subsection[Planned operation changes]{Planned changes in operation}
+\subsection[Planned changes in operation]{Planned changes in operation}[Planned changes]
 \labsec{cc:validation:planned-operation}
 
 %================================
-\subsection[Unanticipated operation changes]{Unanticipated operational changes}
+\subsection[Unanticipated operational changes]{Unanticipated operational changes}[Unanticipated changes]
 \labsec{cc:validation:unanticipated-operation}
