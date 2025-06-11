@@ -15,50 +15,90 @@
     to the combined cooler for which an implementation methodology is proposed.
 }
 
+\section*{Introduction}
+% Recodatorio: No hace falta introducir mucho el contexto porque eso es algo
+% que ya se habrá hecho en la parte introductoria
+In this chapter, the optimization of the operation of different cooling
+alternatives are analyzed in terms of their two main consumptions: electricity
+and water.
+
+Even though in principle this methodology could be applied to any application
+where cooling a thermal load is required, special focus is put on modelling and
+considering the water resource availability, since it is a key factor
+especially in solar thermal applications.\sidenote{See \nrefch{intro:cooling}}
+
+\begin{marginfigure}[] % +5.5cm
+    \includegraphics[]{figures/cc-optimization-environment.png}
+    \caption{Block diagram of the optimization scheme including environment components}
+    \labfig{cc:optimization:environment}
+\end{marginfigure}
+
+The optimization problems are formulated to minimize the cost of cooling a
+thermal load, which is composed of the cost of electricity ($J_e$) and the cost
+of water ($J_w$).
+
+% Estado del arte en optimización en sistemas de refrigeración
+
+% Estructura de este capítulo
+The chapter is structured as follows: first, the environment definition is
+presented in \nrefsec{cc:optimization:environment}, which includes a
+description of the variables taking part in the costs context, weather
+forecast, thermal load, and water resource availability. Next the two
+optimization strategies are presented, first a static optimization in
+\nrefsec{cc:optimization:static} where the dry cooler, wet cooler and combined
+cooler static problems are defined, followed by a shrinking horizon
+optimization approach in \nrefsec{cc:optimization:shrinking-horizon} where the
+combined cooler is optimized over a prediction horizon. This last section
+includes a discussion on the problem nature and then presents the proposed
+methodology to solve it.
+
+
+%===================================
+%===================================
 \section{Environment definition}
+\labsec{cc:optimization:environment}
 
 The environment for the optimization problems described in this section
 includes the following components and is visualized in \reffig{cc:optimization:environment}:
 
-\begin{marginfigure}[+5.5cm]
-    \includegraphics[]{figures/cc-optimization-environment.png}
-    \caption{Block diagram of the environment components}
-    \labfig{cc:optimization:environment}
-\end{marginfigure}
-
-
 \begin{description}
     \item[Costs context] The cooling system has mainly two associated
-    operational costs: electricity and water use. For the electricity the sale
-    price of electricity is used since whatever is consumed by the cooling
-    system, it's electricity that cannot be sold to the market in the case of a
-    CSP plant, and it is a electricity that needs to be purchased in the case
-    of an MED plant. As for the water, ... This module provides values for the price of
-    electricity ($P_e$) and the prices of water from source 1 ($P_{w,s1}$) and
-    source 2 ($P_{w,s2}$).
+    operational costs: electricity ($J_e$) and water use ($J_w$). For the
+    electricity the sale price of electricity ($P_e$) is used since whatever is
+    consumed by the cooling system, it is electricity that cannot be sold to
+    the market in the case of a system that produces electricity like a
+    \gls{cspLabel} plant, and it is electricity that needs to be purchased at market
+    price in the case of any other system. 
+    
+    As for the water, two sources are considered, water price from source 1 is
+    referred as $P_{w,s1}$ and $P_{w,s2}$ for source 2. Source 1 is cheaper
+    than source 2.
 
     \item[Weather forecast] The only two weather variables that have an impact
     on the cooling system are the ambient temperature ($T_{amb}$) and the
-    relative humidity ($HR$) since they set the dry and wet bulb temperatures,
-    and the psycrometric properties ... 
+    relative humidity ($HR$) since they set the dry and wet bulb temperatures.
 
-    \item[Thermal load] 
+    \item[Thermal load] The thermal load is defined either by a vapor flow rate
+    ($\dot{m}_v$) or a thermal power ($\dot{Q}$), which enters the condenser at
+    a temperature $T_v$.\sidenote{Vapor can also be referred as steam, usually
+    steam is used when the vapor performs work, like in a turbine.}
     
     \item[Water resource availability] Two sources of water are available, one
-    of them, the cheaper one coming from a dam is limited in volume. The cheaper
-    source ($s_1$) is prioritized until it is depleted, then the alternative source
-    ($s_2$) is used:
+    of them, the cheaper one coming from a dam is limited in volume
+    ($V_{avail}$). The cheaper source ($s_1$) is prioritized until it is
+    depleted, then the alternative source ($s_2$) is used:
 
     \begin{align}
-        & \quad C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} \\
-        & \quad C_{w,s2,i} = C_{w,i}-C_{w,s1,i} \\
-        & \quad V_{avail,i} = V_{avail,i-1}-C_{w,s1,i}\cdot T_s
+        & \quad C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} \label{eq:cc:optimization:wa1} \\
+        & \quad C_{w,s2,i} = C_{w,i} - C_{w,s1,i} \label{eq:cc:optimization:wa2} \\
+        & \quad V_{avail,i} = V_{avail,i-1} - C_{w,s1,i} \cdot T_s \label{eq:cc:optimization:wa3}
     \end{align}
 
-    where $i$ represents the step, at every step the amount used from each source
-    is estimated and the dam-water left is updated accordingly.
+    where $i$ represents the step, at every step the amount used from each
+    source is estimated and the source 1 availability is updated accordingly.
+    $C_w$ represents the flow rate of water consumed and $T_s$ is the
+    sample time at which steps are computed.
 \end{description}
-
 
 % %================================
 % \subsection{Water resource availability}
@@ -67,9 +107,17 @@ includes the following components and is visualized in \reffig{cc:optimization:e
 
 \section{Static optimization}
 
-As a first approach, the optimization problems evaluated are static. They are
-defined in a particular time given an environment, and decisions do not take
-into account prior decisions, neither consider the effect on future state.
+Static optimization problems are defined in a particular time, given an
+environment, and decisions do not take into account prior states or decisions,
+neither consider the effect on future state.
+
+From a process perspective this applies to all process variables, except for
+the water resource availability, being the only variable that depends on the
+previous state, \ie is not static. Each time a static problem is evaluated, it
+begins with a specific initial water volume ($V_{\text{avail},0}$) for that
+step. After solving the problem, this volume must be updated before proceeding
+to the next step. As a result, evaluating multiple consecutive steps requires a
+sequential approach.
 
 \reminder{Optimization problem definition}{
     The general optimization function is defined as:\footnote{See \nrefsec{intro:optimization}}
@@ -81,21 +129,27 @@ into account prior decisions, neither consider the effect on future state.
     where \(x\) is the decision vector, \(e\) represents the environment, and \(\theta\) contains the fixed parameters.
 }
 
-Every time a problem is evaluated, it will start with some initial volume
-($V_{avail,0}$) for the particular step, and this volume needs to be updated
-before evaluating the next step. This yields that in order to evaluate several
-consecutive steps, they must do so sequentially.
+In order to streamline the problem formulation, a general combined cooling
+system model is used for every scenario. This unified model incorporates both
+the dry and wet coolers, as well as the shared surface condenser. For cases
+where only one cooler is used, the other can be effectively disabled by setting
+its associated variables to zero and configuring the hydraulic circuit to
+prevent water circulation through it.
 
 %================================
 \subsection{Dry cooler}
 \labsec{cc:optimization:static:dc}
 
-In the first case study, only the dry cooler is involved, and so all terms
-related to the wet cooler are set to zero and every water resource related term
-can be ignored as can be seen in \reffig{cc:optimization:diagram-dc}. The components are defined as follows:
+In the first case study, the optimization focuses exclusively on the dry
+cooler. Consequently, all variables and terms associated with the wet cooler,
+as well as water resource management, are omitted from the formulation, making
+the problem completely static\sidenote{Achieved by setting $R_p=0$ and
+$R_s$=0}. This configuration is illustrated in
+\reffig{cc:optimization:diagram-dc} and the problem is defined as follows:
+
 
 \marginnote[*5]{See \nrefsec{cc:modelling:dc} for a detailed description of the
-dry cooler and condenser model.}
+dry cooler and \nrefsec{cc:modelling:condenser} for the condenser model.}
 
 \problemdefinitionbox{\gls{dcLabel} - static}{
     \begin{equation*}
@@ -104,7 +158,7 @@ dry cooler and condenser model.}
 
     \textbf{with}:
     \begin{align*}
-        T_{dc,out},\,C_e,\,T_{c,out} &= f(q_c,\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_v,\, \dot{m}_v)
+        T_{dc,out},\,C_e,\,T_{c,in},\,T_{c,out} &= \text{dcs\:model}(q_c,\,\omega_{\text{dc}},\, T_{\text{amb}},\, T_v,\, \dot{m}_v)
     \end{align*}
     \begin{itemize}
         \item Decision variables
@@ -150,16 +204,33 @@ dry cooler and condenser model.}
     \labfig{cc:optimization:diagram-dc}
 \end{marginfigure}
 
+The cost of cooling ($J$) is equivalent to the cost of electricity ($J_e$),
+which in turn is the product of the electricity price ($P_e$) and the
+electricity consumption ($C_e$). Only two decision variables are defined, the
+cooling water recirculation flow rate ($q_c$) and the dry cooler fan speed
+($\omega_{dc}$). Any two pair of values for these variables that satisfy the
+bounds do not necessary yield a feasible solution, that is why three constrains
+are introduced, the first one ensures that the outlet cooler temperature
+matches the inlet condenser temperature (since they are directly connected,
+they must be the same), the second one ensures that the condenser outlet
+temperature respects the minimum temperature difference with the vapor
+temperature, and the last one ensures that the cooling duty of the dry cooler
+matches the one of the condenser.\sidenote[][*-4]{In order to better comprehend why
+mismatches between cooler and condenser can exist, the reader is referred to
+\nrefsec{cc:modelling:complete-model}}.
 
 
 %================================
 \subsection{Wet cooler}
 \labsec{cc:optimization:static:wct}
 
-\marginnote[*5]{See \nrefsec{cc:modelling:wct} for a detailed description of the
-wet cooler and condenser model.}
+Conversely to the dry cooler, the wet cooler optimization problem is configured
+by setting $R_p=1$, effectively disabling the dry cooler. In this case, water
+associated variables are included in the problem formulation:\sidenote{See
+\nrefsec{cc:modelling:wct} for a detailed description of the wet cooler and
+condenser model.}
 
-\problemdefinitionbox{\gls{wctLabel} - static}{
+\problemdefinitionbox{\gls{wctLabel} -- static}{
     \begin{equation*}
         \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = J_e + J_w
     \end{equation*}
@@ -170,7 +241,7 @@ wet cooler and condenser model.}
         J_{w} &= C_{w,s1} \cdot P_{w,s1} + C_{w,s2} \cdot P_{w,s2} \\
         C_{w,s1} &= \min \left((V_{avail}, C_{w} \cdot T_s)/T_s \right) \\
         C_{w,s2} &= C_w-C_{w,s1} \\
-        T_{wct,out},\,C_e,\,C_w,\,T_{c,out}&=f(q_c, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
+        T_{wct,out},\,C_e,\,C_w,\,T_{c,in},\,T_{c,out}&=\text{wcs\:model}(q_c, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
     \end{align*}
     \begin{itemize}
         \item Decision variables
@@ -216,14 +287,27 @@ wet cooler and condenser model.}
     \labfig{cc:optimization:diagram-wct}
 \end{marginfigure}
 
+In this version of the problem, the decision vector is composed by the
+recirculation flow rate, but now the fan speed of the wet cooler
+($\omega_{wct}$) is included. The cost of cooling now includes the cost of
+water ($J_w$) and its availability is updated using the water consumption
+($C_{w}$) as described in
+Equations~\eqref{eq:cc:optimization:wa1}--\eqref{eq:cc:optimization:wa3}. The
+environment now includes the air relative humidity and water prices.
+
 
 %================================
 \subsection{Combined cooler}
 \labsec{cc:optimization:static:cc}
 
-
-\marginnote[*5]{See \nrefsec{cc:modelling:complete-model} for a detailed description of the
-combined cooler and condenser model.}
+The last static optimization problem is the combined cooler, which incorporates
+both the dry and wet coolers, as well as the condenser. Here the hydraulic
+distribution is not fixed but is part of the decision variables, allowing the
+optimization to determine the optimal distribution between the two coolers. The
+problem is defined as follows:\sidenote{
+    See~\nrefsec{cc:modelling:complete-model} for a detailed description of the
+    combined cooler and condenser model.
+}
 
 \problemdefinitionbox{\gls{ccLabel} - static}{
     \begin{equation*}
@@ -236,7 +320,7 @@ combined cooler and condenser model.}
         J_{w} &= C_{w,s1} \cdot P_{w,s1} + C_{w,s2} \cdot P_{w,s2} \\
         C_{w,s1} &= \frac{\min(V_{avail}, C_{w} \cdot T_s)}{T_s} \\
         C_{w,s2} &= C_w-C_{w,s1} \\
-        T_{cc,out},\,C_e,\,C_w,\,T_{c,out}&=f(q_c, R_p, R_s, \omega_{dc}, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
+        T_{cc,out},\,C_e,\,C_w,\,T_{c,in},\,T_{c,out}&=\text{ccs\:model}(q_c, R_p, R_s, \omega_{dc}, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
     \end{align*}
     \begin{itemize}
         \item Decision variables
@@ -246,10 +330,6 @@ combined cooler and condenser model.}
         \item Environment variables
         \[
         e = [T_{\text{amb}}, HR,\, P_e,\, P_{w,s1},\, P_{w,s2}, V_{avail},\, T_v,\, \dot{m}_v]
-        \]
-        \item Fixed parameters
-        \[
-        \theta = [R_p = 1,\, R_s = 0,\, \omega_{\text{dc}} = 0]
         \]
 
     \end{itemize}
@@ -281,22 +361,39 @@ combined cooler and condenser model.}
     \caption{Diagram of the combined cooler and condenser problem}
     \labfig{cc:optimization:diagram-cc}
 \end{marginfigure}
+% TODO: Add a background color that depends on the cooling color provided by
+% each cooler, this way it can be visualized how the cooling contribution
+% changes
+\begin{marginfigure}[*-5]
+    \includegraphics[]{figures/cc-optimization-pareto.png}
+    \caption{Pareto front for a particular problem instance of the combined cooler optimization problem.}
+    \labfig{cc:optimization:pareto}
+\end{marginfigure}
+
+\reffig{cc:optimization:pareto}\todo{Add a background color antes del domingo} illustrates the various ways a combined cooler
+can meet a specific cooling load under identical environmental conditions. The
+optimal operating points—the Pareto front—are highlighted in the figure\marginreminder{Pareto front}{
+    When dealing with multiple objectives where no single solution is optimal, but
+    improvements in one objective lead to trade-offs in others, a set of points is
+    obtained that represents the best trade-offs between the objectives—known as a
+    Pareto front\footnote{See \nrefsec{intro:optimization:multi-objective}}.
+}. The background color represents the distribution of cooling power: green
+indicates a greater contribution from the dry cooler, while purple indicates a
+greater contribution from the wet cooler. Notably, only the leftmost point
+relies exclusively on the dry cooler. Moving even slightly to the right results
+in a rapidly increasing contribution from the wet cooler.
 
 
-\section[]{Shrinking horizon optimization}[Horizon optimization]
+\section[Shrinking horizon optimization]{Shrinking horizon optimization}[Horizon optimization]
 
 The problem structure is very similar to the static alternative, the main
 difference is that now the decision and environment vectors are composed not
 from the expected value for the optimization step, but an array of values from
-the current optimization step until the end of the prediction horizon
-($n_{steps}$), this means that forecasts for each variable in the environment
-are needed, that is:
-\begin{enumerate} 
-    \item An operation plan of the thermal load (power block or MED operating
-    conditions) needs to be defined.
-    \item An estimation of the costs context evolution. Water price is unlikely
-    to change often, 
-\end{enumerate}
+the current optimization step ($i$) until the end of the prediction horizon
+($n_{steps}$)\sidenote{
+    Bold notation is used to indicate that the variable is an array and not a
+    single value, \eg $\mathbf{x}$
+}:
 
 \marginnote[*5]{$\forall i = 1 \ldots n_{steps}$ is a notation to indicate that
     a condition must be held at every step $i$ in the optimization horizon
@@ -320,14 +417,14 @@ are needed, that is:
     \begin{itemize}
         \item Decision variables
         \[
-        \mathbf{x} = [\mathbf{q_c}, \mathbf{R_p}, \mathbf{R_s}, \mathbf{\omega_{\text{dc}}}, \mathbf{\omega_{\text{wct}}}]
+        \mathbf{x} = [\mathbf{q_c}, \mathbf{R_p}, \mathbf{R_s}, \boldsymbol{\omega}_{\text{dc}}, \boldsymbol{\omega}_{\text{wct}}]
         \]
-        where $x=[x_{0,0},\,\ldots\, x_{0,n_{steps}},\, \ldots,\, x_{n_{x},n_{steps}}]$
+        where $x=[x_{1,1},\,\ldots\, x_{1,n_{steps}},\, \ldots,\, x_{n_{x},n_{steps}}]$
         \item Environment variables
         \[
         \mathbf{e} = [\mathbf{T_{\text{amb}}}, \mathbf{HR},\, \mathbf{P_e},\, \mathbf{P_{w,s1}},\, \mathbf{P_{w,s2}}, \mathbf{V_{avail,0}},\, \mathbf{T_v},\, \mathbf{\dot{m}_v}]
         \]
-        where $e=[e_{0,0},\,\ldots\, e_{0,n_{steps}},\, \ldots,\, e_{n_{e},n_{steps}}]$
+        where $e=[e_{1,1},\,\ldots\, e_{1,n_{steps}},\, \ldots,\, e_{n_{e},n_{steps}}]$
 
     \end{itemize}
 
@@ -353,80 +450,234 @@ are needed, that is:
     \end{itemize}
 }
 
+This formulation allows for an arbitrary long prediction horizon, however,
+since forecasts for each variable in the environment are needed, it will be
+limited to a number of steps where reliable predictions can be obtained. On
+this work water availability is allocated daily so the prediction horizon is
+established until the end of the operation day, and it starts from the current
+time when the optimization is launched.
+
+% \begin{enumerate} 
+%     \item An operation plan of the thermal load (power block or MED operating
+%     conditions) needs to be defined.
+%     \item An estimation of the costs context evolution. Water price is unlikely
+%     to change often, but electricity can be more dynamic, specially market prices.
+%     \item 
+% \end{enumerate}
+
 %================================
-\subsection[]{A discussion on solving the optimization problem}[Problem discussion]
+\subsection{A discussion on solving the optimization problem}[Problem discussion]
+
+\begin{marginfigure}
+    \includegraphics[]{figures/optimization-diagrams-search-space.png}
+    \caption{Visualization of a constrained search space for two decision variables}
+    \labfig{cc:optimization:search-space}
+\end{marginfigure}
+
 Aquí comentar cómo no es factible resolver el problema directamente porque es
 muy difícil encontrar soluciones factibles debido a la estructura del problema.
 
 Comentar número de elementos en el vector de decisión, crecimiento exponencial
 de la complejidad del problema con el número de pasos en el horizonte, etc..
 
+As defined, the \gls{ccsLabel} problem decision vector is composed by five
+variables that are direct inputs on the process\sidenote{Decision variables
+represent actuators in the system}. But as mentioned, not any five values for
+these variables will yield a feasible solution, in the real system this
+translates to the fact that a stable operation \ie steady-state would never be
+reached for that set of inputs. To check for feasible operation the three
+mentioned constraints are introduced, however, this increases the complexity of
+the solution space significantly, since the solution space will not be
+continuous, but as seen in \reffig{cc:optimization:search-space}, it will be
+formed by islands of feasible solution space regions separated by infeasible
+regions. This means that finding a feasible solution is not trivial, and the
+optimization algorithm will need to explore the solution space-a global search
+algorithm-in an attempt to find the global minimum.
+
+For one single step, most global search algorithms with multiple runs\sidenote{
+    Tried algorithms include: Algoritmos probados de pygmo y Poner Gaussian también
+} were able to consistently find the global optima, this was not the case
+    for local gradient-based algorithms, which were very sensible to the
+    initial conditions and often converged to local minima, even when coupled
+    with other techniques, such as Generalized Monotonic Basin Hopping
+    \sidecite{wales_global_1997}, they struggled to consistently escape these
+    local optima.
+
+The problem becomes significantly more complex when the prediction horizon is
+extended, the decision vector grows five-fold for each additional step in the
+prediction horizon, and the optimization algorithm is tasked with finding a
+feasible solution for this much larger decision vector, in a very complex
+solution space, at once for all steps. The chances of finding a feasible
+solution decrease significantly, and this was reflected in the failure to find
+a single feasible solution. Even when providing an initial guess composed by
+the static problem solutions for each step in a 24 steps horizon, the returned
+solution was that same initial guess.
+
+
 %================================
-\subsection[]{Proposed solution: Decomposition-based multi-objective optimization with trajectory planning}[Proposed solution]
+\subsection{Proposed solution: Decomposition-based multi-objective optimization with trajectory planning}[Proposed solution]
 
-We propose a two-level optimization strategy for a multi-stage decision
-problem\sidenote[][*-5]{Alternative wording: Pareto front chaining, multi-stage
-Pareto optimization, path planning on Pareto surfaces. }. At each stage of a
-prediction horizon, we independently solve a multi-objective optimization
-problem, yielding a Pareto front\marginreminder[*-3]{Pareto front}{
-When dealing with multiple objectives where no single solution is optimal, but
-improvements in one objective lead to trade-offs in others, we obtain a set of
-points that represent the best trade-offs between the objectives, known as a
-Pareto front\footnote{See \nrefsec{intro:optimization:multi-objective}}
-}. We then formulate a global optimization problem to select a consistent path
-through the sequence of Pareto fronts, minimizing a cumulative objective (e.g.,
-cost or distance), similar to a pathfinding or TSP-like problem over
-Pareto-optimal points.
+A two-level optimization strategy is proposed to solve a multi-step decision
+problem\sidenote[][*-3]{Alternative wording: Pareto front chaining, multi-step
+Pareto optimization, path planning on Pareto surfaces.}. At each step of the
+prediction horizon, a multi-objective optimization problem is independently
+solved, yielding a Pareto front. A global
+optimization problem is then formulated to select a path through the
+sequence of Pareto fronts, minimizing a cumulative objective (e.g., cost or
+distance), akin to a pathfinding or \gls{tspLabel}-like problem over Pareto-optimal
+points.
 
-\begin{enumerate}
-    \item Decompose a multi-stage problem into $N$ stages.
-    \item Solve a multi-objective optimization problem at each stage
-    independently to obtain a Pareto front.
-    \item Formulate a second-level problem to select a path through these
-    Pareto fronts that minimizes a global objective, the cumulative operation
-    cost\sidenote{analogously to a Traveling Salesman Problem (TSP) on the
-    Pareto surfaces}.
-\end{enumerate}
+The methodology is illustrated in \reffig{cc:optimization:horizon-methodology}
+and its components are described in the following sections.
+
+\begin{figure*}[h!]
+    \begin{flushleft}
+        {\textbf{0.} Decompose the problem horizon into its $n$ steps elements.}
+    \end{flushleft}
+    \vspace{1ex}
+
+    \begin{flushleft}
+    {\textbf{1.} Solve a multi-objective optimization problem,
+    independently for each step, to obtain a set of pareto fronts:}
+    \end{flushleft}
+    \vspace{0.5ex}
+    \includegraphics[]{figures/optimization-diagrams-paretos.png}
+    \vspace{1ex}
+
+    \begin{flushleft}
+    {\textbf{2.} Select a path through these
+    pareto fronts that minimizes a global objective: the cumulative operation
+    cost of operation}
+    \end{flushleft}
+    \vspace{0.5ex}
+    \includegraphics[]{figures/optimization-diagrams-path-selection.png}
+    % \vspace{1ex}
+    
+    \caption[Proposed methodology. Decomposition-based multi-objective
+    optimization with trajectory planning]{Proposed methodology.
+    Decomposition-based multi-objective optimization with trajectory planning.
+    In step 2. three paths are illustrated: a water-greedy
+    \textcolor[HTML]{9673A6}{dash-purple (- -) path}, a water-conservative
+    \textcolor[HTML]{82B366}{green-dotted path (\texttt{..})} and a
+    compromise-approach \textcolor[HTML]{FFCE9F}{solid-\textit{orangey} path
+    (\texttt{--})}}
+    \labfig{cc:optimization:horizon-methodology}
+\end{figure*}
 
 \subsubsection{Solving the multi-objective optimization problems}
+
+To limit the complexity of the problem, the decision space can be reduced by
+one by variable by analyzing how the complete model is solved and described in
+\nrefsec{cc:modelling:complete-model}; firstly, the condenser can be solved
+just by using the recirculation flow rate ($q_c$), it follows the dry cooler by
+adding the first valve ratio ($R_p$) and dry cooler fan speed ($\omega_{dc}$).
+The only remaining component to solve is the wet cooler. The wet cooler inlet
+conditions ($q_{wct}$, $T_{wct,in}$) can be determined by the second valve
+ratio ($R_s$). As for the outlet conditions, from the condenser evaluation, its
+inlet temperature is known and it sets the value of the combined cooler
+outlet temperature ($T_{cc,out}$), which in turn is the result of the mixing from the \gls{dcLabel}
+and \gls{wctLabel} outlet temperatures ($T_{dc,out}$ and $T_{wct,out}$,
+respectively). 
+
+The result of this analysis is that the wet cooler fan speed is not a decision
+variable anymore, but an output of the model, which can be computed by inverting the
+wet cooler model, where an outlet temperature is provided as input, and the fan
+speed is computed as an output. Summarizing, the decision vector can be reduced
+from five to four variables:
+
+\begin{equation*}
+    x = [q_c, R_p, R_s, \omega_{dc}]
+\end{equation*}
+
+More importantly, now the optimization algorithm does not need to find a set of
+five inputs that produce a feasible solution in a complex solution space, but
+only four values from which a feasible wet cooling tower fan speed exists, \ie
+within its bounds $\omega_{wct}\,\in [\underline{w}_{wct}, \overline{w}_{wct}]$, thus greatly
+simplifying the problem.
+
+A straightforward approach to solve the multi-objective optimization is to do a
+grid-search over the decision space, evaluating the model for every combination
+of decision variables, and then storing only the points for which a feasible
+$\omega_{wct}$ exists. This approach is not recommended for large decision
+spaces, but for the four-dimensional decision space and with a model that can
+be evaluated in fractions of a second, it is feasible.
+
+Next, the Pareto front is computed from the feasible points, which are
+evaluated in terms of the two consumptions: electricity ($C_e$) and water
+($C_w$). By definition, the Pareto front is the set of points that cannot be
+improved in one objective without worsening the other, and it is computed by
+checking for each point if there is another point that is better in both
+objectives, and if so, it is removed from the set of feasible points. The
+remaining points form the Pareto front. This process is repeated for
+each step in the prediction horizon, resulting in a set of Pareto fronts, one
+for each step, as visualized in
+\reffig{cc:optimization:horizon-methodology}--\texttt{1}.
+
 
 \subsubsection{Path selection subproblem}
 
 Problem nature description.
 
-The path selection subproblem can be formulated as a graph traversal problem,
-where each node represents a point in the Pareto front of a stage, and edges
-represent the transition costs between these points. The goal is to find a path
-through the graph that minimizes the cumulative cost. This subproblem is a combinatorial
-optimization problem, in particular, a layered weighted directed graph.
+The path selection subproblem can be formulated as a graph traversal problem
+and is illustrated in \reffig{cc:optimization:horizon-methodology}--2. Each
+node represents a point in the Pareto front of a step, and edges represent the
+transition costs between these points, that is, the cumulative cost so far
+($J_{0..i}$). The goal is to find a path through the graph that minimizes the
+final cumulative cost ($J_{0..n_{steps}}$ or simply \( J \)).
 
-Definición formal del problema
+The transition cost is correlated to the current resource availability
+($V_{avail,i}$)\sidenote{See
+Equations~\eqref{eq:cc:optimization:wa1}--\eqref{eq:cc:optimization:wa3}} and
+will depend on the current state of the system, which is a function of the
+previous decisions. This is a very simple calculation that can be computed
+almost instantly, and it is the only information needed to compute the
+transition costs between two points in the Pareto front.
 
-The transition cost is correlated to the current resource availability and will
-depend on the current state of the system, which is a function of the
-previous decisions.
+Three paths are illustrated in \reffig{cc:optimization:horizon-methodology}--2.
+The
+\textcolor[HTML]{9673A6}{dash-purple (- -) path} 
+is a path that chooses nodes with a high water use\sidenote{In
+\reffig{cc:optimization:horizon-methodology}, nodes are ordered with increasing
+values of \(C_w\) from bottom to top.}, so in the first split it can be seen
+it achieves the lowest cost of operation, but also leaves the least water
+available for the next steps, resulting in a higher total cost of operation. On
+the other hand, the \textcolor[HTML]{82B366}{green-dotted path (\texttt{..})}
+chooses the nodes with the lowest water use, this translates in a consistently
+higher cost of operation and leaving some water available at the end of the
+horizon. Because of the formulation of the problem, this is sub-optimal since
+this unused water is considered lost. Finally, the
+\textcolor[HTML]{FFCE9F}{solid-\textit{orangey} path (\texttt{--})} is a compromise
+between the two, it uses water more efficiently, leaving no water available at
+the end of the horizon and minimizing the overall cost of operation.
 
+% Definición formal del problema
+This subproblem is a combinatorial
+optimization problem, in particular, a layered weighted directed graph and can
+be mathematically defined as follows:
 
-Mencionar algoritmo seleccionado
+\begin{equation*}
+    \min_{\mathbf{p}} \quad J = \sum_{i=1}^{n_{steps}} C_{transition,i} \cdot T_s
+\end{equation*}
 
-The path optimization could be handled via dynamic programming, graph search
-(like Dijkstra or A*), or metaheuristics depending on the problem size.
-Metaheuristics:
+where \( \mathbf{p} \) is the path through the Pareto fronts, \( n_{steps} \)
+is the number of steps in the prediction horizon, and \( C_{transition,i} \)
+is the transition cost between the Pareto front points at step \( i \). The
+transition cost is defined as the difference in cumulative cost between two
+points in the Pareto front, which can be computed as follows:
+\begin{equation*}
+    C_{transition,i} = C_{e,j} + C_{w,j} - C_{e,k} - C_{w,k}
+\end{equation*}
+where \( j \) and \( k \) are the indices of the two points in the Pareto front
+at step \( i \) that are being compared. The transition cost represents the
+difference in cumulative cost between two points in the Pareto front, and it
+is computed as the difference in electricity and water consumption between the
+two points. This cost is computed for every pair of points in the Pareto front
+at each step, resulting in a matrix of transition costs.
+% Mencionar algoritmos candidatos para resolver el problema
+The problem could be handled via dynamic programming, graph search
+(like Dijkstra or A*), or metaheuristics such as genetic algorithms...
 - Genetic Algorithms
 - Simulated Annealing
 - Ant Colony Optimization
 - Tabu Search
 - Particle Swarm Optimization
-
-%===================================
-%===================================
-\section{Limitations}
-\labsec{cc:optimization:limitations}
-
-Modelado de disponibilidad de agua en función de las precipitaciones. Esto es
-lo más complejo. Aunque haya mucha disponibilidad, puede ser que haya mucha
-demanda de agua (agricultura, etc), si hay poca disponibilidad puede que ni
-siquiera se permitiese su implementación. Si finalmente se ajusta el volumen
-máximo para que coincida con lo que consumiría el sistema húmedo
-exclusivamente, esto va a hacer que el húmedo no sea factible parte del año.
-Discutir.

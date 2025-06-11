@@ -93,6 +93,7 @@
 \usepackage{fontspec}
 \usepackage{etoolbox}
 \usepackage[percent]{overpic}
+\usepackage[fixed]{fontawesome5}
 \newsavebox\captionqr
 
 % Set custom font, from TheoWinterhalter-PhD
@@ -118,7 +119,9 @@
 
 % Define the base URL for the figures repository
 % Used for QR codes to link to the interactive version of some figures
-\newcommand{\repositoryBaseUrl}{https://github.com/juan11iguel/my-thesis/blob/main} % Replace with your actual ID
+\newcommand{\repositoryBaseUrl}{https://github.com/juan11iguel/my-thesis/blob/main}
+\newcommand{\solhycoolRepositoryBaseUrl}{https://github.com/juan11iguel/solhycool/blob/main}
+
 
 % TODO: Move into macros.tex
 % Reminder box
@@ -516,16 +519,15 @@ As can be seen in \refprob{test}, the counter is working.
 
 \endgroup
 
-
-% \input{chapters/how-to-read-this-thesis.tex}
-% \input{chapters/about-the-author.tex}
-
 %----------------------------------------------------------------------------------------
 %	MAIN BODY
 %----------------------------------------------------------------------------------------
-
 \mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
+
 \setchapterstyle{kao} % Choose the default chapter heading style
+\input{chapters/how-to-read-this-thesis.tex}
+\input{chapters/about-the-author.tex}
+
 
 %----------------------------------------------------------------------------------------
 %	INTRODUCTION
@@ -560,27 +562,26 @@ As can be seen in \refprob{test}, the counter is working.
 % ----------------------------------------------------------------------------------------
 % 	EXAMPLE
 % ----------------------------------------------------------------------------------------
-\pagelayout{wide} % No margins
-\addpart{Template content}
-\pagelayout{margin} % Restore margins
 
-\input{chapters/template-introduction.tex}
+\input{chapters/template-content.tex}
 
-\pagelayout{wide} % No margins
-\addpart{Class Options, Commands and Environments}
-\pagelayout{margin} % Restore margins
+% \input{chapters/template-introduction.tex}
 
-\input{chapters/template-options.tex}
-\input{chapters/template-textnotes.tex}
-\input{chapters/template-figsntabs.tex}
-\input{chapters/template-references.tex}
+% % \pagelayout{wide} % No margins
+% % \addpart{Class Options, Commands and Environments}
+% % \pagelayout{margin} % Restore margins
 
-\pagelayout{wide} % No margins
-\addpart{Design and Additional Features}
-\pagelayout{margin} % Restore margins
+% \input{chapters/template-options.tex}
+% \input{chapters/template-textnotes.tex}
+% \input{chapters/template-figsntabs.tex}
+% \input{chapters/template-references.tex}
 
-\input{chapters/template-layout.tex}
-\input{chapters/template-mathematics.tex}
+% \pagelayout{wide} % No margins
+% \addpart{Design and Additional Features}
+% \pagelayout{margin} % Restore margins
+
+% \input{chapters/template-layout.tex}
+% \input{chapters/template-mathematics.tex}
 
 % \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 

@@ -1,0 +1,1685 @@
+%=====================================
+%=====================================
+%=====================================
+%=====================================
+\pagelayout{wide} % No margins
+\addpart{Template content}
+\pagelayout{margin} % Restore margins
+%=====================================
+%=====================================
+%=====================================
+%=====================================
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Introduction}
+\labch{intro}
+
+\section{The Main Ideas}
+
+Many modern printed textbooks have adopted a layout with prominent 
+margins where small figures, tables, remarks and just about everything 
+else can be displayed. Arguably, this layout helps to organise the 
+	discussion by separating the main text from the ancillary material, 
+	which at the same time is very close to the point in the text where 
+	it is referenced.
+
+This document does not aim to be an apology of wide margins, for there 
+are many better suited authors for this task; the purpose of all these 
+words is just to fill the space so that the reader can see how a book 
+written with the kaobook class looks like. Meanwhile, I shall also try 
+to illustrate the features of the class.
+
+The main ideas behind kaobook come from this 
+\href{https://3d.bk.tudelft.nl/ken/en/2016/04/17/a-1.5-column-layout-in-latex.html}{blog 
+	post}, and actually the name of the class is dedicated to the author 
+of the post, Ken Arroyo Ohori, which has kindly allowed me to create a 
+class based on his thesis. Therefore, if you want to know more reasons 
+to prefer a 1.5-column layout for your books, be sure to read his blog 
+post.
+
+Another source of inspiration, as you may have noticed, is the 
+\href{https://github.com/Tufte-LaTeX/tufte-latex}{Tufte-Latex Class}. 
+The fact that the design is similar is due to the fact that it is very 
+difficult to improve something which is already so good. However, I like 
+to think that this class is more flexible than Tufte-Latex. For 
+instance, I have tried to use only standard packages and to implement as 
+little as possible from scratch;\sidenote{This also means that 
+understanding and contributing to the class development is made easier. 
+Indeed, many things still need to be improved, so if you are interested, 
+check out the repository on github!} therefore, it should be pretty easy 
+to customise anything, provided that you read the documentation of the 
+package that provides that feature.
+
+In this book I shall illustrate the main features of the class and 
+provide information about how to use and change things. Let us get 
+started.
+
+\section{What This Class Does}
+\labsec{does}
+
+The \Class{kaobook} class focuses more about the document structure than 
+about the style. Indeed, it is a well-known \LaTeX\xspace principle that 
+structure and style should be separated as much as possible (see also 
+\vrefsec{doesnot}). This means that this class will only provide 
+commands, environments and in general, the opportunity to do things, 
+which the user may or may not use. Actually, some stylistic matters are 
+embedded in the class, but the user is able to customise them with ease.
+
+The main features are the following:
+
+\begin{description}
+	\item[Page Layout] The text width is reduced to improve readability 
+	and make space for the margins, where any sort of elements can be 
+	displayed.
+	\item[Chapter Headings] As opposed to Tufte-Latex, we provide a 
+	variety of chapter headings among which to choose; examples will be 
+	seen in later chapters.
+	\item[Page Headers] They span the whole page, margins included, and, 
+	in twoside mode, display alternatively the chapter and the section 
+	name.\sidenote[][-2mm]{This is another departure from Tufte's 
+	design.}
+	\item[Matters] The commands \Command{frontmatter}, 
+	\Command{mainmatter} and \Command{backmatter} have been redefined in 
+	order to have automatically wide margins in the main matter, and 
+	narrow margins in the front and back matters. However, the page 
+	style can be changed at any moment, even in the middle of the 
+	document.
+	\item[Margin text] We provide commands \Command{sidenote} and 
+	\Command{marginnote} to put text in the 
+	margins.\sidenote[][-2mm]{Sidenotes (like this!) are numbered while 
+	marginnotes are not}
+	\item[Margin figs/tabs] A couple of useful environments is 
+	\Environment{marginfigure} and \Environment{margintable}, which, not 
+	surprisingly, allow you to put figures and tables in the margins 
+	(\cfr \reffig{marginmonalisa}).
+	\item[Margin toc] Finally, since we have wide margins, why don't add 
+	a little table of contents in them? See \Command{margintoc} for 
+	that.
+	\item[Hyperref] \Package{hyperref} is loaded and by default we try 
+	to add bookmarks in a sensible way; in particular, the bookmarks 
+	levels are automatically reset at \Command{appendix} and 
+	\Command{backmatter}. Moreover, we also provide a small package to 
+	ease the hyperreferencing of other parts of the text.
+	\item[Bibliography] We want the reader to be able to know what has 
+	been cited without having to go to the end of the document every 
+	time, so citations go in the margins as well as at the end, as in 
+	Tufte-Latex. Unlike that class, however, you are free to customise 
+	the citations as you wish.
+\end{description}
+
+\begin{marginfigure}[-5.5cm]
+	\includegraphics{monalisa}
+	\caption[The Mona Lisa]{The Mona Lisa.\\ 
+	\url{https://commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg}}
+	\labfig{marginmonalisa}
+\end{marginfigure}
+
+The order of the title pages, table of contents and preface can be 
+easily changed, as in any \LaTeX\ document. In addition, the class is 
+based on \KOMAScript's \Class{scrbook}, therefore it inherits all the 
+goodies of that.
+
+\section{What This Class Does Not Do}
+\labsec{doesnot}
+
+As anticipated, further customisation of the book is left to the user. 
+Indeed, every book may have sidenotes, margin figures and so on, but 
+each book will have its own fonts, toc style, special environments and 
+so on. For this reason, in addition to the class, we provide only 
+sensible defaults, but if these features are not needed, they can be 
+left out. These special packages are located in the \Path{style} 
+directory, which is organised as follows:
+
+\begin{description}
+	\item[kao.sty] This package contains the most important definitions 
+    of macros and specifications of page layout. It is the heart of the 
+    \Class{kaobook}. Special features include: most commonly used 
+    \LaTeX\ packages are already loaded; there is some flexibility to 
+    change the default layout; some fancy environments (with coloured 
+    boxes around them, floating, and/or with a counter) are predefined.
+    \item[kaobiblio.sty] Where commands to print citations in the 
+    margins are defined.\sidenote{See \refch{references}.} It is the 
+    \Class{kao-} analog of \Package{biblatex}.
+    \item[kaorefs.sty] It contains some useful commands to manage 
+    labeling and referencing, again to ensure that the same elements are 
+    referenced always in a consistent way.
+    \item[kaotheorems.sty] For the style of mathematical environments, 
+    which can be optionally wrapped in a colourful \Package{mdframed} 
+    environment, like in this document, or not.
+    \end{description}
+
+\marginnote[2mm]{The audacious users might feel tempted to edit some of 
+these packages. I'd be immensely happy if they sent me examples of what 
+they have been able to do!}
+
+In the rest of the book, I shall assume that the reader is not a novice 
+in the use of \LaTeX, and refer to the documentation of the packages 
+used in this class for things that are already explained there. 
+Moreover, I assume that the reader is willing to make minor edits to the 
+provided packages for styles, environments and commands, if he or she 
+does not like the default settings.
+
+\section{How to Use This Class}
+
+Either if you are using the template from 
+\href{http://latextemplates.org/template/kaobook}{latextemplates}, or if 
+you cloned the GitHub 
+\href{https://www.github.com/fmarotta/kaobook}{repository}, there are 
+infinite ways to use the \Class{kaobook} class in practice, but we will 
+discuss only two of them. The first is to find the \Path{main.tex} file 
+which I used to write this book, and edit it; this will probably involve 
+a lot of text-deleting, copying-and-pasting, and rewriting. The second 
+way is to start almost from scratch and use the 
+\Path{./examples/minimal\_book/main.tex} file, which is a cleaned-up 
+version of the \Path{./examples/documentation/main.tex}; even if you 
+choose the second way, you may find it useful to draw inspiration from 
+the \Path{./examples/documentation/main.tex} file.
+
+To compile the document, assuming that its name is \Path{main.tex}, you 
+will have to run the following sequence of commands:
+
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+pdflatex main # Compile template
+makeindex main.nlo -s nomencl.ist -o main.nls # Compile nomenclature
+makeindex main # Compile index
+biber main # Compile bibliography
+makeglossaries main # Compile glossary
+pdflatex main # Compile template again
+pdflatex main # Compile template again
+\end{lstlisting}
+
+You may need to compile the template some more times in order for some 
+errors to disappear. For any support requests, please ask a question on 
+\url{tex.stackexchange.org} with the tag \enquote{kaobook}, open an 
+issue on GitHub, or contact the author via e-mail.
+
+
+\setchapterpreamble[u]{\margintoc}
+
+%=====================================
+%=====================================
+%=====================================
+%=====================================
+\pagelayout{wide} % No margins
+\addpart{Class Options, Commands and Environments}
+\pagelayout{margin} % Restore margins
+%=====================================
+%=====================================
+%=====================================
+%=====================================
+
+\chapter{Class Options}
+\labch{options}
+
+In this chapter I will describe the most common options used, both the 
+ones inherited from \Class{scrbook} and the \Class{kao}-specific ones. 
+Options passed to the class modifies its default behaviour; beware 
+though that some options may lead to unexpected results\ldots
+
+\section{\Class{KOMA} Options}
+
+The \Class{kaobook} class is based on \Class{scrbook}, therefore it 
+understands all of the options you would normally pass to that class. If 
+you have a lot of patience, you can read the \KOMAScript\xspace 
+guide.\sidenote{The guide can be downloaded from 
+\url{https://ctan.org/pkg/koma-script?lang=en}.} Actually, the reading 
+of such guide is suggested as it is very instructive.
+
+Every \KOMAScript\xspace option you pass to the class when you load it 
+is automatically activated. In addition, in \Class{kaobook} some options 
+have modified default values. For instance, the font size is 9.5pt and 
+the paragraphs are separated by space,\sidenote[][-7mm]{To be precise, 
+they are separated by half a line worth of space: the \Option{parskip} 
+value is \enquote{half}.} not marked by indentation.
+
+\section{\Class{kao} Options}
+
+In the future I plan to add more options to set the paragraph formatting 
+(justified or ragged) and the position of the margins (inner or outer in 
+twoside mode, left or right in oneside mode).\sidenote{As of now, 
+paragraphs are justified, formatted with \Command{singlespacing} (from 
+the \Package{setspace} package) and \Command{frenchspacing}.}
+
+I take this opportunity to renew the call for help: everyone is 
+encouraged to add features or reimplement existing ones, and to send me 
+the results. You can find the GitHub repository at 
+\url{https://github.com/fmarotta/kaobook}.
+
+\begin{kaobox}[title=To Do]
+Implement the \Option{justified} and \Option{margin} options. To be 
+consistent with the \KOMAScript\xspace style, they should accept a 
+simple switch as a parameter, where the simple switch should be 
+\Option{true} or \Option{false}, or one of the other standard values for 
+simple switches supported by \KOMAScript. See the \KOMAScript\xspace 
+documentation for further information.
+\end{kaobox}
+
+The above box is an example of a \Environment{kaobox}, which will be 
+discussed more thoroughly in \frefch{mathematics}. Throughout the book I 
+shall use these boxes to remarks what still needs to be done.
+
+\section{Other Things Worth Knowing}
+
+A bunch of packages are already loaded in the class because they are 
+needed for the implementation. These include:
+
+\begin{itemize}
+	\item etoolbox
+	\item calc
+	\item xifthen
+	\item xkeyval
+	\item xparse
+	\item xstring
+\end{itemize}
+
+Many more packages are loaded, but they will be discussed in due time. 
+Here, we will mention only one more set of packages, needed to change 
+the paragraph formatting (recall that in the future there will be 
+options to change this). In particular, the packages we load are:
+
+\begin{itemize}
+	\item ragged2e
+	\item setspace
+	\item hyphenat
+	\item microtype
+	\item needspace
+	\item xspace
+	\item xcolor (with options \Option{usenames,dvipsnames})
+\end{itemize}
+
+Some of the above packages do not concern paragraph formatting, but we 
+nevertheless grouped them with the others. By default, the main text is 
+justified and formatted with singlespacing and frenchspacing; the margin 
+text is the same, except that the font is a bit smaller.
+
+As a last warning, please be aware that the \Package{cleveref} package 
+is not compatible with \Class{kaobook}. You should use the commands 
+discussed in \refsec{hyprefs} instead.
+
+\section{Document Structure}
+
+We provide optional arguments to the \Command{title} and 
+\Command{author} commands so that you can insert short, plain text 
+versions of this fields, which can be used, typically in the half-title 
+or somewhere else in the front matter, through the commands 
+\Command{@plaintitle} and \Command{@plainauthor}, respectively. The PDF 
+properties \Option{pdftitle} and \Option{pdfauthor} are automatically 
+set by hyperref to the plain values if present, otherwise to the normal 
+values.\sidenote[][*-1]{We think that this is an important point so 
+we remark it here. If you compile the document with pdflatex, the PDF 
+metadata will be altered so that they match the plain title and author 
+you have specified; if you did not specify them, the metadata will be 
+set to the normal title and author.}
+
+There are defined two page layouts, \Option{margin} and \Option{wide}, 
+and two page styles, \Option{plain} and \Option{fancy}. The layout 
+basically concern the width of the margins, while the style refers to 
+headers and footer; these issues will be 
+discussed in \frefch{layout}.\sidenote[][6mm]{For now, suffice it to say that pages with 
+the \Option{margin} layout have wide margins, while with the 
+\Option{wide} layout the margins are absent. In \Option{plain} pages the 
+headers and footer are suppressed, while in \Option{fancy} pages there 
+is a header.} 
+
+The commands \Command{frontmatter}, \Command{mainmatter}, and 
+\Command{backmatter} have been redefined in order to automatically 
+change page layout and style for these sections of the book. The front 
+matter uses the \Option{margin} layout and the \Option{plain} page 
+style. In the mainmatter the margins are wide and the headings are 
+fancy. In the appendix the style and the layout do not change; however 
+we use \Command{bookmarksetup\{startatroot\}} so that the bookmarks of 
+the chapters are on the root level (without this, they would be under 
+the preceding part). In the backmatter the margins shrink again and we 
+also reset the bookmarks root.
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Margin Stuff}
+
+Sidenotes are a distinctive feature of all 1.5-column-layout books. 
+Indeed, having wide margins means that some material can be displayed 
+there. We use margins for all kind of stuff: sidenotes, marginnotes, 
+small tables of contents, citations, and, why not?, special boxes and 
+environments.
+
+\section{Sidenotes}
+
+Sidenotes are like footnotes, except that they go in the margin, where 
+they are more readable. To insert a sidenote, just use the command 
+\Command{sidenote\{Text of the note\}}. You can specify a 
+mark\sidenote[O]{This sidenote has a special mark, a big O!} with \\ 
+\Command{sidenote[mark]\{Text\}}, but you can also specify an offset, 
+which moves the sidenote upwards or downwards, so that the full syntax is:
+
+\begin{lstlisting}[style=kaolstplain]
+\sidenote[mark][offset]{Text}
+\end{lstlisting}
+
+If you use an offset, you always have to add the brackets for the mark, 
+but they can be empty.\sidenote{If you want to know more about the usage 
+of the \Command{sidenote} command, read the documentation of the 
+\Package{sidenotes} package.}
+
+In \Class{kaobook} we copied a feature from the \Package{snotez} 
+package: the possibility to specify a multiple of \Command{baselineskip} 
+as an offset. For example, if you want to enter a sidenote with the 
+normal mark and move it upwards one line, type:
+
+\begin{lstlisting}[style=kaolstplain]
+\sidenote[][*-1]{Text of the sidenote.}
+\end{lstlisting}
+
+As we said, sidenotes are handled through the \Package{sidenotes} 
+package, which in turn relies on the \Package{marginnote} package.
+
+\section{Marginnotes}
+
+This command is very similar to the previous one. You can create a 
+marginnote with \Command{marginnote[offset]\{Text\}}, where the offset 
+argument can be left out, or it can be a multiple of 
+\Command{baselineskip},\marginnote[-1cm]{While the command for margin 
+notes comes from the \Package{marginnote} package, it has been redefined 
+in order to change the position of the optional offset argument, which 
+now precedes the text of the note, whereas in the original version it 
+was at the end. We have also added the possibility to use a multiple of 
+\Command{baselineskip} as offset. These things were made only to make 
+everything more consistent, so that you have to remember less things!} 
+\eg
+
+\begin{lstlisting}[style=kaolstplain]
+\marginnote[-12pt]{Text} or \marginnote[*-3]{Text}
+\end{lstlisting}
+
+\begin{kaobox}[title=To Do]
+A small thing that needs to be done is to renew the \Command{sidenote} 
+command so that it takes only one optional argument, the offset. The 
+special mark argument can go somewhere else. In other words, we want the 
+syntax of \Command{sidenote} to resemble that of \Command{marginnote}.
+\end{kaobox}
+
+We load the packages \Package{marginnote}, \Package{marginfix} and 
+\Package{placeins}. Since \Package{sidenotes} uses \Package{marginnote}, 
+what we said for marginnotes is also valid for sidenotes. Side- and 
+margin- notes are shifted slightly upwards 
+(\Command{renewcommand\{\textbackslash marginnotevadjust\}\{3pt\}}) in 
+order to align them to the bottom of the line of text where the note is 
+issued. Importantly, both sidenotes and marginnotes are defined as 
+floating if the optional argument (\ie the vertical offset) is left 
+blank, but if the offset is specified they are not floating. Recall that 
+floats cannot be nested, so in some rare cases you may encounter errors 
+about lost floats; in those cases, remember that sidenotes and 
+marginnotes are floats. To solve the problem, it may be possible to 
+transform them into non-floating elements by specifying an offset of 
+0pt.
+
+\section{Footnotes}
+
+Even though they are not displayed in the margin, we will discuss about 
+footnotes here, since sidenotes are mainly intended to be a replacement 
+of them. Footnotes force the reader to constantly move from one area of 
+the page to the other. Arguably, marginnotes solve this issue, so you 
+should not use footnotes. Nevertheless, for completeness, we have left 
+the standard command \Command{footnote}, just in case you want to put a 
+footnote once in a while.\footnote{And this is how they look like. 
+Notice that in the PDF file there is a back reference to the text; 
+pretty cool, uh?}
+
+\section{Margintoc}
+
+Since we are talking about margins, we introduce here the 
+\Command{margintoc} command, which allows one to put small table of 
+contents in the margin. Like other commands we have discussed, 
+\Command{margintoc} accepts a parameter for the vertical offset, like 
+so: \Command{margintoc[offset]}.
+
+The command can be used in any point of the document, but we think it 
+makes sense to use it just at the beginning of chapters or parts. In 
+this document I make use of a \KOMAScript\xspace feature and put it in 
+the chapter preamble, with the following code:
+
+\marginnote{The font used in the margintoc is the same as the one for 
+	the chapter entries in the main table of contents at the beginning 
+	of the document.}
+
+\begin{lstlisting}[style=kaolstplain]
+\setchapterpreamble[u]{\margintoc}
+\chapter{Chapter title}
+\end{lstlisting}
+
+As the space in the margin is a valuable resource, there is the 
+possibility to print a shorter version of the title in the margin toc. 
+Thus, there are in total three possible versions for the title of a 
+section (or subsection): the one for the main text, the one for the main 
+table of contents, and the one for the margintoc. These versions can be 
+specified at the same time when the section is created in the source 
+\TeX file:
+\begin{lstlisting}[style=kaolstplain]
+\section[alternative-title-for-toc]{title-as-written-in-text}[alternative-title-for-margintoc]
+\end{lstlisting}
+
+By default, the margintoc includes sections and subsections.
+If you only want to show sections, add
+\begin{lstlisting}[style=kaolstplain]
+\setcounter{margintocdepth}{\sectiontocdepth}
+\end{lstlisting}
+somewhere in your preamble.
+
+\section{Marginlisting}
+
+On some occasions it may happen that you have a very short piece of code 
+that doesn't look good in the body of the text because it breaks the 
+flow of narration: for that occasions, you can use a 
+\Environment{marginlisting}. The support for this feature is still 
+limited, especially for the captions, but you can try the following 
+code:
+
+\begin{marginlisting}
+	\caption{An example of a margin listing.}
+	\begin{lstlisting}[language=Python,style=kaolstplain]
+print("Hello World!")
+	\end{lstlisting}
+\end{marginlisting}
+
+\begin{verbatim}
+\begin{marginlisting}
+	\caption{My caption}
+	\begin{lstlisting}[language=Python,style=kaolstplain]
+	... code ...
+	\end{lstlisting}
+\end{marginlisting}
+\end{verbatim}
+
+Since we are here, let me spend a few words about listsings. Thanks to contributions from \href{https://github.com/fmarotta/kaobook/pull/225}{Kazuhiko Sakaguchi}, kaobook now supports both \Package{listings} and \Package{minted}. Just pass the option \Option{listing=listings} or \Option{listing=minted} when you load the \Class{kaobook} class, and the appropriate pacakge will be loaded.
+
+Not only textual stuff can be displayed in the margin, but also figures. 
+Those will be the focus of the next chapter.
+
+\setchapterimage[7.5cm]{seaside}
+\setchapterpreamble[u]{\margintoc}
+%\chapter[Figures and Tables]{Figures and Tables\footnotemark[0]}
+\chapter{Figures and Tables}
+
+\footnotetext{The credits for the image above the chapter title go to:
+	Bushra Feroz, CC~BY-SA~4.0, \url{https://commons.wikimedia.org/w/index.php?curid=68724647}}
+
+\section{Normal Figures and Tables}
+
+Figures and tables can be inserted just like in any standard 
+\LaTeX\xspace document. The \Package{graphicx} package is already loaded 
+and configured in such a way that the figure width is equal to the 
+textwidth and the height is adjusted in order to maintain the original 
+aspect ratio. As you may have imagined, the captions will be 
+positioned\ldots well, in the margins. This is achieved with the help of 
+the \Package{floatrow} package.
+
+Here is a picture of Mona Lisa (\reffig{normalmonalisa}), as an example. 
+The captions are formatted as the margin- and the side-notes; If you 
+want to change something about captions you can use the command 
+\Command{captsetup} from the \Package{caption} package. Remember that if 
+you want to reference a figure, the label must come \emph{after} the 
+caption!
+
+\begin{figure}[hb]
+	\includegraphics[width=0.45\textwidth]{monalisa}
+	\caption[Mona Lisa, again]{It's Mona Lisa again. \blindtext}
+	\labfig{normalmonalisa}
+\end{figure}
+
+While the format of the caption is managed by \Package{caption}, its 
+position is handled by the \Package{floatrow} package. Achieving this 
+result has been quite hard, but now I am pretty satisfied. In two-side 
+mode, the captions are printed in the correct margin.
+
+Tables can be inserted just as easily as figures, as exemplified by the 
+following code:
+
+\begin{lstlisting}[caption={Caption of a listing.}]
+\begin{table}
+\begin{tabular}{ c c c c }
+	\toprule
+	col1 & col2 & col3 & col 4 \\
+	\midrule
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 & cell4\\ &
+	cell5 & cell6 & cell7 \\ &
+	cell8 & cell9 & cell10 \\
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 & cell4 \\ &
+	cell5 & cell6 & cell7 \\ &
+	cell8 & cell9 & cell10 \\
+	\bottomrule
+\end{tabular}
+\end{table}
+\end{lstlisting}
+
+which results in the useless \vreftab{useless}.
+
+\begin{table}[ht]
+\caption[A useless table]{A useless table.}
+\labtab{useless}
+\begin{tabular}{ c c c c }
+	\toprule
+	col1 & col2 & col3 & col 4 \\
+	\midrule
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 & cell4\\ &
+	cell5 & cell6 & cell7 \\ &
+	cell8 & cell9 & cell10 \\
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 & cell4 \\ &
+	cell5 & cell6 & cell7 \\ &
+	cell8 & cell9 & cell10 \\
+	\bottomrule
+\end{tabular}
+\end{table}
+
+I don't have much else to say, so I will just insert some blind text. 
+\blindtext
+
+\section{Margin Figures and Tables}
+
+Marginfigures can be inserted with the environment 
+\Environment{marginfigure}. In this case, the whole picture is confined 
+to the margin and the caption is below it. \reffig{marginmonalisa} is 
+obtained with something like this:
+
+\begin{lstlisting}[caption={Another caption.}]
+\begin{marginfigure}
+	\includegraphics{monalisa}
+	\caption[The Mona Lisa]{The Mona Lisa.}
+	\labfig{marginmonalisa}
+\end{marginfigure}
+\end{lstlisting}
+
+There is also the \Environment{margintable} environment, of which 
+\reftab{anotheruseless} is an example. Notice how you can place the 
+caption above the table by just placing the \Command{caption} command 
+before beginning the \Environment{tabular} environment. Usually, figure 
+captions are below, while table captions are above. This rule is also 
+respected for normal figures and tables: the captions are always on the 
+side, but for figure they are aligned to the bottom, while for tables to 
+the top.
+
+\begin{margintable}
+\caption[Another useless table]{Another useless table.}
+\labtab{anotheruseless}
+\raggedright
+\begin{tabular}{ c c c c }
+	\hline
+	col1 & col2 & col3 \\
+	\hline
+	\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ & cell5 & cell6 
+	\\ & cell8 & cell9 \\ \hline
+\end{tabular}
+\end{margintable}
+
+Marginfigures and tables can be positioned with an optional offset 
+command, like so:
+
+\begin{lstlisting}
+\begin{marginfigure}[offset]
+	\includegraphics{seaside}
+\end{marginfigure}
+\end{lstlisting}
+
+Offset ca be either a measure or a multiple of \Command{baselineskip}, 
+much like with \Command{sidenote}, \Command{marginnote} and 
+\Command{margintoc}.\todo{Improve this part.} If you are wondering how I 
+inserted this orange bubble, have a look at the \Package{todo} package.
+
+\section{Wide Figures and Tables}
+
+With the environments \Environment{figure*} and \Environment{table*} you 
+can insert figures which span the whole page width. For example, here 
+are a wide figure and a wide table.
+
+\begin{figure*}[h!]
+	\includegraphics{seaside}
+	\caption[A wide seaside]{A wide seaside, and a wide caption.
+		Credits: By Bushra Feroz, CC BY-SA 4.0, \url{https://commons.wikimedia.org/w/index.php?curid=68724647}}
+\end{figure*}
+
+\begin{table*}[h!]
+    \caption{A wide table with invented data about three people living in the UK. Note that wide figures and tables are centered and their caption also extends into the margin.}
+    \begin{tabular}{p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{1.5cm}}
+        \toprule
+        Name    & Surname   & Job       & Salary           & Age   & Height    & Country \\
+        \midrule
+        Alice   & Red       & Writer    & 4.000 \pounds    & 34    & 167 cm     & England \\
+        Bob     & White     & Bartender & 2.000 \pounds    & 24    & 180 cm     & Scotland \\
+        Drake   & Green     & Scientist & 4.000 \pounds    & 26    & 175 cm     & Wales \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+It is the user's responsibility to adjust the width of the table, if 
+necessary, until it is aesthetically pleasing. The previous table was 
+obtained with the following code:
+
+\begin{lstlisting}[caption=How to typeset a wide table]
+\begin{table*}[h!]
+    \caption{A wide table with invented data about three people living in the UK. Note that wide figures and tables are centered and their caption also extends into the margin.}
+    \begin{tabular}{p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{1.5cm}}
+        \toprule
+        Name    & Surname   & Job       & Salary           & Age   & Height    & Country \\
+        \midrule
+        Alice   & Red       & Writer    & 4.000 \pounds    & 34    & 167 cm     & England \\
+        Bob     & White     & Bartender & 2.000 \pounds    & 24    & 180 cm     & Scotland \\
+        Drake   & Green     & Scientist & 4.000 \pounds    & 26    & 175 cm     & Wales \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+\end{lstlisting}
+
+The \Package{floatrow} package provides the \enquote{H} specifier to 
+instruct \LaTeX to position the figure (or table) in precisely the same 
+position it occupies in the source code. However, this specifier does 
+not work with wide figures or tables: you should use \enquote{h!} 
+instead, like so: \lstinline|\begin{figure*}[h!]|.
+
+You may have noticed the full width image at the very beginning of this
+chapter: that, however, is set up in an entirely different way, which
+you'll read about in \vrefch{layout}.
+
+\Class{kaobook} also supports paginated tables (have a look at the 
+\Package{longtable} package). The 
+\Environment{longtable}\sidenote{Interestingly, \Environment{longtable}s 
+may require up to four rounds of compilation before they are typeset 
+correctly.} environment behaves a bit differently from 
+\Environment{table}, in that \Environment{longtable} encompasses both 
+\Environment{table} and \Environment{tabular}, so that you can write, 
+\eg,
+
+\begin{lstlisting}[caption=Example of a longtable]
+\begin{longtable}{|l c c|}
+    \hline
+    One & Two & Three \\
+    Left & Center & Center \\
+    \hline
+    \caption{Caption of the longtable.}
+\end{longtable}
+\end{lstlisting}
+
+to obtain the following table:
+\begin{longtable}{|l c c|}
+    \hline
+    One & Two & Three \\
+    Left & Center & Center \\
+    \hline
+    \caption{Caption of the longtable.}
+\end{longtable}
+
+The caption of a \Environment{longtable} is always positioned below the 
+table, and it has the same width as the text (it doesn't extend into the 
+margin). However, sometimes you may need a \Environment{longtable} that 
+is so wide that it trespass into the margins; in those cases, you may 
+want to also increase the width of the caption. To do so, you'll have to 
+write two additional commands, one before and one after the 
+\Environment{longtable}:
+
+\begin{lstlisting}[caption=Increasing the width of the caption of a \Environment{longtable}.]
+\floatsetup[longtable]{margins=centering,LTcapwidth=table} % Add this line before the longtable to increase the caption width
+\begin{longtable}{lp{8cm}p{5cm}p{2cm}}
+...
+\end{longtable}
+\floatsetup[longtable]{margins=raggedright,LTcapwidth=\textwidth} % Add this line after the longtable to revert the previous change
+\end{lstlisting}
+
+Having seen figures and tables, it is now time to tackle 
+hyperreferences.
+
+\setchapterstyle{kao}
+%\setchapterpreamble[u]{\margintoc}
+\chapter{References}
+\labch{references}
+
+\section{Citations}
+
+\index{citations}
+To cite someone \sidecite{Visscher2008,James2013} is very simple: just 
+use the \Command{sidecite}\index{\Command{sidecite}} command. It does 
+not have an offset argument yet, but it probably will in the future. 
+This command supports multiple entries, as you can see, and by default 
+it prints the reference on the margin as well as adding it to the 
+bibliography at the end of the document. Note that the citations have 
+nothing to do with the text,\sidecite{James2013} but they are completely 
+random as they only serve the purpose to illustrate the feature.
+
+For this setup I wrote a separate package, \Package{kaobiblio}, which 
+you can find in the \Package{styles} directory and include in your main 
+tex file. This package accepts all the options that you can pass to 
+\Package{biblatex}, and actually it passes them to \Package{biblatex} 
+under the hood. Moreover, it also defines some commands, like 
+\Command{sidecite}, and environments that can be used within a 
+\Class{kao} book.\sidenote[][-.9cm]{For this reason you should always 
+use \Package{kaobiblio} instead of \Package{biblatex}, but the syntax 
+and the options are exactly the same.}
+
+If you want to use \Package{bibtex} instead of \Package{biblatex},
+pass the option \Option{backend=bibtex} to \Package{kaobiblio}.
+\Package{kaobiblio} also supports two options that are not shared with
+\Package{biblatex}: \Option{addspace} and \Option{linkeverything},
+both of which are boolean options, meaning that they can take
+either \enquote{true} or \enquote{false} as a value. If you
+pass \Option{addspace=true} when loading \Package{kaobiblio},
+a space will be automatically added before the citation marks.
+If you pass \Option{linkeverything=true}, the author's name in
+the authoryear-* and authortitle-* styles will be a hyperlink
+like the year.\sidenote{The fact that the author name is not
+a hyperlink bothers more than one biblatex user. There are
+\href{https://github.com/plk/biblatex/issues/428}{strong arguments}
+\emph{against} hyperlinking the author name, but in my personal opinion, 
+linking the author's name does not result in any problems in most 
+practical cases.}
+
+As you have seen, the \Command{sidecite} command will print a citation 
+in the margin. However, this command would be useless without a way to 
+customise the format of the citation, so the \Class{kaobook} provides 
+also the \Command{formatmargincitation} command. By \enquote{renewing} 
+that command, you can choose which items will be printed in the margins. 
+The best way to understand how it works is to see the actual definition 
+of this command.
+
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+\newcommand{\formatmargincitation}[1]{%
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}%
+}
+\end{lstlisting}
+
+Thus, the \Command{formatmargincitation} accepts one parameter, which is 
+the citation key, and prints the parencite followed by a colon, then the 
+author, then the year (in brackets), and finally the 
+title.\sidecite{Battle2014} Now, suppose that you wish the margin 
+citation to display the year and the author, followed by the title, and 
+finally a fixed arbitrary string; you would add to your document:
+
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+\renewcommand{\formatmargincitation}[1]{%
+	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!%
+}
+\end{lstlisting}
+
+\renewcommand{\formatmargincitation}[1]{%
+	\citeyear{#1}, \citeauthor*{#1}: \citetitle{#1}; very interesting!%
+}
+
+The above code results in citations that look like the 
+following.\sidecite{Zou2005} Of course, changing the format is most 
+useful when you also change the default bibliography style. For 
+instance, if you want to use the \enquote{philosophy-modern} style for 
+your bibliography, you might have something like this in the preamble:
+
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+\usepackage[style=philosophy-modern]{styles/kaobiblio}
+\renewcommand{\formatmargincitation}[1]{%
+	\sdcite{#1}%
+}
+\addbibresource{main.bib}
+\end{lstlisting}
+
+\renewcommand{\formatmargincitation}[1]{%
+	\parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}%
+}
+
+The commands like \Command{citeyear}, \Command{parencite}
+and \Command{sdcite} are just examples. A full
+reference of the available commands can be found in this
+\href{http://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf}{cheatsheet},
+under the \enquote{Citations} section.
+
+Finally, to compile a document containing citations, you need to use an 
+external tool, which for this class is biber. You need to run the 
+following (assuming that your tex file is called main.tex):
+
+\begin{lstlisting}[style=kaolstplain]
+$ pdflatex main
+$ biber main
+$ pdflatex main
+\end{lstlisting}
+
+\section{Glossaries and Indices}
+
+\index{glossary}
+The \Class{kaobook} class loads the packages \Package{glossaries} and 
+\Package{imakeidx}, with which you can add glossaries and indices to 
+your book. For instance, I previously defined some glossary entries and 
+now I am going to use them, like this: \gls{computer}. 
+\Package{glossaries} also allows you to use acronyms, like the 
+following: this is the full version, \acrfull{fpsLabel}, and this is the 
+short one \acrshort{fpsLabel}. These entries will appear in the glossary 
+in the backmatter.
+
+Unless you use \href{https://www.overleaf.com}{Overleaf} or some other 
+fancy IDE for \LaTeX, you need to run an external command from your 
+terminal in order to compile a document with a glossary. In particular, 
+the commands required are:\sidenote{These are the commands you would run 
+in a UNIX system, but see also \nrefsec{compiling}; I have no idea about 
+how it works in Windows.}
+
+\begin{lstlisting}[style=kaolstplain]
+$ pdflatex main
+$ makeglossaries main
+$ pdflatex main
+\end{lstlisting}
+
+Note that you need not run \texttt{makeglossaries} every time you 
+compile your document, but only when you change the glossary entries.
+
+\index{index}
+To create an index, you need to insert the command 
+\lstinline|\index{subject}| whenever you are talking about 
+\enquote{subject} in the text. For instance, at the start of this 
+paragraph I would write \lstinline|index{index}|, and an entry would be 
+added to the Index in the backmatter. Check it out!
+
+\marginnote[2mm]{In theory, you would need to run an external command 
+for the index as well, but luckily the package we suggested, 
+	\Package{imakeidx}, can compile the index automatically.}
+
+\index{nomenclature}
+A nomenclature is just a special kind of index; you can find one at the end of
+this book. To insert a nomenclature, we use the package \Package{nomencl} and
+add the terms with the command \Command{nomenclature}. We put then a
+\Command{printnomenclature} where we want it to appear.
+
+Also with this package we need to run an external command to compile the 
+document, otherwise the nomenclature will not appear:
+
+\begin{lstlisting}[style=kaolstplain]
+$ pdflatex main
+$ makeindex main.nlo -s nomencl.ist -o main.nls
+$ pdflatex main
+\end{lstlisting}
+
+These packages are all loaded in 
+\href{style/packages.sty}{packages.sty}, one of the files that come with 
+this class. However, the configuration of the elements is best done in 
+the main.tex file, since each book will have different entries and 
+styles.
+
+Note that the \Package{nomencl} package caused problems when the 
+document was compiled, so, to make a long story short, I had to prevent 
+\Package{scrhack} to load the hack-file for \Package{nomencl}. When 
+compiling the document on Overleaf, however, this problem seem to 
+vanish.
+
+\marginnote[-19mm]{This brief section was by no means a complete 
+reference on the subject, therefore you should consult the documentation 
+of the above package to gain a full understanding of how they work.}
+
+\section{Hyperreferences}
+\labsec{hyprefs}
+
+\index{hyperreferences}
+Together with this class we provide a handy package to help you 
+referencing the same elements always in the same way, for consistency 
+across the book. First, you can label each element with a specific 
+command. For instance, should you want to label a chapter, you would put 
+\lstinline|\labch{chapter-title}| right after the \Command{chapter} 
+directive. This is just a convenience, because \Command{labch} is
+actually just an alias to \lstinline|\label{ch:chapter-title}|, so it 
+spares you the writing of \enquote{ch:}. We defined similar commands for 
+many typically labeled elements, including:
+
+\begin{multicols}{2}
+\setlength{\columnseprule}{0pt}
+\begin{itemize}
+	\item Page: \Command{labpage}
+	\item Part: \Command{labpart}
+	\item Chapter: \Command{labch}
+	\item Section: \Command{labsec}
+	\item Figure: \Command{labfig}
+	\item Table: \Command{labtab}
+	\item Definition: \Command{labdef}
+	\item Assumption: \Command{labassum}
+	\item Theorem: \Command{labthm}
+	\item Proposition: \Command{labprop}
+	\item Lemma: \Command{lablemma}
+	\item Remark: \Command{labremark}
+	\item Example: \Command{labexample}
+	\item Exercise: \Command{labexercise}
+\end{itemize}
+\end{multicols}
+
+Of course, we have similar commands for referencing those elements. 
+However, since the style of the reference should depend on the context, 
+we provide different commands to reference the same thing. For instance, 
+in some occasions you may want to reference the chapter by name, but 
+other times you want to reference it only by number. In general, there 
+are four reference style, which we call plain, vario, name, and full.
+
+The plain style references only by number. It is accessed, for chapters, 
+with \lstinline|\refch{chapter-title}| (for other elements, the syntax 
+is analogous). Such a reference results in: \refch{references}.
+
+The vario and name styles rest upon the \Package{varioref} package. 
+Their syntax is \lstinline|\vrefch{chapter-title}| and 
+\lstinline|\nrefch{chapter-title}|, and they result in: 
+\vrefch{references}, for the vario style, and: \nrefch{references}, for 
+the name style. As you can see, the page is referenced in 
+\Package{varioref} style.
+
+The full style references everything. You can use it with 
+\lstinline|\frefch{chapter-title}| and it looks like this: 
+\frefch{references}.
+
+Of course, all the other elements have similar commands (\eg for parts 
+you would use \lstinline|\vrefpart{part-title}| or something like that). 
+However, not all elements implement all the four styles. The commands 
+provided should be enough, but if you want to see what is available or 
+to add the missing ones, have a look at the 
+\href{styles/kaorefs.sty}{attached package}.
+
+In order to have access to all these features, the \Package{kaorefs} 
+should be loaded in the preamble of your document. It should be loaded 
+last, or at least after \Package{babel} (or \Package{polyglossia}) and 
+\Package{plaintheorems} (or \Package{mdftheorems}). Options can be 
+passed to it like to any other package; in particular, it is possible to 
+specify the language of the captions. For instance, if you specify 
+\enquote{italian} as an option, instead of \enquote{Chapter} it will be 
+printed \enquote{Capitolo}, the Italian analog. If you know other 
+languages, you are welcome to contribute the translations of these 
+captions! Feel free to contact the author of the class for further 
+details. 
+
+The \Package{kaorefs} package also include \Package{cleveref}, so it is 
+possible to use \Command{cref} in addition to all the previously 
+described referencing commands.
+
+\section{A Final Note on Compilation}
+\labsec{compiling}
+
+Probably the easiest way to compile a latex document is with the 
+\Package{latexmk} script, as it can take care of everything, if properly 
+configured, from the bibliography to the glossary. The command to issue, 
+in general, is:
+
+\begin{lstlisting}
+latexmk [latexmk_options] [filename ...]
+\end{lstlisting}
+
+\Package{latexmk} can be extensively configured (see
+\url{https://mg.readthedocs.io/latexmk.html}). For convenience, I print 
+here an example configuration that would cover all the steps described 
+above.
+
+\begin{lstlisting}
+# By default compile only the file called 'main.tex'
+@default_files = ('main.tex');
+
+# Compile the glossary and acronyms list (package 'glossaries')
+add_cus_dep( 'acn', 'acr', 0, 'makeglossaries' );
+add_cus_dep( 'glo', 'gls', 0, 'makeglossaries' );
+$clean_ext .= " acr acn alg glo gls glg";
+sub makeglossaries {
+   my ($base_name, $path) = fileparse( $_[0] );
+   pushd $path;
+   my $return = system "makeglossaries", $base_name;
+   popd;
+   return $return;
+}
+
+# Compile the nomenclature (package 'nomencl')
+add_cus_dep( 'nlo', 'nls', 0, 'makenlo2nls' );
+sub makenlo2nls {
+    system( "makeindex -s nomencl.ist -o \"$_[0].nls\" \"$_[0].nlo\"" );
+}
+\end{lstlisting}
+
+However, if you'd rather not use an external package and want to do 
+everything manually, here are some tips.\sidenote{As the author only 
+uses Linux and compiles everything from the command line, he doesn't 
+know how the compilation works in Windows or Mac. The tips, therefore, 
+refer to the usage with Linux from the command line.}
+
+\minisec{Compiling the examples in the kaobook repository}
+To compile the examples, and in particular the documentation, that are 
+in the \Path{examples} directory of the 
+\href{https://github.com/fmarotta/kaobook}{kaobook repository} on 
+GitHub, do as follows. \lstinline[language=bash]|cd| into the root 
+directory of the repository, and run
+\lstinline|pdflatex -output-directory examples/documentation main.tex|. 
+With this trick, you can compile the documentation using the class files 
+pertaining to the repository (and not, say, those in your texmf tree). 
+The \enquote{-output-directory} option works with the other 
+\LaTeX-related commands such as biber and makeglossaries.
+
+A note of warning: sometimes \LaTeX\ needs more than one run to get the
+correct position of each element; this is true in particular for the
+positioning of floating elements like figures, tables, and margin notes.
+Occasionally, \LaTeX\ can need up to four re-runs, so If the alignment
+of margin elements looks odd, or if they bleed into the main text, try
+running pdflatex one more time.
+
+%=====================================
+%=====================================
+%=====================================
+%=====================================
+\pagelayout{wide} % No margins
+\addpart{Design and Additional Features}
+\pagelayout{margin} % Restore margins
+%=====================================
+%=====================================
+%=====================================
+%=====================================
+
+\setchapterimage[6cm]{seaside}
+\setchapterpreamble[u]{\margintoc}
+\chapter{Page Design}
+\labch{layout}
+
+\section{Headings}
+
+So far, in this document I used two different styles for the chapter
+headings: one has the chapter name, a rule and, in the margin, the
+chapter number; the other has an image at the top of the page, and
+the chapter title is printed in a box (like for this chapter). There
+is one additional style, which I used only in the \nrefch{appendix};
+there, the chapter title is enclosed in two horizontal rules, and
+the chapter number (or letter, in the case of the appendix) is above
+it.\sidenote[][.7cm]{To be honest, I do not think that mixing heading
+styles like this is a wise choice, but in this document I did it only to
+show you how they look.}
+
+Every book is unique, so it makes sense to have different styles from 
+which to choose. Actually, it would be awesome if whenever a 
+\Class{kao}-user designs a new heading style, he or she added it to the 
+three styles already present, so that it will be available for new users 
+and new books.
+
+The choice of the style is made simple by the \Command{setchapterstyle} 
+command. It accepts one option, the name of the style, which can be: 
+\enquote{plain}, \enquote{kao}, \enquote{bar}, or 
+\enquote{lines}.\sidenote{Plain is the default \LaTeX\xspace title 
+style; the other ones are self explanatory.} If instead you want the 
+image style, you have to use the command \Command{setchapterimage}, 
+which accepts the path to the image as argument; you can also provide an 
+optional parameter in square brackets to specify the height of the 
+image. \Command{setchapterimage} automatically sets the chapter style to 
+\enquote{bar} for that chapter (and also for subsequent chapters).
+
+Let us make some examples. In this book, I begin a normal chapter with 
+the lines:
+\begin{lstlisting}
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
+\chapter{Title of the Chapter}
+\labch{title}
+\end{lstlisting}
+
+In Line 1 I choose the style for the title to be \enquote{kao}. Then, I 
+specify that I want the margin toc. The rest is ordinary administration 
+in \LaTeX, except that I use my own \Command{labch} to label the 
+chapter. Actually, the \Command{setchapterpreamble} is a standard 
+\KOMAScript\xspace one, so I invite you to read about it in the KOMA
+documentation. Once the chapter style is set, it holds until you change 
+it.\sidenote{The \Command{margintoc} has to be specified at every 
+chapter. Perhaps in the future this may change; it all depends on how 
+this feature will be welcomed by the users, so keep in touch with me if 
+you have preferences!} Whenever I want to start a chapter with an image, 
+I simply write:
+
+\begin{lstlisting}
+\setchapterimage[7cm]{path/to/image.png} % Optionally specify the height
+\setchapterpreamble[u]{\margintoc}
+\chapter{Catchy Title} % No need to set a chapter style
+\labch{catchy}
+\end{lstlisting}
+
+If you prefer, you can also specify the style at the beginning of the 
+main document, and that style will hold until you change it again.
+
+\section{Headers \& Footers}
+
+Headers and footers in \KOMAScript\xspace are handled by the 
+\Package{scrlayer-scrpage} package. There are two basic style: 
+\enquote{scrheadings} and \enquote{plain.scrheadings}. The former is 
+used for normal pages, whereas the latter is used in title pages (those 
+where a new chapter starts, for instance) and, at least in this book, in 
+the front matter. At any rate, the style can be changed with the 
+\Command{pagestyle} command, \eg 
+\lstinline|\pagestyle{plain.scrheadings}|.
+
+In both styles, the footer is completely empty. In plain.scrheadings,
+also the header is absent (otherwise it wouldn't be so plain\ldots), but 
+in the normal style the design is reminiscent of the \enquote{kao} style
+for chapter titles.
+
+\section{\Option{twoside} mode}
+
+\begin{kaobox}[title=To Do]
+The \Option{twoside} class option is still unstable and may lead to 
+unexpected behaviours. Great strides have been done since the first 
+version of \Class{kaobook}, but some work still needs to be done. As 
+always, any help will be greatly appreciated.
+\end{kaobox}
+
+By passing the \Option{twoside} option to the \Class{kaobook}, the
+style of left and right pages will be different, similarly to a
+printed book. In digital books, having a symmetrical layout for
+left and right pages is less important, and you may be tempted
+to use the \Option{twoside=false} option. However, keep in mind
+that in \enquote{oneside} mode the \Command{uppertitleback} and
+\Command{lowertitleback} commands are not available.\sidenote{Another
+useful thing to keep in mind is that, when \Option{twoside=true}, an
+extra white page will be added to the frontmatter.} If you want to have 
+the upper/lower titleback in a one-side document, just add manually the 
+contents that you'd put using the upper/lower titleback commands.
+
+\section{Table of Contents}
+
+Another important part of a book is the table of contents. By default, 
+in \Class{kaobook} there is an entry for everything: list of figures, 
+list of tables, bibliographies, and even the table of contents itself. 
+Not everybody might like this, so we will provide a description of the 
+changes you need to do in order to enable or disable each of these 
+entries. In the following \reftab{tocentries}, each item corresponds to 
+a possible entry in the \acrshort{tocLabel}, and its description is the 
+command you need to provide to have such entry. These commands are 
+specified in the attached \href{style/style.sty}{style 
+package},\sidenote{In the same file, you can also choose the titles of 
+these entries.} so if you don't want the entries, just comment the 
+corresponding lines.
+
+Of course, some packages, like those for glossaries and indices, will 
+try to add their own entries.\marginnote{In a later section, we will see 
+how you can define your own floating environment, and endow it with an 
+entry in the \acrshort{tocLabel}.} In such cases, you have to follow the 
+instructions specific to that package. Here, since we have talked about 
+glossaries and notations in \refch{references}, we will briefly see how
+to configure them.
+
+\begin{table}
+\footnotesize
+\caption{Commands to add a particular entry to the table of contents.}
+\labtab{tocentries}
+\begin{tabular}{ l@{\hspace{1mm}}l }
+	\toprule
+	Entry & Command to Activate \\
+	\midrule
+	Table of Contents & \lstinline|\setuptoc{toc}{totoc}| \\
+    List of Figs/Tabs & \lstinline|\PassOptionsToClass{toc=listof}{\@baseclass}| \\
+	Bibliography & \lstinline|\PassOptionsToClass{toc=bibliography}{\@baseclass}| \\
+	\bottomrule
+\end{tabular}
+\end{table}
+
+For the \Package{glossaries} package, use the \enquote{toc} option when 
+you load it: \lstinline|\usepackage[toc]{glossaries}|. For 
+\Package{nomencl}, pass the \enquote{intoc} option at the moment of 
+loading the package. Both \Package{glossaries} and \Package{nomencl} are 
+loaded in the attached \href{style/packages.sty}{\enquote{packages} 
+package}.
+
+Additional configuration of the table of contents can be performed 
+through the packages \Package{etoc}, which is loaded because it is 
+needed for the margintocs, or the more traditional \Package{tocbase}. 
+Read the respective documentations if you want to be able to change the 
+default \acrshort{tocLabel} style.\sidenote[][*-1]{(And please, send me 
+a copy of what you have done, I'm so curious!)}
+
+\section{Paper Size}
+
+Recent versions of Kaobook support paper sizes different from the
+default A4. It is possible to pass the name of the paper as an option
+to the class, as we are accustomed for any other \LaTeX\ class. For
+example, the class option \Option{b5paper} would set the paper size
+to the B5 format.
+
+We also support the paper sizes specified in
+\href{https://www.bod.de/hilfe/hilfe-und-service.html?cmd=SINGLE\&entryID=2494\_GER\_WSS\&eo=2\&title=welche-buchformate-gibt-es}{this
+web page} and some additional sizes requested by the users, with the 
+option names specified in \reftab{papersizes}.
+
+\begin{margintable}[*-6]
+	\caption{Some non-standard paper sizes supported by kaobook.}
+	\labtab{papersizes}
+	\begin{tabular}{ll}
+		\toprule
+		Dimension & Option name \\
+		\midrule
+		12.0cm x 19.0cm & smallpocketpaper \\
+		13.5cm x 21.5cm & pocketpaper \\
+		14.8cm x 21.0cm & a5paper \\
+		15.5cm x 22.0cm & juvenilepaper \\
+		17.0cm x 17.0cm & smallphotopaper \\
+		21.0cm x 15.0cm & appendixpaper \\
+		17.0cm x 22.0cm & cookpaper \\
+		19.0cm x 27.0cm & illustratedpaper \\
+		17.0cm x 17.0cm & photopaper \\
+		16.0cm x 24.0cm & f24paper \\
+		%21.0cm x 29.7cm & a4paper \\
+		\bottomrule
+	\end{tabular}
+\end{margintable}
+
+For instance, to use the \enquote{smallpocketpaper} add the correct 
+description at the beginning of the documentclass instruction:
+\begin{lstlisting}
+\documentclass[
+		smallpocketpaper,
+		fontsize=10pt,
+		twoside=false,
+		%open=any,
+		secnumdepth=1,
+]{kaobook}
+\end{lstlisting}
+
+Sometimes it is convenient to adopt a landscape view; \Class{kaobook} 
+provides two additional options, \Option{a4paperlandscape} and 
+\Option{169paperlandscape}, which set the page in landscape mode with 
+width-to-height ratios of, respectively, 1.414 and 16:9.
+
+\section{Page Layout}
+
+Besides the page style, you can also change the width of the content of 
+a page. This is particularly useful for pages dedicated to part titles, 
+where having the 1.5-column layout might be a little awkward, or for 
+pages where you only put figures, where it is important to exploit all 
+the available space.
+
+In practice, there are two layouts: \enquote{wide} and \enquote{margin}. 
+The former suppresses the margins and allocates the full page for 
+contents, while the latter is the layout used in most of the pages of 
+this book, including this one. The wide layout is also used 
+automatically in the front and back matters.
+
+\marginnote{Sometimes it is desirable to increase the width for just one 
+or a few paragraphs; the \Environment{widepar} environment does that: 
+wrap your paragraphs in this environment, and they will occupy the full 
+width of the page.}
+
+To change page layout, use the \Command{pagelayout} command. For 
+example, when I start a new part, I write:
+
+\begin{lstlisting}
+\pagelayout{wide}
+\addpart{Title of the New Part}
+\pagelayout{margin}
+\end{lstlisting}
+
+Beyond these two basic layouts, it is also possible to finely tune the 
+page layout by redefining the \Command{marginlayout} command. This 
+command is called internally by the higher-level \Command{pagelayout}, 
+and it is responsible for setting the width of the margins and of the 
+text. The default definition is:
+
+\begin{lstlisting}
+\newcommand{\marginlayout}{%
+	\newgeometry{
+		top=27.4mm,				% height of the top margin
+		bottom=27.4mm,			% height of the bottom margin
+		inner=24.8mm,			% width of the inner margin
+		textwidth=107mm,		% width of the text
+		marginparsep=8.2mm,		% width between text and margin
+		marginparwidth=49.4mm,	% width of the margin
+	}%
+}
+\end{lstlisting}
+
+so if you want to, say, decrease the width of the margin while 
+increasing the width of the text, you could write in the preamble of 
+your document something like:
+
+\begin{lstlisting}
+\renewcommand{\marginlayout}{%
+	\newgeometry{
+		top=27.4mm,				% height of the top margin
+		bottom=27.4mm,			% height of the bottom margin
+		inner=24.8mm,			% width of the inner margin
+		textwidth=117mm,		% width of the text
+		marginparsep=8.2mm,		% width between text and margin
+		marginparwidth=39.4mm,	% width of the margin
+	}%
+}
+\end{lstlisting}
+
+where the text width has been increased by 10mm and the margin width has 
+been decreased by 10mm.
+
+\section{Numbers \& Counters}
+
+In this short section we shall see how dispositions, sidenotes and 
+figures are numbered in the \Class{kaobook} class.
+
+By default, dispositions are numbered up to the section in \Class{kaobook}
+and up to the subsection in \Class{kaohandt}. This can be changed by
+passing the option \Option{secnumdepth} to\Class{kaobook} or
+\Class{kaohandt} (e.g. 1 corresponds to section and 2 corresponds to
+subsections).
+
+The sidenotes counter is the same across all the document, but if you 
+want it to reset at each chapter, just uncomment the line
+
+\begin{lstlisting}[style=kaolstplain]
+\counterwithin*{sidenote}{chapter}
+\end{lstlisting}
+
+in the \Package{styles/style.sty} package provided by this class.
+
+Figure and Table numbering is also per-chapter; to change that, use 
+something like:
+
+\begin{lstlisting}[style=kaolstplain]
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+\end{lstlisting}
+
+\section{White Space}
+
+One of the things that I find most hard in \LaTeX\xspace is to finely 
+tune the white space around objects. There are not fixed rules, each 
+object needs its own adjustment. Here we shall see how some spaces are 
+defined at the moment in this class.\marginnote{Attention! This section 
+may be incomplete.}
+
+\textbf{Space around sidenotes and citations marks}
+
+There should be no space before or after sidenotes and citation marks, 
+like so:
+
+sidenote\sidenote{This paragraph can be used to diagnose any problems:
+if you see whitespace around sidenotes or citation marks, probably
+a \% sign is missing somewhere in the definitions of the class
+macros.}sidenote\newline
+citation\cite{James2013}citation
+
+\textbf{Space around figures and tables}
+
+\begin{lstlisting}[style=kaolstplain]
+\renewcommand\FBaskip{.4\topskip}
+\renewcommand\FBbskip{\FBaskip}
+\end{lstlisting}
+
+\textbf{Space around captions}
+
+\begin{lstlisting}[style=kaolstplain]
+\captionsetup{
+	aboveskip=6pt,
+	belowskip=6pt
+}
+\end{lstlisting}
+
+\textbf{Space around displays (\eg equations)}
+
+\begin{lstlisting}[style=kaolstplain]
+\setlength\abovedisplayskip{6pt plus 2pt minus 4pt}
+\setlength\belowdisplayskip{6pt plus 2pt minus 4pt}
+\abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
+\abovedisplayshortskip \z@ \@plus3\p@
+\belowdisplayskip \abovedisplayskip
+\belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
+\end{lstlisting}
+
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
+\chapter{Mathematics and Boxes}
+\labch{mathematics}
+
+\section{Theorems}
+
+Despite most people complain at the sight of a book full of equations, 
+mathematics is an important part of many books. Here, we shall 
+illustrate some of the possibilities. We believe that theorems, 
+definitions, remarks and examples should be emphasised with a shaded 
+background; however, the colour should not be to heavy on the eyes, so 
+we have chosen a sort of light yellow.\sidenote{The boxes are all of the 
+same colour here, because we did not want our document to look like 
+\href{https://en.wikipedia.org/wiki/Harlequin}{Harlequin}.}
+
+\begin{definition}
+\labdef{openset}
+Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
+if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
+U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
+of all the open subsets of $(X, d).$
+\end{definition}
+
+\refdef{openset} is very important. I am not joking, but I have inserted 
+this phrase only to show how to reference definitions. The following 
+statement is repeated over and over in different environments.
+
+\begin{theorem}
+A finite intersection of open sets of (X, d) is an open set of (X, d), 
+i.e $\tau\textsubscript{d}$ is closed under finite intersections. Any 
+union of open sets of (X, d) is an open set of (X, d).
+\end{theorem}
+
+\begin{proposition}
+A finite intersection of open sets of (X, d) is an open set of (X, d), 
+i.e $\tau\textsubscript{d}$ is closed under finite intersections. Any 
+union of open sets of (X, d) is an open set of (X, d).
+\end{proposition}
+
+\marginnote{You can even insert footnotes inside the theorem 
+environments; they will be displayed at the bottom of the box.}
+
+\begin{lemma}
+A finite intersection\footnote{I'm a footnote} of open sets of (X, d) is 
+an open set of (X, d), i.e $\tau\textsubscript{d}$ is closed under 
+finite intersections. Any union of open sets of (X, d) is an open set of 
+(X, d).
+\end{lemma}
+
+You can safely ignore the content of the theorems\ldots I assume that if 
+you are interested in having theorems in your book, you already know 
+something about the classical way to add them. These example should just 
+showcase all the things you can do within this class.
+
+\begin{corollary}[Finite Intersection, Countable Union]
+A finite intersection of open sets of (X, d) is an open set of (X, d), 
+i.e $\tau\textsubscript{d}$ is closed under finite intersections. Any 
+union of open sets of (X, d) is an open set of (X, d).
+\end{corollary}
+
+\begin{proof}
+The proof is left to the reader as a trivial exercise. Hint: \blindtext
+\end{proof}
+
+\begin{definition}
+Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
+if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
+U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
+of all the open subsets of $(X, d).$
+\end{definition}
+
+\marginnote{
+	Here is a random equation, just because we can:
+	\begin{equation*}
+  x = a_0 + \cfrac{1}{a_1
+          + \cfrac{1}{a_2
+          + \cfrac{1}{a_3 + \cfrac{1}{a_4} } } }
+	\end{equation*}
+}
+
+\begin{example}
+Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
+if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
+U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
+of all the open subsets of $(X, d).$
+\end{example}
+
+\begin{remark}
+Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
+if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
+U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
+of all the open subsets of $(X, d).$
+\end{remark}
+
+As you may have noticed, definitions, example and remarks have 
+independent counters; theorems, propositions, lemmas and corollaries 
+share the same counter.
+
+\begin{remark}
+Here is how an integral looks like inline: $\int_{a}^{b} x^2 dx$, and 
+here is the same integral displayed in its own paragraph:
+\[\int_{a}^{b} x^2 dx\]
+\end{remark}
+
+There is also an environment for exercises.
+
+\begin{exercise}
+Prove (or disprove) the Riemann hypothesis.
+\end{exercise}
+
+We provide one package for the theorem styles: 
+\href{kaotheorems.sty}{kaotheorems.sty}, to which you can pass the 
+\Option{framed} option you do want coloured boxes around theorems, like 
+in this document.\sidenote{The styles without \Option{framed} are not 
+showed, but actually the only difference is that they don't have the 
+yellow boxes.} You may want to edit this files according to your taste 
+and the general style of the book. However, there is an option to 
+customise the background colour of the boxes if you use the 
+\Option{framed} option: when you load this package, you can pass it the 
+\Option{background=mycolour} option (replace \enquote{mycolour} with the 
+actual colour, for instance, \enquote{red!35!white}). This will change 
+the colour of all the boxes, but it is also possible to override the 
+default colour only for some elements. For instance, the 
+\Option{propositionbackground=mycolour} option will change the colour 
+for propositions only. There are similar options for theorem, 
+definition, lemma, corollary, remark, and example.
+
+\section[Boxes \& Environments]{Boxes \& Custom Environments
+\sidenote[][*1.8]{Notice that in the table of contents and in the 
+	header, the name of this section is \enquote{Boxes \& Environments}; 
+	we achieved this with the optional argument of the \texttt{section} 
+	command.}}
+
+Say you want to insert a special section, an optional content or just 
+something you want to emphasise. We think that nothing works better than 
+a box in these cases. We used \Package{mdframed} to construct the ones 
+shown below. You can create and modify such environments by editing the 
+provided file \href{kao.sty}{kao.sty}.
+
+\begin{kaobox}[title=Title of the box]
+\blindtext
+\end{kaobox}
+
+If you set up a counter, you can even create your own numbered 
+environment.
+
+\begin{kaocounter}
+	\blindtext
+\end{kaocounter}
+
+\section{Experiments}
+
+It is possible to wrap marginnotes inside boxes, too. Audacious readers 
+are encouraged to try their own experiments and let me know the 
+outcomes.
+
+\marginnote[-2.2cm]{
+	\begin{kaobox}[title=title of margin note]
+		Margin note inside a kaobox.\\
+		(Actually, kaobox inside a marginnote!)
+	\end{kaobox}
+}
+
+I believe that many other special things are possible with the 
+\Class{kaobook} class. During its development, I struggled to keep it as 
+flexible as possible, so that new features could be added without too 
+great an effort. Therefore, I hope that you can find the optimal way to 
+express yourselves in writing a book, report or thesis with this class, 
+and I am eager to see the outcomes of any experiment that you may try.
+
+%\begin{margintable}
+	%\captionsetup{type=table,position=above}
+	%\begin{kaobox}
+		%\caption{caption}
+		%\begin{tabular}{ |c|c|c|c| }
+			%\hline
+			%col1 & col2 & col3 \\
+			%\hline
+			%\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ & cell5 
+			%%& cell6 \\ 
+			%& cell8 & cell9 \\
+			%\hline
+		%\end{tabular}
+	%\end{kaobox}
+%\end{margintable}
+
+%=====================================
+%=====================================
+%=====================================
+%=====================================
+\pagelayout{wide} % No margins
+\addpart{Appendix}
+\pagelayout{margin} % Restore margins
+%=====================================
+%=====================================
+%=====================================
+%=====================================
+
+\setchapterstyle{lines}
+\labch{appendix}
+\blinddocument
+
+\setchapterpreamble[u]{\margintoc}
+\chapter{Fonts Testing}
+
+\section{Font Sizes}
+
+{\tiny The quick brown fox jumps over the lazy dog.}
+
+{\scriptsize The quick brown fox jumps over the lazy dog.}
+
+{\footnotesize The quick brown fox jumps over the lazy dog.}
+
+{\small The quick brown fox jumps over the lazy dog.}
+
+{\normalsize The quick brown fox jumps over the lazy dog.}
+
+{\large The quick brown fox jumps over the lazy dog.}
+
+{\Large The quick brown fox jumps over the lazy dog.}
+
+{\LARGE The quick brown fox jumps over the lazy dog.}
+
+{\huge The quick brown fox jumps over the lazy dog.}
+
+{\Huge The quick brown fox jumps over the lazy dog.}
+
+
+\section{Font Families}
+
+\sffamily\blindtext
+
+\textmd{The quick brown fox jumps over the lazy dog. Medium.}
+
+\textbf{The quick brown fox jumps over the lazy dog. Bold.}
+
+\textup{The quick brown fox jumps over the lazy dog. Upright.}
+
+\textit{The quick brown fox jumps over the lazy dog. Italics.}
+
+\textsl{The quick brown fox jumps over the lazy dog. Slanted.}
+
+\textsc{The quick brown fox jumps over the lazy dog. Small Caps.}
+
+\ttfamily\blindtext
+
+\textmd{The quick brown fox jumps over the lazy dog. Medium.}
+
+\textbf{The quick brown fox jumps over the lazy dog. Bold.}
+
+\textup{The quick brown fox jumps over the lazy dog. Upright.}
+
+\textit{The quick brown fox jumps over the lazy dog. Italics.}
+
+\textsl{The quick brown fox jumps over the lazy dog. Slanted.}
+
+\textsc{The quick brown fox jumps over the lazy dog. Small Caps.}
+
+\rmfamily\blindtext
+
+\textmd{The quick brown fox jumps over the lazy dog. Medium.}
+
+\textbf{The quick brown fox jumps over the lazy dog. Bold.}
+
+\textup{The quick brown fox jumps over the lazy dog. Upright.}
+
+\textit{The quick brown fox jumps over the lazy dog. Italics.}
+
+\textsl{The quick brown fox jumps over the lazy dog. Slanted.}
+
+\textsc{The quick brown fox jumps over the lazy dog. Small Caps.}
+
+\pagelayout{wide}
+\setchapterstyle{kao}
+\chapter{Test}
+\blindtext
+

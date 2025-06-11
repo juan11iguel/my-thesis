@@ -2,28 +2,30 @@
 \chapter{Modelling of a combined cooling system}
 \labch{solhycool:modelling}
 
-Decripción del modelo completo, cómo se integran los componentes, y después se
-describe cada component.
-
 \tldrbox{
-    This chapter describes modelling of the different components of a combined
-    cooling system, mainly a \gls{wctLabel} and a \gls{dcLabel}. Different
-    alternatives are presented, including the generation of samples for
+    This chapter describes the steady-state modelling of the different
+    components of a combined cooling system, mainly a \gls{wctLabel} and a
+    \gls{dcLabel}. Different alternatives are presented: from physical models
+    to data-driven approaches, including the generation of samples for
     data-driven models trained using data from a physical model. Models are
     also developed for the other components of the system and finally it is
-    shown how they are integrated into a complete system model.
+    shown how they are integrated into a complete system model. The complete
+    system model interface is defined at \refmod{mod:cc} and a block diagram is
+    presented in \reffig{cc:modelling:complete-model-diagram} including all
+    relevant variables.
 }
 
 \section*{Introduction}
 
 % Introducción de artículo: Wet cooling tower performance prediction in CSP
 % plants: A comparison between artificial neural networks and Poppe’s model
-In order to study the potential advantages of making use of a combined cooling
-system, it is first necessary to develop the modelling of its components. Since
-the objective is performance prediction, this chapter focuses on the steady
-state modelling of the combined cooler main components, \ie the \gls{wctLabel}
-and the \gls{dcLabel}. More specifically, the aim is to compare two modelling
-strategies: that based on physical equations
+In order to study the potential advantages of making use of a combined
+cooling\todo{ Ahora mismo esta introducción es demasiado parecida al TL;DR, hay
+que distinguirla } system, it is first necessary to develop the modelling of
+its components. Since the objective is performance prediction, this chapter
+focuses on the steady state modelling of the combined cooler main components,
+\ie the \gls{wctLabel} and the \gls{dcLabel}. More specifically, the aim is to
+compare two modelling strategies: that based on physical equations
 (\refsec{intro:modelling:first-principle}) and that based on black box models
 (\refsec{intro:modelling:data-driven}) such as \glspl[format=long]{annLabel},
 in order to see which one is more suitable for its integration in the
@@ -35,10 +37,8 @@ predictive capabilities, experimental and instrumentation requirements,
 execution time, implementation and scalability. A sensitivity analysis is
 performed to further analyze and compare each case study. It also presents and
 evaluates all relevant aspects of interest in the development of such models,
-specifically for \gls{annLabel}s, model configuration, architecture and topology are
-discussed. 
-
-Other system components are also described in
+specifically for \gls{annLabel}s, model configuration, architecture and
+topology are discussed. Other system components are also described in
 \nrefsec{cc:modelling:other-components} and finally their integration is
 discussed in \nrefsec{cc:modelling:complete-model}.
 
@@ -240,7 +240,7 @@ where the constants $c$ and $n$ can be obtained from the fitting of
 %=====================================
 \subsection{Samples generation for first-principles to data-driven models}
 Aquí describir los rangos en los que se han movido las variables de entrada y
-el criterio para elegir esas variable de entrada para construir la combinatoria
+el\todo{completar esta sección antes del domingo} criterio para elegir esas variable de entrada para construir la combinatoria
 de valores de entrada.
 
 Finally, all valid thermodynamic and operational combinations are merged into a comprehensive sample set, enabling detailed system evaluations across a realistic and constrained input space.
@@ -257,17 +257,42 @@ Finally, all valid thermodynamic and operational combinations are merged into a 
     \labmod{wct}
 \end{modelcounter}
 
+\begin{modelcounter}{Wet cooling system model}
+    \begin{align*}
+        T_{wct,out},&\,C_{e},C_{w},\,T_{c,in},\,T_{c,out} = \text{wcs\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in}) \\
+        % condenser model
+        & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
+        % wet cooler model
+        & T_{wct,out},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{c,out}) \\
+        % electrical consumptions
+        & C_{e,c} = \text{electrical\:consumption}(q_c) \\
+        & C_{e,wct} = \text{electrical\:consumption}(\omega_{wct}) \\
+        % totals
+        & C_{e} = C_{e,wct} + C_{e,c} \\
+        & C_{w} = C_{w,wct}
+    \end{align*}
+    \labmod{wet-system}
+\end{modelcounter}
+
 
 %=====================================
 %=====================================
 \section{Dry cooler}
+
+
+
+%================================
+\subsection{Physical model}
+
+a\todo{Pendiente de basarse en el artículo del modelo físico del DC con Elxe}
+
 
 %=====================================
 \subsection{Samples generation for first-principles to data-driven models}
 
 % TODO: Esto es metodología, mover a cc:modelling y aquí solo comentar la tabla
 % de muestreos seguida y mostrar la gráfica de resultados
-In this work, sample generation is carried out using a structured grid-search
+In this work, sample generation is carried out using a structured grid-search\todo{completar esta sección antes del domingo}
 approach to ensure comprehensive coverage of the input space. First, the most
 relevant input variables for the system are identified, and ranges are
 specified based on expected operating conditions. Then, the input space is
@@ -296,6 +321,23 @@ and uniform sampling across all relevant input dimensions
 \end{modelcounter}
 % \marginnote[*-2]{The condenser area ($A$) is a constant parameter}
 
+\begin{modelcounter}{Dry cooling system model}
+    \begin{align*}
+        T_{dc,out},&\,C_{e},\,T_{c,in},\,T_{c,out} = \text{dcs\:model}(q_{dc},\, \omega_{dc},\, T_{amb},\, T_{dc,in}) \\
+        % condenser model
+        & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
+        % dc model
+        & T_{dc,out} = \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{c,out}) \\
+        % electrical consumptions
+        & C_{e,c} = \text{electrical\:consumption}(q_c) \\
+        & C_{e,dc} = \text{electrical\:consumption}(\omega_{dc}) \\
+        % totals
+        & C_{e} = C_{e,dc} + C_{e,c} \\
+    \end{align*}
+    \labmod{dc-system}
+\end{modelcounter}
+
+
 %=====================================
 %=====================================
 \section{Other components}
@@ -315,14 +357,16 @@ experimental data:
     \end{align*}
     \labmod{electrical-consumption}
 \end{modelcounter}
-\marginnote[*-2]{$p_i$ are the coefficients of the polynomial regression. They need to be calibrated for each component.}
 
-where \(C_e\) is the electrical consumption and \(x\) is the input variable
-(\eg the recirculated cooling water flow rate, the dry cooler fan speed, etc.).
+where \(C_e\) represents the electrical consumption, and \(x\) is the input
+variable (e.g., the recirculated cooling water flow rate, particular cooler fan
+speed, etc.). The coefficients \(p_i\) correspond to a polynomial regression
+and must be calibrated individually for each component.
+
 
 %================================
 \subsection{Surface condenser}
-\labsec{cc:modelling:surface-condenser}
+\labsec{cc:modelling:condenser}
 
 The surface condenser is a heat exchanger that condenses steam into water,
 assuming that all the vapor that enters the condenser (at saturated
@@ -400,13 +444,20 @@ they have been able to do!}
 \section{Complete system}
 \labsec{cc:modelling:complete-model}
 
-The complete model of the combined cooling system is based on the integration
-of the models of the \gls{wctLabel} and the \gls{dcLabel} with the surface
-condenser and the mixers, and defined in \nrefmod{cc}.\sidenote{The cooling
-water recirculation electrical consumption is associated with the condenser
-here but not all consumption can be attributed to the condenser, the hydraulic
-circuit and specially the dry cooler will also offer a significant circulation
-resistance}
+The complete model of the combined cooling system integrates the models of the
+\gls{wctLabel} and \gls{dcLabel}, along with the surface condenser and the
+mixers, as defined in \nrefmod{cc}\sidenote{Although the electrical consumption
+for cooling water recirculation is attributed to the condenser in this model,
+other components—particularly the hydraulic circuit and the dry cooler—also
+contribute significantly to circulation resistance}. The full diagram,
+including all variables, is shown in
+\reffig{cc:modelling:complete-model-diagram}.
+
+To solve the system, the condenser model is evaluated first, providing the
+inlet temperature for the dry cooler. Once the dry cooler is solved, the
+resulting temperatures allow for solving the wet cooling tower. Finally, the
+mixers are evaluated to determine the final outlet temperature of the combined
+cooler, which should match the condenser’s inlet temperature.
 
 \begin{marginfigure}[]
     \includegraphics[]{figures/cc-modelling-wct-io-diagram.png}
@@ -427,9 +478,9 @@ resistance}
 \end{marginfigure}
 
 
-\begin{modelcounter}{Combined cooler}
+\begin{modelcounter}{Combined cooling system}
     \begin{align*}
-        T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,out} = \text{combined\:cooling\:system\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR_i,T_{v},\dot{m}_{v}) \\
+        T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,in},\,T_{c,out} = \text{ccs\:\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR_i,T_{v},\dot{m}_{v}) \\
         & T_{cc,in}=T_{c,out} \\
         & T_{dc,in}=T_{cc,in} \\
         % three-way valves
@@ -448,8 +499,8 @@ resistance}
         & q_{cc},\,T_{cc,out} = \text{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
         % electrical consumptions
         & C_{e,c} = \text{electrical\:consumption}(q_c) \\
-        & C_{e,dc} = \text{electrical\:consumption}(q_{dc}) \\
-        & C_{e,wct} = \text{electrical\:consumption}(q_{wct}) \\
+        & C_{e,dc} = \text{electrical\:consumption}(\omega_{dc}) \\
+        & C_{e,wct} = \text{electrical\:consumption}(\omega_{wct}) \\
         % totals
         & C_{e} = C_{e,dc} + C_{e,wct} + C_{e,c} \\
         & C_{w} = C_{w,wct}
@@ -457,8 +508,6 @@ resistance}
     \labmod{cc}
 \end{modelcounter}
 % }
-
-Finally, the complete model diagram with all its variables can be seen in \reffig{cc:modelling:complete-model-diagram}.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/cc-modelling-complete-model-diagram.png}

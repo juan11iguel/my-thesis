@@ -6,17 +6,60 @@
 \addcontentsline{toc}{section}{Conclusions}
 
 
-\section*{Outlook}
-\addcontentsline{toc}{section}{Outlook}
+\section*{Outlook and future work}
+\addcontentsline{toc}{section}{Outlook and future work}
 
-\textbf{MED}
-\begin{enumerate}
-	\item Configuraciones alternativas para procesos MED para aplicaciones de concentración de salmueras: geometría variable de efectos fuentes externas en efectos distintos al primero
-	\item Configuraciones alternativas para el proceso solar MED (almacenamiento
-	con distintos puntos de carga y descarga, MED con distintos puntos de fuente
-	externa, etc. Incluir diagrama de draw.io con las distintas configuraciones)
-	\item Configuraciones híbridas MED-MSF para aplicaciones de concentración de salmueras
-\end{enumerate}
+
+%================================
+\subsection*{Optimal water and electricity management in a combined cooling system}
+
+\textbf{Improved Pareto front computation}. In the current optimization
+    implementation, the Pareto front for each step in the optimization horizon
+    is constructed using a grid search over the decision space. This approach
+    can become computationally expensive, especially as the grid resolution
+    increases. Additionally, the Pareto front must be recalculated from scratch
+    at every step, even though the sequential steps are often very similar—cost
+    parameters remain constant, and only the thermal load and weather
+    conditions change, typically with small variations. A more efficient
+    solution would be to use a multi-objective optimization algorithm such as
+    NSGA-II~\sidecite{}, which can transfer evolved populations between
+    successive evaluations, significantly reducing redundant computations.
+
+\textbf{Better water management} In the current implementation, the primary
+    water source is distributed evenly each day, so the optimization process
+    uses up the entire supply daily. However, a more intelligent daily
+    distribution—essentially, a new optimization problem—could improve water
+    management by allocating different amounts on different days, based on
+    expected weather conditions and predicted generation. This approach would
+    likely be incorporated as a new layer in the hierarchical control
+    structure.\sidenote{ The resulting structure would be: 1.~Water allocation,
+    2.~ \gls{ccsLabel} \hyperref[sec:cc:optimization]{operation optimization},
+    3.~\gls{ccLabel} regulatory control.}
+
+\textbf{Techno-economic analysis.} The presented cooling alternatives
+comparative in this thesis focus on the operation cost of the system, but to
+get a better picture of the alternatives performance, a techno-economic
+analysis that includes the capital cost of the system and the
+expected lifetime of the components should be performed \ie considering all
+costs associated with the system the plant's lifetime. This is currently being
+worked on as part of \cite{SOLHycool}, where the methodology presented here in
+terms of operation costs will be integrated in a techno-economic analysis for
+different case studies.
+
+
+
+%================================
+\subsection*{Energy management in MED processes driven by variable energy sources}
+
+\textbf{Alternative configurations for an MED brine concentrator}.
+Configuraciones alternativas para procesos MED para aplicaciones de
+concentración de salmueras: geometría variable de efectos, fuentes externas en
+efectos distintos al primero, acoplamiento con MSF para efectos posteriores.
+
+\textbf{Alternative configurations for solar-driven MED}. Configuraciones
+alternativas para el proceso solar MED (almacenamiento con distintos puntos de
+carga y descarga, MED con distintos puntos de fuente externa, etc. Incluir
+diagrama de draw.io con las distintas configuraciones)
 
 \section*{Derived scientific contributions}
 \addcontentsline{toc}{section}{Derived scientific contributions}

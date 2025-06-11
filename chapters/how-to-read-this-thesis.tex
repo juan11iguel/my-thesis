@@ -1,34 +1,126 @@
 \chapter*{How to read this thesis}
 \addcontentsline{toc}{chapter}{How to read this thesis}
 
+\tldrbox{
+    This preliminary chapter explains how to read this thesis, mainly the
+    different environment boxes used throughout the manuscript, why the large
+    margins, what is placed in them, and how to use the interactive features
+    of the manuscript. This is an example of a \gls{tldrLabel} box. It contains
+    an Abstract/Summary of the main point of the chapter and are placed at the
+    beginning of every chapter.
+}
 
-% I believe that a document of this size will be more often viewed on computer
-% than on paper. This how I personally view most papers I read anyway.
-% As such, I believe that the document should be adapted for such a medium, unlike
-% most \LaTeX{} documents.
-% While trying to make my own kind of document, I stumbled upon the great
-% \href{https://github.com/fmarotta/kaobook/}{kaobook} class which corresponds
-% almost exactly to what I was looking for: citations, notes, reminders can be put
-% in a large margin.
+This \LaTeX{} template is designed with large margins, on the one hand this
+allows to have shorter lines, which makes for an easier reading experience but
+most interestingly, it also allows to place additional information in the
+margins, such as side notes, side citations, figures, tables… your
+imagination is the limit! Or rather \LaTeX{} compilation errors and your
+patience are. Throughout this manuscript I will add side notes\sidenote{
+  Like this one! They are like footnotes, but placed in the margin of the page
+} to provide additional information and comments that would otherwise be too
+distracting and verbose to include in the main text, constantly interrupting
+the flow of the reading. The side notes are not essential to understand the
+content of the document, but mostly complementary.
 
-% Citations like~\sidecite{KOMAScriptDoc} will go in the
-% margin, as well as in the \refbib.
-% The margin also contain side notes\sidenote{
-%   No more going back and forth between the end and top of the page.
-% }, replacing the usual footnotes.
+\section*{Boxed environments}
 
-% I will also use margin notes that are not anchored in the main document but are
-% usually relevant to the paragraph or figure on their left.
-% \marginnote[-0.4cm]{
-%   Margin notes are not placed entirely automatically. I tend to adjust the
-%   height so it is at the right place.
-% }
+Both problem definition boxes (\eg ref) and model definition boxes (\eg
+\refmod{example}) are countered environments and can (and will) be referenced
+in the text.
 
-% \begin{theorem}
-%   Theorems and definitions will be in these yellow boxes.
-% \end{theorem}
+\begin{marginfigure}[]
+    \includegraphics[]{figures/WASCOP-facility-WCT.png}
+    % \caption{Back view of the WCT}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.4in]{\repositoryBaseUrl/figures/day_viz_20220614_eval_at_20250414T1247_test_water_price.html}}
+    % \caption{\parbox{0.8\textwidth}{Line 1 of caption\\Line 2 of caption}}
+	\caption{Example figure. Try clicking or scanning the QR code to access the
+	interactive version.\\[1ex]\usebox\captionqr}
+    \labfig{how-to-read:example-figure}
+\end{marginfigure}
+
+
+\problemdefinitionbox{Problem definition box example}{
+    This is an example of a problem definition box. It is used to formally and
+    concisely define an optimization problem.
+  \begin{equation*}
+    \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = XXXX
+  \end{equation*}
+
+  \textbf{with}:
+  \begin{align*}
+      out_1,\, out_2 &= f(in_1,\, in_2,\, \ldots,\, in_N)\\
+      out_1,\, out_2 &= f(in_1,\, in_2,\, \ldots,\, in_N)
+  \end{align*}
+  \begin{itemize}
+    \item Decision variables
+    \[
+      \mathbf{x} = [x_1,\, x_2]
+    \]
+    \item Environment variables
+    \[
+      \mathbf{e} = [e_1,\, e_2,\, \ldots,\, e_3]
+    \]
+    \item Fixed parameters
+    \[
+      \boldsymbol{\theta} = [\theta_1 = X,\, \theta_2 = Y]
+    \]
+  \end{itemize}
+
+  \textbf{subject to}:
+  \begin{itemize}
+    \item Box-bounds
+    \begin{itemize}
+      \item $x_{1} \in [\underline{x}_{1}, \overline{x}_{1}]$
+      \item $x_{2} \in [\underline{x}_{2}, \overline{x}_{2}]$
+    \end{itemize}
+    \item Constraints
+    \begin{itemize}
+      \item $\left| out_X - out_Y \right| \leq \epsilon_1$
+      \item $out_X \leq out_Z - \Delta Z$
+    \end{itemize}
+  \end{itemize}
+}
+
+\begin{modelcounter}{Model definition box example}
+    \begin{equation*}
+        out_{1},\,out_{2} = \text{some\:cool\:model}(in_{1},\, in_{2},\, in_{3})
+    \end{equation*}
+    \labmod{example}
+\end{modelcounter}
+
+\begin{kaobox}[title=Other boxes]
+    Other boxes are used to highlight important points, or to provide
+    additional information that is not essential to the main text.
+\end{kaobox}
 
 % On the other hand, I will sometimes refer to concepts for the first time without
 % taking the time to introduce them because they are secondary to the main point.
 % In some cases those will be accompanied by a short definition on the side, in
 % a yellowish box.
+
+In order to make the book more interactive and link-friendly, I have enabled
+hyperlinks in the PDF. This means that you can click on the references,
+citations, and links to external resources, and they will take you to the
+corresponding location. This is standard latex, however to maintain a
+consistent experience in the physical version, QR codes are inserted in the
+margin next to the links. The reader is invited to scan them with a QR code
+reader to access the corresponding online resource\sidenote[][*-8]{
+    I believe that this is a good way to make the document more
+accessible and to encourage readers to explore the content in more depth.
+However, the interactive features are \textbf{optional} and not necessary to
+understand the content of the document.
+}. Some figures also include QR codes that link to an interactive (HTML)
+version of the figure, see \reffig{how-to-read:example-figure} as an example.
+
+The additional material as
+well as the source code of this document are hosted in a \href{\repositoryBaseUrl}{Zenodo repository}\sidenote[][*-2]{
+    \qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl}
+}. Alternatively, a mirror repository is also available at: \\
+\begin{center}
+    \href{https://github.com/juan11iguel/my-thesis}{https://github.com/juan11iguel/my-thesis} \\
+\end{center}
+It seems unlikely that both Zenodo and GitHub will go down at a time where this
+document is still relevant, and if they do, I think there will be more
+important things to worry about than losing access to the interactive content
+of this thesis.\sidenote[{\color{gray} \faToiletPaper}]{Like hoarding toilet paper}.\todo{Esto debería ser un
+icono de un rollo de papel higiénico, fijarse en template de cv para ver cómo añadirlos}

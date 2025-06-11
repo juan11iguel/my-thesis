@@ -20,6 +20,6 @@
 		"window.autoDetectColorScheme": true,
 		"workbench.productIconTheme": "adwaita",
 		"workbench.preferredLightColorTheme": "Quiet Light",
-		"workbench.preferredDarkColorTheme": "Adwaita Dark & colorful status bar",
+		"workbench.preferredDarkColorTheme": "GNOME dark",
 	}
 }
