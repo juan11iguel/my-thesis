@@ -29,6 +29,8 @@ components (\refsec{cc:modelling:other-components}) is validated in
 \subsection{Wet cooler model alternatives comparison and validation}
 \labsec{cc:validation:wct}
 
+\subsubsection{Physical model}
+
 As previously mentioned\sidenote{See \nrefsec{cc:facility:exp-wct}}, three
 experimental campaigns have been performed, shown in
 \reffig{cc:validation:modelling:method} as \hyperref[sec:cc:facility:exp:1]{Exp
@@ -38,7 +40,8 @@ and \hyperref[sec:cc:facility:exp:3]{\hyperref[sec:cc:facility:exp:3]{Exp 3}}.
 calibration campaign and it was designed for the calibration of the first
 principles model. The aims of such campaign was to fit a function (mapping)
 that relates the air mass flow rate at the outlet of the tower, $\dot{m}_a$,
-with the frequency of the fan, $f_{fan}$:
+with the frequency of the fan, $f_{fan}$:\todo{Lidia, aquí la correlación no
+usa la temperatura ambiente}
 
 \begin{figure}
   \includegraphics[]{figures/wascop-wct-exp-campaigns-diagram.png}
@@ -68,6 +71,46 @@ with $\dot{m}_w/\dot{m}_a$ values following a linear trend on log-log scale.
 Following the correlation for the Merkel number of a wet cooling tower
 described in \refsec{cc:modelling:wct:poppe}, the parameters $c$ and $n$ obtained
 from the data fitting are 1.516 and 0.693, respectively.
+
+\subsubsection{Data-driven}
+
+In order to generate the data-driven from first-principles alternative, the
+most relevant input variables identified in \refsec{cc:modelling:wct:samples}
+are discretized using a fixed number of resolution steps for each variable,
+within ranges based on expected operating conditions, as
+defined in \reftab{cc:validation:wct:samples-params}.
+
+\begin{margintable}[]
+    \caption{Bounds and discretization of the model input variables.}
+    \labtab{cc:validation:wct:samples-params}
+    \resizebox{\linewidth}{!}{%
+    \begin{tabular}{lcccc}
+        \toprule
+        $\mathbf{x}$ & \textbf{Units} & \textbf{lb} & \textbf{ub} & \textbf{n} \\
+        \midrule
+        $T_{amb}$       & $^\circ$C            & 3   & 50   & 7 \\
+        $\Delta T_{amb-in}$       & $^\circ$C            & 3   & 30    & 7  \\
+        $q_{dc}$       & m$^3$/h            & 0.00   & 1.00    & 5  \\
+        $\omega_{\text{dc}}$   & \%         & 11.00  & 99.18   & 10 \\
+        $\omega_{\text{wct}}$  & \%         & 21.00  & 93.42   & 10 \\
+        \bottomrule
+    \end{tabular}
+    }
+\end{margintable}
+
+\begin{figure*}
+    \includegraphics[width=0.8\linewidth]{figures/cc-validation-samples_wct.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.3in]{\repositoryBaseUrl/figures/cc-validation-samples_wct.html}}
+    \caption[\gls{wctLabel} samples distribution visualization]{Data-driven
+    from first-principles. Samples distribution visualization.\hspace{1ex}
+    \usebox\captionqr}
+    \labfig{cc:validation:wct:samples-distribution}
+\end{figure*}
+
+\reffig{cc:validation:wct:samples-distribution} shows the generated input space
+distribution. The upper plot shows the frequency distribution of the samples
+while the lower one the actual values per input, where the x-axis represents
+the samples and the y-axis the values for each of the input variables.
 
 \subsubsection{Prediction capabilities}
 Tabla tocha añadiendo casos (GPR, DD from FP, RF, GB)
@@ -289,9 +332,82 @@ of saturated air evaluated at water temperature.
 % =================================
 \subsection{Dry cooler model alternatives comparison and validation}
 
+\subsubsection{Physical model}
+
+\subsubsection{Data-driven}
+
+In order to generate the data-driven from first-principles alternative, the
+most relevant input variables identified in \refsec{cc:modelling:dc:samples}
+are discretized using a fixed number of resolution steps for each variable,
+within ranges based on expected operating conditions, as defined in
+\reftab{cc:validation:dc:samples-params}. and
+\nrefsec{cc:validation:dc:samples-distribution} visualizes the generated input
+space distribution where it can be appreciated that the samples are well
+distributed across the entire input space.
+
+\begin{margintable}[]
+    \caption{Bounds and discretization of the model input variables.}
+    \labtab{cc:validation:dc:samples-params}
+    \resizebox{\linewidth}{!}{%
+    \begin{tabular}{lcccc}
+        \toprule
+        $\mathbf{x}$ & \textbf{Units} & \textbf{lb} & \textbf{ub} & \textbf{n} \\
+        \midrule
+        $T_{amb}$       & $^\circ$C            & 3   & 50   & 7 \\
+        $\Delta T_{amb-dc,in}$       & $^\circ$C            & 3   & 30    & 7  \\
+        $q_{dc}$       & m$^3$/h            & 6   & 24    & 7  \\
+        $T_{dc,in}$   & $^\circ$C         & 25  & 45   & - \\
+        $\omega_{\text{dc}}$  & \%         & 11  & 99.18   & 6 \\
+        \bottomrule
+    \end{tabular}
+    }
+\end{margintable}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/cc-validation-samples_dc.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-samples_dc.html}}
+    \caption[\gls{dcLabel} samples distribution visualization]{Data-driven from first-principles. Samples distribution visualization.\\[1ex] \usebox\captionqr}
+    \labfig{cc:validation:dc:samples-distribution}
+\end{figure}
+
+
 \subsubsection{Prediction capabilities}
 Tabla tocha añadiendo casos (GPR, DD from FP, RF, GB)\todo{completar esta sección antes del domingo}
-La tabla debe incluir el tiempo de computación
+
+\begin{table*}[]
+\caption{Summary table of the prediction results obtained with the different modelling approaches studied.}
+\labtab{cc:validation:wct:results}
+\resizebox{\linewidth}{!}{%
+    
+\begin{tabular}{cclccccccccccccccccccccccc}
+\hline
+\multicolumn{1}{c}{\multirow{3}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Predicted\\ variable\end{tabular}}}} & &
+\multicolumn{1}{c}{\multirow{3}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Modelling\\ alternative\end{tabular}}}} & &
+\multicolumn{1}{c}{\multirow{3}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Model\\ config\end{tabular}}}} & &
+\multicolumn{1}{c}{\multirow{3}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Topology\end{tabular}}}} & &
+\multicolumn{15}{c}{\textbf{Performance metric}} & &
+\multicolumn{1}{c}{\multirow{3}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Evaluation\\ time (s)\end{tabular}}}} \\ 
+\cline{9-23} \multicolumn{1}{c}{} & & \multicolumn{1}{c}{} & & & & & &
+\multicolumn{3}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}R$^2$\\ (-)\end{tabular}}} & &
+\multicolumn{3}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}RMSE\\ (s.u.)\end{tabular}}} & &
+\multicolumn{3}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}MAE\\ (s.u.)\end{tabular}}} & &
+\multicolumn{3}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}MAPE \\ (\%)\end{tabular}}} & &
+\multicolumn{1}{c}{} \\
+\cline{9-11} \cline{13-15} \cline{17-19} \cline{21-23}
+\multicolumn{1}{c}{}  & & \multicolumn{1}{c}{}  & & \multicolumn{1}{c}{}  & & \multicolumn{1}{c}{}  & &
+\multicolumn{1}{c}{T} & & \multicolumn{1}{c}{V} & &
+\multicolumn{1}{c}{T} & & \multicolumn{1}{c}{V} & &
+\multicolumn{1}{c}{T} & & \multicolumn{1}{c}{V} & &
+\multicolumn{1}{c}{T} & & \multicolumn{1}{c}{V} & & \multicolumn{1}{c}{} \\
+\cline{1-1} \cline{3-3} \cline{5-5} \cline{7-7} \cline{9-9} \cline{11-11} \cline{13-13} \cline{15-15} \cline{17-17} \cline{19-19} \cline{21-21} \cline{23-23} \cline{25-25}
+\multirow{8}{*}{T$_{o,w}$ ($^\circ$C)}
+    % Include Poppe manually
+    & & Poppe & & - & & - & & - & & 0.98 & & - & & 0.33 & & - & & 0.27 & & - & & 0.87 & & 6.288 & \\
+     & & Feedforward ANN & & MIMO & & 20-2 & & 0.93 & & 0.89 & & 0.52 & & 0.74 & & 0.37 & & 0.51 & & 1.22 & & 1.78 & & 0.004 & \\ & & Cascade-forward ANN & & MIMO & & 10-5-2 & & 0.93 & & 0.90 & & 0.50 & & 0.70 & & 0.35 & & 0.47 & & 1.15 & & 1.65 & & 0.004 & \\ & & Radial basis ANN & & MIMO & & 37-2 & & 0.99 & & 0.95 & & 0.23 & & 0.51 & & 0.18 & & 0.40 & & 0.57 & & 1.35 & & 0.004 & \\ & & Feedforward ANN & & Cascade & & 10-10-1 & & 0.94 & & 0.89 & & 0.46 & & 0.72 & & 0.32 & & 0.49 & & 1.05 & & 1.71 & & 0.007 & \\ & & Cascade-forward ANN & & Cascade & & 10-10-1 & & 0.94 & & 0.87 & & 0.46 & & 0.79 & & 0.31 & & 0.52 & & 1.02 & & 1.82 & & 0.008 & \\ & & Radial basis ANN & & Cascade & & 92-1 & & 0.99 & & 0.69 & & 0.23 & & 1.22 & & 0.08 & & 0.92 & & 0.25 & & 3.20 & & 0.008 & \\ \hline
+\end{tabular}%
+}
+\end{table*}
+
 \subsubsection{Experimental data requirements}
 \subsubsection{Sensitivity analysis}
 
@@ -300,19 +416,21 @@ La tabla debe incluir el tiempo de computación
 %================================
 \subsection{Main components modelling conclusions}
 
-This section presents a comparison between two modelling alternatives:\todo{completar esta sección antes del domingo}
-data-driven and first-principles. It is applied to wet
-cooling towers and dry coolers when they are integrated into combined cooling
-systems, with the aim of optimizing this integration. The main conclusions
-obtained during the investigation and final recommendations can be summarized
-as follows:
+This section presents a comparison between two modelling alternatives:
+data-driven and first-principles. It applies to wet cooling towers and dry
+coolers, specifically to \fullgls{acheLabel}. The main conclusions obtained
+during the investigation and final recommendations can be summarized as
+follows:
 
-Regarding the prediction of the output variables, in the case of the outlet
+\subsubsection{Wet cooling tower}
+
+Regarding\todo{Pendiente de actualizar estas conclusiones con resultados
+actualizados} the prediction of the output variables, in the case of the outlet
 water temperature, both models reported good results, with low errors falling
 within the uncertainty range of the experimental equipment. Nonetheless, the
-physical model performs better than the best ANN alternative (MIMO RBF):
-$R^2=0.98$ and RMSE$=0.33 \: ^\circ$C compared to $R^2=0.95$ and RMSE$=0.51 \:
-^\circ$C, respectively.
+physical model performs better than the best data-driven alternative (MIMO
+RBF): $R^2=0.98$ and RMSE$=0.33 \: ^\circ$C compared to $R^2=0.95$ and
+RMSE$=0.51 \: ^\circ$C, respectively.
 
 For the predictions of water consumption, it was shown that the Poppe model
 accurately predicts this variable, with results of $R^2=0.97$ and RMSE$=8.47$
@@ -324,28 +442,38 @@ lower number of tests, needing only 2. In comparison, the ANN alternatives need
 more data, at least 10 (with a good distribution over the operating range) for
 the FF and CF ANN models.
 
-One of the main strengths of the Poppe model is its ability to predict the
-operation of the tower regardless of the conditions tested. This model is
-recommended to be used when it is necessary to scale up to larger systems, as
-long as the system design remains the same. In the case of the ANN model, it is
-only applicable to the same conditions and the same tower for which the model
-was developed.
 
-The ANN model also has several strengths compared to the Poppe model. The most
-important one is the lower execution time. The ANN model is faster by orders of
-magnitude, it can be vectorized and its execution time is more constant
-regardless of the input conditions, in the order of milliseconds. Another
-advantage is that it can be developed and implemented without knowledge of the
-physical processes that take place in a wet cooling tower.
+\subsubsection{Air-cooled heat exchanger}
 
-That is why in the end it was decided to make use of the best performing
-data-driven model, the \gls{gprLabel} calibrated using data from the
-first-principle models,  where physical models can be adapted dynamically to
-the required scale, calibration data generated for the particular case study
-environment, and finally the data-driven model can be generated. This approach
-provides a way of having on-demand models that can be adapted to the particular
-case study, while still being fast and efficient in terms of computational
-resources.
+
+
+\subsubsection{Conclusions and recommendations}
+
+For the proposed optimization strategy in \nrefsec{cc:optimization}, a fast,
+reliable model that can be scaled to different system sizes is required.
+
+On the one hand, the first-principle models execution time is much higher than
+the data-driven alternatives, which is a significant drawback when it comes to
+the optimization strategy, where the model is evaluated many times in a short
+period of time. On the other hand, the data-driven counterparts are only
+applicable to the conditions and the particular system with which they are
+developed.
+
+Conversely, one of the main strengths of both physical models presented in this
+chapter, is their ability to predict the operation of the coolers regardless of
+the conditions tested; while the data-driven execution time is faster by orders
+of magnitude, it can be vectorized and its execution time is more constant
+regardless of the input conditions.
+
+Therefore, as combining a wet cooler and a dry cooler into a combined cooler
+offers potential advantages compared to the individual systems, combining both
+modelling approaches is the chosen solution to model the system. The best
+performing data-driven model, the \gls{gprLabel} is calibrated using data from
+the first-principle models, where physical models are adapted dynamically to
+the required scale and finally the data-driven model can be generated. This
+approach provides a way of having on-demand models that can be adapted to the
+particular case study, while still being fast and efficient in terms of
+computational resources.
 
 
 %================================
@@ -357,15 +485,20 @@ For the surface condenser\sidenote{See
 the heat transfer coefficient as the only parameter to calibrate. Seven
 different alternative estimations of the heat transfer coefficient were
 calculated, using the data from the experimental campaign described in
-\nrefsec{cc:facility:exp-condenser}. They are as follows:\todo{completar esta sección antes del domingo}
+\nrefsec{cc:facility:exp-condenser}. They are as follows:
 
 \begin{enumerate}
-    \item A
-    \item B
-    \item C
-    \item D
-    \item E
-    \item F 
+    \item Empirical correlation using the condenser flow rate ($q_c$) and the
+    vapor temperature (\(T_{v}\)) as inputs.
+    \item Empirical correlation using the cooling water inlet temperature
+    (\(T_{c,in}\)) and \(T_{v}\) as inputs.
+    \item Empirical correlation using the flow rate per condenser tube
+    (\(q_{c,tube}=q_c/n_{tubes}=q_c/24\)) and the cooling water inlet temperature.
+    \item Nominal value from the manufacturer, which equals 1.838
+    W/m$^2\,^\circ$C
+    \item Calibra\_Uexp\_original\todo{Estos qué son? Generar una nueva versión
+    de la figura una vez se seleccionen los métodos finales}
+    \item Calibra\_Uexp\_recortado
 \end{enumerate}
 
 \begin{figure}
@@ -381,16 +514,52 @@ coefficient estimation methods, with bars also for the experimental heat
 released by the vapor and absorbed by the coolant. As can be seen in the
 figure. The shown results are for steady-state conditions with the condenser in
 an equilibrium state (\(Q_{\text{released}} \approx Q_{\text{absorbed}}\)), and with a
-large variation in the condenser conditions (120 to 200 kW, the whole operating
+large variation in the condenser conditions (120 to 200~kW, the whole operating
 range of the condenser). The results show that the heat transfer coefficient
 obtained with the method 3 is the one that best fits the experimental data,
-with a \gls{maeLabel} of 17.6 kW and a maximum error of 33.41 kW (15\%).
+with a \gls{maeLabel} of 17.6~kW and a maximum error of 33.41~kW (15\%).
 
 
 % =================================
 \subsection{Complete system model validation}
 \labsec{cc:validation:complete-system}
-a\todo{completar esta sección antes del domingo}
+
+Esto\todo{a completar una vez se tengan resultados experimentales, hay que
+implementar la función para generar la visualización}, o bien se hace
+comparando puntos en estático cuando todo el sistema está en estacionario, o en
+la gráfica de validación de la estrategia de optimización se muestra también
+una línea con las predicciones del modelo. Y después una tabla con cada una de
+las salidas del sistema, mostrando el error entre cada una de las predicciones
+del modelo (cada vez que se evalúa la optimización), en comparación al valor
+real obtenido en la planta. 
+
+Cuando haya un cambio en la planificación, las predicciones de predicciones
+antes a conocerse el cambio, cambiar su color a un gris para mostrar que esas
+predicciones ya no son válidas pues han cambiado las condiciones.
+
+\begin{figure*}[h!]
+    \includegraphics[]{figures/cc-validation-complete-model.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-complete-model.html}}
+    \caption[Figure caption]{Figure caption.\hspace{1ex}\usebox\captionqr}
+    \labfig{cc:validation:complete-model}
+\end{figure*}
+
+% Figure description
+\reffig{cc:validation:complete-model} shows the model validation results for
+the complete system model. Different plots are shown for the main output
+variables\sidenote{$C_w$, $T_{dc,out}$, etc}. Solid lines represent the
+measured variables in the real facility, while the different markers represent
+the predictions generated at different times. The plots also include a
+right-axis to display a metric error, specifically the \gls{mapeLabel} of the
+predictions with respect to the measured values. The error is shown with a bar
+for each prediction.
+
+% Results assessment
+The results show that the model is able to predict the main output variables
+of the system with a good accuracy. As expected the errors compound over time,
+specially after the change in the operation schedule at XX:XX. Nonetheless, the
+model is able to adapt after a new evaluation including the change and overall
+predictions below XX\% of error are achieved.
 
 % A mi me gustaría que esta sección sea su propio capítulo
 % Optimization validation
@@ -399,6 +568,18 @@ a\todo{completar esta sección antes del domingo}
 \section{Control and optimization results}
 \labsec{cc:validation:optimization}
 
+Once the models of the main components of the system have been validated,
+the next step is to validate the optimization strategy proposed in
+\nrefsec{cc:modelling:optimization}.
+First, an optimization algorithm is chosen by comparing different alternatives
+in \nrefsec{cc:validation:algorithm}. Then, the two proposed variants for the
+combined cooler are compared in simulation for one operation day in the
+simulated pilot plant in order to see which one performs better in
+\nrefsec{cc:validation:optimization:static-vs-horizon}. Finally, two validation
+scenarios are tested in the real facility, one where a regular operation
+schedule is followed throughout the operation, and a second one where planned
+changes are introduced in the operation schedule, in order to validate how the
+optimization strategy adapts to changing conditions.
 
 %================================
 \subsection{Choosing an optimization algorithm}
@@ -408,36 +589,40 @@ a\todo{completar esta sección antes del domingo}
 \subsection{Comparing the static and horizon optimization strategies}
 \labsec{cc:validation:optimization:static-vs-horizon}
 
-Poner la figura de resultados del horizonte para un día detallado aquí
+Poner la figura de resultados del horizonte para SOLO un día detallado aquí
+(más días hace que no se distingan bien las barras, tampoco se puede poner el
+pareto). Debe incluir la distribución hidráulica en barras comparando estático
+con horizonte, el frente de pareto del horizonte, y la comparativa de coste
+acumulado.\todo{La figura es provisional. Actualizar la figura con cambios mencionados}
 
-See \reffig{cc:validation:optimization:diagram}, for now, just see it, not much
-more to say about it.\todo{completar esta sección antes del domingo}
+\begin{figure*}[h!]
+    \includegraphics[]{figures/cc-validation-comp_static_horizon.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-comp_static_horizon.html}}
+    \caption[Detailed timeseries simulation results. \gls{ccLabel}--horizon]{Detailed simulation results for the horizon
+    optimization compared to the static alternative.\hspace{1ex}\usebox\captionqr}
+    \labfig{cc:validation:static-vs-horizon}
+\end{figure*}
 
-\begin{figure}
-    \includegraphics[]{figures/wascop-validation-optimization-diagram.png}
-    \caption{Proposed optimization strategy implementation. It is a
-    hierarchical control strategy that combines a high-level optimization
-    strategy with a low-level control strategy. The optimization strategy
-    determines the optimal operation of the system, while the control strategy
-    ensures that the system operates within the defined constraints and
-    achieves the desired performance. 
-    }
+Comentar la figura, sobre el frente de pareto que se muestra, cómo la estática
+al principio abusa del agua y para el final del día aumenta muchos sus costes, etc.
+
+%================================
+\subsection{Validation at pilot plant}
+
+A hierarchical control strategy has been implemented in order to validate the
+optimization strategy in the real facility.
+\reffig{cc:validation:optimization:diagram} shows a diagram of the methodology,
+where the left side represents the upper layer with the proposed
+shrinking horizon optimization\sidenote{See \nrefsec{optimization:horizon}} and
+the right side shows the low-level regulatory control layer, which directly
+interfaces with the actuators and sensors of the facility. 
+
+\begin{figure*}
+    \includegraphics[]{figures/cc-validation-diagram.png}
+    \caption{Implementation of the optimization strategy in the real facility.
+    Hierarchical control}
     \labfig{cc:validation:optimization:diagram}
-\end{figure}
-
-%TODO: Aquí añadir una tabla con los distintos parámetros del problema
-% @dataclass
-% class ModelInputsRange:
-%     """ Real decision variables box bounds, as in: (lower bound, upper bound)"""
-%     qc: tuple[float, float] = (5.2211, 24.1543)
-%     Rp: tuple[float, float] = (0., 1.)
-%     Rs: tuple[float, float] = (0., 1.)
-%     wdc: tuple[float, float] = (11.0, 99.1800)
-%     wwct: tuple[float, float] = (21., 93.4161)
-%     Tamb: tuple[float, float] = (9.06, 38.75)
-%     HR: tuple[float, float] = (10.33, 89.25)
-%     Tdc_in: tuple[float, float] = (33.16, 41.92)
-%     Twct_in: tuple[float, float] = (31.17, 40.94)
+\end{figure*}
 
 \begin{margintable}[*-6]
     \caption{Box-bounds for the decision variables.}
@@ -455,17 +640,50 @@ more to say about it.\todo{completar esta sección antes del domingo}
     \end{tabular}
 \end{margintable}
 
+\textbf{Environment}. To generate the environment for the optimization, weather
+forecasts using the OpenWeather API were used\sidecite{openweater_api}, for the
+electricity costs data from the 2022 spanish grid was used, updating the year
+to the one in which the experiment was performed, and the water cost was set to
+$C_{w,s1}=X$ and $C_{w,s2}=Y$. For the thermal load a profile was generated by
+setting a constant vapor temperature of $T_v=45\,^\circ$C while an arbitrary
+cooling power was generated considering the heat availability from the
+flat-plate collector field, which is the heat source of the system, for the
+particular day. Finally, an initial value for the water availability was set to
+$V_{avail,0}=0.5\,m^3$, and from there it is updated by reading the actual
+system consumption online.
 
-%================================
-\subsection{Regular operation validation}
-\labsec{cc:validation:regular-operation}
-a\todo{al menos redactar lo que se pretende sin resultados antes del domingo}
-%================================
-\subsection{Planned changes in operation validation}[Planned changes]
-\labsec{cc:validation:planned-operation}
-a\todo{al menos redactar lo que se pretende sin resultados antes del domingo}
+\textbf{Optimization layer}. The optimization
+algorithm is run every 30 minutes, and generates a new set of results for the
+remaining operation time. The results of the optimization are then passed to
+the regulatory control layer by setting them as setpoints for the low-level
+control. The box-bounds for the decision variables are shown in
+\reftab{cc:validation:optimization-bounds}.
 
-%================================
+\textbf{Control layer}. Four controllers are implemented in this layer...
+
+
+\begin{kaobox}[title=Consulta]
+    Y si en lugar de mostrar varios escenarios mostramos un único día donde
+    haya una primera parte donde se hacen varias evaluaciones siguiendo un
+    plan, y a mitad de día se introduce un cambio en el plan de operación. Así
+    nos ahorramos describir varios ensayos, y tener que estar mostrando varias
+    gráficas. Mejor mostrar solo una en grande y dedicarse a comentar lo que
+    suceda en ella.
+\end{kaobox}
+
+% \subsubsection{Regular operation validation}
+% \labsec{cc:validation:regular-operation}
+
+% As mentioned, the first validation scenario consists of a regular operation
+% schedule, where the optimization strategy is applied to the system without
+% introducing any changes in the scheduled operation. 
+
+% %================================
+% \subsection{Planned changes in operation validation}[Planned changes]
+% \labsec{cc:validation:planned-operation}
+% a\todo{al menos redactar lo que se pretende sin resultados antes del domingo}
+
+% %================================
 % \subsection{Unanticipated operational changes validation}[Unanticipated changes]
 % \labsec{cc:validation:unanticipated-operation}
 

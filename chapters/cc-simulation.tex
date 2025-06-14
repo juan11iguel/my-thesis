@@ -220,53 +220,69 @@ includes a scaling factor to normalize the values}.
     \end{tabular}
 \end{kaobox}
 
-\section{WCT results}
-Anual muestreado cada 15 días. Versión interactiva sin muestrar
-\begin{figure}
-    \includegraphics[width=1.2\textwidth]{figures/cc-simulation-wct-year_viz_resampled.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-wct-year_viz.html}}
-    \caption{Annual simulation results for the \gls{ccLabel} system optimized
-    with static optimization. Results are resampled every 15 days using their
-    mean values. The original frequency results can be found in the interactive
-    version:\\[1ex] \usebox\captionqr}
-    \labfig{cc:simulation:wct-year}
-\end{figure}
+% \section{WCT results}
+% Anual muestreado cada 15 días. Versión interactiva sin muestrar
+% \begin{figure}
+%     \includegraphics[width=1.2\textwidth]{figures/cc-simulation-wct-year_viz_resampled.png}
+%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-wct-year_viz.html}}
+%     \caption{Annual simulation results for the \gls{ccLabel} system optimized
+%     with static optimization. Results are resampled every 15 days using their
+%     mean values. The original frequency results can be found in the interactive
+%     version:\\[1ex] \usebox\captionqr}
+%     \labfig{cc:simulation:wct-year}
+% \end{figure}
 
-\section{DC results}
-\begin{figure}
-    \includegraphics[width=1.2\textwidth]{figures/cc-simulation-dc-year_viz_resampled.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-dc-year_viz.html}}
-    \caption{Annual simulation results for the \gls{ccLabel} system optimized
-    with static optimization. Results are resampled every 15 days using their
-    mean values. The original frequency results can be found in the interactive
-    version:\\[1ex] \usebox\captionqr}
-    \labfig{cc:simulation:dc-year}
-\end{figure}
+% \section{DC results}
+% \begin{figure}
+%     \includegraphics[width=1.2\textwidth]{figures/cc-simulation-dc-year_viz_resampled.png}
+%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-dc-year_viz.html}}
+%     \caption{Annual simulation results for the \gls{ccLabel} system optimized
+%     with static optimization. Results are resampled every 15 days using their
+%     mean values. The original frequency results can be found in the interactive
+%     version:\\[1ex] \usebox\captionqr}
+%     \labfig{cc:simulation:dc-year}
+% \end{figure}
 
 
-\section{CC results}
-\subsection{Static optimization}
+% \section{CC results}
+% \subsection{Static optimization}
 
-\begin{figure}
-    \includegraphics[width=1.2\textwidth]{figures/cc-simulation-cc_static-year_viz_resampled.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-cc_static-year_viz.html}}
-    \caption{Annual simulation results for the \gls{ccLabel} system optimized
-    with static optimization. Results are resampled every 15 days using their
-    mean values. The original frequency results can be found in the interactive
-    version:\\[1ex] \usebox\captionqr}
-    \labfig{cc:simulation:cc-static-year}
-\end{figure}
+% \begin{figure}
+%     \includegraphics[width=1.2\textwidth]{figures/cc-simulation-cc_static-year_viz_resampled.png}
+%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-cc_static-year_viz.html}}
+%     \caption{Annual simulation results for the \gls{ccLabel} system optimized
+%     with static optimization. Results are resampled every 15 days using their
+%     mean values. The original frequency results can be found in the interactive
+%     version:\\[1ex] \usebox\captionqr}
+%     \labfig{cc:simulation:cc-static-year}
+% \end{figure}
 
-\begin{figure*}[h!]
-    \includegraphics[]{figures/cc-simulation-cc_static-year_viz_resampled.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-cc_static-year_viz.html}}
-    \caption{Annual simulation results for the \gls{ccLabel} system optimized
-    with static optimization. Results are resampled every 15 days using their
-    mean values. The original frequency results can be found in the interactive
-    version:\\[1ex]\usebox\captionqr}
-    \labfig{cc:simulation:cc-static-year:wide}
-\end{figure*}
 
+
+
+% \subsection{Horizon optimization}
+
+
+% 1 day en detalle (incluya frente de pareto, compare distribución hidráulica y
+% tenga el coste acumulado comparado)
+
+% Annual results
+% \begin{figure}
+%     \includegraphics[width=1.2\textwidth]{figures/cc-simulation-cc_static-year_viz_resampled.png}
+%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-cc_static-year_viz.html}}
+%     \caption{Annual simulation results for the \gls{ccLabel} system optimized
+%     with static optimization. Results are resampled every 15 days using their
+%     mean values. The original frequency results can be found in the interactive
+%     version:\\[1ex] \usebox\captionqr}
+%     \labfig{cc:simulation:cc-static-year}
+% \end{figure}
+
+
+%================================
+\section{Optimization strategies comparison}[Comparison]
+\labsec{cc:simulation:optimization-comparison}
+
+% 3 in 1 cc-static
 \newgeometry{margin=0.5cm}  % Remove margins completely
 \begin{sidewaysfigure*}
     \centering
@@ -276,9 +292,7 @@ Anual muestreado cada 15 días. Versión interactiva sin muestrar
 \restoregeometry
 
 
-\subsection{Horizon optimization}
-
-% 3 in 1
+% 3 in 1 cc-horizon
 % TODO: añadir cumulative costs comparison
 \newgeometry{margin=0.5cm}  % Remove margins completely
 \begin{sidewaysfigure*}
@@ -288,40 +302,32 @@ Anual muestreado cada 15 días. Versión interactiva sin muestrar
 \end{sidewaysfigure*}
 \restoregeometry
 
-% 1 day en detalle (incluya frente de pareto, compare distribución hidráulica y
-% tenga el coste acumulado comparado)
 
-% Annual results
-\begin{figure}
-    \includegraphics[width=1.2\textwidth]{figures/cc-simulation-cc_static-year_viz_resampled.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-cc_static-year_viz.html}}
+\section{Alternatives comparison}
+\labsec{cc:simulation:alternatives-comparison}
+
+% \begin{figure*}[h!]
+%     \includegraphics[]{figures/.png}
+%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/.html}}
+%     \caption[Figure caption]{Figure caption.\hspace{1ex}\usebox\captionqr}
+%     \labfig{::}
+%         \end{figure*}
+Fusionar las gŕacias de resultados anuales remuestreados para que incluyan
+todas las alternativas. Cambiar fondo para cada sistema
+\begin{figure}[h!]
+    \includegraphics[width=1\textwidth]{figures/cc-simulation-comparison-year_viz_resampled.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-comparison-year_viz_resampled.html}}
     \caption{Annual simulation results for the \gls{ccLabel} system optimized
     with static optimization. Results are resampled every 15 days using their
     mean values. The original frequency results can be found in the interactive
     version:\\[1ex] \usebox\captionqr}
-    \labfig{cc:simulation:cc-static-year}
+    \labfig{cc:simulation:year-comparison}
 \end{figure}
 
 
-%================================
-\subsection{Optimization strategies comparison}[Comparison]
-\labsec{cc:simulation:optimization-comparison}
-
-% Gráfica de barras comparando distribución de potencia térmica por componente
-% y distribución hidráulica por componente para cc-static y cc-horizon
+\todo{Añadir gráfica de barras comparando coste por kWh refrigerado}
+\todo{Añadir gráfica de barras comparando distribución de potencia térmica por componente
+y distribución hidráulica por componente para cc-static y cc-horizon}
 % Apoyarse también en las trazas de comparación que se añaden en las gráficas
 % de la versión con horizonte
 
-
-
-\section{Alternatives comparison}
-\labsec{cc:simulation:alternatives-comparison}
-% Gráfica de barras comparando coste por kWh refrigerado
-
-% \section{MED plant}
-
-% \begin{figure*}[h!]
-%     \includegraphics[\textwidth]{temp/test.png}
-%     \caption{Teeeeeeeest}
-%     \labfig{test:figure}
-% \end{figure*}
