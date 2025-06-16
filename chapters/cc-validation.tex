@@ -99,7 +99,7 @@ defined in \reftab{cc:validation:wct:samples-params}.
 \end{margintable}
 
 \begin{figure*}
-    \includegraphics[width=0.8\linewidth]{figures/cc-validation-samples_wct.png}
+    \includegraphics[width=\linewidth]{figures/cc-validation-samples_wct.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.3in]{\repositoryBaseUrl/figures/cc-validation-samples_wct.html}}
     \caption[\gls{wctLabel} samples distribution visualization]{Data-driven
     from first-principles. Samples distribution visualization.\hspace{1ex}
@@ -584,16 +584,57 @@ optimization strategy adapts to changing conditions.
 %================================
 \subsection{Choosing an optimization algorithm}
 \labsec{cc:validation:algorithm}
-a\todo{completar esta sección antes del domingo}
+
+\subsubsection{Static problems}
+
+For every static optimization problem (referencias a problemas) four different
+algorithms were tested: \gls{seaLabel}, \gls{ihsLabel} and \gls{decstrLabel}.
+For each alternative the same number of objective function evaluations were
+given, XX. For each alternative three options are tested with a different
+population .... Table X shows the results obtained, in terms of fitness at
+different stages in the evolution. From the results it can be seen that for all
+alternatives the best performing and most consistent algorithm is ...
+
+\subsubsection{Horizon optimization. Path selection}
+
+A methodology similar to the static comparison is used. This time the
+algorithms evaluated are:  \gls{gacoLabel}, \gls{ihsLabel}, \gls{sgaLabel} and
+\gls{psoLabel}. Three different population sizes are tested (80, 150 and 1000)
+if the particular algorithm evolves more than one individual; the number of
+generations is calculated accordingly so that all alternatives have the same
+budget of objective function evaluations, equal to 200k
+evaluations\sidenote{Only up to 50k evaluations is shown in the figure for
+clarity}. The results are visualized in
+\reffig{cc:validation:path_explorer_algo_comp}, where there are different plots
+for different dates, the y-axis represents the fitness and the x-axis shows the
+number of objective function evaluations. The results show that consistently
+the \gls{sgaLabel} outperforms the alternatives, and particularly, the smaller
+population size (80) configuration followed very closely by the 150 population
+size configuration.
+
+\begin{figure*}[h!]
+    \includegraphics[]{figures/cc-validation-path_explorer_algo_comp.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-path_explorer_algo_comp.html}}
+    \caption[Horizon optimization -- path selection subproblem. Fitness
+    evolution comparison for four different dates.]{Horizon optimization --
+    path selection subproblem. Fitness evolution comparison for different
+    algorithms in four different
+    dates.\hspace{1ex}\usebox\captionqr}
+    \labfig{cc:validation:path_explorer_algo_comp}
+\end{figure*}
+
 
 \subsection{Comparing the static and horizon optimization strategies}
 \labsec{cc:validation:optimization:static-vs-horizon}
 
-Poner la figura de resultados del horizonte para SOLO un día detallado aquí
-(más días hace que no se distingan bien las barras, tampoco se puede poner el
-pareto). Debe incluir la distribución hidráulica en barras comparando estático
-con horizonte, el frente de pareto del horizonte, y la comparativa de coste
-acumulado.\todo{La figura es provisional. Actualizar la figura con cambios mencionados}
+\begin{kaobox}[title=TODO]
+    Poner la figura de resultados del horizonte para SOLO un día detallado aquí
+    (más días hace que no se distingan bien las barras, tampoco se puede poner el
+    pareto). Debe incluir la distribución hidráulica en barras comparando estático
+    con horizonte, el frente de pareto del horizonte, y la comparativa de coste
+    acumulado.
+\end{kaobox}
+
 
 \begin{figure*}[h!]
     \includegraphics[]{figures/cc-validation-comp_static_horizon.png}
@@ -603,7 +644,7 @@ acumulado.\todo{La figura es provisional. Actualizar la figura con cambios menci
     \labfig{cc:validation:static-vs-horizon}
 \end{figure*}
 
-Comentar la figura, sobre el frente de pareto que se muestra, cómo la estática
+Comentar la figura\todo{La figura es provisional. Actualizar la figura con cambios mencionados}, sobre el frente de pareto que se muestra, cómo la estática
 al principio abusa del agua y para el final del día aumenta muchos sus costes, etc.
 
 %================================
@@ -659,17 +700,18 @@ the regulatory control layer by setting them as setpoints for the low-level
 control. The box-bounds for the decision variables are shown in
 \reftab{cc:validation:optimization-bounds}.
 
-\textbf{Control layer}. Four controllers are implemented in this layer...
+\textbf{Control layer}. Four controllers are implemented in this
+layer...\todo{aiuda Lidia!}
 
 
-\begin{kaobox}[title=Consulta]
-    Y si en lugar de mostrar varios escenarios mostramos un único día donde
-    haya una primera parte donde se hacen varias evaluaciones siguiendo un
-    plan, y a mitad de día se introduce un cambio en el plan de operación. Así
-    nos ahorramos describir varios ensayos, y tener que estar mostrando varias
-    gráficas. Mejor mostrar solo una en grande y dedicarse a comentar lo que
-    suceda en ella.
-\end{kaobox}
+% \begin{kaobox}[title=Consulta]
+%     Y si en lugar de mostrar varios escenarios mostramos un único día donde
+%     haya una primera parte donde se hacen varias evaluaciones siguiendo un
+%     plan, y a mitad de día se introduce un cambio en el plan de operación. Así
+%     nos ahorramos describir varios ensayos, y tener que estar mostrando varias
+%     gráficas. Mejor mostrar solo una en grande y dedicarse a comentar lo que
+%     suceda en ella.
+% \end{kaobox}
 
 % \subsubsection{Regular operation validation}
 % \labsec{cc:validation:regular-operation}

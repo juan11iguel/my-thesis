@@ -20,7 +20,8 @@
 % que ya se habrá hecho en la parte introductoria
 
 % Estado del arte en optimización en sistemas de refrigeración
-From a literature review, works can be found that optimize the operation of the
+From a literature review, works can be found\todo{El estado del arte está por
+terminar L} that optimize the operation of the
 cooling system. Of special interest are the works of
 Marín~\sidecite{martin_optimal_2013,martin_optimal_2015} where a .... strategy
 is proposed to optimize both the power block and the cooling system. In
@@ -56,8 +57,8 @@ description of the variables taking part in the costs context, weather
 forecast, thermal load, and water resource availability. Next the two
 optimization strategies are presented, first a static optimization in
 \nrefsec{cc:optimization:static} where the dry cooler, wet cooler and combined
-cooler static problems are defined, followed by a shrinking horizon
-optimization approach in \nrefsec{cc:optimization:shrinking-horizon} where the
+cooler static problems are defined; followed by a shrinking horizon
+optimization approach in \nrefsec{cc:optimization:horizon} where the
 combined cooler is optimized over a prediction horizon. This last section
 includes a discussion on the problem nature and then presents the proposed
 methodology to solve it.
@@ -116,6 +117,7 @@ includes the following components and is visualized in \reffig{cc:optimization:e
 
 
 \section{Static optimization}
+\labsec{cc:optimization:static}
 
 Static optimization problems are defined in a particular time, given an
 environment, and decisions do not take into account prior states or decisions,
@@ -394,7 +396,8 @@ relies exclusively on the dry cooler. Moving even slightly to the right results
 in a rapidly increasing contribution from the wet cooler.
 
 
-\section[Horizon optimization]{Horizon optimization}[Horizon optimization]
+\section{Horizon optimization}
+\labsec{cc:optimization:horizon}
 
 The problem structure is very similar to the static alternative, the main
 difference is that now the decision and environment vectors are composed not
