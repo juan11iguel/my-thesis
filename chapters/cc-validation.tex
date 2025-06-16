@@ -587,11 +587,78 @@ optimization strategy adapts to changing conditions.
 
 \subsubsection{Static problems}
 
-For every static optimization problem (referencias a problemas) four different
-algorithms were tested: \gls{seaLabel}, \gls{ihsLabel} and \gls{decstrLabel}.
-For each alternative the same number of objective function evaluations were
-given, XX. For each alternative three options are tested with a different
-population .... Table X shows the results obtained, in terms of fitness at
+For every static optimization problem (referencias a problemas) three different
+algorithms are tested: \gls{seacstrLabel}, \gls{ihsLabel} and \gls{decstrLabel}.
+For each alternative the same number of objective function evaluations are
+given (800) but they are distributed differently depending on the algorithm:
+\begin{itemize}
+    \item \gls{seacstrLabel} and \gls{decstrLabel} make use of the
+    \gls{cstrLabel} wrapper algorithm, which allows them to the constrained
+    problems. 10 iterations are performed for this wrapper algorithm, leaving
+    80 iterations to spare for the inner algorithm.
+    
+    \item For all alternatives, three values are tested for the initial
+    population size: 50, 100 and 400 individuals\sidenote{The initial
+    population fitness evaluation is not counted for the budget of
+    objective function evaluations}. 
+    
+    \item Depending on the algorithm only one individual is evolved (
+    \gls{ihsLabel} and \gls{seaLabel}) or the whole population (
+    \gls{deLabel}). This means that 800 generations are available for
+    \gls{ihsLabel}, 80 generations for \gls{seacstrLabel} and for
+    \gls{decstrLabel}, 1 generation is available for the population of 50
+    individuals, while only the initial generation is for the population of 100
+    and 400 individuals.
+\end{itemize}
+
+\begin{table}[]
+\caption{Static optimization algorithm comparison results}
+\labtab{cc:validation:static-algo-comparison}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llllclclccccccccc}
+\hline
+\multirow{2}{*}{\textbf{System}} &  & \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Algorithm}}} &  & \multicolumn{5}{c}{\textbf{Parameters}}                                                                                             &  & \multicolumn{7}{c}{\textbf{Average fitness per obj. fun. evaluations}}                                                                 \\ \cline{5-9} \cline{11-17} 
+                                 &  & \multicolumn{1}{c}{}                                    &  & \textbf{\begin{tabular}[c]{@{}c@{}}pop\\ size\end{tabular}} &  & \textbf{gen}     &  & \textbf{\begin{tabular}[c]{@{}c@{}}wrapper\\ algo\\ iters\end{tabular}} &  & \multicolumn{1}{c}{\textbf{0}} & \textbf{} & \multicolumn{1}{c}{\textbf{50}} & \textbf{} & \multicolumn{1}{c}{\textbf{150}} & \textbf{} & \multicolumn{1}{c}{\textbf{800}} \\ \cline{1-1} \cline{3-3} \cline{5-5} \cline{7-7} \cline{9-9} \cline{11-11} \cline{13-13} \cline{15-15} \cline{17-17} 
+
+
+\multirow{9}{*}{\textbf{DC}}       &  & \multirow{3}{*}{ihs}                              &  & 50                                       &  & 800 &  & N/A                                                    &  & $1.28\pm0.82$             &           & $1.05\pm0.29$              &           & $0.80\pm0.10$               &           & $0.77\pm0.09$               \\
+                                 &  &                                                         &  & 100                                       &  & 800 &  & N/A                                                    &  & $0.92\pm0.18$             &           & $0.87\pm0.14$              &           & $0.81\pm0.11$               &           & $0.77\pm0.10$               \\
+                                 &  &                                                         &  & 400                                       &  & 800 &  & N/A                                                    &  & $0.81\pm0.11$             &           & $0.80\pm0.11$              &           & $0.79\pm0.10$               &           & $0.77\pm0.10$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
+                                 &  & \multirow{3}{*}{sea}                              &  & 50                                       &  & 80 &  & 10                                                    &  & $1.19\pm0.28$             &           & $0.95\pm0.11$              &           & $0.79\pm0.10$               &           & $0.77\pm0.09$               \\ 
+                                 &  &                                                         &  & 100                                       &  & 80 &  & 10                                                    &  & $0.92\pm0.13$             &           & $0.86\pm0.10$              &           & $0.80\pm0.10$               &           & $0.77\pm0.09$               \\
+                                 &  &                                                         &  & 400                                       &  & 80 &  & 10                                                    &  & $0.82\pm0.10$             &           & $0.80\pm0.10$              &           & $0.78\pm0.10$               &           & $0.77\pm0.09$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
+                                 &  & \multirow{3}{*}{de}                              &  & 50                                       &  & 1 &  & 10                                                    &  & $1.06\pm0.40$             &           & $0.97\pm0.18$              &           & $0.83\pm0.10$               &           & $1.04\pm1.04$               \\ 
+                                 &  &                                                         &  & 100                                       &  & 0 &  & 10                                                    &  & $0.95\pm0.16$             &           & $0.95\pm0.16$              &           & $0.95\pm0.95$               &           & $0.95\pm0.95$               \\
+                                 &  &                                                         &  & 400                                       &  & 0 &  & 10                                                    &  & $0.83\pm0.10$             &           & $0.83\pm0.10$              &           & $0.83\pm0.10$               &           & $0.83\pm0.83$               \\ \hline
+
+
+\multirow{9}{*}{\textbf{WCT}}       &  & \multirow{3}{*}{ihs}                              &  & 50                                       &  & 800 &  & N/A                                                    &  & $0.24\pm0.08$             &           & $0.18\pm0.04$              &           & $0.10\pm0.00$               &           & $0.07\pm0.00$               \\
+                                 &  &                                                         &  & 100                                       &  & 800 &  & N/A                                                    &  & $0.12\pm0.02$             &           & $0.11\pm0.01$              &           & $0.08\pm0.00$               &           & $0.07\pm0.00$               \\
+                                 &  &                                                         &  & 400                                       &  & 800 &  & N/A                                                    &  & $0.07\pm0.00$             &           & $0.07\pm0.00$              &           & $0.07\pm0.00$               &           & $0.07\pm0.00$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
+                                 &  & \multirow{3}{*}{sea}                              &  & 50                                       &  & 80 &  & 10                                                    &  & $0.25\pm0.04$             &           & $0.16\pm0.01$              &           & $0.07\pm0.00$               &           & $0.06\pm0.00$               \\ 
+                                 &  &                                                         &  & 100                                       &  & 80 &  & 10                                                    &  & $0.17\pm0.03$             &           & $0.11\pm0.00$              &           & $0.07\pm0.00$               &           & $0.06\pm0.00$               \\
+                                 &  &                                                         &  & 400                                       &  & 80 &  & 10                                                    &  & $0.07\pm0.00$             &           & $0.07\pm0.00$              &           & $0.07\pm0.00$               &           & $0.06\pm0.00$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
+                                 &  & \multirow{3}{*}{de}                              &  & 50                                       &  & 1 &  & 10                                                    &  & $0.29\pm0.07$             &           & $0.17\pm0.02$              &           & $0.09\pm0.00$               &           & $0.07\pm0.07$               \\ 
+                                 &  &                                                         &  & 100                                       &  & 0 &  & 10                                                    &  & $0.11\pm0.00$             &           & $0.11\pm0.00$              &           & $0.11\pm0.11$               &           & $0.11\pm0.11$               \\
+                                 &  &                                                         &  & 400                                       &  & 0 &  & 10                                                    &  & $0.07\pm0.00$             &           & $0.07\pm0.00$              &           & $0.07\pm0.00$               &           & $0.07\pm0.07$               \\ \hline
+
+
+\multirow{9}{*}{\textbf{CC}}       &  & \multirow{3}{*}{ihs}                              &  & 50                                       &  & 1000 &  & N/A                                                    &  & $0.77\pm0.12$             &           & $0.80\pm0.11$              &           & $0.77\pm0.11$               &           & $0.59\pm0.11$               \\
+                                 &  &                                                         &  & 100                                       &  & 1000 &  & N/A                                                    &  & $0.70\pm0.12$             &           & $0.78\pm0.10$              &           & $0.82\pm0.15$               &           & $0.61\pm0.13$               \\
+                                 &  &                                                         &  & 400                                       &  & 1000 &  & N/A                                                    &  & $0.79\pm0.19$             &           & $0.82\pm0.21$              &           & $0.80\pm0.22$               &           & $0.65\pm0.16$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
+                                 &  & \multirow{3}{*}{sea}                              &  & 50                                       &  & 100 &  & 10                                                    &  & $0.92\pm0.13$             &           & $0.86\pm0.14$              &           & $0.74\pm0.16$               &           & $0.51\pm0.10$               \\ 
+                                 &  &                                                         &  & 100                                       &  & 100 &  & 10                                                    &  & $0.88\pm0.16$             &           & $0.82\pm0.16$              &           & $0.75\pm0.21$               &           & $0.62\pm0.16$               \\
+                                 &  &                                                         &  & 400                                       &  & 100 &  & 10                                                    &  & $0.84\pm0.21$             &           & $0.80\pm0.18$              &           & $0.74\pm0.21$               &           & $0.69\pm0.19$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
+                                 &  & \multirow{3}{*}{de}                              &  & 50                                       &  & 2 &  & 10                                                    &  & $0.83\pm0.16$             &           & $0.79\pm0.13$              &           & $0.73\pm0.14$               &           & $0.56\pm0.13$               \\ 
+                                 &  &                                                         &  & 100                                       &  & 1 &  & 10                                                    &  & $0.82\pm0.17$             &           & $0.80\pm0.13$              &           & $0.77\pm0.10$               &           & $0.64\pm0.13$               \\
+                                 &  &                                                         &  & 400                                       &  & 0 &  & 10                                                    &  & $0.73\pm0.16$             &           & $0.73\pm0.16$              &           & $0.73\pm0.16$               &           & $0.73\pm0.73$               \\ \hline
+
+
+\end{tabular}
+}
+\end{table}
+
+Table X shows the results obtained, in terms of fitness at
 different stages in the evolution. From the results it can be seen that for all
 alternatives the best performing and most consistent algorithm is ...
 

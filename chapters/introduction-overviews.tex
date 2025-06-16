@@ -563,6 +563,32 @@ whether they can be evaluated before evaluating the objective function or not.:
 \section{Optimization algorithms}
 \labsec{intro:optimization:algorithms}
 
+\begin{itemize}
+    \item \textbf{\gls{ihsLabel}}~\sidecite{geem_new_2001,biscani_parallel_2020}
+    is a metaheuristic optimization algorithm inspired by the improvisation
+    process of musicians. In this analogy, each musician represents a decision
+    variable, each note corresponds to a value, and the goal is to create the
+    best possible harmony—analogous to finding the global optimum.
+
+    In the algorithm, every member of the input population contributes to the
+    search process. At each iteration, a new solution (individual) is generated. If
+    this new solution outperforms the worst individual in the population, it
+    replaces it. The total number of fitness function evaluations equals the number
+    of iterations.
+
+    An enhanced version of HS introduces dynamic parameters: the probability of
+    selecting values from the decision vector is adjusted linearly, while the
+    mutation rate changes exponentially over time. These improvements aim to
+    balance exploration and exploitation more effectively.\sidenote[][*-3]{While HS has
+    shown competitive performance, it has also faced criticism—not for its results,
+    but for its metaphor. The musical analogy adds little explanatory value and
+    arguably obscures the algorithm’s mechanics. At its core, HS operates similarly
+    to Evolutionary Strategies or Genetic Algorithms, employing concepts like
+    mutation and crossover.}
+
+    \item Another
+\end{itemize}
+
 
 %===================================
 %===================================
