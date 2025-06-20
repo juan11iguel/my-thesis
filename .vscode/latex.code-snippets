@@ -144,7 +144,7 @@
 			"%===================================",
 			"\\setchapterpreamble[u]{\\margintoc}",
 			"\\chapter{$TM_SELECTED_TEXT${1:Header}}",
-			"\\labch{part:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+			"\\labsch{part:chapter}",
 			"$0"
 		]
 	},
@@ -157,7 +157,8 @@
 			"%===================================",
 			"%===================================",
 			"\\section{$TM_SELECTED_TEXT${1:Header}}",
-			"\\labsec{part:chapter:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
+			"\\labsec{part:chapter:section}",
+			// "\\labsec{part:chapter:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\\\{\\}\\[\\]$]//g}}",
 			"$0"
 		]
 	},
@@ -167,7 +168,7 @@
 			"",
 			"%================================",
 			"\\subsection{$TM_SELECTED_TEXT${1:Header}}",
-			"\\labsec{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
+			"\\labsec{part:chapter:section:subsection}",
 			"$0"
 		]
 	},
@@ -176,7 +177,7 @@
 		"body": [
 			"",
 			"\\subsubsection{$TM_SELECTED_TEXT${1:Header}}",
-			"\\labsec{sec:${TM_SELECTED_TEXT/[\\\\&\\v\\{\\}\\[\\]$]//g}${1/[\\\\&\\v\\{\\}\\[\\]$]//g}}",
+			"\\labsec{part:chapter:section:subsection:subsubsection}",
 			"$0"
 		]
 	},

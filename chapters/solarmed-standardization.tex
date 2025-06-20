@@ -1,3 +1,647 @@
 \setchapterpreamble[u]{\margintoc}
 \chapter{Performance evaluation in MED processes: standard methodology proposal}
-\labch{solarmed:standardization}
+\labch{solarmed:std}
+
+\tldrbox{
+    This chapter presents a standard method for performance evaluation of MED
+    processes, which can also be extrapolated to other thermal separation
+    processes. This method considers crucial aspects such as instrumentation
+    requirements, process control, and the adequacy of performance metrics,
+    including uncertainty in their determination. In addition, we have
+    developed an algorithm for the automatic identification of steady-state
+    operation, which allows to increase the reliability and robustness of
+    evaluations under such variable conditions. The method has been
+    successfully tested in an experimental MED plant located at the Plataforma
+    Solar de Almerı́a (PSA, Spain).
+}
+
+\section*{Introduction}
+% Estado del arte
+The only standard existing in MED is not related to performance evaluation, but to cost structures and determinants \cite{pinto_desalination_2017}. For the performance evaluation of MED processes, originally, the index Gain Output Ratio ($GOR$) was used for plants operating with steam as external energy source. In order not to be limited to steam-driven systems and to take into account sensible heat sources, a new performance index was defined: the Performance Ratio ($PR$) \cite{mistry_entropy_2011,el-dessouky_fundamentals_2002}, which is currently the most widely adopted for MED performance evaluation although it is constrained by using a reference entalphy of 2326 kJ equivalent to 1000 BTU. In \cite{christ_thermodynamic_2014}, a variation of this metric called the Waste Heat Performance Ratio ($PR_{WH}$) was suggested to account for the potential of low-grade waste heat sources. Another widespread thermal performance metric that has been used in MED is the Specific Thermal Energy Consumption ($STEC$) and its electrical equivalent, the Specific Electrical Energy Consumption ($SEEC$). 
+% Limitaciones métricas simples
+However, there are certain limitations in the aforementioned metrics that challenge making a fair comparison between desalination systems that use different energy sources, electrical and thermal. Furthermore, the ability of thermal energy to perform work changes with the temperature, so it is essential to consider the quality of the thermal energy used in desalination processes. 
+
+%and within thermal energy, as the temperature rises, so does its ability to perform work. Hence, when assessing the practical applications of an MED system, the quality of thermal energy employed becomes a critical factor
+
+%Furthermore, each energy type possesses different thermodynamic or economic values, further complicating the evaluation process. It is important to note that the value of 1 kWh electric differs from that of 1 kWh thermal in terms of their ability to produce work, as the latter is constrained by the Carnot efficiency. Consequently, a system that excels according to one metric may do so at the expense of the other, and even assessing the same system under different conditions can prove difficult. Secondly, the quality of thermal energy is not uniform, and its evaluation depends on its temperature-dependent thermodynamic properties \cite{darwish_multi-effect_2006}. As the temperature of thermal energy rises, its ability to perform work or its availability increases, indicating higher exergy or quality. Hence, when assessing the practical applications of an MED system, the quality of thermal energy employed becomes a critical factor. 
+
+Some authors have carried out exergy analyses to overcome the limitations aforementioned of energy performance metrics. Bouma et al. \cite{bouma_metrics_2020} compared four different configurations of MED plants: a low temperature MED configuration (LT-MED), a MED unit incorporating Thermal Vapor Compression (MED-TVC), a MED unit using nanofiltration (NF-LT-MED) for feedwater pretreatment, and a combination of TVC and NF. Although the STEC values favored the use of TVC, a more rigorous exergetic analysis revealed that the most efficient systems were those that used lower temperature heat sources (LT-MED and NF-LT-MED).
+% Estado del arte de análisis exergéticos. 
+%Thermal energy is not a homogeneous form of energy, and its quality is determined by its thermodynamic properties, which are temperature-dependent \cite{darwishMultieffectBoilingSystems2006}. As the temperature of thermal energy increases, so does its ability to do work or availability, which is reflected in its higher exergy or quality. Therefore, the quality of thermal energy used in an MED system is a crucial factor in evaluating its performance in practical applications. This limitation of traditional metrics was showcased in \cite{boumaMetricsMatterAccurately2020}, where four MED plants configurations were compared: a basic configuration, one that included Thermal Vapor Compression (TVC), one where the feedwater was pretreated with nanofiltration (NF) and a combination of both. Even though STEC figures favored the use of TVC an exergetic analysis reveals that SEXC values actually fall towards the basic MED or MED-NF. 
+
+Darwish et al. \cite{darwish_multi-effect_2006} proposed two new metrics: Specific Fuel Energy and Equivalent Specific Work. The first compares the energy used for the desalination process that could otherwise be used for energy generation in a turbine for which it was assumed a value for the efficiency of the power plant. The second sets the work potential of the extracted steam as a baseline, considering the desalination plant separation efficiency and adding the energy consumption for pumping. The problem of this study is that it is limited to cogeneration schemes (joint electricity and water production) and would not be useful in the case of desalination with low-temperature sources. Shahzad et al. \cite{shahzad_standard_2019} developed an approach based on the second law of thermodynamics, which is also useful only for cogeneration schemes. They proposed a common metric called the Standard Universal Performance Ratio (SUPR) to compare desalination processes using different kinds of energy, which is based on conversion of different types and grades of energies to standard primary energy. In this case, conversion factors were proposed to convert the derived energy input to the standard primary energy. 
+
+Other authors have performed exergy analyses for stand-alone desalination processes, as is the case of Lienhard et al. \cite{lienhard_thermodynamics_2017}, who considered desalination processes as a black box and the ideal work or the thermodynamic limit for the separation of dissolved salts in seawater as the Carnot work. 
+
+The problem with the exergy analyses is that they are more complex \cite{spiegler_-sayed_2001} due to the need to consider several aspects not present in simple energetic metrics: definition of dead state and control volume \cite{sharqawy_exergy_2011}, chemical exergy modeling of seawater \cite{sharqawy_formulation_2010, mistry_effect_2012} and minimum energy reference (least and minimum work of separation) \cite{mistry_generalized_2013,thiel_energy_2015}. Probably because of their complexity, they have not been widespread in the performance evaluation of practical setups. %, and many manufacturers still rely exclusively on the simple energetic metrics.
+Also, none of the works published so far in the scientific literature addresses the exergetic evaluation of the performance when using non-conventional energy sources such as renewable energy and waste heat.
+%The practical evaluation of waste heat sources using the exergy alternative is another aspect that has yet to be resolved in the literature. % An equivalent approach to the one proposed by Christ et al. \cite{christ_thermodynamic_2014} is applied to exergy analysis, in order to come with new metrics that allow to make fair assessments of this kind of energy sources.
+
+
+%However, this complexity has been reduced by the work of various authors in the last decade \cite{sharqawy_exergy_2011,mistry_entropy_2011,mistry_generalized_2013,thiel_energy_2015,lienhard_thermodynamics_2017}. Among these ones, Sharqawi et al. \cite{sharqawy_formulation_2010,sharqawy_thermophysical_2010} included a chemical exergy term accounting for the composition of real seawater. In addition, experts such as Mistry and Lienhard have extensively covered various aspects of the exergy analyses and their application in thermal desalination. Their contributions include seawater chemical exergy modeling \cite{mistry_effect_2012} and the analysis of the least work of separation \cite{mistry_generalized_2013}. A compilation of all these valuable works can be found in \cite{lienhard_thermodynamics_2017}.
+
+% Como estaba PP: Although the efforts of the authors to include the use of exergetic evaluations it is still limited to academic works and they have not been used by the thermal desalination industry so far. On the other hand, there is still a gap in the use of waste heat as thermal energy source.
+
+% Comentar alguna estandarización en otros procesos. Remarcar importancia / necesidad
+Two important requirements for an accurate and reliable performance assessment that have also not been included in any published work of desalination processes are the steady state identification and the uncertainty of both the direct measurement and that associated with the performance metric determination. With respect to the former, it is highly recommended to use automatic procedures that increase the reliability of the measurements. The steady state evaluation carried out manually so far by qualified operators \cite{valenzuela_optical_2014,prahl_protocol_2018,bayon_development_2019}, leads to high time consumption and full dependence on the operators' attention, leading to potential unreliable identifications. With respect to the latter, it allows for a more comprehensive and nuanced approach to performance evaluation, since it increases the robustness of the evaluation while providing information on the reliability of the results.
+
+%Recently, different regulations and methodology proposals have been set to standardize certain procedures for other technologies under the umbrella of projects funded by the European Commission and it is time to start doing that for thermal desalination. One common feature between thermal desalination and parabolic-through collectors is that performance tests must be evaluated in steady state conditions. This requirement can be achieved manually by qualified operators, but  %An automatic procedure is proposed in this paper with the aim of being used in other similar procedures as well.
+
+
+% Contribuciones
+%In this work a novel comprehensive methodology for the performance evaluation of MED processes in practical settings is proposed, covering all practical aspects of such evaluation and validated in an experimental MED plant. The objective is to serve as the base for the eventual standardization of MED processes evaluation applicable to other thermal desalination processes. 
+
+Therefore, there is a clear gap in the establishment of standard methodologies that include all the necessary requirements for the reliable assessment of the performance metrics of thermal desalination processes. This paper covers this gap by a method that includes all the practical aspects of a reliable performance evaluation of MED processes, which also has the potential for a broader application to other thermal desalination processes. Concretely, this standard method includes: instrumentation requirements supported by a sensitivity analysis, control system specifications, exergy analysis for all kinds of energy sources, an algorithm for the steady-state automatic detection and the uncertainty of the direct measurement and the one associated with the performance metric determination. Results and discussion on its successful application in a pilot MED plant located on the Plataforma Solar de Almería (PSA) are presented.
+
+%a critical but often neglected factor, the uncertainty of both, the direct measurement and that associated with the performance metric determination. It increases the robustness of the evaluation while providing a more realistic understanding of the process, allowing for a more comprehensive and nuanced approach to performance evaluation. 
+
+% Estructura
+%The article is structured as follows: first the most suitable performance metrics to be used for the performance evaluation of MED processes are presented. Then, there is a methodology section, in which requirements to perform a reliable evaluation of a real system are detailed. Within this section, the key variables that characterize the MED process are firstly outlined followed by how they should be monitored. This section is also completed with recommendations about how to perform the process control and the description of the algorithm for the steady-state automatic detection; After that, the uncertainty estimation and how it can be used to perform reliable assessments is detailed. Finally, there are two sections dedicated to the implementation and validation of the methodology on a real MED unit. 
+
+The article is structured as follows: first a description of the proposed performance metrics and a discussion about their applicability is made; afterwards, in the methodology section, firstly the key variables that characterize the MED process are outlined followed by how they should be monitored; secondly, the uncertainty estimation and how it can be obtained for the selected metrics is presented and finally a summary of the proposed procedure completes this section. The article finalizes with a case study in which the proposed standard methodology is applied at an MED pilot plant located at Plataforma Solar de Almería.
+
+
+%===================================
+%===================================
+\section{Process analysis}
+\labsec{solarmed:std:process}
+
+Metrics are defined based on some criteria, and this criteria is of paramount
+importance because resources and efforts are invested in optimizing the process
+in its direction. In order to adequately define these criteria, it is important
+to have an overall view of the process: defining its inputs and useful outputs,
+from a qualitative point of view, as well as a clear delineation of the scope
+of the evaluation. 
+
+Metrics can be related either to the operation (isolated MED operation or
+considering primary energy \cite{bouma_metrics_2020}) or to the design of the
+system \cite{el-dessouky_fundamentals_2002} (e.g., specific area). This chapter
+focuses on the operation of an isolated MED system.\sidenote{It is as if an
+already built system is provided, so decision over its design parameters and
+energy source conditions is not an available degree of freedom, only
+optimization in its operational variables.}
+
+\textbf{Application}. Two applications are distinguished: 
+\begin{itemize}
+    \item \textbf{Seawater desalination}. The objective is to obtain fresh
+    water. The level of separation achieved is a secondary (not useful) output.
+
+    \item \textbf{Brine concentration}. The objective is to extract resources
+    from the brine in order to valorize it. Here, the level of separation is a
+    crucial factor to consider.
+\end{itemize}
+
+\textbf{External heat source type}. Two types of external heat sources are
+distinguished:\sidenote{The use of electrical work will always be desired to
+be minimized, so the distinction is not needed.}
+\begin{itemize}
+    \item \textbf{Process heat}. Process heat is the heat utilized by a system
+    and its associated costs are related to the amount of energy consumed.
+    
+    \item \textbf{Waste heat}. Waste heat is the heat utilized by a system that
+    would otherwise be lost to the environment. It has no associated costs to
+    the amount of heat used, though there are other costs associated with its
+    use
+    \cite{mistry_economics-based_2013,christ_techno-economic_2017}\sidenote{\eg
+    a less efficient system will require a larger heat exchanger area to
+    extract more energy from the waste source, directly increasing the cost of
+    the system}. Here the paradigm is different as described by Christ et al
+    \cite{christ_thermodynamic_2014,christ_application_2015,christ_boosted_2015},
+    the goal is to maximize the amount of product by maximizing the utilization
+    of the waste source.
+    
+\end{itemize}
+
+\annotation{Process \textit{vs} waste heat definition of efficiency}{
+    In a process heat driven system, between two plants that
+    produce the same amount of useful product, the most efficient one is
+    the one that uses the least amount of external heat to do so, whereas
+    in a waste heat driven system, the two plants would be considered as
+    efficient since the unused heat would be \textit{wasted} to the environment.
+    A more intuitive definition would be: \\
+    Given two plants that consume the same amount of waste heat, the most
+    efficient one is the one that produces more product given that heat. 
+}
+
+% Volumen de control
+Based on the above considerations, \reffig{solarmed:std:control-volume} shows
+the control volume of the MED process with the inputs and outputs used for the
+definition of the performance metrics. Notice that all variables used are
+described in the Nomenclature section for the reader's reference. From left to
+right, seawater (including cooling water, $c$, and feed, $f$) enters the
+control volume at the seawater intake conditions ($T_{c,in}$). The cooling
+water is rejected at $T_{c,out}$. On the right side, the distillate and the
+brine are discharged from the MED system at temperatures $T_{d,out}$ and
+$T_{b,out}$ and mass fractions $w_d$ and $w_b$, respectively. The temperatures
+of all these outlet streams, from an exergetic analysis point of view, are
+considered to be at $T_0$ when leaving the control volume (see Section
+\ref{Sec:Exer} for more details).
+
+\begin{figure}
+    \includegraphics[width=.8\textwidth]{figures/solarmed-control-volume.png}
+    \caption{Inputs and outputs variables in an MED process. The dash line delimits the control volume}
+    \labfig{solarmed:std:control-volume}
+\end{figure}
+
+From top to bottom, the energy sources for the system are depicted. Electrical
+work is depicted as $\dot{W}_{electrical}$ and it may include pumping, vacuum
+system, and feed water pretreatment, among others. The heat source is
+represented by the subscript ($s$) and as shown in the figure, it enters the
+MED plant at $T_{s,in}$ and leaves it at $T_{s,out}$ after releasing part of
+its energy. When leaving the control volume, $T_{s,out}$ value depends on the
+type of heat source:
+
+\begin{itemize}
+    \item Process heat (PH). The value of $T_{s,out}$ does not change. In case
+    steam is used, the primary energy driver is the latent heat of phase change
+    and $T_{s,out}$ is usually similar to or equal to $T_{s,in}$. In case a
+    sensible heat source is used, the driving force is the temperature
+    difference and $T_{s,out}$ is between $T_{s,in}$ and $T_0$.
+    \item Waste heat source (WH). In this case, $T_{s,out}$ is considered
+    $T_0$.
+\end{itemize}
+    
+
+%===================================
+%===================================
+\section{Performance metrics}
+\labsec{solarmed:std:metrics}
+
+A performance metric is a quantitative measure used to evaluate the
+effectiveness or efficiency of a system. It provides objective information that
+can be used to monitor progress, identify areas for improvement, and inform
+decision making. A metrics division in three categories is proposed:
+separation, energetic, and exergetic metrics. A detailed description of each of
+them within each category is presented below.
+
+%================================
+\subsection{Separation metrics}
+\labsec{solarmed:std:metrics:separation}
+
+The Recovery Ratio (RR) represents the flow ratio of unit of distillate
+produced per unit of feed and is very useful in seawater brine concentration
+applications \cite{jones_state_2019}. It is related to electricity consumption,
+since the lower the RR the higher the feed pumping needs are for the same
+distillate production \cite{palenzuela_concentrating_2015}. It is determined as
+follows:
+
+\begin{equation}\label{eq:RR}
+  RR=\frac{\dot{m}_d}{\dot{m}_{f}} \times 100 \: \left[\%\right],
+\end{equation}
+
+where $\dot{m}_d$ is the mass flow rate of distillate and $\dot{m}_f$ is the
+feedwater mass flow rate, both in kg/s.
+
+An equivalent metric is the concentration factor, which accounts for how many
+times the brine is concentrated with respect to the feed concentration:
+\begin{equation}
+    CF=\frac{w_b}{w_f}=\frac{\dot{m}_f}{\dot{m}_f-\dot{m}_d} \: \left[-\right],
+\end{equation}
+
+where $w_b$ is the brine concentration and $w_f$ is the feedwater
+concentration, both in g/kg. \\
+
+Apart from the already known previous metrics, a new one is proposed in this
+paper that can be useful for seawater brine concentration applications. This
+metric is called Reconcentration Index ($RI$), and it allows to determine how
+close the separation achieved ($RR$) is to the theoretical maximum recovery
+ratio ($RR_{max}$). It is defined as:
+
+\begin{equation}
+    RI=RR/RR_{max} \: \left[-\right],
+\end{equation}
+
+where $RR_{max}$ is calculated as follows \cite{thiel_energy_2015}:
+\begin{equation}\label{eq:rr_max}
+    RR_{max}=w_{w,f} \left( 1- \frac{b_{NaCl,f}}{b_{NaCl,sat}} \right) \times 100 \: \left[\%\right],
+\end{equation}
+
+% = w_{w,f} \left( 1-\frac{\gamma_{\pm NaCl,sat} b_{NaCl,f}}{\sqrt{K_{sp}}}
+% \right)
+
+where $w_{w,f}$ is the water mass fraction in the feed (which is
+$1-w_{sol,f}$, where $w_{sol,f}$ is the mass fraction of the solutes in the
+feed) and $b_{NaCl,f}$ is the molality of sodium chloride in the feed, in
+mol$_{NaCl}$/kg$_w$ (both can be obtained from a feedwater chemical analysis).
+On the other hand, $b_{NaCl,sat}$ is the molality of sodium chloride at
+saturation conditions (see \ref{annex:rr_max} for more details of its
+estimation)\sidenote{sodium chloride is the only solute considered, as it sets
+the concentration limit being the solute in seawater with the highest
+concentration and the greatest solubility \cite{thiel_energy_2015}}.
+
+% which is set to $6.01 \: mol/kg$ (it changes with temperature and pressure).
+
+% Also can be calculated in terms of the mean molal activity coefficient at saturation $\gamma_{\pm,Nacl,sat}$ and the solubility product $K_{sp}$.
+
+%================================
+\subsection{Energetic metrics}
+\labsec{solarmed:std:metrics:energetic}
+
+% Introducción explicando que son métricas basadas en la primera ley de la
+% termodinámica
+The energetic metrics are metrics that consider only the first law of
+thermodynamics (i.e. quantity). They are: Gain Output Ratio ($GOR$), Specific
+Thermal Energy Consumption ($STEC$), and Specific Electrical Energy Consumption
+($SEEC$) and are described in the following.
+
+% GOR
+Regarding the Gain Output Ratio ($GOR$), a universal definition of this metric
+that avoids the limitations of some of the commonly used definitions mentioned
+in the Introduction Section (limited to steam or 1000 BTU as arbitrary
+conversion factor) is the ratio between the energy in the form of latent heat
+required to vaporize all the distillate produced and the external thermal
+energy contributed to the system (Eq.~\ref{eq:GOR})\cite{v_solar_2012}.
+
+%\begin{equation}\label{eq:GOR}
+    %GOR = \frac{\dot{m_d}}{\dot{m_{s}}} \approx \left.
+    %\left(1-\frac{w_{f}}{w_{b}}\right) \cdot \frac{\dot{m}_{f}}{\dot{m}_{d}}
+    %\right|_{ w_{d} \rightarrow 0 }\: \left[-\right],
+%\end{equation}
+
+\begin{equation}\label{eq:GOR}
+     GOR = \frac{\dot{m}_{d} · \Delta h_{avg}} {\dot{Q}_{in}} 
+\end{equation}
+% \begin{equation}\label{eq:GOR} GOR = \frac{\dot{m}_{d} · \Delta h_{v,avg}}
+%     {\dot{m}_s · \Delta h_s} = \frac{\dot{m}_{d} (h_{v,1} - h_{v,c}})
+%     {\dot{m}_s · \Delta h_s} \end{equation}
+
+where $\Delta h_{avg}$ is the latent heat of vaporization at the average vapor
+temperature between the first effect and the last effect, in KJ/kg, 
+%$\dot{m_s}$ is the mass flow rate of the external energy source supplied in
+%the first effect, in kg/s 
+and $\dot{Q}_{in}$ is the external thermal energy consumption required to drive
+the process, in kW. It is determined by $\dot{m}_s$ (mass flow rate of the
+external energy source supplied in the first effect, in kg/s) and $\Delta h_s$,
+which can be calculated as $h_{s,in}-h_{s,out}$ (in case of sensible heat) or
+as $h_{s,sat.vap}-h_{s,sat.liq}$  (in case of latent heat of phase change at
+saturation conditions from vapour to liquid at temperature $T_{s,in}$).
+
+ 
+
+%The PR is defined as the ratio between the distillate produced and the thermal
+%energy supplied to the process, normalized to 2326 kJ/kg, which is the latent
+%heat of vaporization of pure water at 73 $^{\circ}$C. 
+
+% PR \begin{equation}\label{eq:PR} PR = \frac{\dot{m_d}} {\dot{m_s}}
+%\frac{\Delta h_{ref}} {\Delta h_{s}} \: \left[-\right], \end{equation}
+
+% =  \Bigg\{ \begin{matrix} \frac{\dot{m_d}}{\dot{m_s}} \frac{2326 kJ}
+% {c_{p,s}·(T_{s,in} - T_{s,out})} & (sensible\;source)\\
+% \frac{\dot{m_d}}{\dot{m_s}} \frac{2326 kJ}
+% {\lambda_{s,sat.vap}-\lambda_{s,sat.liq}}& (latent\;source) \end{matrix}
+% where $\Delta h_{ref}$ is a reference entalphy of 2326 kJ equivalent to 1000
+% BTU and $\Delta h_{s}$ is the entalphy variation of the energy source.
+% Depending on the heat source type $\Delta h_s$ can be calculated as $h_{s,in}
+% - h_{s,out}$ (sensible heat) or as $h_{s,sat.vap}-h_{s,sat.liq}$ (latent heat
+% of phase change at saturation conditions from vapour to liquid at temperature
+% $T_{s,in}$). By definition, $GOR$ and $PR$ are equivalent at 73 $^{\circ}$C.
+% For temperatures higher than 73 $^{\circ}$C, the $PR$ is overestimated and
+% the opposite happens for temperatures below this value. The magnitude of this
+% difference can be up to 6\% for a temperature range of 10-120 $^\circ$C.
+
+% PR_WH
+In case waste heat is used as external thermal energy source for the MED
+system, $\dot{Q}_{in}$ is determined with ${\dot{m_s}}$ and ${\Delta h}$ but
+referred to the lowest temperature of the system ($T_{c,in}$). 
+
+Another performance index widely used in thermal desalination is the specific
+thermal energy consumption ($STEC$). For desalination applications, it is
+defined as the input heat to the system per unit of product (distillate). This
+index has units of energy per fraction of volume and its expression is shown in
+Eq.~\ref{eq:STEC}.  %$\left( \frac{kWh_{th}}{m^{3}} \right)$.
+
+\begin{equation}\label{eq:STEC}
+STEC = \frac{\dot{m}_{s}·(h_{s,in}-h_{s,out})}{\dot{m}_{d}} · \rho_{d}· \frac{1\:\mathrm{kWh}}{3600\:\mathrm{kJ}} \: \left[ \frac{\mathrm{kWh}_{\mathrm{th}}}{\mathrm{m}^{3}} \right].
+\end{equation}
+
+For brine concentration applications, it is named as $STEC_{bc}$ and it is
+determined as the energy required (in kJ) per unit of feed (in kg) (i.e.
+$\dot{m}_f$ in the denominator) \cite{chen_zero_2021}.
+
+Both STEC and GOR are equivalent and are related via Eq.~\ref{eq:PR_STEC}.
+
+\begin{equation}\label{eq:PR_STEC}
+    STEC = \frac{2326 \: \mathrm{kJ/kg}}{GOR} · \rho_d · \frac{1 \: \mathrm{kWh}}{3600 \: \mathrm{kJ}},
+\end{equation}
+
+where $\rho_d$ is the density of the distillate in $\mathrm{kg}/\mathrm{m^3}$. 
+
+For the cases in which waste heat source is used as energy source, a variation
+of the STEC is proposed: the waste heat STEC. For desalination applications, it
+is determined as follows:
+\begin{equation}\label{eq:STEC_WH}
+STEC_{wh} = \frac{\dot{m}_s · (h_{s,in}-h_{c,in})}{\dot{m}_{d}} · \rho_{d}· \frac{1\:\mathrm{kWh}}{3600\:\mathrm{kJ}} \: \left[ \frac{\mathrm{kWh}_{\mathrm{th}}}{\mathrm{m}^{3}} \right].
+\end{equation}
+
+As before, for brine concentration applications, $\dot{m}_d$ would be replaced
+by $\dot{m}_f$ in the denominator.
+
+Another important index in desalination is the Specific Electrical Energy
+Consumption (SEEC), which represents the total electrical consumption of the
+plant and its auxiliary systems per unit of distillate water produced. These
+are the subsystems that should be considered:
+
+\begin{itemize}
+    \item $J_s$. External energy source
+    \item $J_f$. Feed pumping
+    \item $J_c$. Cooling
+    \item $J_d$, $J_b$. Discharge extractions
+    \item $J_{vacuum}$. Vacuum system
+    \item $J_{aux}$. Auxiliary consumptions. Represents any additional power
+    that the system may require to function (e.g., electrical consumption for
+    the feedwater pretreatment such as nanofiltration)
+\end{itemize}
+
+For desalination applications, the following equation is used for the
+calculation of this metric:
+
+\begin{equation}\label{eq:SEEC}
+SEEC = \frac{\sum\limits_{i=1}^N(J_{i})}{\dot{m}_{d}} \: \left[ \frac{\mathrm{kWh}_{\mathrm{e}}}{\mathrm{m}^{3}} \right],
+\end{equation}
+
+where $J_{i}$ is the electrical consumption of the $i_{th}$ subsystem. In the
+case of brine concentration applications, the index is called ${SEEC_{bc}}$ and
+the denominator would be replaced by $\dot{m}_f$. 
+
+%================================
+\subsection{Exergetic metrics}
+\labsec{solarmed:std:metrics:exergetic}
+
+Exergy is the maximum amount of work achievable when a system is brought into
+equilibrium from its initial state to a reference state (known as the dead
+state and represented by the subscript ``$0$")
+\cite{sharqawy_exergy_2011,bejan_advanced_2016}. This reference state is
+usually established for desalination applications as the seawater intake
+temperature ($T_{c,in}$). In contrast to the energetic metrics, it considers
+not only the first law of thermodynamics (quantity), but also the second law
+(quality). 
+%Different to the energetic metrics, it takes into consideration not only the
+%First Law of Thermodynamics (quantity) but also the Second Law of
+%Thermodynamics (quality). There are several aspects of exergy analysis that
+%need to be firstly considered in order to be able to make fair exergy 
+
+% eta II
+The most widespread exergetic metric is the second law efficiency ($\eta_{II}$)
+\cite{lienhard_thermodynamics_2017}, which accounts for irreversible losses
+within a system. It is calculated as the ratio of the useful exergy output of a
+system ($\dot{E}x_{out,useful}$) to the exergy input given to the system
+($\dot{E}x_{in}$) (a further explanation of how to determine the different
+exergy flows can be found in \ref{annex:exergy}):
+
+\begin{equation}
+    \eta_{II} = \frac{ \dot{E}x_{out,useful} }{ \dot{E}x_{in} } \times 100 \: [\mathrm{\%}].
+\end{equation}
+
+Considering exergy losses, which are the sum of exergy destroyed in each
+individual component ($\dot{E}x_{destroyed}$) and exergy losses due to
+discharge streams in disequilibrium to the environment ($\dot{E}x_{streams}$),
+the previous equation can be written as follows:
+
+\begin{equation}\label{eq:eta}
+    \eta_{II} = 1 - \frac{\dot{E}x_{destroyed}+\dot{E}x_{streams}}{\dot{E}x_{in}} \times 100 \: [\%].
+\end{equation}
+
+For brine concentration applications and in case waste heat is used, the metric
+is called $\eta_{II, wh}$ and $\eta_{II, bc}$, respectively, to distinguish
+between the type of application and external energy source. 
+
+% SEXC
+Another useful metric is the specific exergy consumption ($SEXC$), which was
+firstly referenced as specific consumed available energy in
+\cite{darwish_multi-effect_2006}. Similarly to $SEEC$ and $STEC$, it accounts
+for the exergy input to the system per unit of distillate produced
+(Eq.~\ref{eq:SEXC}) and it is determined as follows \cite{bouma_metrics_2020}:
+
+\begin{equation}\label{eq:SEXC}
+    SEXC = \frac{\dot{E}x_{in}}{\dot{{m}_d}} \: \left[ \frac{\mathrm{kWh}_{\mathrm{ex}}}{\mathrm{m}^3} \right].
+\end{equation}
+
+It is important to note that the terms $\dot{E}x_{out,useful}$ and
+$\dot{E}x_{in}$ from the previous exergetic metrics are determined depending on
+what is considered as useful exergy leaving the process and what is deemed
+as exergy input to the system.\sidenote{It mirrors the qualitative
+analysis presented in \refsec{solarmed:std:process}}
+
+\begin{description}
+    \item[Useful exergy output]. The useful exergy output of the system ($\dot{E}x_{out,useful}$)
+    depends on what is considered the valuable product generated by the
+    process. In a separator in which the objective is to separate water and
+    brine, the useful exergy is the chemical exergy of separation. As discussed
+    in \cite{lienhard_thermodynamics_2017}, for seawater desalination
+    applications, where the valuable product is fresh / pure water, the
+    chemical exergy of separation corresponds to that of a reference ideal
+    separator that achieves the \textit{minimum separation work}
+    $\left(\dot{W}_{least}^{min} = \left.\dot{W}_{least}\right|_{RR \rightarrow
+    0}\right)$. The objective is to minimize the required energy consumption to
+    produce fresh / pure water, regardless of how much separation takes place
+    ($RR \rightarrow 0$), so $\dot{E}x_{out,useful}=\dot{W}_{least}^{min}$. 
+
+    
+    On the other hand, in brine concentration applications, since the objective
+    is to maximize the separation achieved, the separator takes into account
+    the amount of separation achieved
+    $\left(\left.\dot{W}_{least}\right|_{RR}\right)$, and
+    $\dot{E}x_{out,useful}=\dot{W}_{least}$ \cite{thiel_energy_2015}. 
+    
+    The definition and determination of the least and minimum least work of
+    separation can be found in \ref{annex:exergy}. 
+
+    \item[Exergy input]. The exergy input ($\dot{E}x_{in}$) is determined according to the
+    type of external heat source. In case process heat is used, the exergy
+    input is determined as:
+    
+    \begin{equation} \dot{E}x_{in}=\dot{E}x_{s,in}-\dot{E}x_{s,out} + \sum\limits_i \dot{E}_{i},
+    \end{equation}
+    
+    where $\dot{E}x_{s,in}$ and $\dot{E}x_{s,out}$ are the exergy flows
+    associated with the thermal energy source at the inlet and outlet,
+    respectively.
+    
+    When using waste heat sources, the exergy input is determined as: 
+    
+    \begin{equation} \dot{E}x_{in}=\dot{E}x_{s,in}-\dot{E}x_{s,out}^{wh} + \sum\limits_i \dot{E}_{i}, \end{equation} 
+    
+    where $\dot{E}x_{s,out}^{wh}$ is the outlet heat source exergy flow, which is evaluated at temperature $T_0$ (dead state). 
+    % to the exergetic metrics for processes considering just desalination application: $\eta_{II,wh}$ and $SEXC_{wh}$) and those ones considering brine concentration application: $\eta_{bc,wh}$.
+
+\end{description}
+
+%===================================
+%===================================
+\section{Instrumentation}
+\labsec{solarmed:std:instrumentation}
+
+%================================
+\subsection{Key process variables}
+\labsec{solarmed:std:kpv}
+
+The KPV are those variables that uniquely define an operating point, which is obtained by averaging all monitored variables when stable operation is achieved. In other words, any change in the key variables is associated with a different operating point, since the plant outputs are affected accordingly.  The following selected variables apply to any MED plant with any configuration in terms of seawater flow direction, tube arrangement in tube bundles, or effect layout \cite{palenzuela_concentrating_2015}. They are represented in \reffig{solarmed:pid} and described hereinafter: 
+
+\begin{itemize}
+    \item Heat source flow rate ($\dot{m}_s$ - \texttt{FT01}), inlet temperature and pressure ($T_{s,in}$ and $P_{s,in}$ - \texttt{TT01} and \texttt{PT03}) for sensible heat sources, and just \texttt{FT01} and \texttt{TT01} if saturated steam is used (otherwise steam quality needs to be estimated). They determine the hot side conditions, which usually take place in the first effect that is at the highest temperature and pressure. If multiple effects receive external heat sources, each one has to be monitored.
+    
+    \item Feed water flow rate ($\dot{m}_f$ - \texttt{FT02}), which affect the overall plant operation conditions. A precise and stable input feed flow rate ensures consistent heat transfer rates, residence times, and separation efficiencies.
+    
+    \item Distillate flow rate ($\dot{m}_d$ - \texttt{FT03}). It is a basic variable that gives information about the production of the system. As long as this output variable is stable, it can be assumed that the sum of it plus the brine flow rate is equal to the feed flow rate. 
+    
+    \item Condenser pressure / temperature ($P_{v,c}$ - PT02 / $T_{v,c}$) or condenser outlet temperature ($T_{c,out}$ - \texttt{TT02}). The stability of any of these variables, together with that of the distillate production, establish a stable heat sink. 
+    
+    \item Effect pressure / temperature ($P_{v,1}$ - PT01 / $T_{v,1}$) or heat source outlet temperature ($T_{s,out}$ - \texttt{TT05}), which is always required in case that sensible heat source is considered as the external energy source. The stability of this output variable determines a stable hot side. In case other effects, apart from the first one, receive external heat sources, each one has to be monitored.
+
+    \item Feed water salinity ($w_f$ - \texttt{CT01}). It affects the overall plant operation conditions since any stream with different salinity would have different thermodynamic properties (i.e. boiling point elevation) and therefore, different energy requirements to perform the separation.
+
+    \item Condensate salinity ($w_d$ - \texttt{CT02}). This variable together with the distillate flow rate gives information on the levels of salt separation from water achieved. 
+
+    \item Ambient temperature ($T_{amb}$ - \texttt{TT06}). The ambient conditions determine the losses to the environment which can change the results for the, otherwise, same operating conditions.
+
+    \item Seawater temperature or condenser inlet temperature ($T_{c,in}$ - \texttt{TT04}). It is another environment variable that sets the minimum achievable temperature in the system.
+
+    \item Last effect ($L_b$ - \texttt{LT01}) and condenser ($L_d$ - \texttt{LT02}) levels. In the case of the final condenser, it is a vessel in which the vapor coming from the final effect condenses, producing distillate that is continuously extracted from the system. The stability in this vessel is achieved when the extraction rate is equal to the condensate production rate. A higher extraction rate would eventually lead to unstable production, while a lower extraction rate would cause an increase in the vapor pressure, which would lead to induced lower production caused by misoperation. A stable level throughout the operation can ensure that the extraction and production rates ($\dot{m}_d$) are in balance. In the case of the last effect, it is important to keep the level as low as possible in order to avoid brine contamination in the final condenser. %These two additional process variables are not relevant to the operating point, but are relevant to the plant operation.
+\end{itemize}
+
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/solarmed-std-pid.png}
+    \caption{P\&ID with the required instrumentation, KPVs, and basic control loops (ANSI/ISA 5.1-2022) required in an \gls{medLabel} plant}
+    \labfig{solarmed:pid}
+\end{figure}
+
+%================================
+\subsection{Instrumentation requirements}
+\labsec{solarmed:std:instrumentation-requirements}
+
+The installed instrumentation must measure magnitudes such as flow rate (mass or volumetric), temperature, pressure, water conductivity, level, and power. 
+
+First, it is important to account for the influence of the quality of each measured variable on the reliability of the performance metrics, which is determined by a sensitivity analysis. It provides information about how variations in the input parameters of a system (measured variables) affect the outputs (performance metrics). In this case, the Sobol method \cite{nossent_sobolsensitivity_2011} has been used for this purpose, which is a variance-based approach by means of Herman's et al. implementation \cite{herman_salib_2017,iwanaga_toward_2022}. This method decomposes the total variance of the model output into contributions from individual input parameters and their interactions.
+
+Figure \ref{fig:instrum_req&sens} shows the results obtained from the sensitivity analysis in terms of sensitivity indexes (SI). The closer the SI is to 1, the greater the influence of the variable (shown on the left axis) on the reliability of the performance metric (shown on the top). In other words, the quality of the variable measurement should be higher for variables with a higher SI. The cases where no sensitivity index is obtained indicate that the variable has no effect on the metric. 
+
+It is important to highlight that all KPV must be monitored regardless of their influence on the performance metric being evaluated because, as mentioned above, the average values of these variables at steady state conditions define an operating point. They are indicated in bold in the figure.  % Note that the KPV must be always monitored regardless it is not required by a particular performance metric.
+In general, monitoring of these variables must be performed online for each operating point evaluated. However, some of the variables rarely change and can be measured periodically or offline. This is the case of environment variables such as $w_f$, $w_d$, $T_{amb}$.
+
+Another aspect that deserves careful consideration is the measurement of the temperature of the heat source. To determine the thermal efficiency of the system when a sensible heat source is utilized, it is crucial to accurately measure the temperature difference between the inlet and outlet of this energy source ($\Delta T_s$). Using temperature transmitters with high accuracy rates (i.e. PT100), uncertainties of about 0.5 $^\circ$C or below 1 \% for the absolute temperature can be expected at temperatures exceeding 60 $^\circ$ C. However, when considering the small temperature differences between the inlet and outlet, which can be as low as 2 $^\circ$C, the resulting relative uncertainty could be up to 25 \%. To address this problem, it is recommended that both temperature transmitters are identical and calibrated simultaneously, using the same calibration pattern, which translates into observed values for the uncertainty of the temperature difference in the range of 0.1 $^\circ$C or 5\% (based on experience).
+
+On the other hand, the total electrical energy consumption (represented as JT01 in Fig. \ref{fig:PID}) can be monitored as global system consumption, or independently per subsystem (${J}_{s}$, $J_{c}$, ${J}_{f}$, ${J}_{d}$, ${J}_{b}$, ${J}_{vacuum}$, ${J}_{aux}$).
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.5\linewidth]{fig/sensitivity_analysis_result.png}
+%     \caption{Sensitivity index results for different variables. Useful to assess the impact of the different measured variables uncertainty on the performance metrics.}
+%     \label{fig:instrum_req&sens}
+% \end{figure}
+
+\begin{marginfigure}[-5.5cm]
+    \includegraphics[]{figures/solarmed-sensitivity-analysis.png}
+    \caption{Sensitivity index results for different variables. Useful to assess the impact of the different measured variables uncertainty on the performance metrics.}
+    \labfig{solarmed:std:sensitivity-analysis}
+\end{marginfigure}
+
+Finally, different types of actuators are recommended for process control. For flow control, variable frequency drives (\gls{vfdLabel}s) or automatic valves are required. For temperature control, three-way valves can be used to mix flows in the case of liquid fluids, or pressure regulator/reducing valves (PRVs) to control pressure/temperature in the case of gaseous fluids (steam). 
+
+
+%================================
+\subsection{Uncertainty determination}
+\labsec{solarmed:std:uncertainty}
+
+Uncertainty determination is particularly valuable in assessing the reliability and validity of predictions, forecasts, or results evaluation. The framework on which the uncertainty assessment of this paper is based is JCGM 100:2008 \cite{JCGM100_2008}.
+
+In an uncertainty analysis, the uncertainties of direct measurements must first be determined. The uncertainty of each direct measure ($\Delta X_{i}$) consists of the sum of two components, as indicated below: 
+
+$$\Delta X_{i}=\Delta X_{sensor}+\Delta X_{control},$$
+
+where:
+\begin{itemize}
+    \item $\Delta X_{sensor}$ is the contribution of the sensor, which depends on its accuracy, calibration and conversion errors, and should be available from the instrument datasheet.
+
+    \item $\Delta X_{control}$ is the uncertainty attributed to the quality of the control and is estimated using the standard deviation of the measurement throughout the period considered as stable. %Fig.~\ref{fig:control_induced_unc} shows the fluctuation of the controlled variable around a reference stable value (mean). A tighter clustering of values around the mean (green trace) is associated with a more stable output, a better control compared to the orange trace. Therefore, the lower the standard deviation is, the better the control performance and the lower the contribution to the overall measurement uncertainty.
+    %For the period considered in steady state, the uncertainty is estimated by the standard deviation, that, as illustrated in Fig.~\ref{fig:control_induced_unc}, it is a good estimation since in control regulation (where the objective is to keep the output at a stable value) the output will vary around the reference value (mean). The more concentrated the values are around the mean, the better the control performance will be to guarantee a stable output and the lower the standard deviation will be.
+    
+    % This measure is particularly effective in control regulation scenarios, where the primary objective is to maintain the output at a stable value. In such cases, the output tends to fluctuate around the reference value (mean). The degree of concentration of these values around the mean directly correlates with the control performance. This relationship is visually represented in Fig.~\ref{fig:control_induced_unc}, where the dispersion of values around the mean illustrates the effectiveness of control in achieving a stable output. A tighter clustering of values around the mean (orange trace) signifies better control, ensuring a stable output. Consequently, a lower standard deviation is indicative of superior control performance and lower uncertainty associated with the measurement
+\end{itemize}
+
+%\begin{figure}
+    %\centering
+    %\includesvg[width=.65\textwidth]{fig/control_induced_uncertainty.svg}
+    %\caption{Visual representation of how the uncertainty attributed to the quality of the control can be estimated using the standard deviation of the time-series signal}
+    %\label{fig:control_induced_unc}
+%\end{figure}
+
+On the other hand, when working with derived variables, i.e. quantities that are calculated based on other measured or known quantities, the uncertainty is determined through uncertainty propagation. There are several analytical and numerical methods to propagate uncertainty \cite{smith_uncertainty_2013}. One simple approach is the use of first-order Taylor series approximation, obtained calculating the partial derivative of the different direct measurements ($X_i=1..N$) that take part in the calculation of an output ($Y$):  
+
+$$Y=f(X_{1}, ..., X_{N}),$$
+
+\begin{equation*}
+\Delta Y=\left( \sum\limits_{i=1}^{N} \left( \left| \frac{\delta Y}{\delta X_i} \right| \Delta X_{i} \right) \right)^{1/2},        
+\end{equation*}
+
+where $\Delta Y_{i}$ can be expressed in terms of absolute uncertainty, relative, or standard uncertainty \cite{nist_nist_2015}. This alternative provides a simple mathematical expression to directly estimate uncertainty. Expressions for the uncertainty estimation of energetic and separation metrics of MED processes with this approach are available in \ref{ap:anexo_uncertainty}. However, first-order Taylor series approximation has certain limitations, being the main one that it is not adequate for highly non-linear models, where a higher order Taylor expansion is required, or when uncertainties are far from the mean. Also, when working with complex models, as in the case of exergetic metrics, its expression can not be practically obtainable. For these cases, the recommended approach are numerical methods, specifically the Monte Carlo method [JCGM 101:2008], which despite its higher computational requirements does not have the aforementioned limitations \cite{wolff_monte_2007}. 
+
+
+%In this work the uncertainty is estimated through a Markov chain Monte Carlo implementation based on the gamma method \cite{wolff_monte_2007} available freely for the Python programming language \cite{joswig_pyerrors_2023}. It solves all the problems of the simple approach without the high computational cost.
+
+Furthermore, when comparing the values of different results in cases where their uncertainties overlap, statistical hypothesis testing (t-test) is proposed as a useful tool \cite{moore_introduction_2014} to quantitatively compare two values and determine whether the observed difference is statistically significant. The result of this test is a p-value, which indicates the probability of observing such a difference if there was no true distinction between the values; if it falls below a significance level (usually set at 0.05 or 0.01), then the values can be considered significantly different.
+
+%===================================
+%===================================
+\section{Monitoring and process control}
+\labsec{solarmed:std:control-monitoring}
+
+
+
+%================================
+\subsection{Monitoring: steady-state identification}
+\labsec{solarmed:std:monitoring}
+
+\begin{figure*}
+    \includegraphics[width=.8\linewidth]{figures/solarmed-steady-state-identification.png}
+    \caption{Diagram of the steady-state identification procedure}
+    \labfig{solarmed:std:steady-state-identification}
+\end{figure*}
+
+The evaluation of the system performance must be carried out when the plant is at steady state conditions, that is, when the mass and energy balances are in equilibrium and thus do not change with time; otherwise, erroneous results can be obtained. Steady-state conditions can be identified by observation by qualified and experienced plant operators. However, the use of automatic detection algorithms is recommended for experimental facilities where a wide range of operating conditions are involved. In this work, an automatic detection algorithm has been purposely developed and implemented to identify the steady state of the process. 
+The methodology is based on the idea presented by M. Korbel \cite{korbel_steady_2014} et al. and consists of combining an algorithm to detect anomalies, such as the wavelet transform \cite{jiang_application_2003,jiang_industrial_2000} (which allows detecting abrupt signal changes and distinguishing between high-frequency noise, transient states and steady states), with a trend detection method to identify smooth ramps as non-steady states. Whereas M. Korbel \cite{korbel_steady_2014} et al propose a statistical trend detection approach, in this paper the derivative of the signal is used due to its simplicity (only one parameter, the threshold, must be established). A diagram of the steady-state detection procedure is shown in \reffig{solarmed:std:steady-state-identification}, where three parameters are mainly required: wavelet transform threshold ($\gamma_a$), derivative threshold ($\gamma_d$) and time window duration ($T_{ss}$). 
+At each \textit{k}-sample time, a new value is read, and the \textit{Anomaly detection} algorithm is applied (in this case the wavelet transform). If the output is positive (\textit{true}, no anomaly), the second step is to analyse the \textit{Trend detection}. Only if all elements in the result vector are positive along $T_{ss}$, is the value considered to be at steady state (\textit{ss}) conditions. As a final step, the \textit{Global steady state evaluation} identifies a steady-state period if all the values of the \textit{N} variables involved have been previously classified as \textit{ss}. 
+
+%================================
+\subsection{Control system}
+\labsec{solarmed:std:control}
+
+As mentioned before, the system is evaluated under steady state conditions. Under these conditions, the system should be able to operate indefinitely as long as environmental conditions do not change. To ensure stable and safe operation of the process, automatic control of each subsystem is recommended. \reffig{solarmed:pid} shows the control loops to be implemented in an MED unit, whose subsystems and their control are described below:
+
+\begin{itemize}
+    \item \textbf{Heat source} (\textit{Heat Source loop} in \reffig{solarmed:pid}). Both the inlet temperature (\texttt{TT01}) / pressure (\texttt{PT03}) and the flow rate of the heat source (\texttt{FT01}) must be controlled. It can be done either by direct control over the heat source obtaining heat under the required operating conditions or by performing a transformation. Depending on the heat source characteristics, this transformation involves:
+
+    For sensible heat sources, independent variation of temperature and flow rate can be achieved by means of: 1) a mixing three-way valve that mixes part of the return fluid, at temperature \texttt{TT05}, with the inlet fluid, at \texttt{TT01} by acting over \texttt{ZC01}, the control signal for temperature regulation and; 2) flow (\texttt{FT01}) regulation by acting over the control signal \texttt{SC01}, which can be a \gls{vfdLabel} or valve. This decoupled regulation is shown in \reffig{solarmed:pid}, where \texttt{ZC01} represents the control signal for temperature regulation. The flow rate regulation (\texttt{FT01}) is achieved by acting on the selected actuator (\texttt{SC01}), which can be a \gls{vfdLabel} or a valve\sidenote{It should be noted that this decoupling is at the expense of energy losses in the mixing process}.
+    
+    For latent heat sources (steam), the pressure-flow-independent regulation is not possible since they are intrinsically coupled variables. In this case, a pressure regulator valve (\texttt{ZC01}) can be used to control either the flow rate (\texttt{FT01}) or the pressure (\texttt{PT03}).
+    
+    \item \textbf{Cooling} (\textit{Cooling Loop} in \reffig{solarmed:pid}). The pressure inside the condenser (\texttt{PT02}) or the condenser outlet temperature (TT02) can be controlled by regulating the cooling flow rate (\texttt{FT03}), being the cooling water inlet temperature (TT04) a disturbance. This control loop (\texttt{TIC02}) consists in turn in two control loops (cascade control \cite{astrom_advanced_2006}), where an outer loop sets a reference flow rate value to achieve the desired condenser outlet temperature (or pressure), and an inner loop (not shown in \reffig{solarmed:pid}) acts on \texttt{SC05} (\gls{vfdLabel}'s frequency) to achieve the desired flow rate. Direct regulation of condenser outlet temperature using the \gls{vfdLabel}  is also valid in case the measurement of the cooling flow rate is not available.
+    
+    \item \textbf{Brine extraction} (\textit{Brine loop} in \reffig{solarmed:pid}). The brine level in the last effect (\texttt{LT01}), or in all effects if a parallel feed configuration is used, is controlled by the brine flow rate (see control loop \texttt{LIC01} in \reffig{solarmed:pid}). In this case, the controller can act directly on the \gls{vfdLabel} frequency (\texttt{SC03}) to avoid the need for an additional flow meter.
+    
+    \item \textbf{Distillate extraction} (\textit{Distillate loop} in \reffig{solarmed:pid}). As in the previous case, the distillate level (\texttt{LT02}) is controlled by acting on the control variable (\texttt{SC04}).
+    
+    \item \textbf{Feedwater} (\textit{Feed loop} in \reffig{solarmed:pid}). The feed water flow rate is regulated by the \texttt{FIC02} control loop, using a \gls{vfdLabel} (\texttt{SC02}) and a flow meter (\texttt{FT02}).
+\end{itemize}
+
+\begin{kaobox}[title=A standard method for performance evaluation of thermal separation processes]
+
+    \begin{enumerate}
+        \item Define the \glspl[format=long]{kpvLabel} (\refsec{solarmed:std:kpv})
+        \item Select the required performance metrics to be evaluated according
+        to the application and type of energy source(s) (\refsec{solarmed:std:process}).
+        \item Define the required instrumentation of the \glspl{kpvLabel} and
+        of any additional variables needed for the target performance metrics
+        (\refsec{solarmed:std:instrumentation-requirements}).
+        \item Define the uncertainty associated with the measurement and that associated with the performance metric determination (\refsec{solarmed:std:uncertainty}) %: variable uncertainty component of the sensor and control associated uncertainty for the selected time window.
+        \item Implement the required actuators and integrate them into a control system to ensure the stability of the plant operation (\refsec{solarmed:std:control-volume}).
+        \item Identify a time window where stable operation is achieved (\refsec{solarmed:std:monitoring}). 
+    \end{enumerate}
+    
+\end{kaobox}
+
+%===================================
+%===================================
+\section{Case study: methodology application in an experimental campaign at the pilot plant}
+\labsec{solarmed:std:results}
+

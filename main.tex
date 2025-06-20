@@ -171,6 +171,38 @@
   \endgroup
 }
 
+\newcommand{\annotation}[2]{%
+  \begingroup
+     \def\tempTitle{#1}%
+      \begin{kaobox}[title=\tempTitle,
+        colback=TealBlue!25!white,
+        colbacktitle=TealBlue!25!white,
+        colframe=black,
+        fonttitle=\bfseries,
+        titlerule=0.4pt
+      ]
+        #2
+	\end{kaobox}
+  \endgroup
+}
+
+\newcommand{\marginannotation}[3][0pt]{%
+  \marginnote[#1]{%
+    \begingroup
+      \def\tempTitle{#2}%
+      \begin{kaobox}[title=\tempTitle,
+        colback=TealBlue!25!white,
+        colbacktitle=TealBlue!25!white,
+        colframe=black,
+        fonttitle=\bfseries,
+        titlerule=0.4pt
+      ]
+        #3
+      \end{kaobox}
+    \endgroup
+  }%
+}
+
 \newcommand{\tldrbox}[1]{%
     \begin{kaobox}[title=TL;DR,
       colback=Orchid!25!white,
@@ -345,6 +377,14 @@ As can be seen in \refprob{test}, the counter is working.
   \end{itemize}
 }
 
+\marginannotation{Process \textit{vs} waste heat definition of efficiency}{
+	In an efficient process heat driven system, between two plants that
+	produce the same amount of useful product, the most efficient one is the
+	one that uses the least amount of external heat.
+	While given two plants that consume the same amount of waste
+	heat, the most efficient one is the one that produces more product given
+	that heat.
+}
 
 % \marginreminder{Pareto front}{
 % When dealing with multiple objectives where no single solution is optimal, but
@@ -536,15 +576,6 @@ As can be seen in \refprob{test}, the counter is working.
 \input{chapters/introduction-overviews.tex}
 
 %----------------------------------------------------------------------------------------
-%	SOLARMED
-%----------------------------------------------------------------------------------------
-% \input{chapters/solarmed.tex}
-% \input{chapters/solarmed-facility.tex}
-% \input{chapters/solarmed-standardization.tex}
-% \input{chapters/solarmed-tbt.tex}
-% \input{chapters/solarmed-optimization.tex}
-
-%----------------------------------------------------------------------------------------
 %	COMBINED COOLING
 %----------------------------------------------------------------------------------------
 \input{chapters/cc.tex}
@@ -553,6 +584,16 @@ As can be seen in \refprob{test}, the counter is working.
 \input{chapters/cc-facility.tex}
 \input{chapters/cc-validation.tex}
 \input{chapters/cc-simulation.tex}
+
+%----------------------------------------------------------------------------------------
+%	SOLARMED
+%----------------------------------------------------------------------------------------
+\input{chapters/solarmed.tex}
+\input{chapters/solarmed-facility.tex}
+\input{chapters/solarmed-standardization.tex}
+% \input{chapters/solarmed-tbt.tex}
+% \input{chapters/solarmed-optimization.tex}
+
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSIONS
