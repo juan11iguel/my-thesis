@@ -1,0 +1,233 @@
+\setchapterstyle{lines}
+
+\section{Uncertainty estimation through first-order Taylor series approximation}\label{ap:anexo_uncertainty}
+
+In this appendix, expressions for the uncertainty estimation of energetic and separation metrics are shown. %In addition, in order to prove that the simpler approach (first-order Taylor expansion) is valid for these metrics, a comparison of the uncertainty propagation results using the first-order Taylor expansion with respect to the Monte Carlo alternative has been performed for the energetic metrics (see Fig.~\ref{fig:un_prop_comparison}). As can be observed, both follow a very similar normal distribution, so it can be stated that the use of the first-order Taylor expansion is valid for these metrics.
+
+%\begin{figure}
+    %\centering
+    %\includegraphics[width=.7\textwidth]{fig/%uncertainty_propagation_comparison.png}
+    %\caption{Probability function distribution results for some metrics with %Monte Carlo and first-order Taylor expansion approaches}
+ %   \label{fig:un_prop_comparison}
+%\end{figure}
+
+
+\subsection{Specific Thermal Energy Consumption (STEC)}
+
+\begin{multicols}{2}
+\begin{align}
+    \Delta STEC &= \Bigg(
+    \left(\left| \frac{\delta STEC}{\delta \dot{m_d}}\right| \Delta \dot{m_d}\right)^2 + \left(\left| \frac{\delta STEC}{\delta \dot{m}_{s}}\right| \Delta \dot{m}_{s} \right)^2 \\
+    &\qquad + \left(\left| \frac{\delta STEC}{\delta T_{s}}\right| \Delta T_{s} \right)^2 \Bigg)^{1/2}
+\end{align}
+\end{multicols}
+    
+where: $T_s=T_{s,in}-T_{s,out} \rightarrow \Delta T_s= \Delta (T_{s,in} - T_{s,out})$ \footnote{If they are the same sensor and were calibrated at the same time using the same calibration standard}
+
+Calculating the partial derivatives, the expression is obtained:
+
+\begin{multicols}{2}
+\begin{align}
+STEC \pm \Delta STEC \: \left[ \mathrm{ \frac{kWh_{th}}{m^{3}} } \right] &= \frac{\dot{m}_{s}·c_p·T_{s}}{\dot{m_d}} \pm \frac{c_{p}}{\dot{m_d}} \nonumber \\ 
+&\qquad \bigl( (T_{s}\Delta \dot{m}_{s})^2
++ (\dot{m}_{s}\Delta T_{s})^2 \nonumber \\ 
+&\qquad + (\dot{m}_{s}T_{s}\dot{m_d}^{-1}\Delta \dot{m_d})^2 \bigl)^{1/2}   
+\label{eq:STEC_complete}
+\end{align}
+\end{multicols}
+
+
+% \begin{multicols}{2}
+% \begin{align}
+% V_{\V{DABC}}
+% &=\frac{1}{6}\, \V{DA} \cdot \V{DB} \cdot \V{DC} \cdot \nonumber  \\
+% & \sqrt{\splitfrac{
+% 1+2\cos \widehat{\V{ADB}} \cdot \cos \widehat{\V{BDC}} \cdot \cos \widehat{\V{ADC}}}{
+% -\cos^2 \widehat{\V{ADB}} -\cos^2 \widehat{\V{ADC}}  -\cos^2 \widehat{\V{BDC}}}\,} 
+% \end{align}
+% \end{multicols}
+
+% \begin{multicols}{2}
+% \begin{align}
+%     F(x) &= \left(\frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-j\omega x}\,d\omega \right. \nonumber \\
+%     &= \frac{1}{2\pi}\int_{-\infty}^{\infty}\cos(\omega x) - j\sin(\omega x)\,d\omega \nonumber \\
+%     &= \left.\frac{1}{2\pi}\int_{-\infty}^{\infty}\left(\cos(\omega x) - j\sin(\omega x)\right)\,d\omega \right)
+% \end{align}
+% \end{multicols}
+
+\subsection{Specific Electrical Energy Consumption (SEEC)}    
+
+\begin{multicols}{2}
+\begin{align}
+SEEC &\pm \Delta SEEC \: \left[ \mathrm{ \frac{kWh_{e}}{m^{3}} } \right] = \nonumber \\
+&\quad \frac{\sum\limits_{i=1}^{N}(E_{i})}{\dot{m_d}} \pm
+\Biggl( \Biggl(\frac{\sum\limits_{i=1}^{N}(\Delta E_{i})}{\dot{m_d}}\Biggl)^2 + \Biggl(\frac{\sum\limits_{i=1}^{N}(E_{i})}{\dot{m_d}^{2}}\Delta \dot{m_d}\Biggl)^2 \Biggl) ^{1/2}
+\end{align}
+\end{multicols}
+
+\subsection{Performance Ratio}
+% %%
+% \begin{equation}
+% \Delta PR = \frac{\delta PR}{\delta \dot{m}_{d}}\Delta \dot{m}_{d} +
+% \frac{\delta PR}{\dot{m}_{s}}\Delta\dot{m}_{s} + \frac{\delta PR}{\delta T_{s}}\Delta T_{s}
+% \end{equation}
+% %%
+
+% \begin{multicols}{2}
+% \begin{align}
+% PR \pm \Delta PR &= \frac{\dot{m}_{d}}{\dot{m}_{s}·T_s}·\frac{\Delta h_{ref}}{c_{p}} \pm \nonumber \\
+% & \frac{\Delta h_{ref}}{c_{p}}\frac{1}{\dot{m}_{s}·T_s} \left( \Delta \dot{m}_{d}^2 + \left( \frac{\dot{m}_d}{\dot{m}_s} \Delta \dot{m}_s \right)^2 + \left( \frac{\dot{m}_d}{T_s} \Delta T_s \right)^2 \right)^{1/2}
+% \end{align}
+% \end{multicols}
+
+% Updated to use enthalpy insetad of specific heat
+\begin{multicols}{2}
+\begin{align}
+PR \pm \Delta PR &= \frac{\dot{m}_{d} · \Delta h_{ref}}{\dot{m}_{s}·\Delta h_s} \pm \nonumber \\
+& \frac{\Delta h_{ref}}{{\dot{m}_{s}·\Delta h_s}} \left( \Delta \dot{m}_{d}^2 + \dot{m}_d^2 \left(\left( \frac{\Delta \dot{m}_s}{\dot{m}_s} \right)^2 + \left( \frac{\Delta(\Delta h_s)}{\Delta h_s} \right)^2\right) \right)^{1/2}
+\end{align}
+\end{multicols}
+
+\subsection{Waste heat performance ratio}
+
+
+\begin{multicols}{2}
+\begin{align}
+PR_{WH} \pm \Delta PR_{WH} &= \frac{\dot{m}_{d}}{\dot{m}_{s}·T}·\frac{\Delta h_{ref}}{c_{p}} \pm \frac{\Delta h_{ref}}{c_{p}}\frac{1}{\dot{m}_{s}·T} \nonumber \\
+& \left( \Delta \dot{m}_{d}^2 + \dot{m}_d^2·\left(\frac{\Delta \dot{m}_s}{\dot{m}_s} + \frac{\Delta T}{T} \right)^2 \right)^{1/2}
+\end{align}
+\end{multicols}
+% \begin{multicols}{2}
+% \begin{align}
+% PR_{WH} \pm \Delta PR_{WH} &= \frac{\dot{m}_{d}}{\dot{m}_{s}·T}·\frac{\Delta h_{ref}}{c_{p}} \pm \frac{\Delta h_{ref}}{c_{p}}\frac{1}{\dot{m}_{s}·T} \nonumber \\
+% & \left( \Delta \dot{m}_{d}^2 + \left(\frac{\dot{m}_d}{\dot{m}_s} \Delta \dot{m}_s\right)^2 + \left(\frac{\dot{m}_d}{T} \Delta T\right)^2 \right)^{1/2}
+% \end{align}
+% \end{multicols}
+
+where: $T=T_{s,in}-T_{c,in} \rightarrow \Delta T= \Delta T_{s,in} + \Delta T_{c,in}$ \\
+
+\subsection{Recovery ratio}
+
+\begin{equation}
+RR \pm \Delta RR = \frac{\dot{m}_{d}}{\dot{m}_{f}} \pm \left( \left(\frac{1}{\dot{m}_{f}}\Delta\dot{m}_{d}\right)^2 + \left(\frac{\dot{m}_{d}}{\dot{m}_{f}^2}\Delta\dot{m}_{f}\right)^2 \right)^{1/2}
+\end{equation}    
+
+\subsection{Concentration factor}
+
+\begin{equation}
+    CF \pm \Delta CF = \frac{\dot{m}_f}{\dot{m}_b} \pm \frac{1}{\dot{m}_b} \left( \left(1+\frac{\dot{m}_f}{\dot{m}_b}\right)^2·\Delta \dot{m}_f^2 + \left( \dot{m}_f·\Delta \dot{m}_b \right)^2 \right)^{1/2}
+\end{equation}
+where: $\dot{m}_b=\dot{m}_f-\dot{m}_d \rightarrow \Delta \dot{m}_b= \Delta \dot{m}_f+\Delta \dot{m}_d$
+
+% \appendix
+\section{Exergy calculations}\label{annex:exergy}
+Exergy consists on two components: thermomechanical exergy and chemical exergy. When performing an exergetic analysis, the balances of the exergy flows of interest are calculated given the control volume presented in Fig.~\ref{fig:control_volume}. Any external stream entering the control volume is considered an exergy input ($\dot{E}x_{in}$), while any stream leaving it is considered an exergy output ($\dot{E}x_{out}$). A general expression to determine the specific exergy flow ($\dot{e}_x$) of a stream is given in Eq.~\ref{eq:exergy}, where the first two summands represent the thermomechanical component and the last the chemical component.
+
+% Expresión general de exergía
+\begin{equation}\label{eq:exergy}
+\dot{e}_x=(h-h^*)-T_0(s-s^*)+\sum\limits_{i=1}^{n}w_i(\mu_i^*-\mu_i^0).
+\end{equation}
+
+In Eq.~\ref{eq:exergy}, the variables $h$, $s$, $\mu$, and $w$ represent the specific enthalpy, specific entropy, chemical potential, and mass fraction, respectively. The properties denoted with an asterisk in the equation are calculated at the restricted dead state conditions (when the temperature and pressure of the system change to match the temperature and pressure of the environment). On the other hand, properties labeled with a superscript of ``0" are determined at the global dead state (when the concentration is also changed to match that of the environment). The subscript $i$ represents a species (NaCl, H$_2$O and others if considered). Notice that the chemical exergy component in this work has been calculated by two approaches: empirical correlations (i) and modelling seawater as an electrolyte for a solution of NaCl with the same concentration as the feedwater salinity (ii). In the latter case, the required activity coefficients have been determined by Pitzer equations \cite{pitzer_thermodynamics_1973}. 
+
+Finally, in order to calculate the specific exergy flows, libraries in MATLAB \cite{sharqawy_thermophysical_2010,nayar_thermophysical_2016} and Python \cite{romera_jjgomeraiapws_2021} are available. However, they are limited to 120 kg/kg of concentration. For higher values, the approach used is the modelling of seawater as an electrolyte and in this case the chemical exergy flows are determined by the activity coefficients using a free and open source tool \cite{marcellos_pyequion_2021}
+
+
+% Finally, in order to calculate the specific exergy flows, it should be mentioned that a library for the determination of the thermophysical properties of seawater is available at \href{http://web.mit.edu/seawater/}{MIT webpage}, which is based on the work shown in \cite{sharqawy_thermophysical_2010} and \cite{nayar_thermophysical_2016}. It includes functions to calculate the the specific exergy flows and it is available in MATLAB, Engineering Equation Solver and Excel. There is also an implementation of the IAPWS R13-08 seawater properties standard \cite{IAPWSR13-08_2008} in Python, which includes the calculation of the specific enthalpy, entropy and chemical potential of seawater \cite{romera_jjgomeraiapws_2021}. The chemical exergy calculations in the above mentioned libraries are limited to 120 kg/kg of concentration. For higher values of concentration, the approach used is the modelling of seawater as an electrolyte and the chemical exergy flows are determined using the activity coefficients \cite{fitzsimons_exergy_2015,thiel_energy_2015,chung_thermodynamic_2017}. A free and open source implementation for obtaining such coefficients is available in \cite{marcellos_pyequion_2021} for the Python programming language.
+
+
+%\textbf{Modelling of seawater} has been a topic of discussion in the scientific literature \cite{sharqawy_formulation_2010,mistry_effect_2012} in terms of the results obtained by the different models (if they are similar or not) and which one is the most appropriate to use. Fitzsimons et al \cite{fitzsimons_exergy_2015} performed a thorough comparison of the various approaches:
+
+%\begin{enumerate}[(i)]
+    %\item Water as an ideal mixture. Not recommended since seawater is not an ideal mixture and results in significant errors.
+    %\item Thermodynamic properties of seawater using empirical correlations. Specific solution to the problem with good results. However, limited in concentration.
+    %\item Water as an electrolyte. Gives good results and does not have the concentration limitations. In order to calculate the required activity coefficients, Pitzer equations are recommended \cite{pitzer_thermodynamics_1973}. This approached has been used in \cite{thiel_energy_2015} and \cite{chung_thermodynamic_2017} to successfully model seawater with higher concentrations up to saturation.
+%\end{enumerate}
+
+%\begin{figure}
+    %\centering
+    %\includegraphics[width=.75\textwidth]{fig/exergetic_calculation_comparison.png}
+    %\caption{Comparison of two methods to obtain exergetic metrics: seawater physical properties and water as an electrolyte}
+    %\label{fig:exergy_chemical_comparison}
+%\end{figure}
+
+%In this work the chemical exergy component was calculated by two approaches: empirical correlations (ii) and modelling seawater as an electrolyte for a solution of NaCl with the same concentration as the feedwater salinity (iii). A comparison of both approaches is shown in Fig.~\ref{fig:exergy_chemical_comparison} when used to determine the Second Law efficiency, it can be seen that very similar results are obtained. \\
+
+\textbf{Least and minimum least work of separation}. To determine how efficient a desalination plant is at separating fresh water from seawater, it is compared to the thermodynamic minimum. This is the least work required to accomplish the separation and is only achievable with an ideal reversible separator (without entropy generation). It has been analyzed and presented in different ways in the literature \cite{spiegler_-sayed_2001,sharqawy_exergy_2011,thiel_energy_2015,lienhard_thermodynamics_2017}. A general expression is shown in Eq.~\ref{eq:Wleast} in terms of the Gibbs free energy ($g$).
+
+\begin{equation}\label{eq:Wleast}
+    \dot{W}_{least} = \dot{m}_d · g_d + \dot{m}_b · g_b - \dot{m}_{f} · g_{f}.
+\end{equation}
+
+If it is normalized to the distillate production and the flows expressed in terms of the recovery ratio according to Eq.~\ref{eq:RR}, the expression becomes:
+
+\begin{equation}\label{eq:Wleast_rr}
+    \frac{\dot{W}_{least}}{\dot{m}_d} = g_d + \frac{1-RR}{RR} · g_b - \frac{1}{RR} · g_f.
+\end{equation}
+
+As can be seen in Eq.~\ref{eq:Wleast_rr}, the least work of separation depends on how much pure water is extracted per unit of feed (RR), and as proven in \cite{mistry_entropy_2011}, the higher the RR, the higher the least energy required to produce the separation. In this context, the minimum least work of separation ($W_{least}^{min}$) is determined when RR $\rightarrow$ 0. \\ %When the pure water is the desired product (traditional desalination), it is more appropriate to set the reference ideal system to  while  \cite{thielEnergyConsumptionDesalinating2015}:
+
+
+
+%In the particular case of this paper, the mentioned open source library \cite{marcellos_pyequion_2021} was used to obtain the activity coefficients for a solution of NaCl with the same concentration as the feedwater salinity
+
+\section{Separation metrics calculation}\label{annex:rr_max}
+
+The molality of sodium chloride at saturation (see Eq.~\ref{eq:rr_max}) is determined using the following correlation that was established by \cite{pinho_solubility_2005} in terms of mass fraction and it is valid for a temperature range between 25 and 80 $^\circ$C:
+
+$$ w_{NaCl,sat}= a + b·T + c·T^2 + d·T^3 \: \left[ \mathrm{100g_{NaCl}/g_w} \right] $$
+where:
+\begin{itemize}
+    \item $a=5.671·10^1$
+    \item $b=-2.713·10^{-1}$
+    \item $c=7.598·10^{-4}$
+    \item $d=-6.373·10^{-7}$
+\end{itemize}
+
+Likewise, the following conversion formula between mass fraction and molality can be used:
+
+$$ b_{NaCl,sat} = \frac{ w_{NaCl,sat}/100 }{ M_{NaCl}\left(1-w_{NaCl,sat}/100\right) } \: \left[ \mathrm{ mol_{NaCl}/g_w} \right] $$
+
+Where $M_{NaCl}$ is the molecular weight of NaCl in g/mol. 
+
+
+\section{Control system and steady state identification parameters}\label{annex:params}
+
+This appendix section provides reference tables outlining parameters used in the algorithms discussed in this document. Table \ref{tab:params_control} summarizes the parameter values for the PID-based process control, while Table \ref{tab:params_ssi} details those for steady-state detection. For the first, Kp, Ki, and Kd are the proportional, integral, and derivative gains, respectively. In both tables, Ts represents the sample time.
+
+% tables/table_params_control.tgn
+\begin{table}[]
+\centering
+\caption{Parameters for the PID based process control, where i.u. represents the input variable units, and o.u. the output units.}
+\label{tab:params_control}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}clccccccccclc@{}}
+\toprule
+\multirow{2}{*}{\textbf{Parameter}} &  & \multicolumn{11}{c}{\textbf{Subsystem}} \\ \cmidrule(l){3-13} 
+ &  & Brine level &  & Distillate level &  & \begin{tabular}[c]{@{}c@{}}Condenser outlet \\ temperature\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}Heat source \\ temperature\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}Heat source\\ flow\end{tabular} &  & Feedwater flow \\ \cmidrule(r){1-1} \cmidrule(lr){3-3} \cmidrule(lr){5-5} \cmidrule(lr){7-7} \cmidrule(lr){9-9} \cmidrule(lr){11-11} \cmidrule(l){13-13} 
+Kp [i.u./o.u.] &  & -0.01 &  & -0.05 &  & -1.7526 &  & 1 &  & 5 &  & 4 \\
+Ki[i.u./(o.u.·s)] &  & -0.02 &  & -0.005 &  & -0.0322 &  & 0.2 &  & 1 &  & 1 \\
+Kd [i.u./(o.u./s)] &  & 0 &  & 0 &  & 0 &  & 0.5 &  & 0.8 &  & 0 \\
+Ts [s] &  & 5 &  & 3 &  & 5 &  & 2 &  & 1 &  & 1 \\
+Configuration &  & \multicolumn{9}{c}{Parallel configuration} &  & \multicolumn{1}{l}{} \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+% tables/table_params_ssi.tgn
+\begin{table}[]
+\centering
+\caption{Parameters for the steady-state detection algorithm, where v.u. represents the related variable units.}
+\label{tab:params_ssi}
+\resizebox{.5\textwidth}{!}{%
+\begin{tabular}{@{}clccccccccc@{}}
+\toprule
+\multirow{2}{*}{\textbf{Parameter}} &  & \multicolumn{9}{c}{\textbf{Variable}} \\ \cmidrule(l){3-11} 
+ &  & $P_{v,c}$ &  & $P_{v,1}$ &  & $\dot{m}_d$ &  & $\dot{m}_s$ &  & $\dot{m}_f$ \\ \cmidrule(r){1-1} \cmidrule(lr){3-3} \cmidrule(lr){5-5} \cmidrule(lr){7-7} \cmidrule(lr){9-9} \cmidrule(l){11-11} 
+$\gamma_a$ [v.u.] &  & 0.05 &  & 0.05 &  & 0.1 &  & 0.3 &  & 0.2 \\
+$\gamma_d$ [v.u./s] &  & 0.002 &  & 0.03 &  & 0.001 &  & 0.02 &  & 0.001 \\
+Ts [s] &  & \multicolumn{9}{c}{1} \\
+Tss [s] &  & \multicolumn{9}{c}{600} \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
