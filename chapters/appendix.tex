@@ -231,3 +231,69 @@ Tss [s] &  & \multicolumn{9}{c}{600} \\ \bottomrule
 \end{tabular}%
 }
 \end{table}
+
+
+
+%===================================
+%===================================
+\section{Multi-effect distillation first-principles model}
+\labsec{ap:med-model}
+
+A first-principles model of a \gls{medLabel} plant is presented in this
+appendix. It can be used in two modes depending on the application and are
+visualized in \reffig{}:\todo{actualizar nomenclatura, en lugar de M, usar $\dot{m}$}
+
+\begin{itemize}
+    \item \textbf{Virtual plant mode}: The model is used to obtain different
+    detailed outputs of interest that cannot be measured directly, such as the
+    heat transfer coefficients, the different heat transfer modes contribution (boiling,
+    flashing, etc), per effect brine concentration, etc. The generated heat
+    transfer coefficients generated in this mode can be used to calibrate a
+    model in a data-driven approach in order to obtain the simulation mode.
+    \item \textbf{Simulation mode}: The model is used to simulate the plant
+    behavior, given the same inputs as the virtual plant variant, and a
+    generator for the heat transfer coefficients of the different effects and preheaters.
+\end{itemize}
+
+To solve the model, an iterative approach is used.
+
+% Nomenclatura general
+\begin{figure*}[h!]
+    \includegraphics[]{figures/med-modelling-general.png}
+    \caption{}
+    \labfig{ap:med-model:general}
+\end{figure*}
+
+% Nomenclatura celda
+\begin{figure*}[h!]
+    \includegraphics[]{figures/med-modelling-cell.png}
+    \caption{}
+    \labfig{ap:med-model:cell}
+\end{figure*}
+
+% Detalles efecto
+\begin{figure*}[h!]
+    \includegraphics[]{figures/med-modelling-effect.png}
+    \caption{}
+    \labfig{ap:med-model:effect}
+\end{figure*}
+
+\begin{figure*}[h!]
+    \includegraphics[]{figures/med-modelling-effect2.png}
+    \caption{}
+    \labfig{ap:med-model:effect2}
+\end{figure*}
+
+% Detalle precalentador
+\begin{figure*}[h!]
+    \includegraphics[]{figures/med-modelling-preheater.png}
+    \caption{}
+    \labfig{ap:med-model:preheater}
+\end{figure*}
+
+% Detalle distribución
+\begin{figure*}[h!]
+    \includegraphics[]{figures/med-modelling-distribution.png}
+    \caption{}
+    \labfig{ap:med-model:distribution}
+\end{figure*}

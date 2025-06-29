@@ -521,7 +521,10 @@ First, it is important to account for the influence of the quality of each measu
 
 Figure \ref{fig:instrum_req&sens} shows the results obtained from the sensitivity analysis in terms of sensitivity indexes (SI). The closer the SI is to 1, the greater the influence of the variable (shown on the left axis) on the reliability of the performance metric (shown on the top). In other words, the quality of the variable measurement should be higher for variables with a higher SI. The cases where no sensitivity index is obtained indicate that the variable has no effect on the metric. 
 
-It is important to highlight that all KPV must be monitored regardless of their influence on the performance metric being evaluated because, as mentioned above, the average values of these variables at steady state conditions define an operating point. They are indicated in bold in the figure.  % Note that the KPV must be always monitored regardless it is not required by a particular performance metric.
+\reminder{\gls{kpvLabel} monitoring}{
+    It is important to highlight that all KPV must be monitored regardless of their influence on the performance metric being evaluated because, as mentioned above, the average values of these variables at steady state conditions define an operating point. They are indicated in bold in the figure. 
+}
+ % Note that the KPV must be always monitored regardless it is not required by a particular performance metric.
 In general, monitoring of these variables must be performed online for each operating point evaluated. However, some of the variables rarely change and can be measured periodically or offline. This is the case of environment variables such as $w_f$, $w_d$, $T_{amb}$.
 
 Another aspect that deserves careful consideration is the measurement of the temperature of the heat source. To determine the thermal efficiency of the system when a sensible heat source is utilized, it is crucial to accurately measure the temperature difference between the inlet and outlet of this energy source ($\Delta T_s$). Using temperature transmitters with high accuracy rates (i.e. PT100), uncertainties of about 0.5 $^\circ$C or below 1 \% for the absolute temperature can be expected at temperatures exceeding 60 $^\circ$ C. However, when considering the small temperature differences between the inlet and outlet, which can be as low as 2 $^\circ$C, the resulting relative uncertainty could be up to 25 \%. To address this problem, it is recommended that both temperature transmitters are identical and calibrated simultaneously, using the same calibration pattern, which translates into observed values for the uncertainty of the temperature difference in the range of 0.1 $^\circ$C or 5\% (based on experience).
@@ -541,7 +544,7 @@ On the other hand, the total electrical energy consumption (represented as JT01 
     \labfig{solarmed:std:sensitivity-analysis}
 \end{marginfigure}
 
-Finally, different types of actuators are recommended for process control. For flow control, variable frequency drives (\gls{vfdLabel}s) or automatic valves are required. For temperature control, three-way valves can be used to mix flows in the case of liquid fluids, or pressure regulator/reducing valves (PRVs) to control pressure/temperature in the case of gaseous fluids (steam). 
+% Finally, different types of actuators are recommended for process control. For flow control, variable frequency drives (\gls{vfdLabel}s) or automatic valves are required. For temperature control, three-way valves can be used to mix flows in the case of liquid fluids, or pressure regulator/reducing valves (PRVs) to control pressure/temperature in the case of gaseous fluids (steam). 
 
 
 %================================
@@ -584,7 +587,7 @@ where $\Delta Y_{i}$ can be expressed in terms of absolute uncertainty, relative
 
 %In this work the uncertainty is estimated through a Markov chain Monte Carlo implementation based on the gamma method \cite{wolff_monte_2007} available freely for the Python programming language \cite{joswig_pyerrors_2023}. It solves all the problems of the simple approach without the high computational cost.
 
-Furthermore, when comparing the values of different results in cases where their uncertainties overlap, statistical hypothesis testing (t-test) is proposed as a useful tool \cite{moore_introduction_2014} to quantitatively compare two values and determine whether the observed difference is statistically significant. The result of this test is a p-value, which indicates the probability of observing such a difference if there was no true distinction between the values; if it falls below a significance level (usually set at 0.05 or 0.01), then the values can be considered significantly different.
+% Furthermore, when comparing the values of different results in cases where their uncertainties overlap, statistical hypothesis testing (t-test) is proposed as a useful tool \cite{moore_introduction_2014} to quantitatively compare two values and determine whether the observed difference is statistically significant. The result of this test is a p-value, which indicates the probability of observing such a difference if there was no true distinction between the values; if it falls below a significance level (usually set at 0.05 or 0.01), then the values can be considered significantly different.
 
 %===================================
 %===================================
@@ -628,6 +631,14 @@ As mentioned before, the system is evaluated under steady state conditions. Unde
     \item \textbf{Feedwater} (\textit{Feed loop} in \reffig{solarmed:pid}). The feed water flow rate is regulated by the \texttt{FIC02} control loop, using a \gls{vfdLabel} (\texttt{SC02}) and a flow meter (\texttt{FT02}).
 \end{itemize}
 
+\begin{marginfigure}[-7.5cm] % -5.5cm
+    \includegraphics[]{figures/med_experimental_campaign_heatmaps.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.4in]{\repositoryBaseUrl/figures/med_experimental_campaign_heatmaps.html}}
+    \caption[]{Visualization of the different process inputs values during the experimental campaign.\hspace{1ex}\usebox\captionqr}
+    \labfig{solarmed:std:experimental-campaign-heatmaps}
+\end{marginfigure}
+
+
 \begin{kaobox}[title=A standard method for performance evaluation of thermal separation processes]
 
     \begin{enumerate}
@@ -652,87 +663,17 @@ As mentioned before, the system is evaluated under steady state conditions. Unde
 % Campaña experimental con métricas calculadas y su incertidumbre.
 % Evaluación del modelo de calibración
 % Incluir en apéndice tabla con resultados
-Comentar campaña experimental: número de puntos, rangos de operación con gráficas de color, mostrar días de operación junto con los de otras campañas que se han hecho en el pasado, etc.\todo{En el calendario de operación, estrechar sustituyendo meses por siglas, y días de la semana por siglas. Poner medios meses en paralelo y revisar los experimentos de 2023 donde hay demasiados seguidos.}
 
-%================================
-\subsection{Implementation results}
-
-The methodology is showcased by analizing 
-
-\subsubsection{Monitoring and control system}
-
-The experimental facility of the solar platform is a system of considerable size for a pilot plant. It is a complex system with more than 100 variables, including inputs and monitored variables. Therefore, it is a system that benefits from the automation of as many of its subsystems as possible. 
-
-% Startup - shutdown FSMs
-Each day of operation requires starting up and shutting down the system, making it a repetitive and sufficiently complex process that requires an experienced operator. Manual management of the a process leads to errors that cause setbacks or, in the worst cases, premature failures in the facility: contamination of the condenser with brine due to erratic draining of the last effect, accumulation of scale on the surfaces of heat exchangers due to rapid cooling after shutdown, pumps cavitating because they are not stopped when the water flow at the intake ceases, etc. For this reason, two finite state machines have been implemented to manage the startup and shutdown of the facility. These have been designed to perform a sequence of operations that take the plant from an initial state to a final state following proper operating practices. A diagram of the process is shown in \reffig{solarmed:std:fsm}.
-
-% Controllers
-In terms of control, a \gls{pidLabel} control has been implemented to effectively regulate and maintain the desired setpoints of the subsystems mentioned in Section~\ref{ap:process_control}. This approach enables the system to respond quickly to changes, minimize steady state errors, reject disturbances, and enhance overall performance and reliability. \reffig{solarmed:std:condenser-control} shows the development procedure for one of the main loops, the condenser outlet temperature control. Initially, since the output is below the reference, the control signal saturates to allow an increase in temperature. Upon reaching the reference, it immediately begins to regulate (no wind-up) to compensate for the increase in the temperature of the water entering the condenser (not shown). Subsequently (11:30-40), several reference changes are made to which the controller also adapts correctly, initially allowing the temperature to increase, and once reached, increasing its control action to compensate for the disturbances again. On the other hand, \reffig{} shows the level 
-
-\begin{marginfigure}[-5.5cm]
-    \includegraphics[]{figures/med_test_days_exported_20240305.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.4in]{\repositoryBaseUrl/figures/med_test_days_exported_20240305.html}}
-    \caption[]{Operation history of the pilot plant.\hspace{1ex}\usebox\captionqr}
-    \labfig{solarmed:std:test-days}
-\end{marginfigure}
-
-
-Additionaly, the large number of target operationg points, necessarily imples a considerable number of test days. Given that 20--30 minutes are required to consider a valid steady state, added to the transition time between operating points, in a good day 3--4 stable operating points can be achieved. Many
-
-% Steady state identification
-Finally, the steady state identification algorithm has been implemented in the control system, which allows the automatic detection of stable operation points. This is done by monitoring the KPV and applying the algorithm described in \refsec{solarmed:std:monitoring}. In Figures \ref{} and \ref{}, steady state periods are highlighted with a yellow background, which indicates that the algorithm has detected a stable operation point.   
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{figures/solarmed-std-startup_shutdown_fsm.png}
-    \caption{Flowchart of finite state machines for plant start-up and shutdown}
-    \labfig{solarmed:std:fsm}
-\end{figure}
-
-
-\begin{figure}
-    \centering
-    \subfloat[\centering
-    Dynamic identification by means of PRBS signal]{{\includegraphics[width=0.48\textwidth]{figures/solarmed-std-control-tcout-ident}
-    }}%
-    \hspace{0.1cm}
-    \subfloat[\centering
-    Controller application results]{{\includegraphics[width=0.48\textwidth]{figures/solarmed-std-control-tcout-control.eps}
-    }}%
-    \caption[Condenser outlet temperature controller implementation]{Condenser outlet temperature controller implementation. To tune the controller, the system was excited with a PRBS signal  (a), obtaining an ARX model ($n_a=20$, $n_b=49$, $n_k=5$, 96.38\% fit) using the \textit{System Identification Toolbox} from MATLAB, which allowed to extract an approximate first-order dynamic with which to tune the controller.}
-    \labfig{solarmed:std:condenser-control}
-\end{figure}
-
-\subsubsection{Steady state identification}
-
-
-\subsubsection{Reproducibility and the effect of the steady state duration}
-
-
-%================================
-\subsection{Results analysis}
-Analizar los mejores puntos de operación en términos exergéticos, ...
-
-An experimental campaign consisting on XX hours of operation, from which XX stable operation points were identified, covering a wide range of operating conditions in different seasons of the year is ...
-
-Mostrar gráficas de color con rango de temperaturas, etc. Mapa de operación, etc.
-
-When the system was planned, it was designed to optimize for \textit{seawater desalination} and considering \textit{process heat}\sidenote{See \refsec{solarmed:std:process}} as the only external thermal energy source. This is reflected in the higher performance values that can be observed, with low temperature difference between inlet and outlet of the heat source, whereas for brine concentration low recoveries are observed, and poor performance values are observed for the waste heat metrics
-
-\subsubsection{Best operating strategy}
-
-One caveat of the exergetic metrics for this particular plant, where the sink\sidenote{the simulated-fixed volume seawater} can change its conditions with significant dynamics, is that otherwise similar operating points can have different exergetic performance due to the additional cooling consumption required to maintain a certain condenser pressure / condenser outlet temperature. In order to enable fair comparison of the exergetic performance of different operating points, the cooling consumption is normalized to seawater intake at 20 $^\circ$C. 
-
-\subsubsection{Experimental evaluation at high \glspl[format=long]{tbtLabel}}
-
-The performance of a thermal proces, such as \gls{medLabel}, is dictated by the Carnot cycle~\sidecite{brogioli_thermodynamic_2018}, which sets the theoretical maximum efficiency for any heat engine. The efficiency of the Carnot cycle is limited by the temperature difference between the hot and cold sinks, which determine the amount of thermal energy that can be converted into useful work. An approach to bring the MED closer to its thermodynamic limit can be achieved by raising the \fullgls{tbtLabel}, which allows to increase the number of effects~\sidecite{mistry_improved_2013} while maintaining an optimal temperature drop across them. This leads to an improvement in the thermal performance of traditional desalination or an increase of the concentration factors that can be achieved\sidenote{
+% Introducir campaña experimental, contextualizar con histórico de operación de la planta.
+The performance of a thermal process, such as \gls{medLabel}, is dictated by the Carnot cycle~\sidecite{brogioli_thermodynamic_2018}, which sets the theoretical maximum efficiency for any heat engine. The efficiency of the Carnot cycle is limited by the temperature difference between the hot and cold sinks, which determine the amount of thermal energy that can be converted into useful work. An approach to bring the MED closer to its thermodynamic limit can be achieved by raising the \fullgls{tbtLabel}, which allows to increase the number of effects~\sidecite{mistry_improved_2013} while maintaining an optimal temperature drop across them. This leads to an improvement in the thermal performance of traditional desalination or an increase of the concentration factors that can be achieved\sidenote{
     This can enable \gls{zldLabel} processes and applications such us brine mining, introduced in \refch{intro:desalination}.
     }.
 
 \begin{margintable}[]
 \caption{\fullgls{rsiLabel} values and their interpretation in terms of scaling and corrosion risk~\sidecite{ryznar_new_1944}.}
-    \labtab{solarmed:facility:specifications}
-    \resizebox{\linewidth}{!}{%
-    \begin{tabular}{cl}
+\labtab{solarmed:facility:specifications}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{cl}
     \toprule
     RSI > 9 & Severe corrosion \\
     7.5 < RSI < 9 & Heavy corrosion \\
@@ -741,14 +682,44 @@ The performance of a thermal proces, such as \gls{medLabel}, is dictated by the 
     5 < RSI < 6 & Moderate to light scaling \\
     4 < RSI < 5 & Severe scaling \\
     \bottomrule
-    \end{tabular}
+\end{tabular}
 }
 \end{margintable}
 
+\begin{margintable}[]
+    \centering
+    \caption{Experimental campaign design specifications}
+    \labtab{solarmed:std:campaign-specs}
+    \resizebox{.7\linewidth}{!}{%
+    \begin{tabular}{@{}ccl@{}}
+        \toprule
+    \multicolumn{1}{r}{\textbf{Variable}} & \multicolumn{1}{l}{\textbf{Unit}} & \multicolumn{1}{l}{\textbf{Range}} \\ 
+    \midrule
+    $T_{s,in}$ & $^{\circ}$C & 60-89 \\
+    $q_s$ & l/s & 7-14 \\
+    $T_{c,out}$ & $^{\circ}$C & 20-40 \\
+    $q_f$ & m$^3$/h & 5-9 \\
+    $w_f$ & g/kg & 40 \\
+    \bottomrule                               
+    \end{tabular}
+    }
+\end{margintable}
 
 In practice, the \gls{tbtLabel} in \gls{medLabel} is limited to 70$^\circ$C since, as can be seen in \reffig{solarmed:std:tbt-pretreatment}, higher \glspl{tbtLabel} promote the precipitation of divalent ions, which are deposited in the form of incrustations in the surface of the heat exchange surfaces, thus reducing heat transfer efficiency~\sidecite{el-dessouky_fundamentals_2002}. In the figure it can be observed how for un-treated feedwater (left) this risk of precipitation is present at almost any temperature in terms of \gls{rsiLabel} due to its composition (\textit{seawater} in center bar plot). A nanofiltration pre-treatment is used to selectively remove the divalent ions while leaving relatively unaffected the components to be separated in the \gls{medLabel} process, \ie NaCl. This allows the operation of MED processes at higher TBTs or higher feed concentration, with only severe scaling above 80$^\circ$C and $\approx$ 100 g/kg.
 
-In Table XX four operation points are compared. Two of them receive heat at 68$^\circ$C, while they differ in the feedwater flow rate, one at a high level (8 m$^3$/h) and the other at a low level (5 m$^3$/h). The other two operation points receive heat at 89$^\circ$C and same variation for the feedwater flow rate. The first two operation points result in an approximate \gls{tbtLabel} of 61.5$^\circ$C while the last two operation points have an approximate \gls{tbtLabel} of 79.2$^\circ$C. 
+
+% Comentar campaña experimental: número de puntos, rangos de operación con gráficas de color
+To showcase the application and usefulness of the proposed methodology, a case study consisting on the application of the methodology to an experimental campaign at the \gls{solarmedLabel} pilot plant is presented. The campaign was designed to evaluate the performance of the \gls{medLabel} process under different operating conditions, with the aim of improving its thermal performance and assessing the feasibility of using higher \fullgls{tbtLabel}s. 
+
+%================================
+\subsection{Implementation results}
+
+
+\subsubsection{Monitoring and control system}
+
+% Introducir necesidad de automatización de la planta para dar pie a implementation results.
+The experimental facility of the solar platform is a system of considerable size for a pilot plant. It is a complex system with more than 100 variables, including inputs and monitored variables. Therefore, it is a system that benefits from the automation of as many of its subsystems as possible. 
+Additionaly, the large number of target operationg points, necessarily imples a considerable number of test days. Given that 20--30 minutes are required to consider a valid steady state, added to the transition time between operating points, in a good day 3--4 stable operating points can be achieved. Many
 
 \begin{figure*}[h!]
     \includegraphics[]{figures/solarmed-std-tbt-pretreatment.png}
@@ -756,7 +727,132 @@ In Table XX four operation points are compared. Two of them receive heat at 68$^
     \labfig{solarmed:std:tbt-pretreatment}
 \end{figure*}
 
-The first inmediate observation is that contrary to what stated in the introduction, the performance of the plant does not improve with higher heat source temperatures, this can be explained by the fact that the increase in the heat source temperature is not taken advantage of by introducing more effects, which would allow\sidenote{With limitations, on each effect a considerable exergy is destroyed. It has been shown than after XX effects GOR figures ...}.
+% Startup - shutdown FSMs
+Each day of operation requires starting up and shutting down the system, making it a repetitive and sufficiently complex process that requires an experienced operator. Manual management of the a process leads to errors that cause setbacks or, in the worst cases, premature failures in the facility: contamination of the condenser with brine due to erratic draining of the last effect, accumulation of scale on the surfaces of heat exchangers due to rapid cooling after shutdown, pumps cavitating because they are not stopped when the water flow at the intake ceases, etc. For this reason, two finite state machines have been implemented to manage the startup and shutdown of the facility. These have been designed to perform a sequence of operations that take the plant from an initial state to a final state following proper operating practices. A diagram of the process is shown in \reffig{solarmed:std:fsm}.
+
+The machines are responsible for managing the activation and deactivation of devices as well as controllers. Additionally, they set reference values for these based on a previously established configuration and evaluate whether the reference has been reached before proceeding to the next step. They also adjust certain parameters of the control system (level control) and restore the initial values once the task is completed.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/solarmed-std-startup_shutdown_fsm.png}
+    \caption{Flowchart of finite state machines for plant start-up and shutdown}
+    \labfig{solarmed:std:fsm}
+\end{figure}
+
+On the other hand, before any of the processes begin, the status of various system variables is checked to ensure that they are available and, if so, that their values are compatible with startup/shutdown. If this is not the case, an alert is generated so that the variables can be addressed before another attempt is made.
+
+Regarding the shutdown procedure, the two most delicate processes are the cooling of the first effect (which has the highest scaling potential if not done properly) and the complete draining of the last effect and condenser. For the gradual cooling of the first effect, after the plant shutdown signal, the hot water temperature is reduced in 5-minute steps starting from the last recorded value until a final temperature of 50°C is reached.
+
+To drain the levels, a reference value well below the normal operating level is set, and the controller parameters are changed to more aggressive ones. Additionally, the device is deactivated each time the reference is reached and is not reactivated until the level reaches a specified value. This activation and deactivation process continues while the feedwater finishes draining from the upper effects of the plant. Once the control system has been deactivated for longer than a preset time, the plant shutdown procedure is considered complete, and the level controller parameters are restored.
+
+% \begin{figure*}[h!]
+%     \includegraphics[]{figures/med_20230418.png}
+%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/med_20230418.html}}
+%     \caption[]{Test results.\hspace{1ex}\usebox\captionqr}
+%     \labfig{solarmed:std:test-results-20230418}
+% \end{figure*}
+
+\begin{figure}
+    \centering
+    \subfloat[\centering
+    Dynamic identification by means of PRBS signal]{{\includegraphics[width=0.48\textwidth]{figures/solarmed-std-control-tcout-ident.png}
+    }}%
+    \hspace{0.1cm}
+    \subfloat[\centering
+    Controller application results]{{\includegraphics[width=0.48\textwidth]{figures/solarmed-str-control-condenser_temperature.png}
+    }}%
+    \caption[Condenser outlet temperature controller implementation]{Condenser outlet temperature controller implementation. To tune the controller, the system was excited with a PRBS signal  (a), obtaining an ARX model ($n_a=20$, $n_b=49$, $n_k=5$, 96.38\% fit) using the \textit{System Identification Toolbox} from MATLAB, which allowed to extract an approximate first-order dynamic with which to tune the controller.}
+    \labfig{solarmed:std:condenser-control}
+\end{figure}
+
+
+% Controllers
+In terms of control, a \gls{pidLabel} control has been implemented to effectively regulate and maintain the desired setpoints of the subsystems mentioned in Section~\ref{ap:process_control}. This approach enables the system to respond quickly to changes, minimize steady state errors, reject disturbances, and enhance overall performance and reliability. \reffig{solarmed:std:condenser-control} shows the development procedure for one of the main loops, the condenser outlet temperature control. Initially, since the output is below the reference, the control signal saturates to allow an increase in temperature. Upon reaching the reference, it immediately begins to regulate (no wind-up) to compensate for the increase in the temperature of the water entering the condenser (not shown). Subsequently (11:30-40), several reference changes are made to which the controller also adapts correctly, initially allowing the temperature to increase, and once reached, increasing its control action to compensate for the disturbances again. On the other hand, \reffig{} shows the level 
+
+
+
+
+% Steady state identification
+Finally, the steady state identification algorithm has been implemented in the control system, which allows the automatic detection of stable operation points. This is done by monitoring the KPV and applying the algorithm described in \refsec{solarmed:std:monitoring}. In Figures \ref{} and \ref{}, steady state periods are highlighted with a yellow background, which indicates that the algorithm has detected a stable operation point.   
+
+\begin{figure*}[h!]
+    \includegraphics[]{figures/med_20230508.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/med_tests_viz.zip}}
+    \caption[]{Test results. Several days available in interactive version \hspace{1ex}\usebox\captionqr}
+    \labfig{solarmed:std:test-results}
+\end{figure*}
+
+\subsubsection{Reproducibility and the effect of the steady state duration}
+
+
+% Tabla medidas de 8 puntos de operación (2 alta T, 2 baja T, 2 control, 2 con diferente duración de estacionario)
+% Tabla de métricas de 8 puntos de operación
+
+\begin{table*}[]
+\caption{Measured variables and performance metrics for some operation points of the experimental campaign. The values are expressed as mean $\pm$ standard deviation with a coverage factor of 2 (95\% confidence interval). \textit{D} is the duration of the steady state period.}
+\labtab{solarmed:std:measured-variables}
+
+\resizebox{.9\linewidth}{!}{%
+\begin{tabular}{ccccccccccccccccccccc}
+\hline
+\multirow{2}{*}{} &  & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{Test date}\\ (UTC)\end{tabular}} &  & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{D}\\ (min)\end{tabular}} &  & \multicolumn{14}{c}{\textbf{Performance metrics}} \\ \cline{7-20}
+           &  &                 &  &                           &  & \begin{tabular}[c]{@{}c@{}}GOR\\ {\footnotesize (-) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}STEC\\ {\footnotesize ($KW_{th}$) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}SEEC\\ {\footnotesize ($KW_{e}$) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}RR\\ {\footnotesize (-) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}RI\\ {\footnotesize (-) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$\eta_{II}$\\ {\footnotesize (\%) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}SEXC\\ {\footnotesize ($kWh_{ex}/m^3$) }\end{tabular} \\ \cline{3-3} \cline{5-5}\cline{7-7} \cline{9-9} \cline{11-11} \cline{13-13} \cline{15-15} \cline{17-17} \cline{19-19}
+1 &   & 20230331 12:15 &   & 16 &   & $11 \pm 1$ &   & $60 \pm 6$ &   & $3.9 \pm 0.2$ &   & $29 \pm 1$ &   & $0.35 \pm 0.02$ &   & $8.0 \pm 0.6$ &   & $10.9 \pm 0.8$ &   \\
+2 &   & 20230418 12:22 &   & 76 &   & $11 \pm 1$ &   & $59 \pm 6$ &   & $4.0 \pm 0.2$ &   & $29 \pm 2$ &   & $0.35 \pm 0.02$ &   & $7.7 \pm 0.6$ &   & $11.3 \pm 0.9$ &   \\
+3 &   & 20230329 13:10 &   & 24 &   & $10.1 \pm 0.7$ &   & $66 \pm 5$ &   & $3.9 \pm 0.2$ &   & $30 \pm 2$ &   & $0.35 \pm 0.02$ &   & $6.9 \pm 0.4$ &   & $12.7 \pm 0.8$ &   \\
+4 &   & 20230414 12:51 &   & 27 &   & $10.2 \pm 0.7$ &   & $65 \pm 5$ &   & $3.9 \pm 0.2$ &   & $30 \pm 2$ &   & $0.36 \pm 0.02$ &   & $6.8 \pm 0.4$ &   & $12.8 \pm 0.8$ &   \\
+5 &   & 20230511 11:23 &   & 32 &   & $8.1 \pm 0.4$ &   & $81 \pm 4$ &   & $3.2 \pm 0.2$ &   & $44 \pm 2$ &   & $0.52 \pm 0.02$ &   & $4.6 \pm 0.3$ &   & $17.8 \pm 0.9$ &   \\
+6 &   & 20230414 11:49 &   & 18 &   & $11 \pm 1$ &   & $59 \pm 5$ &   & $3.8 \pm 0.2$ &   & $47 \pm 3$ &   & $0.56 \pm 0.03$ &   & $7.2 \pm 0.5$ &   & $11.9 \pm 0.9$ &   \\
+7 &   & 20230508 11:00 &   & 54 &   & $7.0 \pm 0.4$ &   & $93 \pm 6$ &   & $3.7 \pm 0.2$ &   & $48 \pm 3$ &   & $0.57 \pm 0.03$ &   & $3.9 \pm 0.3$ &   & $21 \pm 1$ &   \\
+\hline
+\end{tabular}
+}
+
+\bigskip
+
+\resizebox{\linewidth}{!}{%
+\centering
+\begin{tabular}{ccccccccccccccccccccccccc}
+\hline
+\multirow{2}{*}{} &  & \multicolumn{22}{c}{\textbf{Measured variables}} \\ \cline{3-24}
+           &  & \begin{tabular}[c]{@{}c@{}}$T_{s,in}$\\ {\footnotesize (\si{\degreeCelsius}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$T_{c,out}$\\ {\footnotesize (\si{\degreeCelsius}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$q_{s}$\\ {\footnotesize (\si{\liter\per\second}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$q_{f}$\\ {\footnotesize (\si{\cubic\meter\per\hour}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$q_{d}$\\ {\footnotesize (\si{\cubic\meter\per\hour}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$T_{s,out}$\\ {\footnotesize (\si{\degreeCelsius}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$T_{c,in}$\\ {\footnotesize (\si{\degreeCelsius}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$w_{f}$\\ {\footnotesize (\si{\milli\siemens\per\centi\meter}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$w_{d}$\\ {\footnotesize (\si{\micro\siemens\per\centi\meter}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}$q_{c}$\\ {\footnotesize (\si{\cubic\meter\per\hour}) }\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}J\\ {\footnotesize (\si{\kilo\watt}) }\end{tabular} \\ \cline{3-3} \cline{5-5} \cline{7-7} \cline{9-9} \cline{11-11} \cline{13-13} \cline{15-15} \cline{17-17} \cline{19-19} \cline{21-21} \cline{23-23}
+1 &   & $64.0 \pm 0.8$ &   & $28.1 \pm 0.6$ &   & $12.0 \pm 0.2$ &   & $8.0 \pm 0.1$ &   & $2.4 \pm 0.1$ &   & $61.1 \pm 0.7$ &   & $24.5 \pm 0.7$ &   & $67.4 \pm 0.7$ &   & $8.00 \pm 0.08$ &   & $17 \pm 1$ &   & $\left(8.0 \pm 0.2\right) \times 10^{3}$ &   \\
+2 &   & $64.0 \pm 0.7$ &   & $28.0 \pm 0.6$ &   & $12.0 \pm 0.3$ &   & $8.0 \pm 0.1$ &   & $2.3 \pm 0.1$ &   & $61.2 \pm 0.7$ &   & $23 \pm 1$ &   & $67.4 \pm 0.7$ &   & $8.00 \pm 0.08$ &   & $13 \pm 2$ &   & $\left(8.1 \pm 0.2\right) \times 10^{3}$ &   \\
+\cline{3-24}
+3 &   & $68.0 \pm 0.7$ &   & $28.0 \pm 0.6$ &   & $12.0 \pm 0.2$ &   & $8.0 \pm 0.1$ &   & $2.4 \pm 0.1$ &   & $64.8 \pm 0.7$ &   & $22.6 \pm 0.6$ &   & $67.4 \pm 0.7$ &   & $8.00 \pm 0.08$ &   & $13.8 \pm 0.8$ &   & $\left(8.1 \pm 0.2\right) \times 10^{3}$ &   \\
+4 &   & $68.0 \pm 0.7$ &   & $27.9 \pm 0.8$ &   & $12.0 \pm 0.3$ &   & $8.0 \pm 0.1$ &   & $2.4 \pm 0.1$ &   & $64.8 \pm 0.6$ &   & $21.4 \pm 0.8$ &   & $67.4 \pm 0.7$ &   & $8.00 \pm 0.08$ &   & $10.9 \pm 0.9$ &   & $\left(8.1 \pm 0.2\right) \times 10^{3}$ &   \\
+5 &   & $88.9 \pm 0.9$ &   & $29 \pm 1$ &   & $12.0 \pm 0.3$ &   & $7.0 \pm 0.1$ &   & $3.1 \pm 0.1$ &   & $83.8 \pm 0.9$ &   & $22 \pm 1$ &   & $64.7 \pm 0.6$ &   & $8.00 \pm 0.08$ &   & $20.1 \pm 0.3$ &   & $\left(7.9 \pm 0.3\right) \times 10^{3}$ &   \\
+\cline{3-24}
+6 &   & $68.0 \pm 0.7$ &   & $28.0 \pm 0.5$ &   & $12.0 \pm 0.3$ &   & $5.0 \pm 0.1$ &   & $2.4 \pm 0.1$ &   & $65.2 \pm 0.7$ &   & $20.8 \pm 0.6$ &   & $67.4 \pm 0.7$ &   & $8.00 \pm 0.08$ &   & $10.1 \pm 0.4$ &   & $\left(7.9 \pm 0.3\right) \times 10^{3}$ &   \\
+7 &   & $89.0 \pm 0.7$ &   & $28.1 \pm 0.6$ &   & $12.0 \pm 0.3$ &   & $5.0 \pm 0.1$ &   & $2.4 \pm 0.1$ &   & $84.4 \pm 0.8$ &   & $21 \pm 2$ &   & $64.5 \pm 0.7$ &   & $8.00 \pm 0.08$ &   & $16 \pm 3$ &   & $\left(7.8 \pm 0.3\right) \times 10^{3}$ &   \\
+\hline
+\end{tabular}
+}
+
+\end{table*}
+
+% \begin{table*}[]
+% \caption{Performance metrics for some operation points of the experimental campaign. The values are expressed as mean $\pm$ standard deviation with a coverage factor of 2 (95\% confidence interval). \textit{D} is the duration of the steady state period.}
+% \labtab{solarmed:std:performance-metrics}
+% \resizebox{\linewidth}{!}{%
+% }
+% \end{table*}
+
+%================================
+\subsection{Results analysis}
+
+% When the system was planned, it was designed to optimize for \textit{seawater desalination} and considering \textit{process heat}\sidenote{See \refsec{solarmed:std:process}} as the only external thermal energy source. 
+
+%This is reflected in the higher performance values that can be observed, with low temperature difference between inlet and outlet of the heat source, whereas for brine concentration low recoveries are observed, and poor performance values are observed for the waste heat metrics
+
+% \subsubsection{Best operating strategy}
+
+% One caveat of the exergetic metrics for this particular plant, where the sink\sidenote{the simulated-fixed volume seawater} can change its conditions with significant dynamics, is that otherwise similar operating points can have different exergetic performance due to the additional cooling consumption required to maintain a certain condenser pressure / condenser outlet temperature. In order to enable fair comparison of the exergetic performance of different operating points, the cooling consumption is normalized to seawater intake at 20 $^\circ$C. 
+
+% \subsubsection{Experimental evaluation at high \glspl[format=long]{tbtLabel}}
+
+In Table XX four operation points are compared. Two of them receive heat at 68$^\circ$C, while they differ in the feedwater flow rate, one at a high level (8 m$^3$/h) and the other at a low level (5 m$^3$/h). The other two operation points receive heat at 89$^\circ$C and same variation for the feedwater flow rate. The first two operation points result in an approximate \gls{tbtLabel} of 61.5$^\circ$C while the last two operation points have an approximate \gls{tbtLabel} of 79.2$^\circ$C. 
+
+\textbf{Performance analysis}. The first inmediate observation is that contrary to what stated in the introduction, the performance of the plant does not improve with higher heat source temperatures, this can be explained by the fact that the increase in the heat source temperature is not taken advantage of by introducing more effects, which would allow\sidenote{With limitations, on each effect a considerable exergy is destroyed. It has been shown than after XX effects GOR figures ...}.
 
 Another observation is that the concentration achieved in 
 
@@ -766,18 +862,28 @@ Another observation is that the concentration achieved in
     \labfig{solarmed:std:tbt-results}
 \end{figure}
 
-
 Using a physical model of the plant\todo{referenciar al apéndice donde se ponga el modelo}, a better insight into the working conditions of the plant can be obtained. The model is based on the energy and mass balances of the system, and it is used to estimate different outputs at the effect level, such as the temperature and pressure of the vapor, the distillate production, and the brine concentration. This allows to analyze the concentration evolution and visualize it as shown in \reffig{solarmed:std:tbt-results}
+
+\begin{figure*}[h!]
+    \subfloat[\centering
+    Energy contribution]{{\includegraphics[width=0.48\linewidth]{figures/med-tbt-energy-comp-68_28_12_8-20230414_vs_89_29_12_7-20230511.png}
+    }}%
+    \hspace{0.1cm}
+    \subfloat[\centering
+    Vapor generated]{{\includegraphics[width=0.48\linewidth]{figures/med-tbt-vap-gen-comp-68_28_12_8-20230414_vs_89_29_12_7-20230511.png}
+    }}%
+    \caption{Per effect comparison between low and high \gls{tbtLabel} operation points}
+    \labfig{solarmed:std:tbt-analysis}
+\end{figure*}
+
 
 Comentar RSI, y por último dar una idea de por qué se cree que no se alcanzan factores de concentración más elevados a pesar de subir la temperatura.
 
 An explanation as to why the concentration factor seems limited past XX, is the boiling point elevation of the brine, which increases with its concentration, this means that the temperature difference between the brine and the vapor is reduced, which in turn reduces the driving force for heat transfer. This effect adds up, low vapor production on one effect means a diminished force for heat transfer to the next effect, which in turn reduces the vapor production on that effect, and so on.
 
-Finally, in order to determine whether the hight temperature operation points have produced scaling, a control test was performed before the hight temperature tests, and after 30 hours of high temperature operation, repeated. \reftab{} shows the evaluation result for each control test. The results show that the scaling risk is low, with no significant degradation of any performance metric 
-
+\textbf{Scaling assessment}. To assess whether scaling occurred during high-temperature operation, a control test was conducted both before the high-temperature tests and repeated after 30 hours of operation. \reftab{} presents the measured variables, while \reftab{} shows the evaluation results for each control test. Aside from metrics influenced by electrical consumption—which vary between tests due to differences in the cooling water inlet temperature—the performance metrics values are consistent across tests, suggesting that the system is operating efficiently without significant fouling or scaling.
 
 \section{Conclusion}
-
 
 % Sobre las métricas
 

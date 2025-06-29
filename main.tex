@@ -94,6 +94,8 @@
 \usepackage{etoolbox}
 \usepackage[percent]{overpic}
 \usepackage[fixed]{fontawesome5}
+\usepackage{siunitx}
+
 \newsavebox\captionqr
 
 % Set custom font, from TheoWinterhalter-PhD
@@ -385,6 +387,20 @@ As can be seen in \refprob{test}, the counter is working.
 	heat, the most efficient one is the one that produces more product given
 	that heat.
 }
+
+\begin{figure}
+    \centering
+    \subfloat[\centering
+    Dynamic identification by means of PRBS signal]{{\includegraphics[width=0.48\textwidth]{figures/solarmed-std-control-tcout-ident.png}
+    }}%
+    \hspace{0.1cm}
+    \subfloat[\centering
+    Controller application results]{{\includegraphics[width=0.48\textwidth]{figures/solarmed-str-control-condenser_temperature.png}
+    }}%
+    \caption[Condenser outlet temperature controller implementation]{Condenser outlet temperature controller implementation. To tune the controller, the system was excited with a PRBS signal  (a), obtaining an ARX model ($n_a=20$, $n_b=49$, $n_k=5$, 96.38\% fit) using the \textit{System Identification Toolbox} from MATLAB, which allowed to extract an approximate first-order dynamic with which to tune the controller.}
+    \labfig{solarmed:std:condenser-control}
+\end{figure}
+
 
 % \marginreminder{Pareto front}{
 % When dealing with multiple objectives where no single solution is optimal, but
