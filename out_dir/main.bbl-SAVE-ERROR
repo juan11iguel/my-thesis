@@ -19,6 +19,311 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
+    \entry{hagan_neural_2014}{book}{}{7}
+      \name{author}{4}{}{%
+        {{hash=dbe32330c34a578be86ababa65a0d6a5}{%
+           family={Hagan},
+           familyi={H\bibinitperiod},
+           given={Martin\bibnamedelima T.},
+           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=fde749eb2f24dbd141ce2e7f936b643f}{%
+           family={Demuth},
+           familyi={D\bibinitperiod},
+           given={Howard\bibnamedelima B.},
+           giveni={H\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=64e5a4a77b39e242f129b9f3665b140a}{%
+           family={Beale},
+           familyi={B\bibinitperiod},
+           given={Mark\bibnamedelima Hudson},
+           giveni={M\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=c156b821a3881b3d856fbeba81ccdbe0}{%
+           family={Jesús},
+           familyi={J\bibinitperiod},
+           given={Orlando\bibnamedelima De},
+           giveni={O\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Martin Hagan}%
+      }
+      \strng{namehash}{aaefa19183fe0d5f9db72bc3c7fd96f6}
+      \strng{fullhash}{a203e4f2004ae0ab9c21f8451e93f189}
+      \strng{fullhashraw}{a203e4f2004ae0ab9c21f8451e93f189}
+      \strng{bibnamehash}{aaefa19183fe0d5f9db72bc3c7fd96f6}
+      \strng{authorbibnamehash}{aaefa19183fe0d5f9db72bc3c7fd96f6}
+      \strng{authornamehash}{aaefa19183fe0d5f9db72bc3c7fd96f6}
+      \strng{authorfullhash}{a203e4f2004ae0ab9c21f8451e93f189}
+      \strng{authorfullhashraw}{a203e4f2004ae0ab9c21f8451e93f189}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This book, by the authors of the Neural Network Toolbox for MATLAB, provides a clear and detailed coverage of fundamental neural network architectures and learning rules. In it, the authors emphasize a coherent presentation of the principal neural networks, methods for training them and their applications to practical problems.FeaturesExtensive coverage of training methods for both feedforward networks (including multilayer and radial basis networks) and recurrent networks. In addition to conjugate gradient and Levenberg-Marquardt variations of the backpropagation algorithm, the text also covers Bayesian regularization and early stopping, which ensure the generalization ability of trained networks.Associative and competitive networks, including feature maps and learning vector quantization, are explained with simple building blocks.A chapter of practical training tips for function approximation, pattern recognition, clustering and prediction, along with five chapters presenting detailed real-world case studies.Detailed examples and numerous solved problems. Slides and comprehensive demonstration software can be downloaded from hagan.okstate.edu/nnd.html.}
+      \field{isbn}{978-0-9717321-1-7}
+      \field{langid}{english}
+      \field{pagetotal}{800}
+      \field{title}{Neural {{Network Design}}}
+      \field{year}{2014}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/F7SPAWCR/Hagan et al. - 2014 - Neural Network Design.pdf
+      \endverb
+      \keyw{Computers / Data Science / Neural Networks,Mathematics / General,Technology & Engineering / General}
+    \endentry
+    \entry{beale_neural_2010}{article}{}{3}
+      \name{author}{3}{}{%
+        {{hash=64e5a4a77b39e242f129b9f3665b140a}{%
+           family={Beale},
+           familyi={B\bibinitperiod},
+           given={Mark\bibnamedelima Hudson},
+           giveni={M\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=dbe32330c34a578be86ababa65a0d6a5}{%
+           family={Hagan},
+           familyi={H\bibinitperiod},
+           given={Martin\bibnamedelima T},
+           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=fde749eb2f24dbd141ce2e7f936b643f}{%
+           family={Demuth},
+           familyi={D\bibinitperiod},
+           given={Howard\bibnamedelima B},
+           giveni={H\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{ff984670114a8c577fc713e2446215ca}
+      \strng{fullhash}{ff984670114a8c577fc713e2446215ca}
+      \strng{fullhashraw}{ff984670114a8c577fc713e2446215ca}
+      \strng{bibnamehash}{ff984670114a8c577fc713e2446215ca}
+      \strng{authorbibnamehash}{ff984670114a8c577fc713e2446215ca}
+      \strng{authornamehash}{ff984670114a8c577fc713e2446215ca}
+      \strng{authorfullhash}{ff984670114a8c577fc713e2446215ca}
+      \strng{authorfullhashraw}{ff984670114a8c577fc713e2446215ca}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{User’s Guide, MathWorks}
+      \field{title}{Neural Network Toolbox}
+      \field{volume}{2}
+      \field{year}{2010}
+      \field{dateera}{ce}
+      \field{pages}{77\bibrangedash 81}
+      \range{pages}{5}
+    \endentry
+    \entry{hamm_comparison_2007}{article}{}{3}
+      \name{author}{3}{}{%
+        {{hash=e0b7d7857fb989dcdb80eb2989f304b9}{%
+           family={Hamm},
+           familyi={H\bibinitperiod},
+           given={Lonnie},
+           giveni={L\bibinitperiod}}}%
+        {{hash=8167d26e076342d7d2f42f63c075f662}{%
+           family={Brorsen},
+           familyi={B\bibinitperiod},
+           given={B.\bibnamedelimi Wade},
+           giveni={B\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=dbe32330c34a578be86ababa65a0d6a5}{%
+           family={Hagan},
+           familyi={H\bibinitperiod},
+           given={Martin\bibnamedelima T.},
+           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \strng{namehash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
+      \strng{fullhash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
+      \strng{fullhashraw}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
+      \strng{bibnamehash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
+      \strng{authorbibnamehash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
+      \strng{authornamehash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
+      \strng{authorfullhash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
+      \strng{authorfullhashraw}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Training a neural network is a difficult optimization problem because of numerous local minima. Many global search algorithms have been used to train neural networks. However, local search algorithms are more efficient with computational resources, and therefore numerous random restarts with a local algorithm may be more effective than a global algorithm. This study uses Monte-Carlo simulations to determine the efficiency of a local search algorithm relative to nine stochastic global algorithms when using a neural network on function approximation problems. The computational requirements of the global algorithms are several times higher than the local algorithm and there is little gain in using the global algorithms to train neural networks. Since the global algorithms only marginally outperform the local algorithm in obtaining a lower local minimum and they require more computational resources, the results in this study indicate that with respect to the specific algorithms and function approximation problems studied, there is little evidence to show that a global algorithm should be used over a more traditional local optimization routine for training neural networks. Further, neural networks should not be estimated from a single set of starting values whether a global or local optimization method is used.}
+      \field{day}{1}
+      \field{issn}{1573-773X}
+      \field{journaltitle}{Neural Processing Letters}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{3}
+      \field{shortjournal}{Neural Process Lett}
+      \field{title}{Comparison of {{Stochastic Global Optimization Methods}} to {{Estimate Neural Network Weights}}}
+      \field{urlday}{16}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{volume}{26}
+      \field{year}{2007}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{145\bibrangedash 158}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1007/s11063-007-9048-7
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/CCE2IWDY/Hamm et al. - 2007 - Comparison of Stochastic Global Optimization Metho.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s11063-007-9048-7
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s11063-007-9048-7
+      \endverb
+      \keyw{Evolutionary algorithms,Function approximation,Neural networks,Simulated annealing,Stochastic global optimization}
+    \endentry
+    \entry{nossent_sobolsensitivity_2011}{article}{}{3}
+      \name{author}{3}{}{%
+        {{hash=916adb060939370e24b784e60184fde7}{%
+           family={Nossent},
+           familyi={N\bibinitperiod},
+           given={Jiri},
+           giveni={J\bibinitperiod}}}%
+        {{hash=439f417993718a52522a2848008f3f65}{%
+           family={Elsen},
+           familyi={E\bibinitperiod},
+           given={Pieter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=75b94911178ceaa11e0a26fd8586d909}{%
+           family={Bauwens},
+           familyi={B\bibinitperiod},
+           given={Willy},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{3a6f635b1ebc743bcb52941de13ca11a}
+      \strng{fullhash}{3a6f635b1ebc743bcb52941de13ca11a}
+      \strng{fullhashraw}{3a6f635b1ebc743bcb52941de13ca11a}
+      \strng{bibnamehash}{3a6f635b1ebc743bcb52941de13ca11a}
+      \strng{authorbibnamehash}{3a6f635b1ebc743bcb52941de13ca11a}
+      \strng{authornamehash}{3a6f635b1ebc743bcb52941de13ca11a}
+      \strng{authorfullhash}{3a6f635b1ebc743bcb52941de13ca11a}
+      \strng{authorfullhashraw}{3a6f635b1ebc743bcb52941de13ca11a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Environmental Modelling \& Software}
+      \field{number}{12}
+      \field{title}{Sobol’sensitivity Analysis of a Complex Environmental Model}
+      \field{volume}{26}
+      \field{year}{2011}
+      \field{dateera}{ce}
+      \field{pages}{1515\bibrangedash 1525}
+      \range{pages}{11}
+      \warn{\item Datamodel: article entry 'nossent_sobolsensitivity_2011' (references.bib): Invalid field 'publisher' for entrytype 'article'}
+    \endentry
+    \entry{geem_new_2001}{article}{}{3}
+      \name{author}{3}{}{%
+        {{hash=d7487355768ee9fdbf8324ad1c1d661c}{%
+           family={Geem},
+           familyi={G\bibinitperiod},
+           given={Zong\bibnamedelima Woo},
+           giveni={Z\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=217de8f7fbadad8de1a854e5ab0ea7cc}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Joong\bibnamedelima Hoon},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=6eed4bf5d2c2f3300ece10faaf071335}{%
+           family={Loganathan},
+           familyi={L\bibinitperiod},
+           given={G.V.},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {SAGE Publications Ltd STM}%
+      }
+      \strng{namehash}{1adf7a238606d577aabdde5043bc8374}
+      \strng{fullhash}{1adf7a238606d577aabdde5043bc8374}
+      \strng{fullhashraw}{1adf7a238606d577aabdde5043bc8374}
+      \strng{bibnamehash}{1adf7a238606d577aabdde5043bc8374}
+      \strng{authorbibnamehash}{1adf7a238606d577aabdde5043bc8374}
+      \strng{authornamehash}{1adf7a238606d577aabdde5043bc8374}
+      \strng{authorfullhash}{1adf7a238606d577aabdde5043bc8374}
+      \strng{authorfullhashraw}{1adf7a238606d577aabdde5043bc8374}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Many optimization problems in various fields have been solved using diverse optimization al gorithms. Traditional optimization techniques such as linear programming (LP), non-linear programming (NLP), and dynamic program ming (DP) have had major roles in solving these problems. However, their drawbacks generate demand for other types of algorithms, such as heuristic optimization approaches (simulated annealing, tabu search, and evolutionary algo rithms). However, there are still some possibili ties of devising new heuristic algorithms based on analogies with natural or artificial phenom ena. A new heuristic algorithm, mimicking the improvisation of music players, has been devel oped and named Harmony Search (HS). The performance of the algorithm is illustrated with a traveling salesman problem (TSP), a specific academic optimization problem, and a least-cost pipe network design problem.}
+      \field{day}{1}
+      \field{issn}{0037-5497}
+      \field{journaltitle}{SIMULATION}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{number}{2}
+      \field{shorttitle}{A {{New Heuristic Optimization Algorithm}}}
+      \field{title}{A {{New Heuristic Optimization Algorithm}}: {{Harmony Search}}}
+      \field{urlday}{16}
+      \field{urlmonth}{6}
+      \field{urlyear}{2025}
+      \field{volume}{76}
+      \field{year}{2001}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{60\bibrangedash 68}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1177/003754970107600201
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/MTRG4HBR/10.1177003754970107600201.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1177/003754970107600201
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1177/003754970107600201
+      \endverb
+      \warn{\item Datamodel: article entry 'geem_new_2001' (references.bib): Invalid field 'publisher' for entrytype 'article'}
+    \endentry
+    \entry{biscani_parallel_2020}{article}{}{3}
+      \name{author}{2}{}{%
+        {{hash=8cd5135d7f5153bdfd5d13e63ef938f2}{%
+           family={Biscani},
+           familyi={B\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+        {{hash=877562dadfdad676dd1a70eb21f3556e}{%
+           family={Izzo},
+           familyi={I\bibinitperiod},
+           given={Dario},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {The Open Journal}%
+      }
+      \strng{namehash}{9a1618a2b2ddbcf28e2b2376a8d16458}
+      \strng{fullhash}{9a1618a2b2ddbcf28e2b2376a8d16458}
+      \strng{fullhashraw}{9a1618a2b2ddbcf28e2b2376a8d16458}
+      \strng{bibnamehash}{9a1618a2b2ddbcf28e2b2376a8d16458}
+      \strng{authorbibnamehash}{9a1618a2b2ddbcf28e2b2376a8d16458}
+      \strng{authornamehash}{9a1618a2b2ddbcf28e2b2376a8d16458}
+      \strng{authorfullhash}{9a1618a2b2ddbcf28e2b2376a8d16458}
+      \strng{authorfullhashraw}{9a1618a2b2ddbcf28e2b2376a8d16458}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Open Source Software}
+      \field{number}{53}
+      \field{title}{A Parallel Global Multiobjective Framework for Optimization: Pagmo}
+      \field{volume}{5}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{pages}{2338}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.21105/joss.02338
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.21105/joss.02338
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.21105/joss.02338
+      \endverb
+      \warn{\item Datamodel: article entry 'biscani_parallel_2020' (references.bib): Invalid field 'publisher' for entrytype 'article'}
+    \endentry
     \entry{iea_energy_2014}{online}{}{3}
       \name{author}{1}{}{%
         {{hash=18fdbec513c87989c7580f31bb7f03ab}{%
@@ -36,8 +341,8 @@
       \strng{authornamehash}{18fdbec513c87989c7580f31bb7f03ab}
       \strng{authorfullhash}{18fdbec513c87989c7580f31bb7f03ab}
       \strng{authorfullhashraw}{18fdbec513c87989c7580f31bb7f03ab}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Energy Technology Perspectives 2014 - Analysis and key findings. A report by the International Energy Agency.}
@@ -88,8 +393,8 @@
       \strng{authornamehash}{c8eff2c97631a95cc44bf7ea81590acd}
       \strng{authorfullhash}{c8eff2c97631a95cc44bf7ea81590acd}
       \strng{authorfullhashraw}{c8eff2c97631a95cc44bf7ea81590acd}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{This version of CSP.guru has been compiled by Richard Thonig and Alina Gilmanova in collaboration with the SolarPACES secretariat and reflects the CSP market in the middle of 2023. The Chinese market continues to develops favorably with many new projects tendering being developed and 1 GW now under construction. To reflect the economics' of these Chinese hybrid projects new columns on hybrid economics have been included. Outside China some plants in Italy and a the third generation CSP pilots G3P3 have been added.}
@@ -138,8 +443,8 @@
       \strng{authornamehash}{ebcab46e917de2c79c7691b02231e9a9}
       \strng{authorfullhash}{ebcab46e917de2c79c7691b02231e9a9}
       \strng{authorfullhashraw}{ebcab46e917de2c79c7691b02231e9a9}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Water consumption is an important problem in dry zones and poor water supply areas. For these areas use of a combination of wet and dry cooling towers (hybrid cooling) has been suggested in order to reduce water consumption. In this work, wet and dry sections of a hybrid cooling tower for the estimation of water loss was modeled. A computer code was also written to simulate such hybrid cooling tower. To test the result of this simulation, a pilot hybrid tower containing a wet tower and 12 compact air cooled heat exchangers was designed and constructed. Pilot data were compared with simulation data and a correction factor was added to the simulation. Ensuring that the simulation represents the actual data, it was applied to a real industrial case and the effect of using a dry tower on water loss reduction of this plant cooling unit was investigated. Finally feasibility study was carried out to choose the best operating conditions for the hybrid cooling tower configuration proposed for this cooling unit.}
@@ -195,8 +500,8 @@
       \strng{authornamehash}{81cef35e85ef87afdc1daa32451beeb6}
       \strng{authorfullhash}{81cef35e85ef87afdc1daa32451beeb6}
       \strng{authorfullhashraw}{81cef35e85ef87afdc1daa32451beeb6}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The performance of hybrid cooling tower is analyzed using experiments and numerical simulations on a wide variety of working conditions. A computational model for predicting the behavior of dry, wet and hybrid cooling systems has been developed. The hybrid cooling tower model is expressed as a combination of a dry cooling model and a wet cooling model. The effectiveness-NTU equation and the Merkel equation, fundamental equation of heat transfer in dry and wet cooling towers, are presented and discussed. The cooling tower characteristics are a function of water-to-air ratio for each cooling mode. Comparison of the model tower test results with those of a computer simulation has demonstrated the validity of that simulation and its use as a design tool. Using the information presented in this paper, it will be possible to incorporate dry and wet cooling tower design, and simulation into a procedure to evaluate and optimize hybrid cooling tower performance.}
@@ -262,8 +567,8 @@
       \strng{authornamehash}{a0f76c4af69ffad9def84a90128b8ab0}
       \strng{authorfullhash}{82f3ae404de82cfbfcce22002292959d}
       \strng{authorfullhashraw}{82f3ae404de82cfbfcce22002292959d}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{A hybrid cooling system (HCS) consisting of dry and wet sections is proposed as a means to conserve energy and water by combining the benefits of both dry and wet cooling modes. A thermodynamic model of a 660\,MW thermal power plant with HCS is established, and the variations in thermodynamic characteristics with respect to dry bulb temperature (TA) and relative humidity (RH) are investigated using Ebsilon calculating code. Through comparison between the dry cooling system (DCS) and wet cooling system (WCS), HCS performance characteristics under different meteorological parameters are analyzed quantitatively. By comprehensively considering water and energy conservation indicators, the unique operation mode and ratio of the heat load shared by dry or wet sections are determined under various meteorological parameters. When TA exceeds a certain value or RH falls below a certain value, the HCS does not operate in a hybrid cooling mode. Instead, its operation is equivalent to that of a WCS. We suggest that the cooling load of the wet section in the HCS be designed with the peak cooling load of the condenser under the most inhospitable meteorological parameters of the year. The findings reported here may provide guidance for HCS thermodynamic design and operation regulations.}
@@ -318,8 +623,8 @@
       \strng{authornamehash}{e04e7527b4591788faa975bf16353357}
       \strng{authorfullhash}{e04e7527b4591788faa975bf16353357}
       \strng{authorfullhashraw}{e04e7527b4591788faa975bf16353357}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Cooling towers are indispensable components for heat rejection in concentrated solar power (CSP) plants. However, the overall performance of CSP plants relies heavily on the choice of cooling tower technology. This paper aims at assessing the impact of cooling tower technology on CSP plant from performance, economic, and environmental perspectives. To achieve this goal, seven CSP projects worldwide with distinct features were selected, and multiple simulations on System Advisor Model software were performed to evaluate the annual energy production, capacity factor, and levelized cost of electricity (LCOE). Moreover, the impact assessment was performed in terms of key metrics, such as discounted payback period (DPP), savings-to-investment ratio (SIR), greenhouse gases (GHG) emissions, water-saving, and total costs savings (TCS) including energy, carbon and water costs savings. The results showed that the wet cooling technology achieved the highest performance findings followed by hybrid and dry cooling technologies. The environmental analysis revealed that the wet cooling technology could avoid roughly 7.02\% and 2.93\% of GHG emissions compared to dry and hybrid cooling ones, respectively; however, it was found that dry and hybrid cooling technologies could be more profitable in arid regions with water scarcity, since they could save on average 93.30\% and 69.83\% of water, respectively, compared to the wet technology. Furthermore, the economic results showed that wet and hybrid cooling towers exhibit the best cost-effectiveness over dry cooling one as the LCOE was found to be \$0.231/0.244 per kWh, and the DPP ranged between 13.41 and 23.46/14.95 and 34.75~years by integrating wet/hybrid technologies in CSP plants. Overall, wet and hybrid cooling technologies yield better TCS and SIR outcomes over dry cooling one. However, with respect to energy conservation, water savings, and GHG emissions savings, hybrid cooling tower could be considered as an optimal technology. This paper is expected to be a guideline for selecting the most cost-effective and eco-friendly cooling technology for future CSP plants, based on key criteria.}
@@ -379,8 +684,8 @@
       \strng{authorfullhash}{e74378a467d12614b9e46d9438a502f2}
       \strng{authorfullhashraw}{e74378a467d12614b9e46d9438a502f2}
       \field{extraname}{1}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{In Brescia, Italy, heat is delivered to 70\% of 200.000 city inhabitants by means of a district heating system, mainly supplied by a waste to energy plant, utilizing the non recyclable fraction of municipal and industrial solid waste (800,000tons/year, otherwise landfilled), thus saving annually over 150,000tons of oil equivalent and over 400,000tons of CO2 emissions. This study shows how the performance of the waste-to-energy cogeneration plant can be improved by optimising the condensation system, with particular focus on the combination of wet and dry cooling systems. The analysis has been carried out using two subsequent steps: in the first one a schematic model of the steam cycle was accomplished in order to acquire a knowledge base about the variables that would be most influential on the performance. In the second step the electric power output for different operating conditions was predicted and optimized in a homemade program. In more details, a thermodynamic analysis of the steam cycle, according to the design operating condition, was performed by means of a commercial code (Thermoflex©) dedicated to power plant modelling. Then the off-design behaviour was investigated by varying not only the ambient conditions but also several parameters connected to the heat rejection rate, like the heat required from district heating and the auxiliaries load. Each of these parameters has been addressed and considered in determining the overall performance of the thermal cycle. After that, a complete prediction of the cycle behaviour was performed by simultaneously varying different operating conditions. Finally, a Matlab© computer code was developed in order to optimize the net electric power as a function of the way in which the condensation is operated. The result is an optimum set of variables allowing the wet and dry cooling system to be regulated in such a way that the maximum power is achieved. The best strategy consists in using the maximum amount of heat rejection in the wet cooling system to reduce the operational cost of the dry one.}
@@ -442,8 +747,8 @@
       \strng{authorfullhash}{e74378a467d12614b9e46d9438a502f2}
       \strng{authorfullhashraw}{e74378a467d12614b9e46d9438a502f2}
       \field{extraname}{2}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The present study is focused on a waste-to-energy plant located in Northern Italy, that produces electric power and thermal energy from the non-recyclable fraction of municipal and industrial solid waste (8,00,000tons/year). In cold months heat is provided to a district heating system. Another peculiarity of this plant is that the condenser system is organized with an air condenser and a water cooled condenser, coupled with a wet cooling tower. This work shows how the net power output can be maximized by properly regulating the combined wet and dry units of the combined cooling system. A detailed model of the steam cycle was performed by means of a commercial code (Thermoflex®). Off design performance were carefully predicted to simulate accurately the real thermal cycle behaviour. Once the power cycle performance has been predicted over an extensive range of operating conditions, an optimal search method was implemented to find the set of variables allowing the wet and dry cooling system to be regulated so that the maximum net power is achieved. In general, the best strategy resulted in loading as much as possible the wet cooling system to reduce the operational cost of the dry air condenser. Conversely, the whole exhaust steam flow rate has to be sent only to the air condenser when the district heating water request is very large, i.e. in coldest months.}
@@ -508,8 +813,8 @@
       \strng{authornamehash}{ba91a53e9f95d3eae93c788b37971d20}
       \strng{authorfullhash}{c476603c7d9e8d93917bd2d81fbcb57b}
       \strng{authorfullhashraw}{c476603c7d9e8d93917bd2d81fbcb57b}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The new challenge of the European Commission is to limit water consumption in Concentrating Solar Power (CSP) plants, especially significant in the cooling process. Hybrid cooling systems are presented as a potential solution to achieve water consumption reduction since they also avoid a high penalty of efficiency loss in the power block. In this work, a hybrid cooling pilot plant installed at Plataforma Solar de Almería is evaluated experimentally. The system has been tested under different ambient and operating conditions to analyze their influence on the water and electricity consumption. The results reveal that significant water savings were achieved in comparison with the conventional only-wet configuration. Concretely, a maximum water consumption saving of 67\% was found at high ambient temperatures (between 25 and 30~°C) and for a thermal load of 80\% when a hybrid configuration was used. The optimal operating strategies that achieve a tradeoff between low water and electricity consumption have been identified by two efficiency indexes: the specific electricity and water consumption. The parallel configuration was the optimal one in most of the cases. At high ambient temperatures and 80\% thermal load, the electricity and water consumptions of this configuration were 0.033 kWe/kWth and 0.071~L/kWth, respectively.}
@@ -594,8 +899,8 @@
       \strng{authornamehash}{01277b9860569894b47aca8322268225}
       \strng{authorfullhash}{5dc32e62785f1c16bf174f20287baae3}
       \strng{authorfullhashraw}{5dc32e62785f1c16bf174f20287baae3}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The use of wet cooling in Concentrated Solar Power (CSP) plants tends to be an unfavourable option in regions where water is scarce due to the high water requirements of the method. Dry-cooling systems allow a water consumption reduction of up to 80\% but at the expense of lower electricity production. A hybrid cooling system (the combination of dry and wet cooling) offers the advantages of each process in terms of lower water consumption and higher electricity production. A model of a CSP plant which integrates a hybrid cooling system has been implemented in Thermoflex software. The water consumption and the net power generation have been evaluated for different configurations of the hybrid cooling system: series, parallel, series-parallel and parallel-series. It was found that the most favourable configuration in terms of water saving was series-parallel, in which a water reduction of up to 50\% is possible compared to the only-wet cooling option, whereas an increase of 2.5\% in the power generation is possible compared to the only-dry cooling option. The parallel configuration was the best in terms of power generation with an increase of 3.2\% when compared with the only-dry cooling option, and a reduction of 30\% water consumption compared to the only-wet cooling option.}
@@ -657,8 +962,8 @@
       \strng{authornamehash}{7abca0101b24ea99c680f4ca15ecc83d}
       \strng{authorfullhash}{24fb2c88d025ec67d1eb7a4da3a1311c}
       \strng{authorfullhashraw}{24fb2c88d025ec67d1eb7a4da3a1311c}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Forecasting renewable energy efficiency significantly impacts system management and operation because more precise forecasts mean reduced risk and improved stability and reliability of the network. There are several methods for forecasting and estimating energy production and demand. This paper discusses the significance of artificial neural network (ANN), machine learning (ML), and Deep Learning (DL) techniques in predicting renewable energy and load demand in various time horizons, including ultra-short-term, short-term, medium-term, and long-term. The purpose of this study is to comprehensively review the methodologies and applications that utilize the latest developments in ANN, ML, and DL for the purpose of forecasting in microgrids, with the aim of providing a systematic analysis. For this purpose, a comprehensive database from the Web of Science was selected to gather relevant research studies on the topic. This paper provides a comparison and evaluation of all three techniques for forecasting in microgrids using tables. The techniques mentioned here assist electrical engineers in becoming aware of the drawbacks and advantages of ANN, ML, and DL in both load demand and renewable energy forecasting in microgrids, enabling them to choose the best techniques for establishing a sustainable and resilient microgrid ecosystem.}
@@ -690,405 +995,6 @@
       \verb https://www.sciencedirect.com/science/article/pii/S0378779623006818
       \endverb
       \keyw{Artificial neural networks,Deep learning,Machine learning,Renewable energy forecasting}
-    \endentry
-    \entry{hagan_neural_2014}{book}{}{7}
-      \name{author}{4}{}{%
-        {{hash=dbe32330c34a578be86ababa65a0d6a5}{%
-           family={Hagan},
-           familyi={H\bibinitperiod},
-           given={Martin\bibnamedelima T.},
-           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
-        {{hash=fde749eb2f24dbd141ce2e7f936b643f}{%
-           family={Demuth},
-           familyi={D\bibinitperiod},
-           given={Howard\bibnamedelima B.},
-           giveni={H\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
-        {{hash=64e5a4a77b39e242f129b9f3665b140a}{%
-           family={Beale},
-           familyi={B\bibinitperiod},
-           given={Mark\bibnamedelima Hudson},
-           giveni={M\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
-        {{hash=c156b821a3881b3d856fbeba81ccdbe0}{%
-           family={Jesús},
-           familyi={J\bibinitperiod},
-           given={Orlando\bibnamedelima De},
-           giveni={O\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Martin Hagan}%
-      }
-      \strng{namehash}{aaefa19183fe0d5f9db72bc3c7fd96f6}
-      \strng{fullhash}{a203e4f2004ae0ab9c21f8451e93f189}
-      \strng{fullhashraw}{a203e4f2004ae0ab9c21f8451e93f189}
-      \strng{bibnamehash}{aaefa19183fe0d5f9db72bc3c7fd96f6}
-      \strng{authorbibnamehash}{aaefa19183fe0d5f9db72bc3c7fd96f6}
-      \strng{authornamehash}{aaefa19183fe0d5f9db72bc3c7fd96f6}
-      \strng{authorfullhash}{a203e4f2004ae0ab9c21f8451e93f189}
-      \strng{authorfullhashraw}{a203e4f2004ae0ab9c21f8451e93f189}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{This book, by the authors of the Neural Network Toolbox for MATLAB, provides a clear and detailed coverage of fundamental neural network architectures and learning rules. In it, the authors emphasize a coherent presentation of the principal neural networks, methods for training them and their applications to practical problems.FeaturesExtensive coverage of training methods for both feedforward networks (including multilayer and radial basis networks) and recurrent networks. In addition to conjugate gradient and Levenberg-Marquardt variations of the backpropagation algorithm, the text also covers Bayesian regularization and early stopping, which ensure the generalization ability of trained networks.Associative and competitive networks, including feature maps and learning vector quantization, are explained with simple building blocks.A chapter of practical training tips for function approximation, pattern recognition, clustering and prediction, along with five chapters presenting detailed real-world case studies.Detailed examples and numerous solved problems. Slides and comprehensive demonstration software can be downloaded from hagan.okstate.edu/nnd.html.}
-      \field{isbn}{978-0-9717321-1-7}
-      \field{langid}{english}
-      \field{pagetotal}{800}
-      \field{title}{Neural {{Network Design}}}
-      \field{year}{2014}
-      \field{dateera}{ce}
-      \verb{file}
-      \verb /home/patomareao/Zotero/storage/F7SPAWCR/Hagan et al. - 2014 - Neural Network Design.pdf
-      \endverb
-      \keyw{Computers / Data Science / Neural Networks,Mathematics / General,Technology & Engineering / General}
-    \endentry
-    \entry{beale_neural_2010}{article}{}{3}
-      \name{author}{3}{}{%
-        {{hash=64e5a4a77b39e242f129b9f3665b140a}{%
-           family={Beale},
-           familyi={B\bibinitperiod},
-           given={Mark\bibnamedelima Hudson},
-           giveni={M\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
-        {{hash=dbe32330c34a578be86ababa65a0d6a5}{%
-           family={Hagan},
-           familyi={H\bibinitperiod},
-           given={Martin\bibnamedelima T},
-           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
-        {{hash=fde749eb2f24dbd141ce2e7f936b643f}{%
-           family={Demuth},
-           familyi={D\bibinitperiod},
-           given={Howard\bibnamedelima B},
-           giveni={H\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
-      }
-      \strng{namehash}{ff984670114a8c577fc713e2446215ca}
-      \strng{fullhash}{ff984670114a8c577fc713e2446215ca}
-      \strng{fullhashraw}{ff984670114a8c577fc713e2446215ca}
-      \strng{bibnamehash}{ff984670114a8c577fc713e2446215ca}
-      \strng{authorbibnamehash}{ff984670114a8c577fc713e2446215ca}
-      \strng{authornamehash}{ff984670114a8c577fc713e2446215ca}
-      \strng{authorfullhash}{ff984670114a8c577fc713e2446215ca}
-      \strng{authorfullhashraw}{ff984670114a8c577fc713e2446215ca}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{User’s Guide, MathWorks}
-      \field{title}{Neural Network Toolbox}
-      \field{volume}{2}
-      \field{year}{2010}
-      \field{dateera}{ce}
-      \field{pages}{77\bibrangedash 81}
-      \range{pages}{5}
-    \endentry
-    \entry{hamm_comparison_2007}{article}{}{3}
-      \name{author}{3}{}{%
-        {{hash=e0b7d7857fb989dcdb80eb2989f304b9}{%
-           family={Hamm},
-           familyi={H\bibinitperiod},
-           given={Lonnie},
-           giveni={L\bibinitperiod}}}%
-        {{hash=8167d26e076342d7d2f42f63c075f662}{%
-           family={Brorsen},
-           familyi={B\bibinitperiod},
-           given={B.\bibnamedelimi Wade},
-           giveni={B\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
-        {{hash=dbe32330c34a578be86ababa65a0d6a5}{%
-           family={Hagan},
-           familyi={H\bibinitperiod},
-           given={Martin\bibnamedelima T.},
-           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
-      }
-      \strng{namehash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
-      \strng{fullhash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
-      \strng{fullhashraw}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
-      \strng{bibnamehash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
-      \strng{authorbibnamehash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
-      \strng{authornamehash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
-      \strng{authorfullhash}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
-      \strng{authorfullhashraw}{8448e4c79f7ac3c5e60a0a4776cb0ac5}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Training a neural network is a difficult optimization problem because of numerous local minima. Many global search algorithms have been used to train neural networks. However, local search algorithms are more efficient with computational resources, and therefore numerous random restarts with a local algorithm may be more effective than a global algorithm. This study uses Monte-Carlo simulations to determine the efficiency of a local search algorithm relative to nine stochastic global algorithms when using a neural network on function approximation problems. The computational requirements of the global algorithms are several times higher than the local algorithm and there is little gain in using the global algorithms to train neural networks. Since the global algorithms only marginally outperform the local algorithm in obtaining a lower local minimum and they require more computational resources, the results in this study indicate that with respect to the specific algorithms and function approximation problems studied, there is little evidence to show that a global algorithm should be used over a more traditional local optimization routine for training neural networks. Further, neural networks should not be estimated from a single set of starting values whether a global or local optimization method is used.}
-      \field{day}{1}
-      \field{issn}{1573-773X}
-      \field{journaltitle}{Neural Processing Letters}
-      \field{langid}{english}
-      \field{month}{12}
-      \field{number}{3}
-      \field{shortjournal}{Neural Process Lett}
-      \field{title}{Comparison of {{Stochastic Global Optimization Methods}} to {{Estimate Neural Network Weights}}}
-      \field{urlday}{16}
-      \field{urlmonth}{3}
-      \field{urlyear}{2024}
-      \field{volume}{26}
-      \field{year}{2007}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \field{pages}{145\bibrangedash 158}
-      \range{pages}{14}
-      \verb{doi}
-      \verb 10.1007/s11063-007-9048-7
-      \endverb
-      \verb{file}
-      \verb /home/patomareao/Zotero/storage/CCE2IWDY/Hamm et al. - 2007 - Comparison of Stochastic Global Optimization Metho.pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1007/s11063-007-9048-7
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1007/s11063-007-9048-7
-      \endverb
-      \keyw{Evolutionary algorithms,Function approximation,Neural networks,Simulated annealing,Stochastic global optimization}
-    \endentry
-    \entry{nossent_sobolsensitivity_2011}{article}{}{3}
-      \name{author}{3}{}{%
-        {{hash=916adb060939370e24b784e60184fde7}{%
-           family={Nossent},
-           familyi={N\bibinitperiod},
-           given={Jiri},
-           giveni={J\bibinitperiod}}}%
-        {{hash=439f417993718a52522a2848008f3f65}{%
-           family={Elsen},
-           familyi={E\bibinitperiod},
-           given={Pieter},
-           giveni={P\bibinitperiod}}}%
-        {{hash=75b94911178ceaa11e0a26fd8586d909}{%
-           family={Bauwens},
-           familyi={B\bibinitperiod},
-           given={Willy},
-           giveni={W\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Elsevier}%
-      }
-      \strng{namehash}{3a6f635b1ebc743bcb52941de13ca11a}
-      \strng{fullhash}{3a6f635b1ebc743bcb52941de13ca11a}
-      \strng{fullhashraw}{3a6f635b1ebc743bcb52941de13ca11a}
-      \strng{bibnamehash}{3a6f635b1ebc743bcb52941de13ca11a}
-      \strng{authorbibnamehash}{3a6f635b1ebc743bcb52941de13ca11a}
-      \strng{authornamehash}{3a6f635b1ebc743bcb52941de13ca11a}
-      \strng{authorfullhash}{3a6f635b1ebc743bcb52941de13ca11a}
-      \strng{authorfullhashraw}{3a6f635b1ebc743bcb52941de13ca11a}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Environmental Modelling \& Software}
-      \field{number}{12}
-      \field{title}{Sobol’sensitivity Analysis of a Complex Environmental Model}
-      \field{volume}{26}
-      \field{year}{2011}
-      \field{dateera}{ce}
-      \field{pages}{1515\bibrangedash 1525}
-      \range{pages}{11}
-      \warn{\item Datamodel: article entry 'nossent_sobolsensitivity_2011' (references.bib): Invalid field 'publisher' for entrytype 'article'}
-    \endentry
-    \entry{herman_salib_2017}{article}{}{3}
-      \name{author}{2}{}{%
-        {{hash=b444aab8484226fa25d924a2445959db}{%
-           family={Herman},
-           familyi={H\bibinitperiod},
-           given={Jon},
-           giveni={J\bibinitperiod}}}%
-        {{hash=3ac696cac8ac0f856e7d82a15b1add29}{%
-           family={Usher},
-           familyi={U\bibinitperiod},
-           given={Will},
-           giveni={W\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {The Open Journal}%
-      }
-      \strng{namehash}{2ce0d270f44fcd0da3e31d46f83b6161}
-      \strng{fullhash}{2ce0d270f44fcd0da3e31d46f83b6161}
-      \strng{fullhashraw}{2ce0d270f44fcd0da3e31d46f83b6161}
-      \strng{bibnamehash}{2ce0d270f44fcd0da3e31d46f83b6161}
-      \strng{authorbibnamehash}{2ce0d270f44fcd0da3e31d46f83b6161}
-      \strng{authornamehash}{2ce0d270f44fcd0da3e31d46f83b6161}
-      \strng{authorfullhash}{2ce0d270f44fcd0da3e31d46f83b6161}
-      \strng{authorfullhashraw}{2ce0d270f44fcd0da3e31d46f83b6161}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{The Journal of Open Source Software}
-      \field{month}{1}
-      \field{number}{9}
-      \field{title}{{{SALib}}: {{An}} Open-Source Python Library for Sensitivity Analysis}
-      \field{volume}{2}
-      \field{year}{2017}
-      \field{dateera}{ce}
-      \verb{doi}
-      \verb 10.21105/joss.00097
-      \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.21105/joss.00097
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.21105/joss.00097
-      \endverb
-      \warn{\item Datamodel: article entry 'herman_salib_2017' (references.bib): Invalid field 'publisher' for entrytype 'article'}
-    \endentry
-    \entry{iwanaga_salib_2022}{article}{}{3}
-      \name{author}{3}{}{%
-        {{hash=83fef0e41c9837b70ce1d843ece2e927}{%
-           family={Iwanaga},
-           familyi={I\bibinitperiod},
-           given={Takuya},
-           giveni={T\bibinitperiod}}}%
-        {{hash=1913bb429f8e0bac17bae181952655d5}{%
-           family={Usher},
-           familyi={U\bibinitperiod},
-           given={William},
-           giveni={W\bibinitperiod}}}%
-        {{hash=c8e379e98e0d69c2d51c42e945b5bdf0}{%
-           family={Herman},
-           familyi={H\bibinitperiod},
-           given={Jonathan},
-           giveni={J\bibinitperiod}}}%
-      }
-      \strng{namehash}{505ad0504972e09223a5ee2fb37645b5}
-      \strng{fullhash}{505ad0504972e09223a5ee2fb37645b5}
-      \strng{fullhashraw}{505ad0504972e09223a5ee2fb37645b5}
-      \strng{bibnamehash}{505ad0504972e09223a5ee2fb37645b5}
-      \strng{authorbibnamehash}{505ad0504972e09223a5ee2fb37645b5}
-      \strng{authornamehash}{505ad0504972e09223a5ee2fb37645b5}
-      \strng{authorfullhash}{505ad0504972e09223a5ee2fb37645b5}
-      \strng{authorfullhashraw}{505ad0504972e09223a5ee2fb37645b5}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Socio-Environmental Systems Modelling}
-      \field{month}{5}
-      \field{title}{Toward {{SALib}} 2.0: {{Advancing}} the Accessibility and Interpretability of Global Sensitivity Analyses}
-      \field{volume}{4}
-      \field{year}{2022}
-      \field{dateera}{ce}
-      \field{pages}{18155}
-      \range{pages}{1}
-      \verb{doi}
-      \verb 10.18174/sesmo.18155
-      \endverb
-      \verb{urlraw}
-      \verb https://sesmo.org/article/view/18155
-      \endverb
-      \verb{url}
-      \verb https://sesmo.org/article/view/18155
-      \endverb
-    \endentry
-    \entry{geem_new_2001}{article}{}{3}
-      \name{author}{3}{}{%
-        {{hash=d7487355768ee9fdbf8324ad1c1d661c}{%
-           family={Geem},
-           familyi={G\bibinitperiod},
-           given={Zong\bibnamedelima Woo},
-           giveni={Z\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
-        {{hash=217de8f7fbadad8de1a854e5ab0ea7cc}{%
-           family={Kim},
-           familyi={K\bibinitperiod},
-           given={Joong\bibnamedelima Hoon},
-           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
-        {{hash=6eed4bf5d2c2f3300ece10faaf071335}{%
-           family={Loganathan},
-           familyi={L\bibinitperiod},
-           given={G.V.},
-           giveni={G\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {SAGE Publications Ltd STM}%
-      }
-      \strng{namehash}{1adf7a238606d577aabdde5043bc8374}
-      \strng{fullhash}{1adf7a238606d577aabdde5043bc8374}
-      \strng{fullhashraw}{1adf7a238606d577aabdde5043bc8374}
-      \strng{bibnamehash}{1adf7a238606d577aabdde5043bc8374}
-      \strng{authorbibnamehash}{1adf7a238606d577aabdde5043bc8374}
-      \strng{authornamehash}{1adf7a238606d577aabdde5043bc8374}
-      \strng{authorfullhash}{1adf7a238606d577aabdde5043bc8374}
-      \strng{authorfullhashraw}{1adf7a238606d577aabdde5043bc8374}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{Many optimization problems in various fields have been solved using diverse optimization al gorithms. Traditional optimization techniques such as linear programming (LP), non-linear programming (NLP), and dynamic program ming (DP) have had major roles in solving these problems. However, their drawbacks generate demand for other types of algorithms, such as heuristic optimization approaches (simulated annealing, tabu search, and evolutionary algo rithms). However, there are still some possibili ties of devising new heuristic algorithms based on analogies with natural or artificial phenom ena. A new heuristic algorithm, mimicking the improvisation of music players, has been devel oped and named Harmony Search (HS). The performance of the algorithm is illustrated with a traveling salesman problem (TSP), a specific academic optimization problem, and a least-cost pipe network design problem.}
-      \field{day}{1}
-      \field{issn}{0037-5497}
-      \field{journaltitle}{SIMULATION}
-      \field{langid}{english}
-      \field{month}{2}
-      \field{number}{2}
-      \field{shorttitle}{A {{New Heuristic Optimization Algorithm}}}
-      \field{title}{A {{New Heuristic Optimization Algorithm}}: {{Harmony Search}}}
-      \field{urlday}{16}
-      \field{urlmonth}{6}
-      \field{urlyear}{2025}
-      \field{volume}{76}
-      \field{year}{2001}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \field{pages}{60\bibrangedash 68}
-      \range{pages}{9}
-      \verb{doi}
-      \verb 10.1177/003754970107600201
-      \endverb
-      \verb{file}
-      \verb /home/patomareao/Zotero/storage/MTRG4HBR/10.1177003754970107600201.pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1177/003754970107600201
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1177/003754970107600201
-      \endverb
-      \warn{\item Datamodel: article entry 'geem_new_2001' (references.bib): Invalid field 'publisher' for entrytype 'article'}
-    \endentry
-    \entry{biscani_parallel_2020}{article}{}{3}
-      \name{author}{2}{}{%
-        {{hash=8cd5135d7f5153bdfd5d13e63ef938f2}{%
-           family={Biscani},
-           familyi={B\bibinitperiod},
-           given={Francesco},
-           giveni={F\bibinitperiod}}}%
-        {{hash=877562dadfdad676dd1a70eb21f3556e}{%
-           family={Izzo},
-           familyi={I\bibinitperiod},
-           given={Dario},
-           giveni={D\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {The Open Journal}%
-      }
-      \strng{namehash}{9a1618a2b2ddbcf28e2b2376a8d16458}
-      \strng{fullhash}{9a1618a2b2ddbcf28e2b2376a8d16458}
-      \strng{fullhashraw}{9a1618a2b2ddbcf28e2b2376a8d16458}
-      \strng{bibnamehash}{9a1618a2b2ddbcf28e2b2376a8d16458}
-      \strng{authorbibnamehash}{9a1618a2b2ddbcf28e2b2376a8d16458}
-      \strng{authornamehash}{9a1618a2b2ddbcf28e2b2376a8d16458}
-      \strng{authorfullhash}{9a1618a2b2ddbcf28e2b2376a8d16458}
-      \strng{authorfullhashraw}{9a1618a2b2ddbcf28e2b2376a8d16458}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Open Source Software}
-      \field{number}{53}
-      \field{title}{A Parallel Global Multiobjective Framework for Optimization: Pagmo}
-      \field{volume}{5}
-      \field{year}{2020}
-      \field{dateera}{ce}
-      \field{pages}{2338}
-      \range{pages}{1}
-      \verb{doi}
-      \verb 10.21105/joss.02338
-      \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.21105/joss.02338
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.21105/joss.02338
-      \endverb
-      \warn{\item Datamodel: article entry 'biscani_parallel_2020' (references.bib): Invalid field 'publisher' for entrytype 'article'}
     \endentry
     \entry{merkel_verdunstungskuhlung_1925}{article}{}{6}
       \name{author}{1}{}{%
@@ -2106,7 +2012,226 @@
       \field{dateera}{ce}
       \warn{\item Datamodel: article entry 'bonilla_csp_2024' (references.bib): Missing mandatory field 'journaltitle'}
     \endentry
-    \entry{mistry_entropy_2011}{article}{}{1}
+    \entry{ghenai_performance_2021}{article}{}{3}
+      \name{author}{4}{}{%
+        {{hash=3dfdcd2a99daf841c67f393902095167}{%
+           family={Ghenai},
+           familyi={G\bibinitperiod},
+           given={Chaouki},
+           giveni={C\bibinitperiod}}}%
+        {{hash=71d9715615bc5c9de00ad7150a5e7f83}{%
+           family={Kabakebji},
+           familyi={K\bibinitperiod},
+           given={Dania},
+           giveni={D\bibinitperiod}}}%
+        {{hash=6d1caf409206e65228bdafb1be304ef2}{%
+           family={Douba},
+           familyi={D\bibinitperiod},
+           given={Ikram},
+           giveni={I\bibinitperiod}}}%
+        {{hash=dc5c080582b7790949ecd3b645d8e8df}{%
+           family={Yassin},
+           familyi={Y\bibinitperiod},
+           given={Ameera},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{6f3a43ac77e710d2d3fa35bc61847a51}
+      \strng{fullhash}{db91aeeac9dd98fdc87c2c0bb96a5e8e}
+      \strng{fullhashraw}{db91aeeac9dd98fdc87c2c0bb96a5e8e}
+      \strng{bibnamehash}{6f3a43ac77e710d2d3fa35bc61847a51}
+      \strng{authorbibnamehash}{6f3a43ac77e710d2d3fa35bc61847a51}
+      \strng{authornamehash}{6f3a43ac77e710d2d3fa35bc61847a51}
+      \strng{authorfullhash}{db91aeeac9dd98fdc87c2c0bb96a5e8e}
+      \strng{authorfullhashraw}{db91aeeac9dd98fdc87c2c0bb96a5e8e}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Performance analysis, parametric study and response surface methodology (RSM) based optimization of hybrid Multi-Effect Distillation Adsorption Desalination (MEDAD) system powered with solar energy is presented in this paper. The goal is to develop innovative and cost-effective technology for high salt concentration sea water desalination using renewable energy technologies. The main objectives are to develop sustainable methods and strategies to enhance the quality and quantity of freshwater production; and reduce the energy consumption during the desalination process. The effect of number of stages for the Multi Effect Distillation (MED) system, the addition of the adsorption desalination (AD) stage and the heat recovery from the residual brines on the performance of the MEDAD system for high salinity sea water under hot and humid climatic conditions are investigated. The analytical analysis and an optimization method are used in this study to determine the system’s optimum operating conditions to maximize the freshwater production, reduce the energy consumption and performance ratio. Four input factors are selected for the parametric study: Heat transfer fluid temperature and Reynolds number; and sea water temperature and total dissolved solids TDS. The results show that the production rate of fresh water was improved by 2.68 times, achieving a 57.78\% lower specific energy consumption by adding the adsorption desalination stage. For the heat recovery from the residual brine, the results show that the freshwater production rate and the performance ratio increased by respectively 14.73\% and 12.86\%, and the specific energy consumption decreased by 11.34\%. New correlations for the variation of the inverse of the specific energy consumption (m3/kWh) and the performance ratio versus the four input factors and the order of importance of the input factors are presented.}
+      \field{day}{15}
+      \field{issn}{0360-5442}
+      \field{journaltitle}{Energy}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{shortjournal}{Energy}
+      \field{title}{Performance Analysis and Optimization of Hybrid Multi-Effect Distillation Adsorption Desalination System Powered with Solar Thermal Energy for High Salinity Sea Water}
+      \field{urlday}{8}
+      \field{urlmonth}{1}
+      \field{urlyear}{2023}
+      \field{volume}{215}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{119212}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.energy.2020.119212
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/X6NM4M56/Ghenai et al. - 2021 - Performance analysis and optimization of hybrid mu.pdf;/home/patomareao/Zotero/storage/98WRJVMS/S0360544220323197.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0360544220323197
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0360544220323197
+      \endverb
+      \keyw{Hybrid desalination,Multi-effect distillation adsorption desalination (MEDAD),Optimization,Parametric study,Solar thermal}
+    \endentry
+    \entry{son_pilot_2020}{article}{}{3}
+      \name{author}{4}{}{%
+        {{hash=742d504b2eb934495e28d2160ce3bdd6}{%
+           family={Son},
+           familyi={S\bibinitperiod},
+           given={Hyuk\bibnamedelima Soo},
+           giveni={H\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=379d94de656d91e2de557f62a139f4e1}{%
+           family={Shahzad},
+           familyi={S\bibinitperiod},
+           given={Muhammad\bibnamedelima Wakil},
+           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=d57bd413209888bd0d485065f9659901}{%
+           family={Ghaffour},
+           familyi={G\bibinitperiod},
+           given={Noreddine},
+           giveni={N\bibinitperiod}}}%
+        {{hash=541e75c111ecb1ca280fa9199485a8ea}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Kim\bibnamedelima Choon},
+           giveni={K\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{5725446e42c8bb572492328c687c2673}
+      \strng{fullhash}{753b15a8e091fe43b2f241bef3cf948b}
+      \strng{fullhashraw}{753b15a8e091fe43b2f241bef3cf948b}
+      \strng{bibnamehash}{5725446e42c8bb572492328c687c2673}
+      \strng{authorbibnamehash}{5725446e42c8bb572492328c687c2673}
+      \strng{authornamehash}{5725446e42c8bb572492328c687c2673}
+      \strng{authorfullhash}{753b15a8e091fe43b2f241bef3cf948b}
+      \strng{authorfullhashraw}{753b15a8e091fe43b2f241bef3cf948b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The hybridization of desalination processes is one of the most promising technologies to overcome the current limitations of desalination technologies while maximizing the advantages of individual processes in practice. Multi-effect distillation (MED) and adsorption desalination (AD) hybrid desalination process has been investigated in this study to maximize the utilization of energy input in desalination. Two different thermal desalination technologies have been integrated, and the synergetic impact of utilizing energy enhanced the performance of the hybrid system. The synergetic thermodynamic model has been developed in this study and the experimental results from the pilot unit, with a nominal production capacity of 10 m3/day, installed at KAUST, KSA have been affirmed the proposed model. Both the water production and the universal performance ratio (UPR) have been improved 2–5 times in different quality of the heat source (40–60~°C) to the MED. Moreover, the MED-AD hybrid process is enabled to scavenge the energy from the ambient temperature below 30~°C for the desalination. The utilized energy of both thermal and flash evaporation in all operation conditions, and individual effects has been inventoried to analyze the thermodynamic synergy of the hybridization. In the sole MED operations, the energy input in the first effect is carried over to the following effects, and part of it is used for thermal evaporation. However, due to the AD driven flash evaporation, the energy used in evaporation of the following effect is shown greater than the previous effect. The developed synergetic model of MED-AD hybrid system and its experiment with 4-effects MED pilot have demonstrated the potential of the hybrid system and its application to the industrial processes.}
+      \field{day}{1}
+      \field{issn}{0011-9164}
+      \field{journaltitle}{Desalination}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{shortjournal}{Desalination}
+      \field{shorttitle}{Pilot Studies on Synergetic Impacts of Energy Utilization in Hybrid Desalination System}
+      \field{title}{Pilot Studies on Synergetic Impacts of Energy Utilization in Hybrid Desalination System: {{Multi-effect}} Distillation and Adsorption Cycle ({{MED-AD}})}
+      \field{urlday}{7}
+      \field{urlmonth}{1}
+      \field{urlyear}{2023}
+      \field{volume}{477}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{114266}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.desal.2019.114266
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/9A7XNAGY/Son et al. - 2020 - Pilot studies on synergetic impacts of energy util.pdf;/home/patomareao/Zotero/storage/IPUAFZ4E/S0011916419318879.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0011916419318879
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0011916419318879
+      \endverb
+      \keyw{Adsorption desalination,Energy efficiency,Hybrid desalination,Multi-effects-distillation}
+    \endentry
+    \entry{burgess_solar_2000}{article}{}{3}
+      \name{author}{2}{}{%
+        {{hash=9228831ea0489a147bd8fd318e975159}{%
+           family={Burgess},
+           familyi={B\bibinitperiod},
+           given={Greg},
+           giveni={G\bibinitperiod}}}%
+        {{hash=2079c67bcb85b302700bc2a0908b890c}{%
+           family={Lovegrove},
+           familyi={L\bibinitperiod},
+           given={Keith},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{329880433d2d01abaab73b80e473963f}
+      \strng{fullhash}{329880433d2d01abaab73b80e473963f}
+      \strng{fullhashraw}{329880433d2d01abaab73b80e473963f}
+      \strng{bibnamehash}{329880433d2d01abaab73b80e473963f}
+      \strng{authorbibnamehash}{329880433d2d01abaab73b80e473963f}
+      \strng{authornamehash}{329880433d2d01abaab73b80e473963f}
+      \strng{authorfullhash}{329880433d2d01abaab73b80e473963f}
+      \strng{authorfullhashraw}{329880433d2d01abaab73b80e473963f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{1}
+      \field{title}{Solar Thermal Powered Desalination: Membrane versus Distillation Technologies}
+      \field{year}{2000}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/EF6VI3JK/Burgess and Lovegrove - 2000 - Solar thermal powered desalination membrane versu.pdf
+      \endverb
+      \warn{\item Datamodel: article entry 'burgess_solar_2000' (references.bib): Missing mandatory field 'journaltitle'}
+    \endentry
+    \entry{pinto_desalination_2017}{article}{}{3}
+      \name{author}{2}{}{%
+        {{hash=0a1aa484541fc3910ce3f44ddc0fb670}{%
+           family={Pinto},
+           familyi={P\bibinitperiod},
+           given={F.\bibnamedelimi Silva},
+           giveni={F\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=fb2a2f7f12f600831101d3adecae3aad}{%
+           family={Marques},
+           familyi={M\bibinitperiod},
+           given={R.\bibnamedelimi Cunha},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{1ac0a2336406e0964d73aef6ea70bdf9}
+      \strng{fullhash}{1ac0a2336406e0964d73aef6ea70bdf9}
+      \strng{fullhashraw}{1ac0a2336406e0964d73aef6ea70bdf9}
+      \strng{bibnamehash}{1ac0a2336406e0964d73aef6ea70bdf9}
+      \strng{authorbibnamehash}{1ac0a2336406e0964d73aef6ea70bdf9}
+      \strng{authornamehash}{1ac0a2336406e0964d73aef6ea70bdf9}
+      \strng{authorfullhash}{1ac0a2336406e0964d73aef6ea70bdf9}
+      \strng{authorfullhashraw}{1ac0a2336406e0964d73aef6ea70bdf9}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{In order to counter growing shortages in water supply, there has been an increasing adoption of non-conventional sources, such as desalination. As a matter of fact, the marginal costs of water (i.e., production) or, in a different perspective, the potential and limitations of different technologies, make the use of particular types of desalination methods an increasing possibility. The growing use of hybrid systems highlights the acknowledgment of those technologies as accepted opportunities to diversify water sources, and from a different perspective, render desalination solutions more efficient and effective. Thus, the study of cost determinants which confer a dynamic importance to such technologies is paramount and policy relevant. For that purpose, cost structures and cost determinants were standardized in order to provide guidelines, or a basis, for a suitable cost perception. This paper provides relevant insights of desalination projects’ key factors, and to such an extent, this is a significant contribution. In this analysis, the results achieved compare possible energy solutions, mainly targeting renewable prospects, due to their impact on the total cost of produced water. The economic feasibility of different desalination technologies and energy solutions is also assessed, with a significant focus on possible hybrid possibilities and the site-specificity of such projects, due to their importance and impact on future technology trends and their cost variations.}
+      \field{issn}{1364-0321}
+      \field{journaltitle}{Renewable and Sustainable Energy Reviews}
+      \field{langid}{english}
+      \field{month}{10}
+      \field{shorttitle}{Desalination Projects Economic Feasibility}
+      \field{title}{Desalination Projects Economic Feasibility: {{A}} Standardization of Cost Determinants}
+      \field{urlday}{27}
+      \field{urlmonth}{7}
+      \field{urlyear}{2023}
+      \field{volume}{78}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{904\bibrangedash 915}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1016/j.rser.2017.05.024
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S1364032117306585
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S1364032117306585
+      \endverb
+      \keyw{Cost determinants,Cost structures,Desalination cost,Desalination technologies,Energy solutions,Water supply}
+    \endentry
+    \entry{mistry_entropy_2011}{article}{}{3}
       \name{author}{6}{}{%
         {{hash=38cd0ec08fd7d6603e977c3c32b5ad5b}{%
            family={Mistry},
@@ -2176,7 +2301,7 @@
       \endverb
       \keyw{exergy}
     \endentry
-    \entry{el-dessouky_fundamentals_2002}{book}{}{2}
+    \entry{el-dessouky_fundamentals_2002}{book}{}{5}
       \name{author}{2}{}{%
         {{hash=d8e36f2e98b42317e9b5d788c3fcccbe}{%
            family={El-Dessouky},
@@ -2219,7 +2344,7 @@
       \endverb
       \keyw{Technology & Engineering / Environmental / Water Supply}
     \endentry
-    \entry{christ_thermodynamic_2014}{article}{}{2}
+    \entry{christ_thermodynamic_2014}{article}{}{6}
       \name{author}{3}{}{%
         {{hash=604d6d8c594a4ed445ad9d6f80176514}{%
            family={Christ},
@@ -2269,134 +2394,7 @@
       \endverb
       \keyw{Distillation,Evaporator,Low-grade heat,MED,Waste heat}
     \endentry
-    \entry{bouma_metrics_2020}{article}{}{3}
-      \name{author}{3}{}{%
-        {{hash=c3e4b7057e6a345cb312eb92d1856c6e}{%
-           family={Bouma},
-           familyi={B\bibinitperiod},
-           given={Andrew\bibnamedelima T.},
-           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
-        {{hash=33e93633059b4ac8bf77d04e66ffe7d2}{%
-           family={Swaminathan},
-           familyi={S\bibinitperiod},
-           given={Jaichander},
-           giveni={J\bibinitperiod}}}%
-        {{hash=567b59f8016ce80b1d9f2ac86acbcc7f}{%
-           family={Lienhard},
-           familyi={L\bibinitperiod},
-           given={John\bibnamedelima H.},
-           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod},
-           suffix={V},
-           suffixi={V\bibinitperiod}}}%
-      }
-      \strng{namehash}{75ad00ef9bcb1a152a96ad65abfa274e}
-      \strng{fullhash}{75ad00ef9bcb1a152a96ad65abfa274e}
-      \strng{fullhashraw}{75ad00ef9bcb1a152a96ad65abfa274e}
-      \strng{bibnamehash}{75ad00ef9bcb1a152a96ad65abfa274e}
-      \strng{authorbibnamehash}{75ad00ef9bcb1a152a96ad65abfa274e}
-      \strng{authornamehash}{75ad00ef9bcb1a152a96ad65abfa274e}
-      \strng{authorfullhash}{75ad00ef9bcb1a152a96ad65abfa274e}
-      \strng{authorfullhashraw}{75ad00ef9bcb1a152a96ad65abfa274e}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{Energy cost contributes a large portion of the overall cost of desalinated water. Improving the energy efficiency of desalination plants is therefore a primary design goal. However, accurately evaluating and comparing the energy consumption of desalination plants that use different forms and grades of energy is difficult, especially for power–water coproduction systems in which primary energy (PE) consumption leads to both salable electricity and potable water. The power plant converts PE into grades of thermal energy and electricity usable by the desalination plant. To fully capture the thermodynamic and economic cost of energy, and to fairly compare desalination systems that use different grades of input energy, we must compare energy consumption not at the point where energy enters the desalination plant itself, but as PE consumption entering the power plant. This paper investigates a variety of metrics for comparing the energy and exergy consumption attributable to desalination in coproduction plants. Previous results have shown that reverse osmosis (RO) is approximately twice as efficient as multiple effect distillation (MED) on a PE basis. We then compare the PE consumption of MED and RO from a thermoeconomic perspective. The entropy generation at the RO membrane and in the MED effects are derived in similar terms, which enables a comparison of the overall heat transfer coefficient in an MED system to the permeability of an RO membrane. RO outperforms MED in energy efficiency because of a balance of material costs, transport coefficients, and cost of energy.}
-      \field{day}{7}
-      \field{issn}{0022-1481}
-      \field{journaltitle}{Journal of Heat Transfer}
-      \field{month}{10}
-      \field{number}{12}
-      \field{shortjournal}{Journal of Heat Transfer}
-      \field{shorttitle}{Metrics {{Matter}}}
-      \field{title}{Metrics {{Matter}}: {{Accurately Defining Energy Efficiency}} in {{Desalination}}}
-      \field{urlday}{22}
-      \field{urlmonth}{3}
-      \field{urlyear}{2023}
-      \field{volume}{142}
-      \field{year}{2020}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \verb{doi}
-      \verb 10.1115/1.4048250
-      \endverb
-      \verb{file}
-      \verb /home/patomareao/Zotero/storage/VQFZDTXQ/Bouma et al. - 2020 - Metrics Matter Accurately Defining Energy Efficie.pdf;/home/patomareao/Zotero/storage/FXQR4B3Q/Metrics-Matter-Accurately-Defining-Energy.html
-      \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1115/1.4048250
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1115/1.4048250
-      \endverb
-    \endentry
-    \entry{shahzad_standard_2019}{article}{}{1}
-      \name{author}{3}{}{%
-        {{hash=379d94de656d91e2de557f62a139f4e1}{%
-           family={Shahzad},
-           familyi={S\bibinitperiod},
-           given={Muhammad\bibnamedelima Wakil},
-           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
-        {{hash=f6e0abf9bb55df7ad4aa93f3933b8675}{%
-           family={Burhan},
-           familyi={B\bibinitperiod},
-           given={Muhammad},
-           giveni={M\bibinitperiod}}}%
-        {{hash=d099b932f81d484885687ef04fda74cc}{%
-           family={Ng},
-           familyi={N\bibinitperiod},
-           given={Kim\bibnamedelima Choom},
-           giveni={K\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Nature Publishing Group}%
-      }
-      \strng{namehash}{a25205c4f86e189ee4364ff8d2a9bde9}
-      \strng{fullhash}{a25205c4f86e189ee4364ff8d2a9bde9}
-      \strng{fullhashraw}{a25205c4f86e189ee4364ff8d2a9bde9}
-      \strng{bibnamehash}{a25205c4f86e189ee4364ff8d2a9bde9}
-      \strng{authorbibnamehash}{a25205c4f86e189ee4364ff8d2a9bde9}
-      \strng{authornamehash}{a25205c4f86e189ee4364ff8d2a9bde9}
-      \strng{authorfullhash}{a25205c4f86e189ee4364ff8d2a9bde9}
-      \strng{authorfullhashraw}{a25205c4f86e189ee4364ff8d2a9bde9}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Considering different grades of energy as equivalent in the desalination industry could have negative economic and environmental consequences. Whereas this approach will suffice for the comparison of same energy input processes, omitting the grade of energy when comparing diverse technologies may lead to incorrect conclusions and, resultantly, inefficient installations. Here, a standard primary energy-based thermodynamic framework is presented that addresses the energy efficacy of assorted desalination processes. Example calculations show that a thermal desalination plant integrated with a power plant consumes 2–3\% of input standard primary energy. We also propose a standard universal performance ratio methodology to provide a level playing field for the comparison of desalination processes; this suggest that the majority of desalination processes are operating far from the sustainable zone, with only \textasciitilde 10–13\% at the ideal or thermodynamic limit. A proposed roadmap shows that attaining an efficacy level of up to 25–30\% of the thermodynamic limit is crucial for achieving the 2030 sustainability development goals for seawater desalination, which will require a technological shift in the capability of dissolved salts separation processes.}
-      \field{annotation}{GSCC: 0000095}
-      \field{day}{7}
-      \field{issn}{2059-7037}
-      \field{journaltitle}{npj Clean Water}
-      \field{langid}{english}
-      \field{month}{1}
-      \field{number}{1}
-      \field{title}{A Standard Primary Energy Approach for Comparing Desalination Processes}
-      \field{urlday}{23}
-      \field{urlmonth}{7}
-      \field{urlyear}{2024}
-      \field{volume}{2}
-      \field{year}{2019}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \field{pages}{1\bibrangedash 7}
-      \range{pages}{7}
-      \verb{doi}
-      \verb 10.1038/s41545-018-0028-4
-      \endverb
-      \verb{file}
-      \verb /home/patomareao/Zotero/storage/YMTXM5NB/Shahzad et al. - 2019 - A standard primary energy approach for comparing desalination processes.pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://www.nature.com/articles/s41545-018-0028-4
-      \endverb
-      \verb{url}
-      \verb https://www.nature.com/articles/s41545-018-0028-4
-      \endverb
-      \keyw{Mechanical engineering,Sustainability}
-      \warn{\item Datamodel: article entry 'shahzad_standard_2019' (references.bib): Invalid field 'publisher' for entrytype 'article'}
-    \endentry
-    \entry{lienhard_thermodynamics_2017}{article}{}{3}
+    \entry{lienhard_thermodynamics_2017}{article}{}{10}
       \name{author}{4}{}{%
         {{hash=90f708bc48df177fb1a0d55a1f10e8b7}{%
            family={Lienhard},
@@ -2459,7 +2457,301 @@
       \warn{\item Datamodel: article entry 'lienhard_thermodynamics_2017' (references.bib): Invalid field 'publisher' for entrytype 'article'}
       \warn{\item Datamodel: article entry 'lienhard_thermodynamics_2017' (references.bib): Invalid ISSN in value of field 'issn'}
     \endentry
-    \entry{sharqawy_exergy_2011}{article}{}{2}
+    \entry{bouma_metrics_2020}{article}{}{9}
+      \name{author}{3}{}{%
+        {{hash=c3e4b7057e6a345cb312eb92d1856c6e}{%
+           family={Bouma},
+           familyi={B\bibinitperiod},
+           given={Andrew\bibnamedelima T.},
+           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=33e93633059b4ac8bf77d04e66ffe7d2}{%
+           family={Swaminathan},
+           familyi={S\bibinitperiod},
+           given={Jaichander},
+           giveni={J\bibinitperiod}}}%
+        {{hash=567b59f8016ce80b1d9f2ac86acbcc7f}{%
+           family={Lienhard},
+           familyi={L\bibinitperiod},
+           given={John\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod},
+           suffix={V},
+           suffixi={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{75ad00ef9bcb1a152a96ad65abfa274e}
+      \strng{fullhash}{75ad00ef9bcb1a152a96ad65abfa274e}
+      \strng{fullhashraw}{75ad00ef9bcb1a152a96ad65abfa274e}
+      \strng{bibnamehash}{75ad00ef9bcb1a152a96ad65abfa274e}
+      \strng{authorbibnamehash}{75ad00ef9bcb1a152a96ad65abfa274e}
+      \strng{authornamehash}{75ad00ef9bcb1a152a96ad65abfa274e}
+      \strng{authorfullhash}{75ad00ef9bcb1a152a96ad65abfa274e}
+      \strng{authorfullhashraw}{75ad00ef9bcb1a152a96ad65abfa274e}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Energy cost contributes a large portion of the overall cost of desalinated water. Improving the energy efficiency of desalination plants is therefore a primary design goal. However, accurately evaluating and comparing the energy consumption of desalination plants that use different forms and grades of energy is difficult, especially for power–water coproduction systems in which primary energy (PE) consumption leads to both salable electricity and potable water. The power plant converts PE into grades of thermal energy and electricity usable by the desalination plant. To fully capture the thermodynamic and economic cost of energy, and to fairly compare desalination systems that use different grades of input energy, we must compare energy consumption not at the point where energy enters the desalination plant itself, but as PE consumption entering the power plant. This paper investigates a variety of metrics for comparing the energy and exergy consumption attributable to desalination in coproduction plants. Previous results have shown that reverse osmosis (RO) is approximately twice as efficient as multiple effect distillation (MED) on a PE basis. We then compare the PE consumption of MED and RO from a thermoeconomic perspective. The entropy generation at the RO membrane and in the MED effects are derived in similar terms, which enables a comparison of the overall heat transfer coefficient in an MED system to the permeability of an RO membrane. RO outperforms MED in energy efficiency because of a balance of material costs, transport coefficients, and cost of energy.}
+      \field{day}{7}
+      \field{issn}{0022-1481}
+      \field{journaltitle}{Journal of Heat Transfer}
+      \field{month}{10}
+      \field{number}{12}
+      \field{shortjournal}{Journal of Heat Transfer}
+      \field{shorttitle}{Metrics {{Matter}}}
+      \field{title}{Metrics {{Matter}}: {{Accurately Defining Energy Efficiency}} in {{Desalination}}}
+      \field{urlday}{22}
+      \field{urlmonth}{3}
+      \field{urlyear}{2023}
+      \field{volume}{142}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1115/1.4048250
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/VQFZDTXQ/Bouma et al. - 2020 - Metrics Matter Accurately Defining Energy Efficie.pdf;/home/patomareao/Zotero/storage/FXQR4B3Q/Metrics-Matter-Accurately-Defining-Energy.html
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1115/1.4048250
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1115/1.4048250
+      \endverb
+    \endentry
+    \entry{darwish_multieffect_2006}{article}{}{6}
+      \name{author}{3}{}{%
+        {{hash=525598ea0698ae1a63f3073f17a55a44}{%
+           family={Darwish},
+           familyi={D\bibinitperiod},
+           given={M.\bibnamedelimi A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=cfeb8de5b167f3eeb729664aca7fc222}{%
+           family={Al-Juwayhel},
+           familyi={A\bibinithyphendelim J\bibinitperiod},
+           given={Faisal},
+           giveni={F\bibinitperiod}}}%
+        {{hash=c0411a4def8370c23be18e3932da719c}{%
+           family={Abdulraheim},
+           familyi={A\bibinitperiod},
+           given={Hassan\bibnamedelima K.},
+           giveni={H\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \strng{namehash}{9c1b05cbc5a8576d45f59c8a42933319}
+      \strng{fullhash}{9c1b05cbc5a8576d45f59c8a42933319}
+      \strng{fullhashraw}{9c1b05cbc5a8576d45f59c8a42933319}
+      \strng{bibnamehash}{9c1b05cbc5a8576d45f59c8a42933319}
+      \strng{authorbibnamehash}{9c1b05cbc5a8576d45f59c8a42933319}
+      \strng{authornamehash}{9c1b05cbc5a8576d45f59c8a42933319}
+      \strng{authorfullhash}{9c1b05cbc5a8576d45f59c8a42933319}
+      \strng{authorfullhashraw}{9c1b05cbc5a8576d45f59c8a42933319}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{All desalting systems consume energy, either thermal or mechanical or both. In the search for energy-efficient desalting systems, it is clear that the reverse osmosis (RO) desalting system is more efficient than the widely used multi-stage flash (MSF) desalting system. For seawater in the Gulf area, as an example, RO consumes about 5 kWh/m3 of mechanical work, while MSF desalting units consume about 4 kWh/m3 pumping energy, besides thermal energy. The thermal energy input to large MSF units is in the range of 250–300 kJ/kg, and is usually in the form of slightly superheated steam extracted from steam turbines at about 2–3 bar. The equivalent work of this thermal energy is in the range of 17 kWh/m3. The conventional multi-effect boiling (MEB) desalting system uses about half of the MSF pumping energy, and almost the same amount of thermal energy used by the MSF, if both have the same gain ratio. However, a recent trend of using low-temperature MEB (LTME) allows the use of low temperature (in the range of 70°C) steam as heat source, and consequently of low exergy and low equivalent work. This can bring the LTME consumed equivalent mechanical energy close to that consumed by the efficient RO system. The conventional multieffect desalting system was revisited to show that thermal energy input to LTME is low, and can bring the equivalent mechanical energy, and thus the consumed fuel energy, to low values close to those of a seawater RO desalting system.}
+      \field{day}{10}
+      \field{issn}{0011-9164}
+      \field{journaltitle}{Desalination}
+      \field{langid}{english}
+      \field{month}{6}
+      \field{number}{1}
+      \field{shortjournal}{Desalination}
+      \field{title}{Multi-Effect Boiling Systems from an Energy Viewpoint}
+      \field{urlday}{1}
+      \field{urlmonth}{6}
+      \field{urlyear}{2022}
+      \field{volume}{194}
+      \field{year}{2006}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{22\bibrangedash 39}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1016/j.desal.2005.08.029
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/XYC8X6A7/Darwish et al. - 2006 - Multi-effect boiling systems from an energy viewpo.pdf;/home/patomareao/Zotero/storage/EG4JUVZ4/S0011916406003572.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0011916406003572
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0011916406003572
+      \endverb
+      \keyw{Equivalent mechanical energy,Falling film evaporator,Gain ratio,Multi-effect boiling}
+    \endentry
+    \entry{shahzad_standard_2019}{article}{}{3}
+      \name{author}{3}{}{%
+        {{hash=379d94de656d91e2de557f62a139f4e1}{%
+           family={Shahzad},
+           familyi={S\bibinitperiod},
+           given={Muhammad\bibnamedelima Wakil},
+           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=f6e0abf9bb55df7ad4aa93f3933b8675}{%
+           family={Burhan},
+           familyi={B\bibinitperiod},
+           given={Muhammad},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d099b932f81d484885687ef04fda74cc}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Kim\bibnamedelima Choom},
+           giveni={K\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{a25205c4f86e189ee4364ff8d2a9bde9}
+      \strng{fullhash}{a25205c4f86e189ee4364ff8d2a9bde9}
+      \strng{fullhashraw}{a25205c4f86e189ee4364ff8d2a9bde9}
+      \strng{bibnamehash}{a25205c4f86e189ee4364ff8d2a9bde9}
+      \strng{authorbibnamehash}{a25205c4f86e189ee4364ff8d2a9bde9}
+      \strng{authornamehash}{a25205c4f86e189ee4364ff8d2a9bde9}
+      \strng{authorfullhash}{a25205c4f86e189ee4364ff8d2a9bde9}
+      \strng{authorfullhashraw}{a25205c4f86e189ee4364ff8d2a9bde9}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Considering different grades of energy as equivalent in the desalination industry could have negative economic and environmental consequences. Whereas this approach will suffice for the comparison of same energy input processes, omitting the grade of energy when comparing diverse technologies may lead to incorrect conclusions and, resultantly, inefficient installations. Here, a standard primary energy-based thermodynamic framework is presented that addresses the energy efficacy of assorted desalination processes. Example calculations show that a thermal desalination plant integrated with a power plant consumes 2–3\% of input standard primary energy. We also propose a standard universal performance ratio methodology to provide a level playing field for the comparison of desalination processes; this suggest that the majority of desalination processes are operating far from the sustainable zone, with only \textasciitilde 10–13\% at the ideal or thermodynamic limit. A proposed roadmap shows that attaining an efficacy level of up to 25–30\% of the thermodynamic limit is crucial for achieving the 2030 sustainability development goals for seawater desalination, which will require a technological shift in the capability of dissolved salts separation processes.}
+      \field{annotation}{GSCC: 0000095}
+      \field{day}{7}
+      \field{issn}{2059-7037}
+      \field{journaltitle}{npj Clean Water}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{title}{A Standard Primary Energy Approach for Comparing Desalination Processes}
+      \field{urlday}{23}
+      \field{urlmonth}{7}
+      \field{urlyear}{2024}
+      \field{volume}{2}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 7}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1038/s41545-018-0028-4
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/YMTXM5NB/Shahzad et al. - 2019 - A standard primary energy approach for comparing desalination processes.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nature.com/articles/s41545-018-0028-4
+      \endverb
+      \verb{url}
+      \verb https://www.nature.com/articles/s41545-018-0028-4
+      \endverb
+      \keyw{Mechanical engineering,Sustainability}
+      \warn{\item Datamodel: article entry 'shahzad_standard_2019' (references.bib): Invalid field 'publisher' for entrytype 'article'}
+    \endentry
+    \entry{brogioli_thermodynamic_2018}{article}{}{4}
+      \name{author}{3}{}{%
+        {{hash=ddf5a3775d567e9bcffbb26affc28812}{%
+           family={Brogioli},
+           familyi={B\bibinitperiod},
+           given={Doriano},
+           giveni={D\bibinitperiod}}}%
+        {{hash=cd53e6a334e53840e0d8ebd1bdc6a19c}{%
+           family={La\bibnamedelima Mantia},
+           familyi={L\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Fabio},
+           giveni={F\bibinitperiod}}}%
+        {{hash=db4caea05e4f3460454e55480372fd22}{%
+           family={Yip},
+           familyi={Y\bibinitperiod},
+           given={Ngai\bibnamedelima Yin},
+           giveni={N\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{f325cb23f603bd576cf52866ad1fa582}
+      \strng{fullhash}{f325cb23f603bd576cf52866ad1fa582}
+      \strng{fullhashraw}{f325cb23f603bd576cf52866ad1fa582}
+      \strng{bibnamehash}{f325cb23f603bd576cf52866ad1fa582}
+      \strng{authorbibnamehash}{f325cb23f603bd576cf52866ad1fa582}
+      \strng{authornamehash}{f325cb23f603bd576cf52866ad1fa582}
+      \strng{authorfullhash}{f325cb23f603bd576cf52866ad1fa582}
+      \strng{authorfullhashraw}{f325cb23f603bd576cf52866ad1fa582}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This thermodynamic study examines the principles governing energy efficiency and specific energy requirement intrinsic to thermal desalination processes. The practical performances of desalination technologies are investigated and related to the fundamental physical limitations of the processes. The energy efficiency of any thermal desalination process fulfils a limitation similar to the well-known Carnot law for heat engines. The efficiency of a single-effect distiller is limited by a function of the boiling point elevation of the solution. Further analysis shows that, although this can appear as paradoxical, a higher energy efficiency is obtained by a solution with higher boiling point elevation. For multiple-effect distillation, the limit also depends on the temperature drops across the heat exchangers. Comparison with empirical data indicates that these limits are actually approached in real plants. Our study discusses the thermodynamic framework for understanding the performances of thermally-driven desalination technologies, emphasizing the role of the boiling point elevation. The results can be also seen as rules-of-thumb for designing and evaluating the performances of a multiple-effect distillation unit, based only on the properties of the solution to be distilled, in particular, the boiling point elevation.}
+      \field{day}{15}
+      \field{issn}{0011-9164}
+      \field{journaltitle}{Desalination}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{shortjournal}{Desalination}
+      \field{title}{Thermodynamic Analysis and Energy Efficiency of Thermal Desalination Processes}
+      \field{urlday}{5}
+      \field{urlmonth}{1}
+      \field{urlyear}{2023}
+      \field{volume}{428}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{29\bibrangedash 39}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/j.desal.2017.11.010
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/KMMY2PTC/Brogioli et al. - 2018 - Thermodynamic analysis and energy efficiency of th.pdf;/home/patomareao/Zotero/storage/W5GKUD9B/S001191641731648X.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S001191641731648X
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S001191641731648X
+      \endverb
+      \keyw{Desalination,Membrane distillation,Physical limitations,Salinity gradient power,Thermal separation,Vacuum distillation}
+    \endentry
+    \entry{spiegler_elsayed_2001}{article}{}{3}
+      \name{author}{2}{}{%
+        {{hash=97def25bef92dbd149b1ab614710a30b}{%
+           family={Spiegler},
+           familyi={S\bibinitperiod},
+           given={K.S.},
+           giveni={K\bibinitperiod}}}%
+        {{hash=4b06280b71824f63503edd5cd14e1ab1}{%
+           family={El-Sayed},
+           familyi={E\bibinithyphendelim S\bibinitperiod},
+           given={Y.M.},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{c68b77af5d610a5a7039d3ea2dac6eef}
+      \strng{fullhash}{c68b77af5d610a5a7039d3ea2dac6eef}
+      \strng{fullhashraw}{c68b77af5d610a5a7039d3ea2dac6eef}
+      \strng{bibnamehash}{c68b77af5d610a5a7039d3ea2dac6eef}
+      \strng{authorbibnamehash}{c68b77af5d610a5a7039d3ea2dac6eef}
+      \strng{authornamehash}{c68b77af5d610a5a7039d3ea2dac6eef}
+      \strng{authorfullhash}{c68b77af5d610a5a7039d3ea2dac6eef}
+      \strng{authorfullhashraw}{c68b77af5d610a5a7039d3ea2dac6eef}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{This paper sets the foundation of the optimal design of most systems that use or produce heat and/or power including desalination. The separation process of the desalination technologies by membranes and by distillation is considered as an example for the purpose of clarity and for the special importance to desalination. Both the energetics and the economics of the separation process are based on a quantitative formulation of the second law of thermodynamics in terms of the concept of exergy and its destruction. The separation process is considered for five main desalination systems: reverse osmosis, electrodialysis, vapor compression, boiling evaporation and flash evaporation. The results of the energetic analysis show a close competition between reverse osmosis and distillation for seawater desalination. The electrodialysis process is justified for the treatment of more dilute brackish water. It is shown that the determination of the driving force associated with exergy destruction occupies a central position in this comparison. The optimal design of the separation surface for minimum cost of energy and surface requirements takes off smoothly from the energetic analysis and sets the basis of a general and powerful approach to optimal system design. A second paper [1] is devoted to the general approach and its extension to cover almost all kinds of industrial processes and their combinations to produce one or more products.}
+      \field{day}{1}
+      \field{journaltitle}{Desalination}
+      \field{month}{4}
+      \field{shortjournal}{Desalination}
+      \field{shorttitle}{El-{{Sayed}}, {{Y}}.{{M}}.}
+      \field{title}{El-{{Sayed}}, {{Y}}.{{M}}.: {{The}} Energetics of Desalination Processes. {{Desalination}} 134, 109-128}
+      \field{volume}{134}
+      \field{year}{2001}
+      \field{dateera}{ce}
+      \field{pages}{109\bibrangedash 128}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1016/S0011-9164(01)00121-7
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/XNHRQC2M/Spiegler and El-Sayed - 2001 - El-Sayed, Y.M. The energetics of desalination pro.pdf
+      \endverb
+    \endentry
+    \entry{sharqawy_exergy_2011}{article}{}{4}
       \name{author}{3}{}{%
         {{hash=98226c916a0eadc37375e74587a7a2d5}{%
            family={Sharqawy},
@@ -2485,8 +2777,8 @@
       \strng{authornamehash}{81fa6e083c87bf024748c25a85b5be17}
       \strng{authorfullhash}{81fa6e083c87bf024748c25a85b5be17}
       \strng{authorfullhashraw}{81fa6e083c87bf024748c25a85b5be17}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Exergy analysis is a powerful diagnostic tool in thermal systems performance evaluation. The use of such an analysis in seawater desalination processes is of growing importance to determine the sites of the highest irreversible losses. In the literature, exergy analyses of seawater desalination systems have sometimes modeled seawater as sodium chloride solutions of equivalent salt content or salinity; however, such matching does not bring all important properties of the two solutions into agreement. Furthermore, a common model that represents seawater as an ideal mixture of liquid water and solid sodium chloride may have serious shortcomings. Therefore, in this paper, the most up-to-date thermodynamic properties of seawater, as needed to conduct an exergy analysis, are given as correlations and tabulated data. The effect of the system properties as well as the environment dead state on the exergy and flow exergy variation is investigated. In addition, an exergy analysis for a large MSF distillation plant is performed using plant operating data and results previously published using the above-mentioned ideal mixture model. It is demonstrated that this ideal mixture model gives flow exergy values that are far from the correct ones. Moreover, the second law efficiency differs by about 80\% for some cases.}
@@ -2521,7 +2813,7 @@
       \endverb
       \keyw{Desalination,Exergy,Exergy analysis,Flow exergy,Seawater}
     \endentry
-    \entry{sharqawy_formulation_2010}{article}{}{1}
+    \entry{sharqawy_formulation_2010}{article}{}{3}
       \name{author}{3}{}{%
         {{hash=98226c916a0eadc37375e74587a7a2d5}{%
            family={Sharqawy},
@@ -2550,8 +2842,8 @@
       \strng{authornamehash}{e9bd61519ce18e683b6341c4b996a84a}
       \strng{authorfullhash}{e9bd61519ce18e683b6341c4b996a84a}
       \strng{authorfullhashraw}{e9bd61519ce18e683b6341c4b996a84a}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Seawater is a complex electrolyte solution of water and salts with sodium chloride as the major constituent. However, the thermodynamic properties of seawater are considerably different from those of aqueous sodium chloride solution. In the literature, exergy analyses of seawater desalination systems have sometimes modeled seawater by sodium chloride solutions of equivalent salt content or salinity; however, such matching does not bring all important properties of the two solutions into agreement. Furthermore, some published studies attempt to represent sodium chloride solutions as a specific model for an ideal mixture of liquid water and solid sodium chloride, which is shown to have serious shortcomings. In this paper, the most up-to-date thermodynamic properties of seawater are compared with those of aqueous sodium chloride solution as well as the ideal mixture model. The flow exergy is calculated using various models and the results are compared. In addition, the minimum work required to desalinate a unit mass of fresh water from seawater of varying salinity is calculated using these models. The flow exergy calculated using the ideal mixture model in question is about 50\% less than that of seawater. Accordingly, the minimum desalination work is underpredicted by about 50\% when calculating it using that ideal mixture model. This consequently shows that exergy analysis and the second law efficiency calculations performed using the ideal mixture model is comparatively far from the actual values.}
@@ -2579,7 +2871,7 @@
       \warn{\item Datamodel: article entry 'sharqawy_formulation_2010' (references.bib): Invalid field 'isbn' for entrytype 'article'}
       \warn{\item Datamodel: article entry 'sharqawy_formulation_2010' (references.bib): Invalid field 'publisher' for entrytype 'article'}
     \endentry
-    \entry{mistry_effect_2012}{article}{}{1}
+    \entry{mistry_effect_2012}{article}{}{3}
       \name{author}{2}{}{%
         {{hash=38cd0ec08fd7d6603e977c3c32b5ad5b}{%
            family={Mistry},
@@ -2603,8 +2895,8 @@
       \strng{authornamehash}{e804ad4a6389537946677ca4792686b2}
       \strng{authorfullhash}{e804ad4a6389537946677ca4792686b2}
       \strng{authorfullhashraw}{e804ad4a6389537946677ca4792686b2}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Proper evaluation of the Gibbs free energy and other properties of seawater and other aqueous solutions is essential in the analysis of desalination systems. Standard seawater has been studied extensively and property data are readily accessible. However, many aqueous solutions requiring desalination have significantly different composition from seawater and seawater data is generally not accurate for these solutions. Experimental data for a given aqueous solution may be unavailable under the conditions of interest. Therefore, there is a need to model relevant physical properties from chemical thermodynamic principles. In particular, for solutions that are not ideal, the activity and fugacity coefficients must be considered. In this paper, the effect of nonidealities in sodium chloride (NaCl) solutions is considered through a parametric study of the least work of separation for a desalination system. This study is used to determine the conditions under which the ideal solution approximation is valid and also to determine when an NaCl solution is a good approximation to standard seawater. It is found that the ideal solution approximation is reasonable within ranges of salinities and recovery ratios typical of those found in the seawater desalination industry because many of the nonidealities cancel out, but not because the solution behaves ideally. Additionally, it is found that NaCl solutions closely approximate natural seawater only at salinities typically found in seawater and not for salinities found in typical brackish waters.}
@@ -2630,7 +2922,7 @@
       \endverb
       \warn{\item Datamodel: article entry 'mistry_effect_2012' (references.bib): Invalid field 'publisher' for entrytype 'article'}
     \endentry
-    \entry{mistry_generalized_2013}{article}{}{1}
+    \entry{mistry_generalized_2013}{article}{}{3}
       \name{author}{2}{}{%
         {{hash=38cd0ec08fd7d6603e977c3c32b5ad5b}{%
            family={Mistry},
@@ -2651,8 +2943,9 @@
       \strng{authornamehash}{b1ae2dc23248798164165e200e12fe18}
       \strng{authorfullhash}{b1ae2dc23248798164165e200e12fe18}
       \strng{authorfullhashraw}{b1ae2dc23248798164165e200e12fe18}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{extraname}{1}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Increasing global demand for fresh water is driving the development and implementation of a wide variety of seawater desalination technologies driven by different combinations of heat, work, and chemical energy. This paper develops a consistent basis for comparing the energy consumption of such technologies using Second Law efficiency. The Second Law efficiency for a chemical separation process is defined in terms of the useful exergy output, which is the minimum least work of separation required to extract a unit of product from a feed stream of a given composition. For a desalination process, this is the minimum least work of separation for producing one kilogram of product water from feed of a given salinity. While definitions in terms of work and heat input have been proposed before, this work generalizes the Second Law efficiency to allow for systems that operate on a combination of energy inputs, including fuel. The generalized equation is then evaluated through a parametric study considering work input, heat inputs at various temperatures, and various chemical fuel inputs. Further, since most modern, large-scale desalination plants operate in cogeneration schemes, a methodology for correctly evaluating Second Law efficiency for the desalination plant based on primary energy inputs is demonstrated. It is shown that, from a strictly energetic point of view and based on currently available technology, cogeneration using electricity to power a reverse osmosis system is energetically superior to thermal systems such as multiple effect distillation and multistage flash distillation, despite the very low grade heat input normally applied in those systems.}
@@ -2679,7 +2972,7 @@
       \verb https://www.mdpi.com/1099-4300/15/6/2046
       \endverb
     \endentry
-    \entry{thiel_energy_2015}{article}{}{4}
+    \entry{thiel_energy_2015}{article}{}{10}
       \name{author}{5}{}{%
         {{hash=20d271c5f9de8359c6bf270e8a4950b5}{%
            family={Thiel},
@@ -2715,8 +3008,8 @@
       \strng{authornamehash}{4658f75dec7d7bd9d79f93fa5a031361}
       \strng{authorfullhash}{f4832618e42d3e916272d7e950f5fa29}
       \strng{authorfullhashraw}{f4832618e42d3e916272d7e950f5fa29}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{On-site treatment and reuse is an increasingly preferred option for produced water management in unconventional oil and gas extraction. This paper analyzes and compares the energetics of several desalination technologies at the high salinities and diverse compositions commonly encountered in produced water from shale formations to guide technology selection and to inform further system development. Produced water properties are modeled using Pitzer's equations, and emphasis is placed on how these properties drive differences in system thermodynamics at salinities significantly above the oceanic range. Models of mechanical vapor compression, multi-effect distillation, forward osmosis, humidification–dehumidification, membrane distillation, and a hypothetical high pressure reverse osmosis system show that for a fixed brine salinity, evaporative system energetics tend to be less sensitive to changes in feed salinity. Consequently, second law efficiencies of evaporative systems tend to be higher when treating typical produced waters to near-saturation than when treating seawater. In addition, if realized for high-salinity produced waters, reverse osmosis has the potential to achieve very high efficiencies. The results suggest a different energetic paradigm in comparing membrane and evaporative systems for high salinity wastewater treatment than has been commonly accepted for lower salinity water.}
@@ -2751,7 +3044,7 @@
       \endverb
       \keyw{Energy efficiency,Frack water,High salinity,Hydraulic fracturing,Produced water remediation}
     \endentry
-    \entry{valenzuela_optical_2014}{article}{}{1}
+    \entry{valenzuela_optical_2014}{article}{}{3}
       \name{author}{3}{}{%
         {{hash=f98e7edc26f7685e747baa5a7d4d489e}{%
            family={Valenzuela},
@@ -2777,8 +3070,8 @@
       \strng{authornamehash}{9122218fe2ac5f1f3c9ce8fa094c3ea1}
       \strng{authorfullhash}{9122218fe2ac5f1f3c9ce8fa094c3ea1}
       \strng{authorfullhashraw}{9122218fe2ac5f1f3c9ce8fa094c3ea1}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{shorttitle}
       \field{abstract}{This article presents an outdoor test method to evaluate the optical and thermal performance of parabolic-trough collectors of large size (length~≥~100~m), similar to those currently installed in solar thermal power plants. Optical performance in line-focus collectors is defined by three parameters, peak-optical efficiency and longitudinal and transversal incidence angle modifiers. In parabolic-troughs, the transversal incidence angle modifier is usually assumed equal to 1, and the incidence angle modifier is referred to the longitudinal incidence angle modifier, which is a factor less than or equal to 1 and must be quantified. These measurements are performed by operating the collector at low fluid temperatures for reducing heat losses. Thermal performance is measured during tests at various operating temperatures, which are defined within the working temperature range of the solar field, and for the condition of maximum optical response. Heat losses are measured from both the experiments performed to measure the overall efficiency and the experiments done by operating the collector to ensure that absorber pipes are not exposed to concentrated solar radiation. The set of parameters describing the performance of a parabolic-trough collector of large size has been measured following the test procedures proposed and explained in the article.}
@@ -2809,7 +3102,7 @@
       \endverb
       \keyw{Optical efficiency,Outdoor experiments,Parabolic-trough solar collector,Solar thermal power plants,Thermal performance}
     \endentry
-    \entry{prahl_protocol_2018}{report}{}{1}
+    \entry{prahl_protocol_2018}{report}{}{3}
       \name{author}{3}{}{%
         {{hash=4ff44b9eb994cdc5aad1dab82ab86524}{%
            family={Prahl},
@@ -2838,8 +3131,8 @@
       \strng{authornamehash}{f907d3348973aa2f0dce5020fa3fe224}
       \strng{authorfullhash}{f907d3348973aa2f0dce5020fa3fe224}
       \strng{authorfullhashraw}{f907d3348973aa2f0dce5020fa3fe224}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The EU-funded research project - SFERA aims to boost scientific collaboration among the leading European research institutions in solar concentrating systems, offering European research and industry access to the best research and test infrastructures and creating a virtual European laboratory. The project incorporates the following activities: - Transnational Access: Researchers will have access to five state-of-the-art high-flux solar research facilities, unique in Europe and in the world. Access to these facilities will help strengthen the European Research Area by opening installations to European and partner countries' scientists, thereby enhancing cooperation. - Networking: These include the organisation of training courses and schools' to create a common training framework, providing regularised, unified training of young researchers in the capabilities and operation of concentrating solar facilities. Communication activities will seek to both strengthen relationships within the consortium, creating a culture of cooperation, and to communication to society in general, academia and especially industry what SFERA is and what services are offered. - The Joint Research Activities aim to improve the quality and service of the existing infrastructure, extend their services and jointly achieve a common level of high scientific quality. This Deliverable D14.4 is the results of the WP 14.1 “Characterization of solar concentrators’ geometrical quality” and 14.2 “Protocols for characterization of parabolic trough concentrators” within the Joint Research Activities. The overall objective of WP14 is to define common protocols to be applied at the participating research infrastructures for characterization of solar concentrators. Deliverable D14.4 aims at providing an overview on latest measurement techniques to qualify the geometry of parabolic trough collectors by means of close range photogrammetry and deflectometry. Measurement quantities and state-of-the-art approaches are briefly described. The protocol involves a detailed description of the used sensors and equipment, the process of data acquisition, ambient conditions and the evaluation procedure. Results of the application of these protocols to parabolic trough concentrators are provided among others in D 14.5 (Round-robin test results).}
@@ -2850,7 +3143,7 @@
       \field{dateera}{ce}
       \warn{\item Datamodel: report entry 'prahl_protocol_2018' (references.bib): Missing mandatory field 'type'}
     \endentry
-    \entry{bayon_development_2019}{article}{}{1}
+    \entry{bayon_development_2019}{article}{}{3}
       \name{author}{2}{}{%
         {{hash=de74badc73dbe3d5cdebbf0bc643c36f}{%
            family={Bayón},
@@ -2871,8 +3164,8 @@
       \strng{authornamehash}{85c4d38298e09fb3901340f641d7762e}
       \strng{authorfullhash}{85c4d38298e09fb3901340f641d7762e}
       \strng{authorfullhashraw}{85c4d38298e09fb3901340f641d7762e}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{shorttitle}
       \field{abstract}{Long-term stability and long-term performance of thermal storage media are a key issue that should be thoroughly analysed when developing storage systems. However, no testing protocol or guideline exists up to now for validating storage media, so that authors apply their own criteria, not only for designing testing procedures but also for predicting the material behaviour under long-term operation. This paper aims to cover this gap by proposing a methodology for validating thermal storage media; in particular, phase change materials (PCMs). This methodology consists of different stages that include PCM characterization, preliminary assessment tests, and accelerated life testing. For designing the accelerated life tests, lifetime relationship models have to be obtained in order to predict PCM long-term behaviour under service conditions from shorter tests performed under stress conditions. The approach followed in this methodology will be valid for materials to be used as sensible or thermochemical storage media, too.}
@@ -2905,7 +3198,135 @@
       \endverb
       \keyw{lifetime relationship models,long-term performance,PCM,phase change materials,thermal storage media,validation methodology}
     \endentry
-    \entry{christ_application_2015}{article}{}{1}
+    \entry{mistry_economicsbased_2013}{article}{}{3}
+      \name{author}{2}{}{%
+        {{hash=38cd0ec08fd7d6603e977c3c32b5ad5b}{%
+           family={Mistry},
+           familyi={M\bibinitperiod},
+           given={Karan\bibnamedelima H.},
+           giveni={K\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=90f708bc48df177fb1a0d55a1f10e8b7}{%
+           family={Lienhard},
+           familyi={L\bibinitperiod},
+           given={John\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Multidisciplinary Digital Publishing Institute}%
+      }
+      \strng{namehash}{b1ae2dc23248798164165e200e12fe18}
+      \strng{fullhash}{b1ae2dc23248798164165e200e12fe18}
+      \strng{fullhashraw}{b1ae2dc23248798164165e200e12fe18}
+      \strng{bibnamehash}{b1ae2dc23248798164165e200e12fe18}
+      \strng{authorbibnamehash}{b1ae2dc23248798164165e200e12fe18}
+      \strng{authornamehash}{b1ae2dc23248798164165e200e12fe18}
+      \strng{authorfullhash}{b1ae2dc23248798164165e200e12fe18}
+      \strng{authorfullhashraw}{b1ae2dc23248798164165e200e12fe18}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Second Law efficiency is a useful parameter for characterizing the energy requirements of a system in relation to the limits of performance prescribed by the Laws of Thermodynamics. However, since energy costs typically represent less than 50\% of the overall cost of product for many large-scale plants (and, in particular, for desalination plants), it is useful to have a parameter that can characterize both energetic and economic effects. In this paper, an economics-based Second Law efficiency is defined by analogy to the exergetic Second Law efficiency and is applied to several desalination systems. It is defined as the ratio of the minimum cost of producing a product divided by the actual cost of production. The minimum cost of producing the product is equal to the cost of the primary source of energy times the minimum amount of energy required, as governed by the Second Law. The analogy is used to show that thermodynamic irreversibilities can be assigned costs and compared directly to non-energetic costs, such as capital expenses, labor and other operating costs. The economics-based Second Law efficiency identifies costly sources of irreversibility and places these irreversibilities in context with the overall system costs. These principles are illustrated through three case studies. First, a simple analysis of multistage flash and multiple effect distillation systems is performed using available data. Second, a complete energetic and economic model of a reverse osmosis plant is developed to show how economic costs are influenced by energetics. Third, a complete energetic and economic model of a solar powered direct contact membrane distillation system is developed to illustrate the true costs associated with so-called free energy sources.}
+      \field{issn}{1099-4300}
+      \field{issue}{7}
+      \field{journaltitle}{Entropy}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{7}
+      \field{title}{An {{Economics-Based Second Law Efficiency}}}
+      \field{urlday}{22}
+      \field{urlmonth}{3}
+      \field{urlyear}{2023}
+      \field{volume}{15}
+      \field{year}{2013}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{2736\bibrangedash 2765}
+      \range{pages}{30}
+      \verb{doi}
+      \verb 10.3390/e15072736
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/UV5739FG/Mistry and Lienhard - 2013 - An Economics-Based Second Law Efficiency.pdf;/home/patomareao/Zotero/storage/VSAMAHNJ/Mistry and Lienhard - 2013 - An Economics-Based Second Law Efficiency.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/1099-4300/15/7/2736
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/1099-4300/15/7/2736
+      \endverb
+      \keyw{cogeneration,cost,desalination,Economic analysis,economics,irreversibilities,least work of separation,Second Law efficiency}
+      \warn{\item Datamodel: article entry 'mistry_economicsbased_2013' (references.bib): Invalid field 'publisher' for entrytype 'article'}
+    \endentry
+    \entry{christ_technoeconomic_2017}{article}{}{3}
+      \name{author}{4}{}{%
+        {{hash=f75fb194c79795631ee6040daf9cb786}{%
+           family={Christ},
+           familyi={C\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5b100058bc97c5bb3158194c5223d5fc}{%
+           family={Rahimi},
+           familyi={R\bibinitperiod},
+           given={Bijan},
+           giveni={B\bibinitperiod}}}%
+        {{hash=89d3aa768d9d9254db6d769f8112e50f}{%
+           family={Regenauer-Lieb},
+           familyi={R\bibinithyphendelim L\bibinitperiod},
+           given={Klaus},
+           giveni={K\bibinitperiod}}}%
+        {{hash=25777495699ad8cb2eaf88d9afd83fae}{%
+           family={Chua},
+           familyi={C\bibinitperiod},
+           given={Hui\bibnamedelima Tong},
+           giveni={H\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \strng{namehash}{84e40451be0a28ffd137720d1a836e2a}
+      \strng{fullhash}{138c599754db33fad589a50390c50282}
+      \strng{fullhashraw}{138c599754db33fad589a50390c50282}
+      \strng{bibnamehash}{84e40451be0a28ffd137720d1a836e2a}
+      \strng{authorbibnamehash}{84e40451be0a28ffd137720d1a836e2a}
+      \strng{authornamehash}{84e40451be0a28ffd137720d1a836e2a}
+      \strng{authorfullhash}{138c599754db33fad589a50390c50282}
+      \strng{authorfullhashraw}{138c599754db33fad589a50390c50282}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{This work offers an extensive framework for the techno-economic evaluation of the subsurface and surface components of low-grade geothermal ({$<$}100°C) desalination systems, that is based on validated hydrogeological, thermodynamic, and economic considerations. Additionally, this work incorporates a recently developed advanced multi-effect distillation (MED) process for an improved utilisation of the geothermal heat sources. The analysis focuses on a pre-feasibility study for Western Australia, the influence of the different cost drivers, especially the often overlooked geothermal well field parameters like permeability, so as to permit rational assessments of potential application sites. For the surveyed area in Western Australia, the confluence of geothermal and desalination systems results in a promising and economically viable alternative water source.}
+      \field{day}{17}
+      \field{issn}{0011-9164}
+      \field{journaltitle}{Desalination}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{shortjournal}{Desalination}
+      \field{shorttitle}{Techno-Economic Analysis of Geothermal Desalination Using {{Hot Sedimentary Aquifers}}}
+      \field{title}{Techno-Economic Analysis of Geothermal Desalination Using {{Hot Sedimentary Aquifers}}: {{A}} Pre-Feasibility Study for {{Western Australia}}}
+      \field{urlday}{5}
+      \field{urlmonth}{1}
+      \field{urlyear}{2023}
+      \field{volume}{404}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{167\bibrangedash 181}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1016/j.desal.2016.11.009
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/L6CRZHBE/Christ et al. - 2017 - Techno-economic analysis of geothermal desalinatio.pdf;/home/patomareao/Zotero/storage/55XZ8DK5/S0011916416303502.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0011916416303502
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0011916416303502
+      \endverb
+      \keyw{Aquifer,Cost,Desalination,Geothermal,MED,Pumping power}
+    \endentry
+    \entry{christ_application_2015}{article}{}{3}
       \name{author}{3}{}{%
         {{hash=f75fb194c79795631ee6040daf9cb786}{%
            family={Christ},
@@ -2932,8 +3353,8 @@
       \strng{authorfullhash}{0abbdeb5ffd97c78bbe680ca7aeffcd8}
       \strng{authorfullhashraw}{0abbdeb5ffd97c78bbe680ca7aeffcd8}
       \field{extraname}{2}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The Boosted MED technology is a thermal desalination process dedicated to low-grade waste heat sources. By augmenting the standard Multi Effect Distillation (MED) process with an additional Booster Module, the system is capable of further exploiting the heating medium output stream of the basic MED system and boosting the freshwater production of the system in an effective manner. This paper experimentally evaluates the principal design basis of the Boosted MED technology. A state-of-the-art pilot plant consisting of two evaporator modules in a serial connection is used to assess the additional vapour production from the downstream evaporator, which adequately mimics the booster unit, at heat source temperatures of 68°C to 93°C, cooling water temperatures of 20°C to 35°C, and two feedwater salinities. Additional vapour production rates ranging from 33\% to 57\% at sufficiently high temperatures demonstrate the general viability of the design hypothesis. The stable operation and the very high distillate quality achieved by the pilot plant augur well a favourable system characteristic. The process simulation model developed for designing and optimising Multi Effect Distillation based technologies has been experimentally demonstrated to be consistent with the pilot plant performance.}
@@ -2968,7 +3389,7 @@
       \endverb
       \keyw{Multi Effect Distillation,Renewable energy,Seawater,Simulation,Thermal desalination,Waste heat}
     \endentry
-    \entry{christ_boosted_2015}{article}{}{1}
+    \entry{christ_boosted_2015}{article}{}{3}
       \name{author}{3}{}{%
         {{hash=f75fb194c79795631ee6040daf9cb786}{%
            family={Christ},
@@ -2995,8 +3416,8 @@
       \strng{authorfullhash}{0abbdeb5ffd97c78bbe680ca7aeffcd8}
       \strng{authorfullhashraw}{0abbdeb5ffd97c78bbe680ca7aeffcd8}
       \field{extraname}{3}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{shorttitle}
       \field{abstract}{Sensible low-grade heat, such as process waste heat and many renewable energies, promises a vast potential for thermal desalination processes. Conventional Multi-Effect Distillation (MED) technologies, constrained by their inherent design, fail to unleash its full potential by a far measure. We identified major drivers critical to the coupling of such heat source with MED technologies, and critically compared our recently introduced Boosted MED scheme against a variation of the commonly practiced feed pre-heating MED scheme, both of which are scalable system modifications that are better suited for the coupling. For most operational conditions germane to sensible waste heat sources and renewable energies, the Boosted MED system offers both a thermodynamic and economic superior performance, especially when low heating media temperatures prevail. From about 80°C onwards, feed pre-heating becomes thermodynamically increasingly competitive, but due to the rising auxiliary power demand fails to surpass the Boosted MED on an economic comparison over the surveyed application range.}
@@ -3032,7 +3453,7 @@
       \endverb
       \keyw{Desalination,Heat transfer coefficient,MED,Pumping power,Waste heat,Water production cost}
     \endentry
-    \entry{jones_state_2019}{article}{}{1}
+    \entry{jones_state_2019}{article}{}{3}
       \name{author}{5}{}{%
         {{hash=0a898014a200130bb742af3ec3b1daa1}{%
            family={Jones},
@@ -3070,8 +3491,8 @@
       \strng{authornamehash}{92fff95c8b376ad86169fa25a3645526}
       \strng{authorfullhash}{2e5dcc87db87819dd5f1d9856d506965}
       \strng{authorfullhashraw}{2e5dcc87db87819dd5f1d9856d506965}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{shorttitle}
       \field{abstract}{Rising water demands and diminishing water supplies are exacerbating water scarcity in most world regions. Conventional approaches relying on rainfall and river runoff in water scarce areas are no longer sufficient to meet human demands. Unconventional water resources, such as desalinated water, are expected to play a key role in narrowing the water demand-supply gap. Our synthesis of desalination data suggests that there are 15,906 operational desalination plants producing around 95\,million\,m3/day of desalinated water for human use, of which 48\% is produced in the Middle East and North Africa region. A major challenge associated with desalination technologies is the production of a typically hypersaline concentrate (termed ‘brine’) discharge that requires disposal, which is both costly and associated with negative environmental impacts. Our estimates reveal brine production to be around 142\,million\,m3/day, approximately 50\% greater than previous quantifications. Brine production in Saudi Arabia, UAE, Kuwait and Qatar accounts for 55\% of the total global share. Improved brine management strategies are required to limit the negative environmental impacts and reduce the economic cost of disposal, thereby stimulating further developments in desalination facilities to safeguard water supplies for current and future generations.}
@@ -3106,7 +3527,7 @@
       \endverb
       \keyw{Concentrate stream,Desalination technology,Feedwater type,Product water,Recovery ratio}
     \endentry
-    \entry{palenzuela_concentrating_2015}{book}{}{2}
+    \entry{palenzuela_concentrating_2015}{book}{}{6}
       \name{author}{3}{}{%
         {{hash=11222ba11430c93aa5cb48269d9c41ad}{%
            family={Palenzuela},
@@ -3132,8 +3553,8 @@
       \strng{authornamehash}{83b7d3c1bcd7e68dcbb22136e8de5cf7}
       \strng{authorfullhash}{83b7d3c1bcd7e68dcbb22136e8de5cf7}
       \strng{authorfullhashraw}{83b7d3c1bcd7e68dcbb22136e8de5cf7}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{This book provides a detailed examination of how two key concerns in many communities across the globe- power and water- can be simultaneously addressed through the coupling of Concentrating Solar Power and Desalination (CSP+D) plants. It undertakes a technological and economic evaluation of the integration of Multi-effect Distillation Plants into CSP plants based on Parabolic Trough solar collectors (PT-CSP+MED), as compared to independent water and power production through Reverse Osmosis unit connection to a CSP plant (CSP+RO). Through this compare and contrast method of analysis, the author establishes guidelines to assist readers in identifying cases wherein PT-CSP+MED systems provide greater benefits from a thermodynamic and economic point of view. The text outlines efficiencies and challenges derived from the combination of PT-CSP power generation with four different desalination plant scenarios, beginning with a description of the equations used in the modeling and validation of a pilot MED plant and followed by detailed thermodynamic analysis of several currently operating CSP+D systems. Comparative thermodynamic assessments are based on a sensitivity analysis from which the overall efficiency of the cogeneration system is determined. The author outlines all the equations used for the modeling of each component and includes 97 comparative tables obtained from the sensitivity analysis, showing the variation of the overall thermal efficiency of the CSP+D as a function of fundamental parameters of the cogeneration cycle, such as the specific electric consumption of the desalination plants, and the turbine outlet temperature of the power cycle. These findings are then placed in practical context through a complete thermo-economic analysis, which is carried out for two specific locations in the Middle East and Europe in order to identify the most practically and economically viable CSP+D system in each region as informed by actual operating conditions, meteorological data and real cost figures for each location.}
@@ -3150,7 +3571,75 @@
       \verb /home/patomareao/Zotero/storage/QJJMHFT2/Palenzuela et al. - 2015 - Concentrating Solar Power and Desalination Plants.pdf
       \endverb
     \endentry
-    \entry{chen_zero_2021}{article}{}{1}
+    \entry{lienhardv_solar_2012}{article}{}{3}
+      \name{author}{5}{}{%
+        {{hash=9cac8be91cebd5064e3295808d41ba2b}{%
+           family={Lienhard\bibnamedelima V},
+           familyi={L\bibinitperiod\bibinitdelim V\bibinitperiod},
+           given={John\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=70265aebe65122506d7514ca7eaa34b2}{%
+           family={Antar},
+           familyi={A\bibinitperiod},
+           given={Mohamed\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=0d42db70a5fcd557a39ae3ea0fe4d21c}{%
+           family={Bilton},
+           familyi={B\bibinitperiod},
+           given={Amy},
+           giveni={A\bibinitperiod}}}%
+        {{hash=6ff49a504ac0ea83208ef0f3b14bbaf8}{%
+           family={Blanco},
+           familyi={B\bibinitperiod},
+           given={Julian},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5be3088aa29cd4d90810fb8029e59c1a}{%
+           family={Zaragoza},
+           familyi={Z\bibinitperiod},
+           given={Guillermo},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Begel House Inc.}%
+      }
+      \strng{namehash}{b228529672b1b4957e32a73a9eb69155}
+      \strng{fullhash}{76a280b0d65bd6228c0b465eda406a76}
+      \strng{fullhashraw}{76a280b0d65bd6228c0b465eda406a76}
+      \strng{bibnamehash}{b228529672b1b4957e32a73a9eb69155}
+      \strng{authorbibnamehash}{b228529672b1b4957e32a73a9eb69155}
+      \strng{authornamehash}{b228529672b1b4957e32a73a9eb69155}
+      \strng{authorfullhash}{76a280b0d65bd6228c0b465eda406a76}
+      \strng{authorfullhashraw}{76a280b0d65bd6228c0b465eda406a76}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In many settings where freshwater resources or water supply infrastructure are inadequate, fossil energy costs may be high whereas solar energy is abundant. Fur...}
+      \field{annotation}{GSCC: 0000111}
+      \field{issn}{1049-0787, 2375-0294}
+      \field{journaltitle}{Annual Review of Heat Transfer}
+      \field{langid}{english}
+      \field{title}{{{SOLAR DESALINATION}}}
+      \field{urlday}{17}
+      \field{urlmonth}{10}
+      \field{urlyear}{2024}
+      \field{volume}{15}
+      \field{year}{2012}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1615/AnnualRevHeatTransfer.2012004659
+      \endverb
+      \verb{urlraw}
+      \verb https://www.dl.begellhouse.com/references/5756967540dd1b03,6a1e673c1ba053bf,27f92c3a6df3a77d.html
+      \endverb
+      \verb{url}
+      \verb https://www.dl.begellhouse.com/references/5756967540dd1b03,6a1e673c1ba053bf,27f92c3a6df3a77d.html
+      \endverb
+      \warn{\item Datamodel: article entry 'lienhardv_solar_2012' (references.bib): Invalid field 'publisher' for entrytype 'article'}
+      \warn{\item Datamodel: article entry 'lienhardv_solar_2012' (references.bib): Invalid ISSN in value of field 'issn'}
+    \endentry
+    \entry{chen_zero_2021}{article}{}{3}
       \name{author}{7}{}{%
         {{hash=b6fff56e4c606d8c37bb384da63c33e3}{%
            family={Chen},
@@ -3199,8 +3688,8 @@
       \strng{authornamehash}{2e69fd0e8aefe64d7cd5d14fed556d2f}
       \strng{authorfullhash}{7fd266b90a292a76852a5c16093503c7}
       \strng{authorfullhashraw}{7fd266b90a292a76852a5c16093503c7}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{With growing global desalination capacity, brine from desalination plants has become an environmental threat to the ecosystems. One sustainable method for brine treatment is to develop zero liquid discharge systems that completely convert seawater into freshwater and salts. This paper presents a zero liquid discharge system, which consists of multi-effect distillation and evaporative crystallization, to treat desalination brine with a salinity of 70 g/kg. A thermodynamic analysis is firstly conducted for the proposed system. The specific heat consumption, specific heat transfer area, and Second-law efficiency are found to be 600–1100 kJ/kg, 110–340 m2/(kg/s), and 10–17\%, respectively. The heat consumption can be effectively reduced by increasing the number of MED stages, while the specific heat transfer area decreases significantly with higher heat source temperatures. Based on the thermodynamic performance, a techno-economic analysis is conducted for the proposed system, and the specific cost is calculated to be \$4.17/m3. Cost reduction can be achieved via employing cost-effective heat sources, reducing heat consumption, and scaling up the system. By selling the freshwater and salt crystals, the system will be more competitive than other existing brine treatment methods.}
@@ -3222,7 +3711,7 @@
       \keyw{evaporative crystallizer,Evaporative crystallizer,multi-effect distillation,Multi-effect distillation,techno-economic analysis,Techno-economic analysis,thermodynamic analysis,Thermodynamic analysis,zero liquid discharge,Zero liquid discharge}
       \warn{\item Datamodel: article entry 'chen_zero_2021' (references.bib): Invalid field 'publisher' for entrytype 'article'}
     \endentry
-    \entry{bejan_advanced_2016}{book}{}{}
+    \entry{bejan_advanced_2016}{book}{}{1}
       \name{author}{1}{}{%
         {{hash=7d350b65b8e0120c000d6d000e5e880f}{%
            family={Bejan},
@@ -3241,25 +3730,535 @@
       \strng{authornamehash}{7d350b65b8e0120c000d6d000e5e880f}
       \strng{authorfullhash}{7d350b65b8e0120c000d6d000e5e880f}
       \strng{authorfullhashraw}{7d350b65b8e0120c000d6d000e5e880f}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Advanced Engineering Thermodynamics}
       \field{year}{2016}
       \field{dateera}{ce}
     \endentry
+    \entry{jcgm_2008}{misc}{}{1}
+      \list{organization}{1}{%
+        {Joint Committee for Guides in Metrology}%
+      }
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This Guide establishes general rules for evaluating and expressing uncertainty in measurement that are intended to be applicable to a broad spectrum of measurements. The basis of the Guide is Recommendation 1 (CI-1981) of the Comité International des Poids et Mesures (CIPM) and Recommendation INC-1 (1980) of the Working Group on the Statement of Uncertainties. The Working Group was convened by the Bureau International des Poids et Mesures (BIPM) in response to a request of the CIPM. The ClPM Recommendation is the only recommendation concerning the expression of uncertainty in measurement adopted by an intergovernmental organization. This Guide was prepared by a joint working group consisting of experts nominated by the BIPM, the International Electrotechnical Commission (IEC), the International Organization for Standardization (ISO), and the International Organization of Legal Metrology (OIML).}
+      \field{title}{{{JCGM}} 100:2008. {{GUM}} 1995 with Minor Corrections. {{Evaluation}} of Measurement Data — {{Guide}} to the Expression of Uncertainty in Measurement}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/2IKVSYMV/2008_Evaluation of measurement data — Supplement 1 to the “Guide to the expression.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf/325dcaad-c15a-407c-1105-8b7f322d651c
+      \endverb
+      \verb{url}
+      \verb https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf/325dcaad-c15a-407c-1105-8b7f322d651c
+      \endverb
+    \endentry
+    \entry{smith_uncertainty_2013}{book}{}{3}
+      \name{author}{1}{}{%
+        {{hash=fabaa75c178763573d5117d9f580b329}{%
+           family={Smith},
+           familyi={S\bibinitperiod},
+           given={Ralph\bibnamedelima C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {SIAM}%
+      }
+      \strng{namehash}{fabaa75c178763573d5117d9f580b329}
+      \strng{fullhash}{fabaa75c178763573d5117d9f580b329}
+      \strng{fullhashraw}{fabaa75c178763573d5117d9f580b329}
+      \strng{bibnamehash}{fabaa75c178763573d5117d9f580b329}
+      \strng{authorbibnamehash}{fabaa75c178763573d5117d9f580b329}
+      \strng{authornamehash}{fabaa75c178763573d5117d9f580b329}
+      \strng{authorfullhash}{fabaa75c178763573d5117d9f580b329}
+      \strng{authorfullhashraw}{fabaa75c178763573d5117d9f580b329}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The field of uncertainty quantification is evolving rapidly because of increasing emphasis on models that require quantified uncertainties for large-scale applications, novel algorithm development, and new computational architectures that facilitate implementation of these algorithms. Uncertainty Quantification: Theory, Implementation, and Applications provides readers with the basic concepts, theory, and algorithms necessary to quantify input and response uncertainties for simulation models arising in a broad range of disciplines. The book begins with a detailed discussion of applications where uncertainty quantification is critical for both scientific understanding and policy. It then covers concepts from probability and statistics, parameter selection techniques, frequentist and Bayesian model calibration, propagation of uncertainties, quantification of model discrepancy, surrogate model construction, and local and global sensitivity analysis. The author maintains a complementary web page where readers can find data used in the exercises and other supplementary material.}
+      \field{day}{2}
+      \field{eprinttype}{googlebooks}
+      \field{isbn}{978-1-61197-321-1}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{pagetotal}{400}
+      \field{shorttitle}{Uncertainty {{Quantification}}}
+      \field{title}{Uncertainty {{Quantification}}: {{Theory}}, {{Implementation}}, and {{Applications}}}
+      \field{year}{2013}
+      \field{dateera}{ce}
+      \verb{eprint}
+      \verb 4c1GAgAAQBAJ
+      \endverb
+      \keyw{Computers / Computer Simulation,Mathematics / Applied,Mathematics / Probability & Statistics / General,Science / Physics / Mathematical & Computational}
+    \endentry
+    \entry{nist_nist_2015}{article}{}{3}
+      \name{author}{1}{}{%
+        {{hash=fed1077427241c554ccd3957161e23bf}{%
+           family={{nist}},
+           familyi={n\bibinitperiod}}}%
+      }
+      \strng{namehash}{fed1077427241c554ccd3957161e23bf}
+      \strng{fullhash}{fed1077427241c554ccd3957161e23bf}
+      \strng{fullhashraw}{fed1077427241c554ccd3957161e23bf}
+      \strng{bibnamehash}{fed1077427241c554ccd3957161e23bf}
+      \strng{authorbibnamehash}{fed1077427241c554ccd3957161e23bf}
+      \strng{authornamehash}{fed1077427241c554ccd3957161e23bf}
+      \strng{authorfullhash}{fed1077427241c554ccd3957161e23bf}
+      \strng{authorfullhashraw}{fed1077427241c554ccd3957161e23bf}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{NIST Technical Note 1297}
+      \field{annotation}{Last Modified: 2019-11-15T19:42-05:00}
+      \field{journaltitle}{NIST}
+      \field{langid}{english}
+      \field{title}{{{NIST Guidelines}} for {{Evaluating}} and {{Expressing}} the {{Uncertainty}} of {{NIST Measurement Results Cover}}}
+      \field{urlday}{16}
+      \field{urlmonth}{6}
+      \field{urlyear}{2023}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/NNJSHGXA/nisttechnicalnote1297s.pdf;/home/patomareao/Zotero/storage/YNIPZPDT/nist-guidelines-evaluating-and-expressing-uncertainty-nist-measurement.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nist.gov/pml/nist-technical-note-1297/nist-guidelines-evaluating-and-expressing-uncertainty-nist-measurement
+      \endverb
+      \verb{url}
+      \verb https://www.nist.gov/pml/nist-technical-note-1297/nist-guidelines-evaluating-and-expressing-uncertainty-nist-measurement
+      \endverb
+      \warn{\item article entry 'nist_nist_2015' (references.bib): Invalid format '2015-11-06T10:19-05:00' of date field 'date' - ignoring}
+      \warn{\item Datamodel: article entry 'nist_nist_2015' (references.bib): Missing mandatory field - one of 'date, year' must be defined}
+    \endentry
+    \entry{jcgm101_2008}{misc}{}{3}
+      \list{organization}{1}{%
+        {Joint Committee for Guides in Metrology}%
+      }
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{title}{{{JCGM101}}:2008. {{Evaluation}} of Measurement Data — {{Supplement}} 1 to the “{{Guide}} to the Expression of Uncertainty in Measurement” — {{Propagation}} of Distributions Using a {{Monte Carlo}} Method}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/HK6628JQ/BIPM et al_Evaluation of measurement data — Supplement 1 to the “Guide to the expression.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf/325dcaad-c15a-407c-1105-8b7f322d651c
+      \endverb
+      \verb{url}
+      \verb https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf/325dcaad-c15a-407c-1105-8b7f322d651c
+      \endverb
+    \endentry
+    \entry{wolff_monte_2007}{article}{}{3}
+      \name{author}{1}{}{%
+        {{hash=6aa8ea58f5e51071897db1d0e8cf7655}{%
+           family={Wolff},
+           familyi={W\bibinitperiod},
+           given={Ulli},
+           giveni={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{6aa8ea58f5e51071897db1d0e8cf7655}
+      \strng{fullhash}{6aa8ea58f5e51071897db1d0e8cf7655}
+      \strng{fullhashraw}{6aa8ea58f5e51071897db1d0e8cf7655}
+      \strng{bibnamehash}{6aa8ea58f5e51071897db1d0e8cf7655}
+      \strng{authorbibnamehash}{6aa8ea58f5e51071897db1d0e8cf7655}
+      \strng{authornamehash}{6aa8ea58f5e51071897db1d0e8cf7655}
+      \strng{authorfullhash}{6aa8ea58f5e51071897db1d0e8cf7655}
+      \strng{authorfullhashraw}{6aa8ea58f5e51071897db1d0e8cf7655}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We explain in detail how to estimate mean values and assess statistical errors for arbitrary functions of elementary observables in Monte Carlo simulations. The method is to estimate and sum the relevant autocorrelation functions, which is argued to produce more certain error estimates than binning techniques and hence to help toward a better exploitation of expensive simulations. An effective integrated autocorrelation time is computed which is suitable to benchmark efficiencies of simulation algorithms with regard to specific observables of interest. A Matlab code is offered for download that implements the method. It can also combine independent runs (replica) allowing to judge their consistency.}
+      \field{eprinttype}{arXiv}
+      \field{issn}{00104655}
+      \field{journaltitle}{Computer Physics Communications}
+      \field{month}{3}
+      \field{number}{5}
+      \field{shortjournal}{Computer Physics Communications}
+      \field{title}{Monte {{Carlo}} Errors with Less Errors}
+      \field{urlday}{19}
+      \field{urlmonth}{6}
+      \field{urlyear}{2023}
+      \field{volume}{176}
+      \field{year}{2007}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{383}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.cpc.2006.12.001
+      \endverb
+      \verb{eprint}
+      \verb hep-lat/0306017
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/D4TKBB3V/Wolff - 2007 - Monte Carlo errors with less errors.pdf;/home/patomareao/Zotero/storage/2Y535WVM/0306017.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/hep-lat/0306017
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/hep-lat/0306017
+      \endverb
+      \keyw{Condensed Matter,High Energy Physics - Lattice}
+    \endentry
+    \entry{korbel_steady_2014}{article}{}{6}
+      \name{author}{4}{}{%
+        {{hash=c2b2672029dedb68b679e4780f41da7f}{%
+           family={Korbel},
+           familyi={K\bibinitperiod},
+           given={Milan},
+           giveni={M\bibinitperiod}}}%
+        {{hash=2fe847bfc105ba30657d80f0cb1bc0cf}{%
+           family={Bellec},
+           familyi={B\bibinitperiod},
+           given={Steve},
+           giveni={S\bibinitperiod}}}%
+        {{hash=231b80c30ab98316da16eda34090800a}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Taiwen},
+           giveni={T\bibinitperiod}}}%
+        {{hash=1144622d26ad5c4db799531fbb8cc433}{%
+           family={Stuart},
+           familyi={S\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{7dff13130a1dca07e197df81d04b56c9}
+      \strng{fullhash}{c8c8fc6b2313647b6b22de5b2f8b0b3b}
+      \strng{fullhashraw}{c8c8fc6b2313647b6b22de5b2f8b0b3b}
+      \strng{bibnamehash}{7dff13130a1dca07e197df81d04b56c9}
+      \strng{authorbibnamehash}{7dff13130a1dca07e197df81d04b56c9}
+      \strng{authornamehash}{7dff13130a1dca07e197df81d04b56c9}
+      \strng{authorfullhash}{c8c8fc6b2313647b6b22de5b2f8b0b3b}
+      \strng{authorfullhashraw}{c8c8fc6b2313647b6b22de5b2f8b0b3b}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In order to derive higher value operational knowledge from raw process measurements, advanced techniques and methodologies need to be exploited. In this paper a methodology for online steady-state detection in continuous processes is presented. It is based on a wavelet multiscale decomposition of the temporal signal of a measured process variable, which simultaneously allows for two important pre-processing tasks: filtering-out the high frequency noise via soft-thresholding and correcting abnormalities by analyzing the maximums of wavelet transform modulus. Wavelet features involved in the pre-processing task are simultaneously exploited in analyzing a process trend of measured variable. The near steady state starting and ending points are identified by using the first and the second order of wavelet transform. Simultaneously a low filter with a probability density function is employed to approximate the duration of a near stationary condition. The method provides an improvement in the quality of steady-state data sets, which will directly improve the outcomes of data reconciliation and manufacturing costs. A comparison with other steady-state detection methods on an example of case study indicates that the proposed methodology is efficient in detecting steady-state and suitable for online implementation.}
+      \field{day}{17}
+      \field{issn}{0098-1354}
+      \field{journaltitle}{Computers \& Chemical Engineering}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{shortjournal}{Computers \& Chemical Engineering}
+      \field{title}{Steady State Identification for On-Line Data Reconciliation Based on Wavelet Transform and Filtering}
+      \field{urlday}{14}
+      \field{urlmonth}{12}
+      \field{urlyear}{2022}
+      \field{volume}{63}
+      \field{year}{2014}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{206\bibrangedash 218}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1016/j.compchemeng.2014.02.003
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/D5RXVVJK/Korbel et al. - 2014 - Steady state identification for on-line data recon.pdf;/home/patomareao/Zotero/storage/DY3VFNKI/S0098135414000350.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0098135414000350
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0098135414000350
+      \endverb
+      \keyw{Data cleansing,Plant-wide application,Signal processing,ssi,Steady-state detection,Wavelet analysis}
+    \endentry
+    \entry{jiang_application_2003}{article}{}{3}
+      \name{author}{4}{}{%
+        {{hash=231b80c30ab98316da16eda34090800a}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Taiwen},
+           giveni={T\bibinitperiod}}}%
+        {{hash=3cadb9c98b0f71deb161ed031cdc1167}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Bingzhen},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c774304fb4cf57b94ac7fdc7ae9d81f9}{%
+           family={He},
+           familyi={H\bibinitperiod},
+           given={Xiaorong},
+           giveni={X\bibinitperiod}}}%
+        {{hash=1144622d26ad5c4db799531fbb8cc433}{%
+           family={Stuart},
+           familyi={S\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{f1418e1e4da7b4768dee2ff7309f7fe1}
+      \strng{fullhash}{e0eafb2f77caacf12e67daf1bd2c2472}
+      \strng{fullhashraw}{e0eafb2f77caacf12e67daf1bd2c2472}
+      \strng{bibnamehash}{f1418e1e4da7b4768dee2ff7309f7fe1}
+      \strng{authorbibnamehash}{f1418e1e4da7b4768dee2ff7309f7fe1}
+      \strng{authornamehash}{f1418e1e4da7b4768dee2ff7309f7fe1}
+      \strng{authorfullhash}{e0eafb2f77caacf12e67daf1bd2c2472}
+      \strng{authorfullhashraw}{e0eafb2f77caacf12e67daf1bd2c2472}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A wavelet-based method is proposed for steady-state detection in continuous processes. In this method, process trends are extracted from the measured raw data via wavelet-based multi-scale processing. The process status is then measured using an index with value ranging from 0 to 1 according to the wavelet transform modulus of the extracted process signal. Finally, a steady state is identified if the computed index is small (close to zero). The determination of a characteristic scale for performing steady-state detection was also studied. Compared with the existing approaches for steady-state detection, this method has better precision for detecting changes in process due to the good localization property of wavelet transform, and is more suitable for on-line applications. In this paper, the method is described in detail, and has then been applied to the crude oil unit of a refinery, and to the recausticizing plant of a chemical pulp mill.}
+      \field{day}{15}
+      \field{issn}{0098-1354}
+      \field{journaltitle}{Computers \& Chemical Engineering}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{number}{4}
+      \field{shortjournal}{Computers \& Chemical Engineering}
+      \field{title}{Application of Steady-State Detection Method Based on Wavelet Transform}
+      \field{urlday}{3}
+      \field{urlmonth}{1}
+      \field{urlyear}{2023}
+      \field{volume}{27}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{569\bibrangedash 578}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1016/S0098-1354(02)00235-1
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/NHHTCALB/Jiang et al. - 2003 - Application of steady-state detection method based.pdf;/home/patomareao/Zotero/storage/CVGVYZTV/S0098135402002351.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0098135402002351
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0098135402002351
+      \endverb
+      \keyw{Characteristic scale,Multi-scale processing,Oil refinery,Pulp and paper mill,Steady-state detection,Wavelet transform}
+    \endentry
+    \entry{jiang_industrial_2000}{article}{}{3}
+      \name{author}{3}{}{%
+        {{hash=231b80c30ab98316da16eda34090800a}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Taiwen},
+           giveni={T\bibinitperiod}}}%
+        {{hash=3cadb9c98b0f71deb161ed031cdc1167}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Bingzhen},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c774304fb4cf57b94ac7fdc7ae9d81f9}{%
+           family={He},
+           familyi={H\bibinitperiod},
+           given={Xiaorong},
+           giveni={X\bibinitperiod}}}%
+      }
+      \strng{namehash}{9582400bb78ef1735fb1f8bac8aebcb2}
+      \strng{fullhash}{9582400bb78ef1735fb1f8bac8aebcb2}
+      \strng{fullhashraw}{9582400bb78ef1735fb1f8bac8aebcb2}
+      \strng{bibnamehash}{9582400bb78ef1735fb1f8bac8aebcb2}
+      \strng{authorbibnamehash}{9582400bb78ef1735fb1f8bac8aebcb2}
+      \strng{authornamehash}{9582400bb78ef1735fb1f8bac8aebcb2}
+      \strng{authorfullhash}{9582400bb78ef1735fb1f8bac8aebcb2}
+      \strng{authorfullhashraw}{9582400bb78ef1735fb1f8bac8aebcb2}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, Wavelet Transform is applied to improve the on-line prediction of crude oil distillation (COD) qualities. First, the wavelets-based multi-scale analysis method was applied to treat the process data effectively. According to their unique characteristics with multi-scale Wavelet Transform, different variations are detected and modified, such as steps, peaks, noises, abnormal sudden changes, and so on. Using the process data with noises discarded and abnormal sudden changes treated effectively, the COD quality prediction can be sure of safety and high accuracy. Next, for some COD units on-line quality analyzers are available, and a new correcting strategy is taken in this paper to give effective update. The update is accomplished based on process data trends extraction. At last, the data processing and the on-line update strategy are introduced to a prediction system of COD product qualities to improve its prediction accuracy. The improved prediction system has been applied in a real plant, and the results are satisfactory.}
+      \field{day}{15}
+      \field{issn}{0098-1354}
+      \field{journaltitle}{Computers \& Chemical Engineering}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{2}
+      \field{shortjournal}{Computers \& Chemical Engineering}
+      \field{title}{Industrial Application of {{Wavelet Transform}} to the On-Line Prediction of Side Draw Qualities of Crude Unit}
+      \field{urlday}{27}
+      \field{urlmonth}{12}
+      \field{urlyear}{2022}
+      \field{volume}{24}
+      \field{year}{2000}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{507\bibrangedash 512}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1016/S0098-1354(00)00520-2
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/9XFVDW4D/Jiang et al. - 2000 - Industrial application of Wavelet Transform to the.pdf;/home/patomareao/Zotero/storage/MVQNKDM9/S0098135400005202.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0098135400005202
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0098135400005202
+      \endverb
+      \keyw{Data processing,On-line quality prediction,On-line update,Process trends extraction,Wavelet transform}
+    \endentry
+    \entry{mistry_improved_2013}{article}{}{1}
+      \name{author}{3}{}{%
+        {{hash=38cd0ec08fd7d6603e977c3c32b5ad5b}{%
+           family={Mistry},
+           familyi={M\bibinitperiod},
+           given={Karan\bibnamedelima H.},
+           giveni={K\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=70265aebe65122506d7514ca7eaa34b2}{%
+           family={Antar},
+           familyi={A\bibinitperiod},
+           given={Mohamed\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=9cac8be91cebd5064e3295808d41ba2b}{%
+           family={Lienhard\bibnamedelima V},
+           familyi={L\bibinitperiod\bibinitdelim V\bibinitperiod},
+           given={John\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor \& Francis}%
+      }
+      \strng{namehash}{01d7720115fbfb52e98f69b3f5ada539}
+      \strng{fullhash}{01d7720115fbfb52e98f69b3f5ada539}
+      \strng{fullhashraw}{01d7720115fbfb52e98f69b3f5ada539}
+      \strng{bibnamehash}{01d7720115fbfb52e98f69b3f5ada539}
+      \strng{authorbibnamehash}{01d7720115fbfb52e98f69b3f5ada539}
+      \strng{authornamehash}{01d7720115fbfb52e98f69b3f5ada539}
+      \strng{authorfullhash}{01d7720115fbfb52e98f69b3f5ada539}
+      \strng{authorfullhashraw}{01d7720115fbfb52e98f69b3f5ada539}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Increasing global demand for fresh water is driving research and development of advanced desalination technologies. As a result, a detailed model of multiple effect distillation (MED) is developed that is flexible, simple to implement, and suitable for use in optimization of water and power cogeneration systems. The MED system is modeled in a modular method in which each of the subcomponents is modeled individually and then instantiated as necessary in order to piece together the complete plant model. Modular development allows for studying various MED configurations (such as forward feed, parallel feed, etc.) with minimal code duplication. Use of equation-oriented solvers, such as Engineering Equation Solver and JACOBIAN, rather than sequential solvers, simplifies the coding complexity dramatically and also reduces the number of required approximations and assumptions. The developed model is compared with four prominent forward feed MED models from literature. Through parametric analysis, it is found that the present model compares very well with the simple model provided by El-Sayed and Silver while providing substantially more detail in regard to the various temperature profiles within the MED system. Further, the model is easier to implement than the detailed El-Dessouky model while relying on fewer assumptions. The increased detail of the model allows for proper sensitivities to key variables related to input, operating, and design conditions necessary for use in a cogeneration or hybrid system optimization process.}
+      \field{day}{1}
+      \field{issn}{1944-3994}
+      \field{journaltitle}{Desalination and Water Treatment}
+      \field{month}{1}
+      \field{number}{4--6}
+      \field{title}{An Improved Model for Multiple Effect Distillation}
+      \field{urlday}{1}
+      \field{urlmonth}{6}
+      \field{urlyear}{2022}
+      \field{volume}{51}
+      \field{year}{2013}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{807\bibrangedash 821}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1080/19443994.2012.703383
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/DJMDUXC2/Mistry et al. - 2013 - An improved model for multiple effect distillation.pdf;/home/patomareao/Zotero/storage/R22NRVA4/19443994.2012.html
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/19443994.2012.703383
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/19443994.2012.703383
+      \endverb
+      \keyw{Boiling point elevation,Cogeneration,Desalination,MED,Model,Performance ratio,Specific area}
+      \warn{\item Datamodel: article entry 'mistry_improved_2013' (references.bib): Invalid field 'publisher' for entrytype 'article'}
+    \endentry
+    \entry{ryznar_new_1944}{article}{}{1}
+      \name{author}{1}{}{%
+        {{hash=bad1499c3d6b7868e4ffd58d1db8b739}{%
+           family={Ryznar},
+           familyi={R\bibinitperiod},
+           given={John\bibnamedelima W},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{bad1499c3d6b7868e4ffd58d1db8b739}
+      \strng{fullhash}{bad1499c3d6b7868e4ffd58d1db8b739}
+      \strng{fullhashraw}{bad1499c3d6b7868e4ffd58d1db8b739}
+      \strng{bibnamehash}{bad1499c3d6b7868e4ffd58d1db8b739}
+      \strng{authorbibnamehash}{bad1499c3d6b7868e4ffd58d1db8b739}
+      \strng{authornamehash}{bad1499c3d6b7868e4ffd58d1db8b739}
+      \strng{authorfullhash}{bad1499c3d6b7868e4ffd58d1db8b739}
+      \strng{authorfullhashraw}{bad1499c3d6b7868e4ffd58d1db8b739}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal-American Water Works Association}
+      \field{number}{4}
+      \field{title}{A New Index for Determining Amount of Calcium Carbonate Scale Formed by a Water}
+      \field{volume}{36}
+      \field{year}{1944}
+      \field{dateera}{ce}
+      \field{pages}{472\bibrangedash 483}
+      \range{pages}{12}
+      \warn{\item Datamodel: article entry 'ryznar_new_1944' (references.bib): Invalid field 'publisher' for entrytype 'article'}
+    \endentry
+    \entry{lienhardv_energy_2019}{article}{}{3}
+      \name{author}{1}{}{%
+        {{hash=9cac8be91cebd5064e3295808d41ba2b}{%
+           family={Lienhard\bibnamedelima V},
+           familyi={L\bibinitperiod\bibinitdelim V\bibinitperiod},
+           given={John\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{9cac8be91cebd5064e3295808d41ba2b}
+      \strng{fullhash}{9cac8be91cebd5064e3295808d41ba2b}
+      \strng{fullhashraw}{9cac8be91cebd5064e3295808d41ba2b}
+      \strng{bibnamehash}{9cac8be91cebd5064e3295808d41ba2b}
+      \strng{authorbibnamehash}{9cac8be91cebd5064e3295808d41ba2b}
+      \strng{authornamehash}{9cac8be91cebd5064e3295808d41ba2b}
+      \strng{authorfullhash}{9cac8be91cebd5064e3295808d41ba2b}
+      \strng{authorfullhashraw}{9cac8be91cebd5064e3295808d41ba2b}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Desalination systems can be conceptualized as power cycles in which the useful work output is the work of separation of fresh water from saline water. In this framing, thermodynamic analysis provides powerful tools for raising energy efficiency. This paper discusses the use of entropy generation minimization for a spectrum of desalination technologies, including those based on reverse osmosis (RO), humidification–dehumidification (HDH), membrane distillation (MD), electrodialysis (ED), and forward osmosis (FO). Heat and mass transfer are the primary causes of entropy production in these systems. The energy efficiency of desalination is shown to be maximized when entropy generation is minimized. Equipartitioning of entropy generation is considered and applied. The mechanisms of entropy generation are characterized, including the identification of major causes of irreversibility. Methods to limit discarded exergy are also identified. Prospects and technology development needs for further improvement are mentioned briefly.}
+      \field{day}{17}
+      \field{issn}{0022-1481}
+      \field{journaltitle}{Journal of Heat Transfer}
+      \field{month}{5}
+      \field{number}{7}
+      \field{shortjournal}{Journal of Heat Transfer}
+      \field{shorttitle}{Energy {{Savings}} in {{Desalination Technologies}}}
+      \field{title}{Energy {{Savings}} in {{Desalination Technologies}}: {{Reducing Entropy Generation}} by {{Transport Processes}}}
+      \field{urlday}{30}
+      \field{urlmonth}{3}
+      \field{urlyear}{2023}
+      \field{volume}{141}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1115/1.4043571
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/L4H574NM/Lienhard V - 2019 - Energy Savings in Desalination Technologies Reduc.pdf;/home/patomareao/Zotero/storage/89GTR2LB/Energy-Savings-in-Desalination-Technologies.html
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1115/1.4043571
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1115/1.4043571
+      \endverb
+    \endentry
   \enddatalist
   \missing{SOLHycool}
-  \missing{christ_techno-economic_2017}
-  \missing{darwish_multi-effect_2006}
+  \missing{astrom_advanced_2006}
   \missing{meteonorm_}
-  \missing{mistry_economics-based_2013}
   \missing{openweater_api}
   \missing{palenzuela_steadystate_2024a}
-  \missing{pinto_desalination_2017}
-  \missing{spiegler_-sayed_2001}
-  \missing{v_solar_2012}
+  \missing{patricia}
 \endrefsection
 \endinput
 

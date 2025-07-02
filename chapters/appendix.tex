@@ -1,6 +1,6 @@
 \setchapterstyle{lines}
 
-\section{Uncertainty estimation through first-order Taylor series approximation}\label{ap:anexo_uncertainty}
+\section{Uncertainty estimation through first-order Taylor series approximation}\labsec{appendix:uncertainty}
 
 In this appendix, expressions for the uncertainty estimation of energetic and separation metrics are shown. %In addition, in order to prove that the simpler approach (first-order Taylor expansion) is valid for these metrics, a comparison of the uncertainty propagation results using the first-order Taylor expansion with respect to the Monte Carlo alternative has been performed for the energetic metrics (see Fig.~\ref{fig:un_prop_comparison}). As can be observed, both follow a very similar normal distribution, so it can be stated that the use of the first-order Taylor expansion is valid for these metrics.
 
@@ -120,7 +120,8 @@ RR \pm \Delta RR = \frac{\dot{m}_{d}}{\dot{m}_{f}} \pm \left( \left(\frac{1}{\do
 where: $\dot{m}_b=\dot{m}_f-\dot{m}_d \rightarrow \Delta \dot{m}_b= \Delta \dot{m}_f+\Delta \dot{m}_d$
 
 % \appendix
-\section{Exergy calculations}\label{annex:exergy}
+
+\section{Exergy calculations}\labsec{appendix:exergy}
 Exergy consists on two components: thermomechanical exergy and chemical exergy. When performing an exergetic analysis, the balances of the exergy flows of interest are calculated given the control volume presented in Fig.~\ref{fig:control_volume}. Any external stream entering the control volume is considered an exergy input ($\dot{E}x_{in}$), while any stream leaving it is considered an exergy output ($\dot{E}x_{out}$). A general expression to determine the specific exergy flow ($\dot{e}_x$) of a stream is given in Eq.~\ref{eq:exergy}, where the first two summands represent the thermomechanical component and the last the chemical component.
 
 % Expresión general de exergía
@@ -171,7 +172,7 @@ As can be seen in Eq.~\ref{eq:Wleast_rr}, the least work of separation depends o
 
 %In the particular case of this paper, the mentioned open source library \cite{marcellos_pyequion_2021} was used to obtain the activity coefficients for a solution of NaCl with the same concentration as the feedwater salinity
 
-\section{Separation metrics calculation}\label{annex:rr_max}
+\section{Separation metrics calculation}\labsec{appendix:rr_max}
 
 The molality of sodium chloride at saturation (see Eq.~\ref{eq:rr_max}) is determined using the following correlation that was established by \cite{pinho_solubility_2005} in terms of mass fraction and it is valid for a temperature range between 25 and 80 $^\circ$C:
 
@@ -191,7 +192,7 @@ $$ b_{NaCl,sat} = \frac{ w_{NaCl,sat}/100 }{ M_{NaCl}\left(1-w_{NaCl,sat}/100\ri
 Where $M_{NaCl}$ is the molecular weight of NaCl in g/mol. 
 
 
-\section{Control system and steady state identification parameters}\label{annex:params}
+\section{Control system and steady state identification parameters}\labsec{appendix:params}
 
 This appendix section provides reference tables outlining parameters used in the algorithms discussed in this document. Table \ref{tab:params_control} summarizes the parameter values for the PID-based process control, while Table \ref{tab:params_ssi} details those for steady-state detection. For the first, Kp, Ki, and Kd are the proportional, integral, and derivative gains, respectively. In both tables, Ts represents the sample time.
 
@@ -233,11 +234,10 @@ Tss [s] &  & \multicolumn{9}{c}{600} \\ \bottomrule
 \end{table}
 
 
-
 %===================================
 %===================================
 \section{Multi-effect distillation first-principles model}
-\labsec{ap:med-model}
+\labsec{appendix:med-model}
 
 A first-principles model of a \gls{medLabel} plant is presented in this
 appendix. It can be used in two modes depending on the application and are
