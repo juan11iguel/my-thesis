@@ -358,5 +358,36 @@
 		"}"
 	],
 	"description": "Insert a structured optimization problem definition using \\problemdefinitionbox"
+	},
+
+	"Side-by-side figure": {
+		"prefix": ["\\sidebysidefig"],
+		"body": [
+			"\\begin{figure}",
+			"\t\\centering",
+			"\t\\subfloat[\\centering ${1:Left subfigure caption}]{{\\includegraphics[width=0.48\\textwidth]{figures/${2:left-image}.png}}}%",
+			"\t\\hspace{0.1cm}",
+			"\t\\subfloat[\\centering ${3:Right subfigure caption}]{{\\includegraphics[width=0.48\\textwidth]{figures/${4:right-image}.png}}}%",
+			"\t\\caption[${5:Short caption for list of figures}]{${6:Full figure caption}}",
+			"\t\\labfig{${7:label:context:descriptor}}",
+			"\\end{figure}",
+			"$0"
+		]
+	},
+
+	"Wide side-by-side figure": {
+		"prefix": ["\\widesidebysidefig"],
+		"body": [
+			"\\begin{figure*}",
+			"\t\\centering",
+			"\t\\subfloat[\\centering ${1:Left subfigure caption}]{{\\includegraphics[width=0.48\\linewidth]{figures/${2:left-image}.png}}}%",
+			"\t\\hspace{0.01\\linewidth}",
+			"\t\\subfloat[\\centering ${3:Right subfigure caption}]{{\\includegraphics[width=0.48\\linewidth]{figures/${4:right-image}.png}}}%",
+			"\t\\caption[${5:Short caption for list of figures}]{${6:Full figure caption}}",
+			"\t\\labfig{${7:label:context:descriptor}}",
+			"\\end{figure*}",
+			"$0"
+		]
 	}
+
 }

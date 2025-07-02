@@ -1,5 +1,5 @@
 \setchapterpreamble[u]{\margintoc}
-\chapter{Optimal coupling and operation of a Solar MED system}
+\chapter{Method for optimal coupling and operation of a solar driven \gls{medLabel} system}
 \labch{solarmed:optimization}
 
 
@@ -7,29 +7,9 @@
 %===================================
 \section{Introduction}
 
-%===================================
-%===================================
-\section[Proposed strategy]{Proposed optimization strategy}
-\labsec{solarmed:optimization:strategy}
+% Estado del arte de la optimización de procesos de desalación térmica
 
-The behavior of the \textit{SolarMED} process is controlled by acting on two components, a discrete and a continuous one:
-\begin{itemize}
-    \item Operation state. It defines the discrete state of the system. The complete system is divided into two subsystems: the heat generation and storage subsystem and the separation subsystem. For the solar field and thermal storage subsystem (sfts), the states are simply defined based on whether water is being recirculated in each circuit, while for the MED various discrete modes can be found: \textit{off}, \textit{generating vacuum}, \textit{startup}, \textit{shutdown}, and \textit{idle} operation depending on the sequence of values of several process variables.
-    \item Process variables. Regulates the continuous-dynamic behavior of the process. Specifically, two recirculation flow rates for the sfts subsystem, five flow and temperature variables for the MED.
-\end{itemize}
-
-The goal is to design an operational strategy that enables the seamless
-integration of both subsystems in an autonomous and optimal manner, including
-decisions on when to start or stop each subsystem and how to regulate them
-during operation. Therefore, considering the whole system as a Mixed Integer
-Non-Linear Problem (MINLP). \marginnote{See
-\nrefsec{intro:optimization:minlp_problems} for a formal definition}
-
-% In order to achieve this objective, a hierarchical control approach was chosen consisting on three-layers: operation plan, operation optimization, and operation regulation. This scheme was chosen for two main reasons. On the one hand, the time scales of the different aspects of the operation of the system (operation mode changes, process variables setpoint changes, regulatory control, respectively) can differ substantially. Secondly, it allows to abstract process complexity from the more computationally demanding upper layers by allocating it into the downstream layers. The operation plan layer makes decisions for the operation state, the operation optimization layer sets the setpoints given to the continuous process variables that are to be followed by the low-level regulatory control layer.
-
-
-\input{chapters/solarmed-modelling.tex}
-
+% Estructura del capítulo
 
 %===================================
 %===================================
@@ -69,10 +49,102 @@ Non-Linear Problem (MINLP). \marginnote{See
 % In this report, focus is given to the upper operation plan layer, which is
 % detailed below.
 
+%===================================
+\subsection{Environment description}
+
+\marginnote[*5]{$\forall i = 1 \ldots n_{steps}$ is a notation to indicate that
+    a condition must be held at every step $i$ in the optimization horizon
+    ($n_{steps}$)}
+
+\problemdefinitionbox{\gls{solarmedLabel}}{
+    \begin{equation*}
+        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = \sum_{i=1}^{n_{steps}} \left( J_{e,i} + J_{w,i} \right) \cdot T_s
+    \end{equation*}
+
+    \textbf{with}:
+    \begin{align*}
+        \quad for\: i &= 1 \ldots n_{steps}: \\
+        & \quad J_{e,i} = C_{e,i} \cdot P_{e,i} \\
+        & \quad J_{w,i} = C_{w,s1,i} \cdot P_{w,s1,i} + C_{w,s2,i} \cdot P_{w,s2,i} \\
+        & \quad C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} \\
+        & \quad C_{w,s2,i} = C_{w,i}-C_{w,s1,i} \\
+        & \quad V_{avail,i} = V_{avail,i-1}-C_{w,s1,i}\cdot T_s \\
+        & \quad T_{cc,out,i},\,C_{e,i},\,C_{w,i},\,T_{c,out,i}=f(q_{c,i}, R_{p,i}, R_{s,i}, \omega_{dc,i}, \omega_{wct,i},T_{amb,i},HR_i,T_{v,i},\dot{m}_{v,i})
+    \end{align*}
+    \begin{itemize}
+        \item Decision variables
+        \[
+        \mathbf{x} = [\mathbf{q_c}, \mathbf{R_p}, \mathbf{R_s}, \boldsymbol{\omega}_{\text{dc}}, \boldsymbol{\omega}_{\text{wct}}]
+        \]
+        where $x=[x_{1,1},\,\ldots\, x_{1,n_{steps}},\, \ldots,\, x_{n_{x},n_{steps}}]$
+        \item Environment variables
+        \[
+        \mathbf{e} = [\mathbf{T_{\text{amb}}}, \mathbf{HR},\, \mathbf{P_e},\, \mathbf{P_{w,s1}},\, \mathbf{P_{w,s2}}, \mathbf{V_{avail,0}},\, \mathbf{T_v},\, \mathbf{\dot{m}_v}]
+        \]
+        where $e=[e_{1,1},\,\ldots\, e_{1,n_{steps}},\, \ldots,\, e_{n_{e},n_{steps}}]$
+
+    \end{itemize}
+
+    \textbf{subject to}:
+    \begin{itemize}
+        
+        \item Box-bounds
+        \begin{itemize}
+                \item $\mathbf{w_{dc}} \in [\underline{w}_{dc}, \overline{w}_{dc}]$
+                \item $\mathbf{w_{wct}} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
+                \item $\mathbf{q_{c}} \in [\underline{q}_{c}, \overline{q}_{c}]$
+                \item $\mathbf{R_p} \in [0,1]$
+                \item $\mathbf{R_s} \in [0,1]$
+        \end{itemize}
+
+        \item Constraints, $\forall i = 1 \ldots n_{steps}$:
+        \begin{itemize}
+            \item $\left| T_{\text{cc,out},i} - T_{\text{c,in},i} \right| \leq \epsilon_1$
+            \item $T_{\text{c,out},i} \leq T_{v,i} - \Delta T_{\text{c-v,min}}$
+            \item $\left| Q_{\text{cc},i} - Q_{\text{c,released},i} \right| \leq \epsilon_2$
+        \end{itemize}
+
+    \end{itemize}
+}
+
+
+
+%===================================
+%===================================
+\section{Solving the optimization problem}[Solving the problem]
+\labsec{part:chapter:section}
+
+% Discusión sobre la resolución del problema
+The implementation challenge of a control scheme for this MINLP, is shown in \cite{josedomingo}. Since the decision variable update at any given step, can be approached, from many different previous decision variables updates in past steps, the range of possible operation modes grows exponentially...
+
+Enabling the coupling between the variable solar energy source and the flexible MED system, can be achieved in several ways. Here we are dealing with a Mixed Integer Non Linear Problem (MINLP).
+
+One of the most important considerations when attempting to solve the optimization problem, is whether the paths to take (operating modes evolution in the prediction horizon) are pre-computed or if on the other hand, it's left to the optimization algorithm to explore the tree and generate its own trajectories.
+
+An alternative to tackling the problem in its full complexity (both integer and continuous components), is to solve it in two steps. Where in the first one a simplified version of the MINLP is first solved using one of the afore-mentioned HGO alternative, so that the integer variables are set, and then a second evaluation is solved where only the non-linear problem is solved through Local optimization. The following solvers are tested:
+
+
+%===================================
+\subsection[]{Proposed optimization strategy}[Proposed strategy]
+\labsec{solarmed:optimization:strategy}
+
+The behavior of the \textit{SolarMED} process is controlled by acting on two components, a discrete and a continuous one:
+\begin{itemize}
+    \item Operation state. It defines the discrete state of the system. The complete system is divided into two subsystems: the heat generation and storage subsystem and the separation subsystem. For the solar field and thermal storage subsystem (sfts), the states are simply defined based on whether water is being recirculated in each circuit, while for the MED various discrete modes can be found: \textit{off}, \textit{generating vacuum}, \textit{startup}, \textit{shutdown}, and \textit{idle} operation depending on the sequence of values of several process variables.
+    \item Process variables. Regulates the continuous-dynamic behavior of the process. Specifically, two recirculation flow rates for the sfts subsystem, five flow and temperature variables for the MED.
+\end{itemize}
+
+The goal is to design an operational strategy that enables the seamless
+integration of both subsystems in an autonomous and optimal manner, including
+decisions on when to start or stop each subsystem and how to regulate them
+during operation. Therefore, considering the whole system as a Mixed Integer
+Non-Linear Problem (MINLP). \marginnote{See
+\nrefsec{intro:optimization:minlp_problems} for a formal definition}
+
+% In order to achieve this objective, a hierarchical control approach was chosen consisting on three-layers: operation plan, operation optimization, and operation regulation. This scheme was chosen for two main reasons. On the one hand, the time scales of the different aspects of the operation of the system (operation mode changes, process variables setpoint changes, regulatory control, respectively) can differ substantially. Secondly, it allows to abstract process complexity from the more computationally demanding upper layers by allocating it into the downstream layers. The operation plan layer makes decisions for the operation state, the operation optimization layer sets the setpoints given to the continuous process variables that are to be followed by the low-level regulatory control layer.
+
 
 \section{Operation plan layer description}
 \subsection{Update times generation}
 \subsection{Candidate problems generation}
 \section{Operation optimization layer description}
-
-\input{chapters/solarmed-results.tex}
