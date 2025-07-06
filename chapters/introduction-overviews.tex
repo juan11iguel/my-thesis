@@ -299,6 +299,40 @@ parameters are defined, the first-principles model is run for each set of input
 parameters, and the outputs of the model are recorded. Finally, the recorded
 outputs are used to train the data-driven model.
 
+\section{Hybrid modelling by means of \glspl{fsmLabel}}
+\labsec{intro:modelling:fsm}
+
+A state machine is a model of behavior composed of a finite number of
+\textit{states} and \textit{transitions} between those states. Within each
+state and transition some \textit{action} can be performed. A state machine
+needs to start at some \textit{initial state}.
+
+% TODO: Diagrama de FSM
+
+Core concepts description:
+
+\begin{itemize}
+    \item \textbf{State}. A state represents a particular condition or stage in
+    the state machine. It's a distinct mode of behavior or phase in a process.
+    
+    \item \textbf{Transition}. This is the process or event that causes the
+    state machine to change from one state to another.
+
+    \item \textbf{Action}. Specific operation or task that is performed when a
+    certain event happens \ie a state is entered, exited, or during a
+    transition.
+    
+    \item \textbf{Model}. A stateful structure that holds information about the
+   state of the machine. It gets updated during transitions and defines
+   actions.
+
+    \item \textbf{Machine}. This is the entity that manages and controls the
+    model, states, transitions, and actions. It's the conductor that
+    orchestrates the entire process of the state machine.
+\end{itemize}
+
+
+
 %===================================
 %===================================
 %===================================
@@ -427,6 +461,51 @@ whether they can be evaluated before evaluating the objective function or not.:
 \labsec{intro:optimization:minlp_problems}
 
 \gls{minlpLabel}
+
+\section{A discussion on constraint handling}
+\labsec{intro:optimization:constraints}
+
+There are two main approaches to handle constraints in optimization problems:
+\begin{itemize}
+    \item \textbf{Penalty methods}. These methods add a penalty term to the
+    objective function to penalize the violation of the constraints. The
+    penalty term is usually a function of the constraint violation, and it is
+    added to the objective function to form a new objective function that is
+    minimized. The penalty term can be linear or non-linear, and it can be
+    adjusted during the optimization process to ensure that the constraints are
+    satisfied. The main advantage of penalty methods is that they allow to
+    handle constraints in a flexible way, and they can be used with any
+    optimization algorithm. However, they can also lead to suboptimal solutions
+    if the penalty term is not properly tuned, and they can also lead to
+    numerical instability if the penalty term is too large.
+    
+    \item \textbf{Constraint handling methods}. These methods handle the
+    constraints directly, by either rejecting solutions that violate the
+    constraints or by modifying the optimization algorithm to ensure that the
+    constraints are satisfied. The main advantage of constraint handling
+    methods is that they guarantee that the constraints are satisfied, and they
+    can also lead to better solutions than penalty methods. However, they can
+    also be more complex to implement, and they can also lead to numerical
+    instability if the constraints are too restrictive. Specific
+    constraint-handling capable algorithms are required to solve these type of
+    problems.
+\end{itemize}
+
+By using inequality constraints, the optimization algorithm is forced to find
+the \textit{best} solution that satisfies the constraints, however, in a
+problem with a horizon window, this would require returning a value of the
+constraint for each step in the horizon window. Thus, producing a large vector
+of inequality constraints and increasing the dimension of the problem (\ie its
+complexity). On the other hand returning a single value for the whole episode
+gives little information to the algorithm on how to adapt its decision values
+to satisfy the constraint and thus might be unable\sidenote{By unable we are
+referring to requiring an unfeasible amount of objective function evaluations,
+too much time.} to converge to a solution.
+
+Finally, non constraint-handling capable algorithms can be wrapped with
+constraint handling methods to solve problems with
+constraints~\sidecite{farmani_selfadaptive_2003}, where they basically
+implement some type of penalty method.
 
 %===================================
 %===================================

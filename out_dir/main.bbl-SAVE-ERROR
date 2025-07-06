@@ -212,6 +212,62 @@
       \range{pages}{11}
       \warn{\item Datamodel: article entry 'nossent_sobolsensitivity_2011' (references.bib): Invalid field 'publisher' for entrytype 'article'}
     \endentry
+    \entry{farmani_selfadaptive_2003}{article}{}{3}
+      \name{author}{2}{}{%
+        {{hash=cfcc6469690931db7551028d3baea434}{%
+           family={Farmani},
+           familyi={F\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=641dd8e3fbb230df2e168b97a2e69822}{%
+           family={Wright},
+           familyi={W\bibinitperiod},
+           given={J.A.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{59a5dd3665f4ed5022668573022f57a5}
+      \strng{fullhash}{59a5dd3665f4ed5022668573022f57a5}
+      \strng{fullhashraw}{59a5dd3665f4ed5022668573022f57a5}
+      \strng{bibnamehash}{59a5dd3665f4ed5022668573022f57a5}
+      \strng{authorbibnamehash}{59a5dd3665f4ed5022668573022f57a5}
+      \strng{authornamehash}{59a5dd3665f4ed5022668573022f57a5}
+      \strng{authorfullhash}{59a5dd3665f4ed5022668573022f57a5}
+      \strng{authorfullhashraw}{59a5dd3665f4ed5022668573022f57a5}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A self-adaptive fitness formulation is presented for solving constrained optimization problems. In this method, the dimensionality of the problem is reduced by representing the constraint violations by a single infeasibility measure. The infeasibility measure is used to form a two-stage penalty that is applied to the infeasible solutions. The performance of the method has been examined by its application to a set of eleven test cases from the specialized literature. The results have been compared with previously published results from the literature. It is shown that the method is able to find the optimum solutions. The proposed method requires no parameter tuning and can be used as a fitness evaluator with any evolutionary algorithm. The approach is also robust in its handling of both linear and nonlinear equality and inequality constraint functions. Furthermore, the method does not require an initial feasible solution.}
+      \field{eventtitle}{{{IEEE Transactions}} on {{Evolutionary Computation}}}
+      \field{issn}{1941-0026}
+      \field{journaltitle}{IEEE Transactions on Evolutionary Computation}
+      \field{month}{10}
+      \field{number}{5}
+      \field{title}{Self-Adaptive Fitness Formulation for Constrained Optimization}
+      \field{urlday}{31}
+      \field{urlmonth}{3}
+      \field{urlyear}{2025}
+      \field{volume}{7}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{445\bibrangedash 455}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1109/TEVC.2003.817236
+      \endverb
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/TDHYLZ7H/Farmani and Wright - 2003 - Self-adaptive fitness formulation for constrained optimization.pdf;/home/patomareao/Zotero/storage/5ZZ54WHB/1237163.html
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/abstract/document/1237163
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/abstract/document/1237163
+      \endverb
+      \keyw{Biological cells,Computer science,Constraint optimization,Councils,Decoding,Emulation,Evolutionary computation,Genetic algorithms,Robustness,Testing}
+      \warn{\item Datamodel: article entry 'farmani_selfadaptive_2003' (references.bib): Invalid field 'eventtitle' for entrytype 'article'}
+    \endentry
     \entry{geem_new_2001}{article}{}{3}
       \name{author}{3}{}{%
         {{hash=d7487355768ee9fdbf8324ad1c1d661c}{%
@@ -393,8 +449,8 @@
       \strng{authornamehash}{c8eff2c97631a95cc44bf7ea81590acd}
       \strng{authorfullhash}{c8eff2c97631a95cc44bf7ea81590acd}
       \strng{authorfullhashraw}{c8eff2c97631a95cc44bf7ea81590acd}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{This version of CSP.guru has been compiled by Richard Thonig and Alina Gilmanova in collaboration with the SolarPACES secretariat and reflects the CSP market in the middle of 2023. The Chinese market continues to develops favorably with many new projects tendering being developed and 1 GW now under construction. To reflect the economics' of these Chinese hybrid projects new columns on hybrid economics have been included. Outside China some plants in Italy and a the third generation CSP pilots G3P3 have been added.}
@@ -443,8 +499,8 @@
       \strng{authornamehash}{ebcab46e917de2c79c7691b02231e9a9}
       \strng{authorfullhash}{ebcab46e917de2c79c7691b02231e9a9}
       \strng{authorfullhashraw}{ebcab46e917de2c79c7691b02231e9a9}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Water consumption is an important problem in dry zones and poor water supply areas. For these areas use of a combination of wet and dry cooling towers (hybrid cooling) has been suggested in order to reduce water consumption. In this work, wet and dry sections of a hybrid cooling tower for the estimation of water loss was modeled. A computer code was also written to simulate such hybrid cooling tower. To test the result of this simulation, a pilot hybrid tower containing a wet tower and 12 compact air cooled heat exchangers was designed and constructed. Pilot data were compared with simulation data and a correction factor was added to the simulation. Ensuring that the simulation represents the actual data, it was applied to a real industrial case and the effect of using a dry tower on water loss reduction of this plant cooling unit was investigated. Finally feasibility study was carried out to choose the best operating conditions for the hybrid cooling tower configuration proposed for this cooling unit.}
@@ -500,8 +556,8 @@
       \strng{authornamehash}{81cef35e85ef87afdc1daa32451beeb6}
       \strng{authorfullhash}{81cef35e85ef87afdc1daa32451beeb6}
       \strng{authorfullhashraw}{81cef35e85ef87afdc1daa32451beeb6}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The performance of hybrid cooling tower is analyzed using experiments and numerical simulations on a wide variety of working conditions. A computational model for predicting the behavior of dry, wet and hybrid cooling systems has been developed. The hybrid cooling tower model is expressed as a combination of a dry cooling model and a wet cooling model. The effectiveness-NTU equation and the Merkel equation, fundamental equation of heat transfer in dry and wet cooling towers, are presented and discussed. The cooling tower characteristics are a function of water-to-air ratio for each cooling mode. Comparison of the model tower test results with those of a computer simulation has demonstrated the validity of that simulation and its use as a design tool. Using the information presented in this paper, it will be possible to incorporate dry and wet cooling tower design, and simulation into a procedure to evaluate and optimize hybrid cooling tower performance.}
@@ -567,8 +623,8 @@
       \strng{authornamehash}{a0f76c4af69ffad9def84a90128b8ab0}
       \strng{authorfullhash}{82f3ae404de82cfbfcce22002292959d}
       \strng{authorfullhashraw}{82f3ae404de82cfbfcce22002292959d}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{A hybrid cooling system (HCS) consisting of dry and wet sections is proposed as a means to conserve energy and water by combining the benefits of both dry and wet cooling modes. A thermodynamic model of a 660\,MW thermal power plant with HCS is established, and the variations in thermodynamic characteristics with respect to dry bulb temperature (TA) and relative humidity (RH) are investigated using Ebsilon calculating code. Through comparison between the dry cooling system (DCS) and wet cooling system (WCS), HCS performance characteristics under different meteorological parameters are analyzed quantitatively. By comprehensively considering water and energy conservation indicators, the unique operation mode and ratio of the heat load shared by dry or wet sections are determined under various meteorological parameters. When TA exceeds a certain value or RH falls below a certain value, the HCS does not operate in a hybrid cooling mode. Instead, its operation is equivalent to that of a WCS. We suggest that the cooling load of the wet section in the HCS be designed with the peak cooling load of the condenser under the most inhospitable meteorological parameters of the year. The findings reported here may provide guidance for HCS thermodynamic design and operation regulations.}
@@ -684,8 +740,8 @@
       \strng{authorfullhash}{e74378a467d12614b9e46d9438a502f2}
       \strng{authorfullhashraw}{e74378a467d12614b9e46d9438a502f2}
       \field{extraname}{1}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{In Brescia, Italy, heat is delivered to 70\% of 200.000 city inhabitants by means of a district heating system, mainly supplied by a waste to energy plant, utilizing the non recyclable fraction of municipal and industrial solid waste (800,000tons/year, otherwise landfilled), thus saving annually over 150,000tons of oil equivalent and over 400,000tons of CO2 emissions. This study shows how the performance of the waste-to-energy cogeneration plant can be improved by optimising the condensation system, with particular focus on the combination of wet and dry cooling systems. The analysis has been carried out using two subsequent steps: in the first one a schematic model of the steam cycle was accomplished in order to acquire a knowledge base about the variables that would be most influential on the performance. In the second step the electric power output for different operating conditions was predicted and optimized in a homemade program. In more details, a thermodynamic analysis of the steam cycle, according to the design operating condition, was performed by means of a commercial code (Thermoflex©) dedicated to power plant modelling. Then the off-design behaviour was investigated by varying not only the ambient conditions but also several parameters connected to the heat rejection rate, like the heat required from district heating and the auxiliaries load. Each of these parameters has been addressed and considered in determining the overall performance of the thermal cycle. After that, a complete prediction of the cycle behaviour was performed by simultaneously varying different operating conditions. Finally, a Matlab© computer code was developed in order to optimize the net electric power as a function of the way in which the condensation is operated. The result is an optimum set of variables allowing the wet and dry cooling system to be regulated in such a way that the maximum power is achieved. The best strategy consists in using the maximum amount of heat rejection in the wet cooling system to reduce the operational cost of the dry one.}
@@ -747,8 +803,8 @@
       \strng{authorfullhash}{e74378a467d12614b9e46d9438a502f2}
       \strng{authorfullhashraw}{e74378a467d12614b9e46d9438a502f2}
       \field{extraname}{2}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The present study is focused on a waste-to-energy plant located in Northern Italy, that produces electric power and thermal energy from the non-recyclable fraction of municipal and industrial solid waste (8,00,000tons/year). In cold months heat is provided to a district heating system. Another peculiarity of this plant is that the condenser system is organized with an air condenser and a water cooled condenser, coupled with a wet cooling tower. This work shows how the net power output can be maximized by properly regulating the combined wet and dry units of the combined cooling system. A detailed model of the steam cycle was performed by means of a commercial code (Thermoflex®). Off design performance were carefully predicted to simulate accurately the real thermal cycle behaviour. Once the power cycle performance has been predicted over an extensive range of operating conditions, an optimal search method was implemented to find the set of variables allowing the wet and dry cooling system to be regulated so that the maximum net power is achieved. In general, the best strategy resulted in loading as much as possible the wet cooling system to reduce the operational cost of the dry air condenser. Conversely, the whole exhaust steam flow rate has to be sent only to the air condenser when the district heating water request is very large, i.e. in coldest months.}
@@ -813,8 +869,8 @@
       \strng{authornamehash}{ba91a53e9f95d3eae93c788b37971d20}
       \strng{authorfullhash}{c476603c7d9e8d93917bd2d81fbcb57b}
       \strng{authorfullhashraw}{c476603c7d9e8d93917bd2d81fbcb57b}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The new challenge of the European Commission is to limit water consumption in Concentrating Solar Power (CSP) plants, especially significant in the cooling process. Hybrid cooling systems are presented as a potential solution to achieve water consumption reduction since they also avoid a high penalty of efficiency loss in the power block. In this work, a hybrid cooling pilot plant installed at Plataforma Solar de Almería is evaluated experimentally. The system has been tested under different ambient and operating conditions to analyze their influence on the water and electricity consumption. The results reveal that significant water savings were achieved in comparison with the conventional only-wet configuration. Concretely, a maximum water consumption saving of 67\% was found at high ambient temperatures (between 25 and 30~°C) and for a thermal load of 80\% when a hybrid configuration was used. The optimal operating strategies that achieve a tradeoff between low water and electricity consumption have been identified by two efficiency indexes: the specific electricity and water consumption. The parallel configuration was the optimal one in most of the cases. At high ambient temperatures and 80\% thermal load, the electricity and water consumptions of this configuration were 0.033 kWe/kWth and 0.071~L/kWth, respectively.}
@@ -962,8 +1018,8 @@
       \strng{authornamehash}{7abca0101b24ea99c680f4ca15ecc83d}
       \strng{authorfullhash}{24fb2c88d025ec67d1eb7a4da3a1311c}
       \strng{authorfullhashraw}{24fb2c88d025ec67d1eb7a4da3a1311c}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Forecasting renewable energy efficiency significantly impacts system management and operation because more precise forecasts mean reduced risk and improved stability and reliability of the network. There are several methods for forecasting and estimating energy production and demand. This paper discusses the significance of artificial neural network (ANN), machine learning (ML), and Deep Learning (DL) techniques in predicting renewable energy and load demand in various time horizons, including ultra-short-term, short-term, medium-term, and long-term. The purpose of this study is to comprehensively review the methodologies and applications that utilize the latest developments in ANN, ML, and DL for the purpose of forecasting in microgrids, with the aim of providing a systematic analysis. For this purpose, a comprehensive database from the Web of Science was selected to gather relevant research studies on the topic. This paper provides a comparison and evaluation of all three techniques for forecasting in microgrids using tables. The techniques mentioned here assist electrical engineers in becoming aware of the drawbacks and advantages of ANN, ML, and DL in both load demand and renewable energy forecasting in microgrids, enabling them to choose the best techniques for establishing a sustainable and resilient microgrid ecosystem.}
@@ -2428,8 +2484,8 @@
       \strng{authornamehash}{d1142c36074e8728f7d59009339a16da}
       \strng{authorfullhash}{6889dbeebe9a06f8872b754ac7c359b1}
       \strng{authorfullhashraw}{6889dbeebe9a06f8872b754ac7c359b1}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Desalination is the thermodynamic process of separating fresh water from water that contains dissolved salts. This chapter introduces the concepts and methods required for thermodynamic analysis of desalination systems. Thermodynamic laws are summarized along with the chemical thermodynamics of electrolytes. Exergy analysis is introduced. The work and heat of separation are dened, and the roles of entropy generation and exergy destruction are identied. Important sources of entropy generation are discussed. Examples are given for the application of these methods to several representative desalination systems.}
@@ -2485,8 +2541,8 @@
       \strng{authornamehash}{75ad00ef9bcb1a152a96ad65abfa274e}
       \strng{authorfullhash}{75ad00ef9bcb1a152a96ad65abfa274e}
       \strng{authorfullhashraw}{75ad00ef9bcb1a152a96ad65abfa274e}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{shorttitle}
       \field{abstract}{Energy cost contributes a large portion of the overall cost of desalinated water. Improving the energy efficiency of desalination plants is therefore a primary design goal. However, accurately evaluating and comparing the energy consumption of desalination plants that use different forms and grades of energy is difficult, especially for power–water coproduction systems in which primary energy (PE) consumption leads to both salable electricity and potable water. The power plant converts PE into grades of thermal energy and electricity usable by the desalination plant. To fully capture the thermodynamic and economic cost of energy, and to fairly compare desalination systems that use different grades of input energy, we must compare energy consumption not at the point where energy enters the desalination plant itself, but as PE consumption entering the power plant. This paper investigates a variety of metrics for comparing the energy and exergy consumption attributable to desalination in coproduction plants. Previous results have shown that reverse osmosis (RO) is approximately twice as efficient as multiple effect distillation (MED) on a PE basis. We then compare the PE consumption of MED and RO from a thermoeconomic perspective. The entropy generation at the RO membrane and in the MED effects are derived in similar terms, which enables a comparison of the overall heat transfer coefficient in an MED system to the permeability of an RO membrane. RO outperforms MED in energy efficiency because of a balance of material costs, transport coefficients, and cost of energy.}
@@ -3942,8 +3998,8 @@
       \strng{authornamehash}{7dff13130a1dca07e197df81d04b56c9}
       \strng{authorfullhash}{c8c8fc6b2313647b6b22de5b2f8b0b3b}
       \strng{authorfullhashraw}{c8c8fc6b2313647b6b22de5b2f8b0b3b}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{In order to derive higher value operational knowledge from raw process measurements, advanced techniques and methodologies need to be exploited. In this paper a methodology for online steady-state detection in continuous processes is presented. It is based on a wavelet multiscale decomposition of the temporal signal of a measured process variable, which simultaneously allows for two important pre-processing tasks: filtering-out the high frequency noise via soft-thresholding and correcting abnormalities by analyzing the maximums of wavelet transform modulus. Wavelet features involved in the pre-processing task are simultaneously exploited in analyzing a process trend of measured variable. The near steady state starting and ending points are identified by using the first and the second order of wavelet transform. Simultaneously a low filter with a probability density function is employed to approximate the duration of a near stationary condition. The method provides an improvement in the quality of steady-state data sets, which will directly improve the outcomes of data reconciliation and manufacturing costs. A comparison with other steady-state detection methods on an example of case study indicates that the proposed methodology is efficient in detecting steady-state and suitable for online implementation.}
@@ -4106,6 +4162,40 @@
       \endverb
       \keyw{Data processing,On-line quality prediction,On-line update,Process trends extraction,Wavelet transform}
     \endentry
+    \entry{astrom_pid_1995}{book}{}{3}
+      \name{author}{2}{}{%
+        {{hash=f0f3bc9540d4770c9cd66454728924ca}{%
+           family={Åström},
+           familyi={Å\bibinitperiod},
+           given={Karl\bibnamedelima Johan},
+           giveni={K\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=44be1c7157500a148884377dae85210e}{%
+           family={Hägglund},
+           familyi={H\bibinitperiod},
+           given={Tore},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {ISA - The Instrumentation, Systems and Automation Society}%
+      }
+      \strng{namehash}{cdfc1b919c579fc447059bf9d823a24f}
+      \strng{fullhash}{cdfc1b919c579fc447059bf9d823a24f}
+      \strng{fullhashraw}{cdfc1b919c579fc447059bf9d823a24f}
+      \strng{bibnamehash}{cdfc1b919c579fc447059bf9d823a24f}
+      \strng{authorbibnamehash}{cdfc1b919c579fc447059bf9d823a24f}
+      \strng{authornamehash}{cdfc1b919c579fc447059bf9d823a24f}
+      \strng{authorfullhash}{cdfc1b919c579fc447059bf9d823a24f}
+      \strng{authorfullhashraw}{cdfc1b919c579fc447059bf9d823a24f}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{1-55617-516-7}
+      \field{langid}{english}
+      \field{title}{{{PID}} Controllers: {{Theory}}, Design, and Tuning}
+      \field{year}{1995}
+      \field{dateera}{ce}
+    \endentry
     \entry{mistry_improved_2013}{article}{}{1}
       \name{author}{3}{}{%
         {{hash=38cd0ec08fd7d6603e977c3c32b5ad5b}{%
@@ -4252,9 +4342,92 @@
       \verb https://doi.org/10.1115/1.4043571
       \endverb
     \endentry
+    \entry{cengel_heat_2015}{book}{}{4}
+      \name{author}{2}{}{%
+        {{hash=56ba627836fa0a10fed89765278ce421}{%
+           family={Çengel},
+           familyi={Ç\bibinitperiod},
+           given={Yunus\bibnamedelima A.},
+           giveni={Y\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=7c9dc40bd67db0b2cca30c83c47fb896}{%
+           family={Ghajar},
+           familyi={G\bibinitperiod},
+           given={Afshin\bibnamedelima J.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY}%
+      }
+      \list{publisher}{1}{%
+        {McGraw Hill Education}%
+      }
+      \strng{namehash}{1dfdd2c7ad95bfc26b003047b99ae080}
+      \strng{fullhash}{1dfdd2c7ad95bfc26b003047b99ae080}
+      \strng{fullhashraw}{1dfdd2c7ad95bfc26b003047b99ae080}
+      \strng{bibnamehash}{1dfdd2c7ad95bfc26b003047b99ae080}
+      \strng{authorbibnamehash}{1dfdd2c7ad95bfc26b003047b99ae080}
+      \strng{authornamehash}{1dfdd2c7ad95bfc26b003047b99ae080}
+      \strng{authorfullhash}{1dfdd2c7ad95bfc26b003047b99ae080}
+      \strng{authorfullhashraw}{1dfdd2c7ad95bfc26b003047b99ae080}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{annotation}{OCLC: ocn870517093}
+      \field{edition}{Fifth edition}
+      \field{isbn}{978-0-07-339818-1 978-1-259-17330-1 978-981-4595-27-8}
+      \field{langid}{english}
+      \field{pagetotal}{968}
+      \field{shorttitle}{Heat and Mass Transfer}
+      \field{title}{Heat and Mass Transfer: Fundamentals \& Applications}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/23GLWDVE/Çengel and Ghajar - 2015 - Heat and mass transfer fundamentals & application.pdf;/home/patomareao/Zotero/storage/CL5BSTCC/Çengel and Ghajar - 2015 - Heat and mass transfer fundamentals & application.pdf
+      \endverb
+      \keyw{Heat,İletim,Isı,Kütle transferi,Mass transfer,Transmission}
+      \warn{\item Datamodel: book entry 'cengel_heat_2015' (references.bib): Invalid ISBN in value of field 'isbn'}
+    \endentry
+    \entry{kays_compact_1958}{book}{}{3}
+      \name{author}{2}{}{%
+        {{hash=29908e5a430ba8344be247c23fc7257d}{%
+           family={Kays},
+           familyi={K\bibinitperiod},
+           given={William\bibnamedelima Morrow},
+           giveni={W\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=b22684620023e5e8f88d5549f74e2d0f}{%
+           family={London},
+           familyi={L\bibinitperiod},
+           given={Alexander\bibnamedelima Louis},
+           giveni={A\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {McGraw-Hill}%
+      }
+      \strng{namehash}{96ae35b21ccb6f1b967882b51b5822bf}
+      \strng{fullhash}{96ae35b21ccb6f1b967882b51b5822bf}
+      \strng{fullhashraw}{96ae35b21ccb6f1b967882b51b5822bf}
+      \strng{bibnamehash}{96ae35b21ccb6f1b967882b51b5822bf}
+      \strng{authorbibnamehash}{96ae35b21ccb6f1b967882b51b5822bf}
+      \strng{authornamehash}{96ae35b21ccb6f1b967882b51b5822bf}
+      \strng{authorfullhash}{96ae35b21ccb6f1b967882b51b5822bf}
+      \strng{authorfullhashraw}{96ae35b21ccb6f1b967882b51b5822bf}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{langid}{english}
+      \field{pagetotal}{180}
+      \field{shorttitle}{Compact {{Heat Exchangers}}}
+      \field{title}{Compact {{Heat Exchangers}}: {{A Summary}} of {{Basic Heat Transfer}} and {{Flow Friction Design Data}}}
+      \field{year}{1958}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /home/patomareao/Zotero/storage/RNLBDF7R/Kays and London - 1958 - Compact heat exchangers A summary of basic heat t.pdf
+      \endverb
+    \endentry
   \enddatalist
   \missing{SOLHycool}
-  \missing{astrom_advanced_2006}
   \missing{meteonorm_}
   \missing{openweater_api}
   \missing{palenzuela_steadystate_2024a}

@@ -7,36 +7,214 @@
 %===================================
 \section{Introduction}
 
-%===================================
-%===================================
-% \section{Modelling}
+The behavior of the \gls{solarmedLabel} process is controlled by acting on two
+components, a continuous and a discrete one, described
+\nrefsec{solarmed:modelling:dynamic} and \nrefsec{solarmed:modelling:discrete},
+respectively. Then, they are combined to create a complete model of the
+\gls{solarmedLabel} process.
+
+% The continuous-dynamic behavior of the process is described by a
+% set of differential equations, while the discrete behavior is described by
+% \glspl{fsmLabel}. The \glspl{fsmLabel} are used to model the
+% operation state of the system while the process variables describe the
+% continuous-dynamic behavior.
+
+\begin{itemize}
+    \item Operation state. 
+    \item Process variables. Regulates the continuous-dynamic behavior of the process. Specifically, two recirculation flow rates for the sfts subsystem, five flow and temperature variables for the MED.
+\end{itemize}
 
 %===================================
 %===================================
-\section{Solar field}
+\section{Dynamic modelling. Process variables}[Dynamic modelling]
+\labsec{solarmed:modelling:dynamic}
+
+The dynamic behavior of the \gls{solarmedLabel} regulates the values of the
+different process variables. This behaviour is modelled by integrating a set of
+models for each component of the \gls{solarmedLabel} system.
+
+Even though this modelling component models the dynamic behavior of the system,
+many of the models described in the following sections are steady-state models.
+This can lead to discrepancies between the model predictions and the actual
+system behavior, particularly during transient events. However, this is not
+deemed a significant limitation since the model is intended to be used for an
+optimization approach where the model sample rate is in the order of minutes,
+and inputs for slower component dynamics are changed sparingly, typically
+starting from 30 minutes and above, more than enough time for the system to
+reach steady state.
 
 %===================================
 %===================================
-\section{Thermal storage}
+\subsection{Solar field}
+
+
+%================================
+\subsubsection{Electrical consumption}
+% Mostrar ensayo para caracterizar el consumo eléctrico del campo solar
+
+%================================
+\subsubsection{Validation}
 
 %===================================
 %===================================
-\section{Heat exchanger}
+\subsection{Thermal storage}
+
+%================================
+\subsubsection{Electrical consumption}
+
+% Mostrar ensayo, si encaja incluirlo en la misma gráfica que el campo solar
+% simplemente referenciar esa figura
+
+%================================
+\subsubsection{Validation}
 
 %===================================
 %===================================
-\section{MED}
+\subsection{Heat exchanger}
+
+The solar field and thermal storage are interfaced by a heat exchanger,
+particularly a counter-flow heat exchanger modelled using a first-principles
+steady state model based on the effectiveness-NTU
+method\sidecite{cengel_heat_2015,kays_compact_1958}.
+
+Modelling considerations \cite{cengel_heat_2015}: 
+\begin{itemize}
+    \item It has been assumed that the rate of change for the temperature of both fluids is proportional to the temperature difference; this assumption is valid for fluids with a constant specific heat, which is a good description of fluids changing temperature over a relatively small range. However, if the specific heat changes, the \gls{lmtdLabel} approach will no longer be accurate. 
+    \item It has also been assumed that the heat transfer coefficient (U) is constant, and not a function of temperature.
+    \item No phase change during heat transfer.
+    \item Changes in kinetic energy and potential energy are neglected.
+\end{itemize}
+
+% Diagrama del componente con variables
+
+% Bloque de modelo con interfaz y ecuaciones
+
+
+%================================
+\subsubsection{Validation}
 
 %===================================
 %===================================
-\section{Other components}
+\subsection{\gls{medLabel}}
+
+The \gls{medLabel} is modelled statically, that is, considering that changes in
+the system operating conditions happen at a slow enough rate that the dynamic
+behavior between stable states can be neglected, and thus, only those stable
+states are considered. The model is a data driven one, specifically an
+\gls{annLabel} that has been trained with data from en experimental campaign in
+the pilot plant\sidenote{Referencia a donde se mencione o algún artículo de Patricia}.
+
+%================================
+\subsubsection{Electrical consumption}
+
+
+%================================
+\subsubsection{Validation}
+
 
 %===================================
-\subsection{Three-way valve}
+%===================================
+\subsection{Other components}
 
-
+%===================================
+\subsubsection{Three-way valve}
 
 
 %===================================
 %===================================
-\section{Finite-state machines}
+\section{Discrete modelling. Operation state}[Discrete modelling]
+\labsec{solarmed:modelling:discrete}
+
+The second modelling component defines the discrete state of the system, that
+is, its \textit{operation state}. This component is modelled by means of
+\glspl{fsmLabel}.
+
+\reminder{\glspl[format=long]{fsmLabel}}{
+    A finite state machine is a model of behavior composed of a finite number of
+\textit{states} and \textit{transitions} between those states. Within each
+state and transition some \textit{action} can be performed\footnote{See
+    \nrefsec{intro:modelling:fsm} for a more detailed description.}.
+}
+
+The complete system is divided into two subsystems: the heat generation and
+storage subsystem and the separation subsystem.
+
+%================================
+\subsection{Heat generation and storage subsystem (\texttt{sfts})}
+\labsec{solarmed:modelling:sfts_fsm}
+
+This subsystem encompasses the \fullgls{sfLabel} and the \fullgls{tsLabel}. The
+subsystem can be modelled with a simple \gls{fsmLabel} as shown in \reffig{},
+where the states are defined based on whether water is being recirculated in
+each circuit. Four states are defined as shown in \reftab{solarmed:modelling:sfts_fsm_states}.
+
+\begin{margintable}[*-3]
+\caption{\gls{sftsLabel} \gls{fsmLabel} states definitions. $\land$ represents
+the logical \texttt{AND} operator and $\forall$ represents that all meet the condition.}
+\labtab{solarmed:modelling:sfts_fsm_states}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{cll}
+    \toprule
+    \textbf{State} & \textbf{Name} & \textbf{Condition}  \\
+    \midrule
+    0 & Off & $q_{sf}\land q_{ts,src}==0$ \\
+    1 & Warming up \gls{sfLabel} & $q_{sf} > 0 \land q_{ts,src}==0$ \\
+    2 & Recirculating \gls{tsLabel} & $q_{sf} ==0 \land q_{ts,src} > 0$ \\
+    3 & \gls{sfLabel} heating up \gls{tsLabel} & $q_{sf}\land q_{ts,src} > 0$
+    \\
+    \bottomrule
+\end{tabular}
+}
+\end{margintable}
+
+% Figura de la máquina de estado finito y gráfica con la evolución de estados
+% durante un ensayo
+
+%================================
+\subsection{Separation subsystem (\texttt{med})}
+\labsec{solarmed:modelling:med_fsm}
+
+% Figura de la máquina de estado finito y gráfica con la evolución de estados
+% durante un ensayo
+
+\begin{margintable}[*-3]
+\caption{\gls{medfsmLabel} \gls{fsmLabel} states definitions. $\land$ represents
+the logical \texttt{AND} operator, $\exists$ represents that at least one meets
+the condition, and $\forall$ represents that all meet the condition.}
+\labtab{solarmed:modelling:med_fsm_states}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{cll}
+    \toprule
+    \textbf{State} & \textbf{Name} & \textbf{Condition}  \\
+    \midrule
+    0 & Off & $\forall q == 0$ \\
+    1 & Generating vacuum & $med{vac} == 2$ \\
+    2 & Idle & $\forall q == 0 \land med{vac} == 1$ \\
+    3 & Starting-up & $\forall q > \underline{q} \land med{vac} \ge 1 \land \forall T >
+    \underline{T} $ \\
+    4 & Shutting down & $\exists$ q < \underline{q} \\
+    5 & Active & $\forall q > \underline{q} \land med{vac} \ge 1 \land \forall T >
+    \underline{T} $\\
+    \bottomrule
+\end{tabular}
+}
+\end{margintable}
+
+\section{Complete system model}
+
+Aquí describir cómo se combinan los componentes en función del estado del
+sistema y cómo ello depende de las máquinas de estado finito.
+
+\blindtext\blindtext
+
+\begin{marginfigure}[-3cm]
+    \includegraphics[]{figures/solarmed-modelling-complete_model.png}
+    \caption{Complete \gls{solarmedLabel} model architecture. TODO: Needs to be
+    updated}
+    \labfig{solarmed:modelling:complete_model}
+\end{marginfigure}
+
+
+\subsection{Validation}
+
+% Gráfica tocha mostrado algún día y después una tabla para varios días

@@ -2,12 +2,22 @@
 \chapter{Method for optimal coupling and operation of a solar driven \gls{medLabel} system}
 \labch{solarmed:optimization}
 
+\tldrbox{
+    This chapter describes a method to develop an operational strategy enabling
+    the seamless integration of a solar driven \gls{medLabel} system in an
+    autonomous and optimal manner, including decisions on when to start or stop
+    each subsystem and how to regulate them during operation.
+
+    % The method is based on a hierarchical control approach consisting of three layers: operation plan, operation optimization, and operation regulation. The operation plan layer makes decisions for the operation state, the operation optimization layer sets the setpoints given to the continuous process variables that are to be followed by the low-level regulatory control layer.    
+}
 
 %===================================
 %===================================
 \section{Introduction}
 
 % Estado del arte de la optimización de procesos de desalación térmica
+
+% Contribución
 
 % Estructura del capítulo
 
@@ -16,70 +26,55 @@
 \section{Problem description}
 \labsec{solarmed:optimization:problem-description}
 
-% First, two decision variables are defined to manipulate the discrete state of each subsystem ($med_{mode}$, $sfts_{mode}$). These binary variables establish whether the particular subsystem is active (=1) or inactive (=0), which is directly related to the operation state of the subsystem. Once the values for these decision variables are provided, the low-level control layer is in charge of safely transitioning between operation states (e.g. $med_{mode}: 0 \rightarrow 1$, med state: \textit{off} $\rightarrow$ \textit{generating vacuum} $\rightarrow$ \textit{start-up} $\rightarrow$ \textit{active}). This is accounted for in the models by the integrated finite-state machines. The resulting decision variables that make up the decision vector are then the following: $med_{mode}$, $sfts_{mode}$, $q_{sf}$, $q_{ts,src}$, $q_{med,s}$, $q_{med,f}$, $T_{med,s,in}$, $T_{med,c,out}$. In general $q$ represents flow rates while $T$ are temperatures and Fig.\ref{fig:med_diagram} can be consulted for subscript reference. 
+Two decision variables are defined to manipulate the discrete state of
+each subsystem defined in \refsec{solarmed:modelling:discrete}: $med_{mode}$ and $sfts_{mode}$. These binary (\ie integer) variables establish
+whether the particular subsystem is active (=1) or inactive (=0). This is
+directly related to the operation state of the particular subsystem\sidenote{As
+defined in Tables~\ref{tab:solarmed:modelling:sfts_states} and
+\ref{tab:solarmed:modelling:med_fsm_states}}. Once the values for these
+decision variables are provided, the low-level control layer is in charge of
+safely transitioning between operation states\sidenote{\eg $med_{mode}: 0 \rightarrow
+1$, med state: \textit{off} $\rightarrow$ \textit{generating vacuum}
+$\rightarrow$ \textit{starting-up} $\rightarrow$ \textit{active}}. This is
+accounted for in the models by the integrated finite-state machines as
+explained in \refsec{solarmed:modelling:discrete}.
 
-% The objective is to minimize the cost of operation ($J$) where fresh water ($q_{med,d}$) sold ($J_w$) is the positive term while (electrical) consumptions ($C_e$) make up the negative cost term ($J_e$) due to electricity use:
-
-% minimize
-% $J\:[u.m.] = \sum_{k=1}^{n_{steps}} \left( J_{e,k} - J_{w,k} \right)$
-
-% where:
-% \begin{itemize}
-%     \item $J_{w,k}=q_{d,k} \cdot P_{w,k}$ if \textit{valid operation} else 0
-%     \item $J_{e,k} = \sum^{n_{}}_{i=1} C_{e,i,k} \cdot {P_{e,k}}$
-% \end{itemize}
-
-% \textit{valid operation} conditions:
-% \begin{itemize}
-%     \item $T_{sf,out} \le \overline{T_{sf,out}}$
-% \end{itemize}
-
-% The benefit (B) of operation is simply the inverse of the cost of operation.
-
-% The problem is designed with a rolling window horizon, so the decision vector is formed by each individual decision variable repeated as many times as updates for it, $X_{nx \times \sum{n_{updates,xi}}}=[x_{1,k},\allowbreak\; \ldots,x_{1,n_{updates,x_{1}}},\allowbreak\; \ldots,x_{n_x, n_{updates, x_{nx}}}]$.  The number of updates of the decision variable ($n_{updates, x_i} \in [1,n_{steps}]$) can be chosen individually. More updates are assigned to variables regulating faster dynamics ($q_{sf}$, $q_{ts,src}$), and these updates of the decision variables are evenly distributed throughout the active period of the subsystem within the horizon. Finally, the environment for this MINLP problem includes weather variables (ambient temperature - $T_{amb}$, global direct irradiance - $I$, and feedwater salinity - $w_{med,f}$) and cost context (water sale price - $P_{w}$ and electricity price - $P_e$).
-
-% The optimization problem definition is similar between the operation plan and
-% the operation optimization layers, the only difference being that the operation
-% plan layer evaluates $n_{problems}$ combinations of $med_{mode}$ and
-% $sfts_{mode}$ and the evaluation result are the values of these two binary
-% decision variables. Then, in the operation optimization layer, these binary
-% variables can be moved to the environment, and thus instead of evaluating a
-% library of candidate problems, only one is. The periodic evaluation result of
-% this layer establishes the setpoint values of the continuous process variables.
-% In this report, focus is given to the upper operation plan layer, which is
-% detailed below.
-
-%===================================
-\subsection{Environment description}
+The problem is defined as follows:\sidenote{In general $q$ represents flow
+rates while $T$ are temperatures. \reffig{solarmed:process-diagram} can be consulted
+for subscript reference.}\todo{en el bloque de definición del modelo
+completo, incluir $T_{sf,out} \le \overline{T_{sf,out}}$ para determinar la
+variable de salida \textit{valid operation}}
 
 \marginnote[*5]{$\forall i = 1 \ldots n_{steps}$ is a notation to indicate that
     a condition must be held at every step $i$ in the optimization horizon
-    ($n_{steps}$)}
+    ($n_{steps}$).\\ Bold variables represent vectors.}
 
 \problemdefinitionbox{\gls{solarmedLabel}}{
     \begin{equation*}
-        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = \sum_{i=1}^{n_{steps}} \left( J_{e,i} + J_{w,i} \right) \cdot T_s
+        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = \sum_{i=1}^{n_{steps}} \left( J_{e,i}-J_{w,i} \right)
     \end{equation*}
 
     \textbf{with}:
     \begin{align*}
         \quad for\: i &= 1 \ldots n_{steps}: \\
+        & \quad J_{w,i}=q_{d,i} \cdot P_{w,i}\:\text{if \textit{valid operation} else 0} \\
         & \quad J_{e,i} = C_{e,i} \cdot P_{e,i} \\
-        & \quad J_{w,i} = C_{w,s1,i} \cdot P_{w,s1,i} + C_{w,s2,i} \cdot P_{w,s2,i} \\
-        & \quad C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} \\
-        & \quad C_{w,s2,i} = C_{w,i}-C_{w,s1,i} \\
-        & \quad V_{avail,i} = V_{avail,i-1}-C_{w,s1,i}\cdot T_s \\
-        & \quad T_{cc,out,i},\,C_{e,i},\,C_{w,i},\,T_{c,out,i}=f(q_{c,i}, R_{p,i}, R_{s,i}, \omega_{dc,i}, \omega_{wct,i},T_{amb,i},HR_i,T_{v,i},\dot{m}_{v,i})
+        & \quad q_{d,i},\,C_{e,i},\,\text{valid operation}=\text{solarmed model}(x_{c,i}, x_{p,i}, ...)
     \end{align*}
     \begin{itemize}
         \item Decision variables
         \[
-        \mathbf{x} = [\mathbf{q_c}, \mathbf{R_p}, \mathbf{R_s}, \boldsymbol{\omega}_{\text{dc}}, \boldsymbol{\omega}_{\text{wct}}]
+        \mathbf{x} = [\mathbf{med_{mode}},\,\mathbf{sfts_{mode}},\,\mathbf{q_{sf}},\,\mathbf{q_{ts,src}},\,\mathbf{q_{med,s}},\,\mathbf{q_{med,f}},\,\mathbf{T_{med,s,in}},\,\mathbf{T_{med,c,out}}]
         \]
-        where $x=[x_{1,1},\,\ldots\, x_{1,n_{steps}},\, \ldots,\, x_{n_{x},n_{steps}}]$
+        where $\mathbf{x}_{nx \times \sum{n_{updates,xi}}}=[x_{1,i},\allowbreak\;
+        \ldots,x_{1,n_{updates,x_{1}}},\allowbreak\; \ldots,x_{n_x, n_{updates,
+        x_{nx}}}]$
+        % where $\mathbf{x}=[x_{1,1},\,\ldots\, x_{1,n_{steps}},\, \ldots,\,
+        % x_{n_{x},n_{steps}}]$
+        
         \item Environment variables
         \[
-        \mathbf{e} = [\mathbf{T_{\text{amb}}}, \mathbf{HR},\, \mathbf{P_e},\, \mathbf{P_{w,s1}},\, \mathbf{P_{w,s2}}, \mathbf{V_{avail,0}},\, \mathbf{T_v},\, \mathbf{\dot{m}_v}]
+        \mathbf{e} = [\mathbf{I},\,\mathbf{T_{\text{amb}}},\, \mathbf{P_e},\, \mathbf{P_{w}}]
         \]
         where $e=[e_{1,1},\,\ldots\, e_{1,n_{steps}},\, \ldots,\, e_{n_{e},n_{steps}}]$
 
@@ -90,48 +85,170 @@
         
         \item Box-bounds
         \begin{itemize}
-                \item $\mathbf{w_{dc}} \in [\underline{w}_{dc}, \overline{w}_{dc}]$
-                \item $\mathbf{w_{wct}} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
-                \item $\mathbf{q_{c}} \in [\underline{q}_{c}, \overline{q}_{c}]$
-                \item $\mathbf{R_p} \in [0,1]$
-                \item $\mathbf{R_s} \in [0,1]$
+            \item $\mathbf{med_{mode}} \in [0,1] \subset \mathbb{Z}$
+            \item $\mathbf{sfts_{mode}} \in [0,1] \subset \mathbb{Z}$
+            \item $\mathbf{q_{sf}} \in [\underline{q_{sf}}, \overline{q_{sf}}] \subset \mathbb{R}$
+            \item $\mathbf{q_{ts,src}} \in [\underline{q_{ts,src}}, \overline{q_{ts,src}}] \subset \mathbb{R}$
+            \item $\mathbf{q_{med,s}} \in [\underline{q_{med,s}}, \overline{q_{med,s}}] \subset \mathbb{R}$
+            \item $\mathbf{q_{med,f}} \in [\underline{q_{med,f}}, \overline{q_{med,f}}] \subset \mathbb{R}$
+            \item $\mathbf{T_{med,s,in}} \in [\underline{T_{med,s,in}}, \overline{T_{med,s,in}}] \subset \mathbb{R}$
+            \item $\mathbf{T_{med,c,out}} \in [\underline{T_{med,c,out}}, \overline{T_{med,c,out}}] \subset \mathbb{R}$
         \end{itemize}
+    \end{itemize}
 
-        \item Constraints, $\forall i = 1 \ldots n_{steps}$:
-        \begin{itemize}
-            \item $\left| T_{\text{cc,out},i} - T_{\text{c,in},i} \right| \leq \epsilon_1$
-            \item $T_{\text{c,out},i} \leq T_{v,i} - \Delta T_{\text{c-v,min}}$
-            \item $\left| Q_{\text{cc},i} - Q_{\text{c,released},i} \right| \leq \epsilon_2$
-        \end{itemize}
-
+    \textit{valid operation} conditions, $\forall i = 1 \ldots n_{steps}$:
+    \begin{itemize}
+        \item $T_{sf,out} \le \overline{T_{sf,out}}$
     \end{itemize}
 }
 
+Where the objective is to minimize the cumulative cost of operation ($J$).
+Fresh water ($q_{med,d}$) sold ($J_w$) at price $P_w$ is the negative term
+while electrical consumptions ($C_e$) at price $P_e$ make up the positive cost
+term ($J_e$). The benefit ($B$) of operation is simply the inverse of the cost
+of operation.
+
+%================================
+%================================
+\subsection{Implementation discussion}
+\labsec{solarmed:optimization:implementation}
+
+%==============================
+\subsubsection{On the constraint handling}
+\labsec{solarmed:optimization:constraints-discussion}
+
+% % The reader might notice that no constraints are explicitly defined in the
+% % problem definition. This is because the constraints are implicitly defined in
+% % the model equations, which are used to evaluate the objective function. This
+% % design decision is motivated to avoid the need for a constraint-handling
+% % capable optimization algorithm, limiting the choice for an already complex
+% % \gls{minlpLabel} problem.\sidenote{See
+% % \nrefsec{intro:optimization:constraints} for a more detailed discussion on the
+% % topic}. Specifically, two aspects demand further consideration:
+
+% \begin{enumerate}
+%     \item The decision value for the \gls{medLabel} outlet condenser
+%     temperature ($T_{med,c,out}$) is not a direct input to the system, but rather a
+%     setpoint to be followed by a low-level control loop, by manipulating the cooling
+%     water flow rate ($q_{med,c}$). This input might saturate and thus not be
+%     able to achieve the desired setpoint. In this case, a new value for the
+%     decision variable is computed, which is the maximum value that can be
+%     achieved. 
+    
+%     Here, in order to ensure \texttt{valid operation} the decision
+%     variable is manipulated.
+
+%     \item For the solar field, in order to not constantly interrupt the
+%     evaluation due to the solar field temperature going above
+%     $\overline{T_{sf,out}}$ (\ie 120 $^\circ$C), the model saturates this
+%     temperature when going above and sets a flag. The problem with the approach
+% i  s that when there is low energy demand from the
+%     load, and likely because it favors energy transfer in the heat exchanger
+%     \sidenote{greater temperature difference in primary side instead of greater mass
+%     flow rate with increased cost and diminished available energy increase},
+%     the optimizer tends to minimize the solar field flow, and systematically
+%     lets the solar field outlet temperature reach the limit. To avoid this
+%     situation, the positive term of the objective function is nullified in
+%     iterations where the constraint is not met.
+    
+%     Here, in order to ensure \texttt{valid operation} the fitness function is
+%     manipulated to de-incentivize decision variable values that lead to
+%     unfeasible operation. 
+
+% \end{enumerate}
+
+% \subsubsection{On the prediction horizon}
+% \labsec{solarmed:optimization:decision_variables-discussion}
+
+% The problem is designed as an optimization problem with a shrinking
+% horizon\marginreminder{An optimization where the horizon end is fixed, and as
+% time progresses, the start of the horizon moves forward. See
+% \nrefsec{intro:optimization}}. The horizon size should be large enough so that
+% decisions on how to operate the system are made with perspective, taking into
+% account how they will affect the system in the future, but not so large that
+% current decisions have no impact on the far future, and making the
+% the problem dimensionality become unmanageable. 
+
+% For this case study, this parameter should be chosen based
+% on the hours of capacity of the thermal storage to operate the \gls{medLabel} system.
+
+% The thermal storage capacity is XXX which allows the system to operate with no
+% supply from the solar field for up to XX hours. This means that depending on
+% the charge state of the thermal storage, the system could start operation
+% independently of the irradiance conditions, or operate at different levels of
+% temperature. Considering this, the optimization horizon
+% in time units, chosen was 36 hours. This means that if the problem is evaluated at
+% 5:00 on day 1, the fitness function is evaluated until 19:00 of day 2 \ie
+% including the end of operation for day 2. 
+
+% \subsubsection{On the decision variables update frequency}
+% \labsec{solarmed:optimization:decision_variables-discussion}
+
+% If a fixed decision variable update frequency is chosen, the number of decision
+% variables for a large horizon like the one chosen, can become unmanageable,
+% specially for the binary decision variables\sidenote{Further discussed in the
+% next section}. Instead, a new design parameter is introduced: the number of
+% decision variable updates ($n_{updates, x_i}$) for each decision variable in
+% the optimization problem.
+
+% Thus, the decision vector is formed by each individual decision variable repeated as
+% many times as updates for it, $X_{nx \times
+% \sum{n_{updates,xi}}}=[x_{1,k},\allowbreak\;
+% \ldots,x_{1,n_{updates,x_{1}}},\allowbreak\; \ldots,x_{n_x, n_{updates,
+% x_{nx}}}]$. The number of updates of the decision variable ($n_{updates, x_i}
+% \in [1,n_{steps}]$) can be chosen individually. More updates are assigned to
+% variables regulating faster dynamics ($q_{sf}$, $q_{ts,src}$), and these
+% updates of the decision variables are evenly distributed throughout the active
+% period of the subsystem within the horizon. 
 
 
 %===================================
 %===================================
-\section{Solving the optimization problem}[Solving the problem]
-\labsec{part:chapter:section}
+\subsubsection{On solving the optimization problem}[On solving the problem]
+\labsec{solarmed:optimization:solving-discussion}
 
 % Discusión sobre la resolución del problema
-The implementation challenge of a control scheme for this MINLP, is shown in \cite{josedomingo}. Since the decision variable update at any given step, can be approached, from many different previous decision variables updates in past steps, the range of possible operation modes grows exponentially...
+The implementation challenge of a control scheme for this MINLP, is shown in
+\cite{josedomingo}. Since the decision variable update at any given step, can
+be approached, from many different previous decision variables updates in past
+steps, the range of possible operation modes grows exponentially...
 
-Enabling the coupling between the variable solar energy source and the flexible MED system, can be achieved in several ways. Here we are dealing with a Mixed Integer Non Linear Problem (MINLP).
+Enabling the coupling between the variable solar energy source and the flexible
+MED system, can be achieved in several ways. Here we are dealing with a Mixed
+Integer Non Linear Problem (MINLP).
 
-One of the most important considerations when attempting to solve the optimization problem, is whether the paths to take (operating modes evolution in the prediction horizon) are pre-computed or if on the other hand, it's left to the optimization algorithm to explore the tree and generate its own trajectories.
+One of the most important considerations when attempting to solve the
+optimization problem, is whether the paths to take (operating modes evolution
+in the prediction horizon) are pre-computed or if on the other hand, it's left
+to the optimization algorithm to explore the tree and generate its own
+trajectories.
 
-An alternative to tackling the problem in its full complexity (both integer and continuous components), is to solve it in two steps. Where in the first one a simplified version of the MINLP is first solved using one of the afore-mentioned HGO alternative, so that the integer variables are set, and then a second evaluation is solved where only the non-linear problem is solved through Local optimization. The following solvers are tested:
+An alternative to tackling the problem in its full complexity (both integer and
+continuous components), is to solve it in two steps. Where in the first one a
+simplified version of the MINLP is first solved using one of the
+afore-mentioned HGO alternative, so that the integer variables are set, and
+then a second evaluation is solved where only the non-linear problem is solved
+through Local optimization. The following solvers are tested:
 
 
 %===================================
-\subsection[]{Proposed optimization strategy}[Proposed strategy]
+\section[]{Proposed optimization strategy}[Proposed strategy]
 \labsec{solarmed:optimization:strategy}
 
-The behavior of the \textit{SolarMED} process is controlled by acting on two components, a discrete and a continuous one:
+The behavior of the \textit{SolarMED} process is controlled by acting on two
+components, a discrete and a continuous one:
 \begin{itemize}
-    \item Operation state. It defines the discrete state of the system. The complete system is divided into two subsystems: the heat generation and storage subsystem and the separation subsystem. For the solar field and thermal storage subsystem (sfts), the states are simply defined based on whether water is being recirculated in each circuit, while for the MED various discrete modes can be found: \textit{off}, \textit{generating vacuum}, \textit{startup}, \textit{shutdown}, and \textit{idle} operation depending on the sequence of values of several process variables.
-    \item Process variables. Regulates the continuous-dynamic behavior of the process. Specifically, two recirculation flow rates for the sfts subsystem, five flow and temperature variables for the MED.
+    \item Operation state. It defines the discrete state of the system. The
+    complete system is divided into two subsystems: the heat generation and
+    storage subsystem and the separation subsystem. For the solar field and
+    thermal storage subsystem (sfts), the states are simply defined based on
+    whether water is being recirculated in each circuit, while for the MED
+    various discrete modes can be found: \textit{off}, \textit{generating
+    vacuum}, \textit{startup}, \textit{shutdown}, and \textit{idle} operation
+    depending on the sequence of values of several process variables.
+    \item Process variables. Regulates the continuous-dynamic behavior of the
+    process. Specifically, two recirculation flow rates for the sfts subsystem,
+    five flow and temperature variables for the MED.
 \end{itemize}
 
 The goal is to design an operational strategy that enables the seamless
@@ -139,12 +256,115 @@ integration of both subsystems in an autonomous and optimal manner, including
 decisions on when to start or stop each subsystem and how to regulate them
 during operation. Therefore, considering the whole system as a Mixed Integer
 Non-Linear Problem (MINLP). \marginnote{See
-\nrefsec{intro:optimization:minlp_problems} for a formal definition}
+\nrefsec{intro:optimization:minlp_problems}}
 
-% In order to achieve this objective, a hierarchical control approach was chosen consisting on three-layers: operation plan, operation optimization, and operation regulation. This scheme was chosen for two main reasons. On the one hand, the time scales of the different aspects of the operation of the system (operation mode changes, process variables setpoint changes, regulatory control, respectively) can differ substantially. Secondly, it allows to abstract process complexity from the more computationally demanding upper layers by allocating it into the downstream layers. The operation plan layer makes decisions for the operation state, the operation optimization layer sets the setpoints given to the continuous process variables that are to be followed by the low-level regulatory control layer.
+In order to achieve this objective, a hierarchical control approach was chosen
+consisting on three-layers: operation plan, operation optimization, and
+operation regulation. This scheme was chosen for two main reasons. On the one
+hand, the time scales of the different aspects of the operation of the system
+(operation mode changes, process variables setpoint changes, regulatory
+control, respectively) can differ substantially. Secondly, it allows to
+abstract process complexity from the more computationally demanding upper
+layers by allocating it into the downstream layers: The operation plan layer
+makes decisions for the operation state, the operation optimization layer sets
+the setpoints given to the continuous process variables that are to be followed
+by the low-level regulatory control layer.
 
+\begin{marginfigure}[-5.5cm]
+    \includegraphics[]{figures/solarmed-optimization-architecture.png}
+    \caption{Proposed optimization strategy architecture}
+    \labfig{solarmed:optimization:architecture}
+\end{marginfigure}
+
+The optimization problem definition is similar between the operation plan and
+the operation optimization layers, the only difference being that the operation
+plan layer evaluates $n_{problems}$ combinations of $med_{mode}$ and
+$sfts_{mode}$ and the evaluation result are the values of these two binary
+decision variables. Then, in the operation optimization layer, these binary
+variables can be moved to the environment, and thus instead of evaluating a
+library of candidate problems, only one is. The periodic evaluation result of
+this layer establishes the setpoint values of the continuous process variables.
+In this report, focus is given to the upper operation plan layer, which is
+detailed below.
 
 \section{Operation plan layer description}
+
+As mentioned, this layer establishes the operation modes, \ie the integer part
+of the \gls{minlpLabel} problem. Two evaluations of this layer are performed at different
+moments in time in order to establish when to start the subsystems and when to
+stop them.
+
+
+\begin{figure*}
+    \centering
+    \subfloat[\centering Computation timeline]{{\includegraphics[width=0.48\linewidth]{figures/solarmed-optimization-timeline.png}}}%
+    \hspace{0.01\linewidth}
+    \subfloat[\centering Operation mode updates time distribution]{{\includegraphics[width=0.48\linewidth]{figures/solarmed-optimization-updates_distribution.png}}}%
+    \caption[Operation plan layer computation and updates distribution]{Operation plan layer computation and updates distribution. The yellow line represents the irradiance illustrating the solar day.}%
+    \labfig{solarmed:optimization:operation_plan}
+\end{figure*}
+
+The complexity of producing good values for the integer decision variables
+arises from their combinatory nature. Each value of the integer decision
+variables ($med_{mode}$, $sfts_{mode}$) along the prediction horizon produces a
+different solution space and is associated with an exponentially growing number
+of possible combinations as a function of the number of integer variables
+($n_{xi}$) and the number of integer decision variable updates ($n_{updates,
+x_i}$). To make this problem solvable in a reasonable amount of time, a
+compromise fixed number of combinations, $n_{problems}$, are studied. This
+approach allows to move the integer decision variables to the environment and
+simplify the problem, at the cost of requiring to evaluate several candidate
+problems (MINLP $\rightarrow$ nNLP). In order to maintain the solution close to
+the optimal one, decision updates are assigned at strategic time instants.
+
 \subsection{Update times generation}
+
+Since the case study system is fundamentally a solar process, the operation is
+strongly dependent on the irradiance availability, and thus operation changes
+are likely to take place at the start and end of the solar day. Depending on
+the number of updates available (DoF in Fig. \ref{fig:updates_distribution})
+for when to start and stop the operation, the operation mode updates are
+distributed temporally, as shown in Fig. \ref{fig:updates_distribution} at some
+update times per subsystem. These update times are dependent on the solar
+irradiance profile and are bounded by lower- and upper-level thresholds,
+depending on the plan action (start-up or shutdown). They are named early-late
+start or early-late stop thresholds, respectively. Depending on the number of
+updates for the particular action, additional thresholds can be added.
+
 \subsection{Candidate problems generation}
-\section{Operation optimization layer description}
+
+\subsubsection{Start-up.} Evaluated before the operation starts (see
+Fig. \ref{fig:computation_time}), it has plenty of time to be computed since it
+can start hours in advance. The main objective is to establish the operation
+start of the subsystems and an estimation of when to stop,and computed before
+the first potential operation mode change. Given the computation time of the
+objective function for the available computing hardware, it has been determined
+that in the order of $n_{problems}\sim 100$ can be evaluated. Given this
+constraint, updates are allocated as follows:
+
+\subsubsection{Shutdown.} Computed some time before shutting down the system for day 1 (see Fig. \ref{fig:computation_time}). The objective is to establish accurately when to do so. It uses the latest available state and has available updates for the operation start/end of the second day, in order to consider how it will be affected by the day 1 shutdown decision.
+
+
+\begin{table}[]
+\centering
+\caption{Operation plan. Start-up (1) and shutdown (2) degrees of freedom for changes in the operation state.}
+\labtab{solarmed:optimization:dof}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllllllllll}
+\cline{3-13}
+ &  & \multicolumn{1}{c}{\multirow{3}{*}{\textbf{Subsystem}}} &  & \multicolumn{7}{l}{\textbf{Degrees of freedom}} &  & \multirow{3}{*}{\textbf{nproblems}} \\ \cline{5-7} \cline{9-11}
+ &  & \multicolumn{1}{c}{} &  & \multicolumn{3}{l}{Day 1} &  & \multicolumn{3}{l}{Day 2} &  &  \\ \cline{5-7} \cline{9-11}
+ &  & \multicolumn{1}{c}{} &  & Start &  & Stop &  & Start &  & Stop &  &  \\ \cline{3-3} \cline{5-5} \cline{7-7} \cline{9-9} \cline{11-11} \cline{13-13} 
+\multicolumn{1}{l|}{\multirow{2}{*}{Evaluation: Start-up (1)}} &  & sfts &  & 3 &  & 3 &  & 1 &  & 1 &  & \multirow{2}{*}{101} \\
+\multicolumn{1}{l|}{} &  & med &  & 3 &  & 3 &  & 1 &  & 1 &  &  \\
+ &  &  &  &  &  &  &  &  &  &  &  &  \\
+\multicolumn{1}{l|}{\multirow{2}{*}{Evaluation: Shutdown (2)}} &  & sfts &  & 3 &  & 2 &  & 2 &  & 2 &  & \multirow{2}{*}{144} \\
+\multicolumn{1}{l|}{} &  & med &  & 3 &  & 2 &  & 2 &  & 2 &  &  \\ \cline{3-13} 
+\end{tabular}%
+}
+\end{table}
+
+% \subsection{Candidate problems generation}
+
+
+% \section{Operation optimization layer description}

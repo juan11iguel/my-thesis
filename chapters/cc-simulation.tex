@@ -283,28 +283,51 @@ includes a scaling factor to normalize the values}.
 \labsec{cc:simulation:optimization-comparison}
 
 % 3 in 1 cc-static
-{\newgeometry{margin=0.5cm}  % Remove margins completely
+% {\newgeometry{margin=0.5cm}  % Remove margins completely
 
-\begin{sidewaysfigure*}
-    \centering
-    \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
-    \caption{A rotated figure}
-\end{sidewaysfigure*}
+% \begin{sidewaysfigure*}
+%     \centering
+%     \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
+%     \caption{A rotated figure}
+% \end{sidewaysfigure*}
 
-\restoregeometry}
+% \restoregeometry}
 
+
+% % 3 in 1 cc-horizon
+% % TODO: añadir cumulative costs comparison
+% {\newgeometry{margin=0.5cm}  % Remove margins completely
+
+% \begin{sidewaysfigure*}
+%     \centering
+%     \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
+%     \caption{A rotated figure}
+% \end{sidewaysfigure*}
+
+% \restoregeometry}
+
+% 3 in 1 cc-static
+{%
+\newgeometry{margin=0.5cm}
+\begin{figure}
+    \savebox\captionqr{\qrcode[hyperlink,height=1cm]{\repositoryBaseUrl/figures/test.html}}
+    \caption{\gls{ccLabel} static optimization simulation results in three
+    different periods of time \hspace{1ex}\usebox\captionqr}
+    \makebox[\textwidth][c]{\includegraphics[angle=90,width=0.9\paperwidth]{temp/test.png}}%
+\end{figure}%
+\restoregeometry
+}
 
 % 3 in 1 cc-horizon
-% TODO: añadir cumulative costs comparison
-{\newgeometry{margin=0.5cm}  % Remove margins completely
-
-\begin{sidewaysfigure*}
-    \centering
-    \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
-    \caption{A rotated figure}
-\end{sidewaysfigure*}
-
-\restoregeometry}
+{%
+\newgeometry{margin=0.5cm}
+\begin{figure}
+    \savebox\captionqr{\qrcode[hyperlink,height=1cm]{\repositoryBaseUrl/figures/test.html}}
+    \caption{A rotated figure \hspace{1ex}\usebox\captionqr}
+    \makebox[\textwidth][c]{\includegraphics[angle=90,width=0.9\paperwidth]{temp/test.png}}%
+\end{figure}%
+\restoregeometry
+}
 
 
 \section{Cooling alternatives comparison}
@@ -318,15 +341,15 @@ includes a scaling factor to normalize the values}.
 %         \end{figure*}
 Fusionar las gŕacias de resultados anuales remuestreados para que incluyan
 todas las alternativas. Cambiar fondo para cada sistema
-\begin{figure}[h!]
-    \includegraphics[width=1\textwidth]{figures/cc-simulation-comparison-year_viz_resampled.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-comparison-year_viz_resampled.html}}
+\begin{figure*}[h!]
+    \includegraphics[width=1\linewidth]{figures/year_viz_comp_SME-15.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/year_viz_comp_SME-15.html}}
     \caption{Annual simulation results for the \gls{ccLabel} system optimized
     with static optimization. Results are resampled every 15 days using their
     mean values. The original frequency results can be found in the interactive
     version:\\[1ex] \usebox\captionqr}
     \labfig{cc:simulation:year-comparison}
-\end{figure}
+\end{figure*}
 
 
 \todo{Añadir gráfica de barras comparando coste por kWh refrigerado}

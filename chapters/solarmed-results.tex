@@ -20,22 +20,55 @@
 
 \subsection{Choosing an algorithm}
 
-% \begin{figure*}
-%     \centering
-%     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/.html}}
-%     \savebox\captionqrright{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/.html}}
+Once the optimization problem(s) is defined, an algorithm must be chosen that
+explores the solution space and finds a decision vector that minimizes the
+objective function.
 
-%     \subfloat[\centering Algorithms fitness evolution comparison \hspace{1ex} \usebox\captionqrleft]{{\includegraphics[width=0.58\linewidth]{figures/solarmed-operation_plan-algo_comparison.png}}}
 
-%     \hspace{0.1cm}
+\begin{figure*}
+    \centering
+    \savebox\captionqrleft{\qrcode[hyperlink,height=0.3in]{\repositoryBaseUrl/figures/.html}}
+    \savebox\captionqrright{\qrcode[hyperlink,height=0.3in]{\repositoryBaseUrl/figures/.html}}
 
-%     \subfloat[\centering Candidate problems fitness evolution comparison \hspace{1ex} \usebox\captionqrright]{{\includegraphics[width=0.38\linewidth]{figures/solarmed-operation_plan-startup-problems_fitness_comparison.png}}}
-    
-%     \caption[]{Fitness evolution for a particular startup-problem.}
-%     \labfig{solarmed:results:comparison}
-% \end{figure*}
+    \subfloat[Algorithms fitness evolution \hspace{1ex} \usebox\captionqrleft]{%
+        \includegraphics[width=0.50\linewidth]{figures/solarmed-operation_plan-algo_comparison.png}
+    }
+    \hspace{0.03\linewidth}
+    \subfloat[Startup-problems fitness evolution \hspace{1ex} \usebox\captionqrright]{%
+        \includegraphics[width=0.42\linewidth]{figures/solarmed-operation_plan-startup-problems_fitness_comparison.png}
+    }
+
+    \caption{Fitness evolution for a particular startup-problem}
+\end{figure*}
+
+The solution space has proven to be non-convex, with many local minimums (poor
+results were obtained when using local-gradient-based algorithms). The size of
+the decision vector depends on the active periods duration, around 120
+elements. In addition, simulation of two days of operation (even when inactive
+periods are skipped) requires 5-10 seconds of computation time. Algorithm
+parallelization capabilities are of no use in this case, since many candidate
+problems will already be evaluated in parallel. The objective is then to find a
+global large-scale optimization algorithm that can find near-optimal solutions
+with 200 to 300 objective function evaluations (totaling 2-4 hours of
+computation time). In order to find the best algorithm, one of the candidate
+problems is arbitrary chosen and a library of global-evolutionary optimization
+algorithms is used from the PyGMO open-source Python library, specifically:
+Differential Evolution (DE), Self-adaptive DE (SADE), (N+1)-ES Simple
+Evolutionary Algorithm (SAE), Covariance Matrix Adaptation Evolution Strategy
+(CMA-ES) and Particle Swarm Optimization (PSO). Evolution results are shown in
+Fig.\ref{fig:algo_comparison}, showcasing that for this particular problem the
+best alternative is the (N+1)-ES Simple Evolutionary Algorithm.
 
 \subsection{Choosing a candidate problem}
+
+Once an algorithm was chosen, all $n_{problems}$ were evaluated where the
+algorithm is only required to choose values for the process variables
+(continuous). The results of this evaluation are shown in
+Fig.\ref{fig:problems_comparison}, 101 problems were evaluated and visualized
+is their fitness evolution as a function of objective function evaluations.
+Problems 8, 18 and 48 resulted in the best fitness after the evolution process
+and their operation plan can be visualized in Fig.
+\ref{fig:best_candidates_op_plan}.
 
 
 %================================
@@ -60,12 +93,13 @@ conditions, followed by a cloudy day, and finishing with a sunny day (\reffig{}
 % \restoregeometry
 % }
 
-{\newgeometry{margin=0.5cm}  % Remove margins completely
-\begin{sidewaysfigure*}
-    \centering
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solarmed-result.html}}
-    \includegraphics[width=.9\paperheight, keepaspectratio]{figures/solarmed-result.png}
+{%
+\newgeometry{margin=0.5cm}
+\begin{figure*}
+    % \centerfloat
+    \savebox\captionqr{\qrcode[hyperlink,height=1cm]{\repositoryBaseUrl/figures/solarmed-result.html}}
+    \makebox[\textwidth][c]{\includegraphics[angle=90,width=0.7\paperwidth]{figures/solarmed-result.png}}%
     \caption{A rotated figure \hspace{1ex}\usebox\captionqr}
-\end{sidewaysfigure*}
+\end{figure*}%
 \restoregeometry
 }

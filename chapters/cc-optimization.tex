@@ -466,8 +466,8 @@ the current optimization step ($i$) until the end of the prediction horizon
 This formulation allows for an arbitrary long prediction horizon, however,
 since forecasts for each variable in the environment are needed, it will be
 limited to a number of steps where reliable predictions can be obtained. On
-this work water availability is allocated daily so the prediction horizon is
-established until the end of the operation day, and it starts from the current
+this work water availability is allocated daily, so the prediction horizon is
+established until the end of the operation day and it starts from the current
 time when the optimization is launched.
 
 % \begin{enumerate} 
@@ -494,7 +494,7 @@ time when the optimization is launched.
 % de la complejidad del problema con el número de pasos en el horizonte, etc..
 
 As defined, the \gls{ccsLabel} problem decision vector is composed by five
-variables that are direct inputs on the process\sidenote{Decision variables
+variables that are direct inputs on the process\sidenote{\ie Decision variables
 represent actuators in the system}. But as mentioned, not any five values for
 these variables will yield a feasible solution, in the real system this
 translates to the fact that a stable operation \ie steady-state would never be
@@ -543,32 +543,36 @@ The methodology is illustrated in \reffig{cc:optimization:horizon-methodology}
 and its components are described in the following sections.
 
 \begin{figure*}[h!]
-    \begin{flushleft}
-        {\textbf{0.} Decompose the problem horizon into its $n$ steps elements.}
-    \end{flushleft}
-    \vspace{1ex}
-
-    \begin{flushleft}
-    {\textbf{1.} Solve a multi-objective optimization problem,
-    independently for each step, to obtain a set of pareto fronts:}
-    \end{flushleft}
-    \vspace{0.5ex}
-    \includegraphics[]{figures/optimization-diagrams-paretos.png}
-    \vspace{1ex}
-
-    \begin{flushleft}
-    {\textbf{2.} Select a path through these
-    pareto fronts that minimizes a global objective: the cumulative operation
-    cost of operation}
-    \end{flushleft}
-    \vspace{0.5ex}
-    \includegraphics[]{figures/optimization-diagrams-path-selection.png}
+    % \begin{flushleft}
+    %     {\textbf{0.} Decompose the problem horizon into its $n$ steps elements.}
+    % \end{flushleft}
     % \vspace{1ex}
-    
+
+    % \begin{flushleft}
+    % {\textbf{1.} Solve a multi-objective optimization problem,
+    % independently for each step, to obtain a set of pareto fronts:}
+    % \end{flushleft}
+    % \vspace{0.5ex}
+    % \includegraphics[]{figures/optimization-diagrams-paretos.png}
+    % \vspace{1ex}
+
+    % \textdownarrow
+
+    % \begin{flushleft}
+    % {\textbf{2.} Select a path through these
+    % pareto fronts that minimizes a global objective: the cumulative operation
+    % cost of operation}
+    % \end{flushleft}
+    % \vspace{0.5ex}
+    % \includegraphics[]{figures/optimization-diagrams-path-selection.png}
+    % % \vspace{1ex}
+    \includegraphics[]{figures/cc-horizon-optimization-diagram.png}
+
     \caption[Proposed methodology. Decomposition-based multi-objective
     optimization with trajectory planning]{Proposed methodology.
     Decomposition-based multi-objective optimization with trajectory planning.
-    In step 2. three paths are illustrated: a water-greedy
+    \textcolor[HTML]{6C8EBF}{\textit{Blue-dots} (\textbf{·})} represent
+    points on the Pareto front. In step 2. three paths are illustrated: a water-greedy
     \textcolor[HTML]{9673A6}{dash-purple (- -) path}, a water-conservative
     \textcolor[HTML]{82B366}{green-dotted path (\texttt{..})} and a
     compromise-approach \textcolor[HTML]{FFCE9F}{solid-\textit{orangey} path
