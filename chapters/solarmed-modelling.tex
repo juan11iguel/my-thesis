@@ -157,10 +157,10 @@ the logical \texttt{AND} operator and $\forall$ represents that all meet the con
     \toprule
     \textbf{State} & \textbf{Name} & \textbf{Condition}  \\
     \midrule
-    0 & Off & $q_{sf}\land q_{ts,src}==0$ \\
-    1 & Warming up \gls{sfLabel} & $q_{sf} > 0 \land q_{ts,src}==0$ \\
-    2 & Recirculating \gls{tsLabel} & $q_{sf} ==0 \land q_{ts,src} > 0$ \\
-    3 & \gls{sfLabel} heating up \gls{tsLabel} & $q_{sf}\land q_{ts,src} > 0$
+    0 (00) & Off & $q_{sf}\land q_{ts,src}==0$ \\
+    1 (01) & Warming up \gls{sfLabel} & $q_{sf} > 0 \land q_{ts,src}==0$ \\
+    2 (10) & Recirculating \gls{tsLabel} & $q_{sf} ==0 \land q_{ts,src} > 0$ \\
+    3 (11) & \gls{sfLabel} heating up \gls{tsLabel} & $q_{sf}\land q_{ts,src} > 0$
     \\
     \bottomrule
 \end{tabular}
@@ -188,12 +188,12 @@ the condition, and $\forall$ represents that all meet the condition.}
     \textbf{State} & \textbf{Name} & \textbf{Condition}  \\
     \midrule
     0 & Off & $\forall q == 0$ \\
-    1 & Generating vacuum & $med{vac} == 2$ \\
-    2 & Idle & $\forall q == 0 \land med{vac} == 1$ \\
-    3 & Starting-up & $\forall q > \underline{q} \land med{vac} \ge 1 \land \forall T >
+    1 & Generating vacuum & $\text{med}_{vac} == 2$ \\
+    2 & Idle & $\forall q == 0 \land \text{med}_{vac} == 1$ \\
+    3 & Starting-up & $\forall q > \underline{q} \land \text{med}_{vac} \ge 1 \land \forall T >
     \underline{T} $ \\
     4 & Shutting down & $\exists$ q < \underline{q} \\
-    5 & Active & $\forall q > \underline{q} \land med{vac} \ge 1 \land \forall T >
+    5 & Active & $\forall q > \underline{q} \land \text{med}_{vac} \ge 1 \land \forall T >
     \underline{T} $\\
     \bottomrule
 \end{tabular}
@@ -204,6 +204,13 @@ the condition, and $\forall$ represents that all meet the condition.}
 
 Aquí describir cómo se combinan los componentes en función del estado del
 sistema y cómo ello depende de las máquinas de estado finito.
+
+To refer to the operational state of the system, a three digit number is used,
+where the first two digits represent the \gls{sftsLabel} state and the last one
+the \gls{medfsmLabel} state. For example, the state \texttt{005} represents an
+inactive \gls{sftsLabel} subsystem with an active \gls{medfsmLabel}.
+\texttt{101} represents a warming-up solar field while vacuum is being
+generated in the \gls{medLabel} system.
 
 \blindtext\blindtext
 
