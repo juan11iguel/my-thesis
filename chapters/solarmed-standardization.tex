@@ -651,10 +651,10 @@ analysis presented in \refsec{solarmed:std:process}}
 \labsec{solarmed:std:instrumentation}
 
 %================================
-\subsection{Key process variables}
+\subsection{\fullgls{kpvLabel}}
 \labsec{solarmed:std:kpv}
 
-The KPV are those variables that uniquely define an operating point, which is obtained by averaging all monitored variables when stable operation is achieved. In other words, any change in the key variables is associated with a different operating point, since the plant outputs are affected accordingly.  The following selected variables apply to any \gls{medLabel} plant with any configuration in terms of seawater flow direction, tube arrangement in tube bundles, or effect layout~\sidecite{palenzuela_concentrating_2015}. They are represented in \reffig{solarmed:pid} and described hereinafter: 
+The \glspl{kpvLabel} are those variables that uniquely define an operating point, which is obtained by averaging all monitored variables when stable operation is achieved. In other words, any change in the key variables is associated with a different operating point, since the plant outputs are affected accordingly.  The following selected variables apply to any \gls{medLabel} plant with any configuration in terms of seawater flow direction, tube arrangement in tube bundles, or effect layout~\sidecite{palenzuela_concentrating_2015}. They are represented in \reffig{solarmed:pid} and described hereinafter: 
 
 \begin{itemize}
     \item Heat source flow rate ($\dot{m}_s$ - \texttt{FT01}), inlet temperature and pressure ($T_{s,in}$ and $P_{s,in}$ - \texttt{TT01} and \texttt{PT03}) for sensible heat sources, and just \texttt{FT01} and \texttt{TT01} if saturated steam is used (otherwise steam quality needs to be estimated). They determine the hot side conditions, which usually take place in the first effect that is at the highest temperature and pressure. If multiple effects receive external heat sources, each one has to be monitored.
@@ -705,8 +705,8 @@ The installed instrumentation must measure magnitudes such as flow rate (mass or
 
 \reffig{solarmed:std:sensitivity-analysis} shows the results obtained from the sensitivity analysis in terms of total-order \gls{siLabel}. The closer the \gls{siLabel} is to 1, the greater the influence of the variable (shown on the left axis) on the reliability of the performance metric (shown on the top). In other words, the quality of the variable measurement should be higher for variables with a higher \gls{siLabel}. The cases where no sensitivity index is obtained indicate that the variable has no effect on the metric. 
 
-\marginreminder[*-3]{\gls{kpvLabel} monitoring}{
-    It is important to highlight that all KPV must be monitored regardless of their influence on the performance metric being evaluated because, as mentioned above, the average values of these variables at steady state conditions define an operating point. They are indicated in bold in the figure. 
+\marginnote[]{
+    All \glspl{kpvLabel} must be monitored regardless of their influence on the performance metric being evaluated because, as mentioned above, the average values of these variables at steady state conditions define an operating point. 
 }
 % Note that the KPV must be always monitored regardless it is not required by a particular performance metric.
 In general, monitoring of these variables must be performed online for each operating point evaluated. However, some of the variables rarely change and can be measured periodically or offline. This is the case of environment variables such as $w_f$, $w_d$, $T_{amb}$.
@@ -724,7 +724,7 @@ On the other hand, the total electrical energy consumption (represented as JT01 
 
 \begin{marginfigure}[-5.5cm]
     \includegraphics[]{figures/solarmed-sensitivity-analysis.png}
-    \caption{Sensitivity index results for different variables. Useful to assess the impact of the different measured variables uncertainty on the performance metrics.}
+    \caption{Sensitivity index results for different variables. Useful to assess the impact of the different measured variables uncertainty on the performance metrics. \glspl{kpvLabel} are shown in bold notation}
     \labfig{solarmed:std:sensitivity-analysis}
 \end{marginfigure}
 

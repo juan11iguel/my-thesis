@@ -18,7 +18,6 @@
 		"workbench.editor.showTabs": "single",
 		"zenMode.showTabs": "none",
 		"window.autoDetectColorScheme": true,
-		"workbench.productIconTheme": "adwaita",
 		"workbench.preferredLightColorTheme": "Quiet Light",
 		"workbench.preferredDarkColorTheme": "GNOME dark",
 		"rewrap.autoWrap.enabled": true,

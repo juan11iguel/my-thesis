@@ -47,13 +47,112 @@ reach steady state.
 %===================================
 \subsection{Solar field}
 
+% Process diagram
+
+\begin{figure}
+    \includegraphics[width=.7\textwidth]{figures/solarmed-diagrams-solar_field.png}
+    \caption{Solar field process diagram}
+    \labfig{solarmed:diagrams:solar_field}
+\end{figure}
+
+
+% Describe input and outputs
+
+% References
+
+% Model equations if necessary
+
 
 %================================
 \subsubsection{Electrical consumption}
+
+\begin{definition}
+    \textbf{Step train test}. Variations in the \gls{vfdLabel} pump speed
+    from a minimum to a maximum value, with fixed increments.
+\end{definition}
+
+% Explicar configuración/situación hidráulica del campo
+The \textit{AQUASOL} solar field is composed by a set of pumps that recirculate
+the water through the solar field. The pumps are controlled by \glspl{vfdLabel}
+that allow to vary the flow rate through the solar field. A main recirculation
+pump ($P_{l0}$) is responsible for the primary flow, while additional pumps
+($P_{l1}$, $P_{l2}$, etc.) are used in the individual loops to either increase
+the total flow rate or to operate with the isolated loop. This redundancy means
+that the same flow rate can be achieved with different pump configurations.
+
 % Mostrar ensayo para caracterizar el consumo eléctrico del campo solar
+Then, prior to modelling the electrical consumption of the solar field, a prior
+step is to characterize the electrical consumption of the system. This is done
+by determining the relationship between flow rate and power consumption for
+every configuration and to find the best configuration, that is, the one that
+minimizes the electrical consumption across the range of flow rates that the
+solar field operates at.
+
+% Gráfica bonica para test 20240927 y 20240925 (unir ambos ensayos en el mismo
+% dataframe y romper el eje x para evitar la discontinuidad grande entre días)
+\begin{figure*}[h!]
+    \includegraphics[]{figures/solar_field_eletricity_caractherization_tests.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/sf_tests_viz.zip}}
+    \caption{Solar field and thermal storage electrical
+    characterization tests.\hspace{1ex}\usebox\captionqr}
+    \labfig{solarmed:modelling:sf:electrical_consumption_tests}
+\end{figure*}
+
+
+% Describir metodología del ensayo
+
+% Results
+In order to characterize the electrical consumption of the solar field, a
+series of tests were performed as can be seen in
+\reffig{solarmed:modelling:sf:electrical_consumption_tests}. The tests were
+carried out in two different dates since they have to be performed early,
+before the solar field is irradiated by the sun and the field heats
+up\sidenote{observe the trend in
+\reffig{solarmed:modelling:sf:electrical_consumption_tests} -
+\textit{Temperatures}}. In the first day, step trains are applied to the main
+loop and individual isolated loops (20240925 07:15 - 08:30). On the second day,
+different speeds levels were set for the main recirculation pump (10\% - 100\%,
+10\% increments) while step trains were applied to the individual loops (40\% -
+100\%, 20\% increments)\sidenote{In
+\reffig{solarmed:modelling:sf:electrical_consumption_tests}, from 20240927
+07:35 to 08:20}.
+
+% Flow vs power consumption
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/sf_flow_vs_power_consumption.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/sf_flow_vs_power_consumption.html}}
+    \caption{Solar field flow for different pump configurations and their associated power consumption.\\[1ex] \usebox\captionqr}
+    \labfig{solarmed:modelling:sf:flow_vs_power_consumption}
+\end{figure}
+
+% Describir selección de configuración para finalmente realizar calibración
+\reffig{solarmed:modelling:sf:flow_vs_power_consumption} shows the relationship
+between flow rate and power consumptions for different configuration and pump
+speeds. Up to 90 l/min the best configuration is to just use the main
+recirculation pump. Above this flow rate, the main pump is used in combination
+with the individual loops. First a combination of main pump from 85 to 100\%
+and individual loops at their 40\% minimum speed, then the main pump at 100\%
+and individual loops at increasing values up to 100\%. With this selection, a
+two degree order polynomial regression is fitted to the data, as shown in
+\reffig{tobeadded3}.
+
+Summarizing, the electrical consumption of the solar field is modelled as a
+function of the flow rate through the solar field from a minimum value of XX
+m$^3$/h to a maximum value of YY m$^3$/h. This is achieved as a result of the
+combination of the main recirculation pump and the individual loops.
+
+
+% 
 
 %================================
 \subsubsection{Validation}
+
+% Plot or table?
+
+% Probably a table with the elapsed time, MAE and R2 for the validation days
+
+% Plot with timeseries validation for one exemplary day
+
 
 %===================================
 %===================================
