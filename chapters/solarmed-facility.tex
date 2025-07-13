@@ -33,9 +33,43 @@ decision variable and environment variables, solo color neutro}
 \section{Heat generation and storage subsystem}
 \labsec{solarmed:facility:sfts}
 
-Two pressurized water tanks with a total capacity of 40 m$^3$ coupled to a
-static solar field flat plate collectors with an aperture area of 606 m$^2$ and
-a total thermal power of 323 kW$_{th}$ under nominal conditions.
+Two pressurized water tanks coupled to a solar field composed of static flat
+plate collectors.
+
+
+%================================
+\subsection{Solar field}
+\labsec{solarmed:facility:solar_field}
+
+% Imagen del campo solar
+
+The solar field is basically a converter of electrical to thermal energy
+conditioned to the availability of solar irradiance. It has a total aperture
+area of 606 m$^2$ and can generate a maximum thermal power of 323 kW$_{th}$
+with a 1000 W/m$^2$ solar irradiance. It is composed of 4 loops each with 2
+rows of collectors... 
+
+The parameters are the collector aperture
+($A_c\,(m^2)$), number of parallel collectors in each loop ,number of serial
+connections of collectors rows ($n_s$), number of parallel tubes in each
+collector ($n_t$) and the length of the collector inner tube ($L_t$). Their
+values are shown in \reftab{}.
+
+%================================
+\subsection{Thermal storage}
+\labsec{solarmed:facility:thermal_storage}
+
+% Imagen del almacenamiento
+
+
+The thermal storage system\sidenote{See \reffig{solarmed:process-diagram} -
+\textit{Thermal storage}} consists on a two-tank system designed to ensure
+thermal stratification. It has a total capacity of 40 m$^3$. One of the tanks
+(the red tank in the diagram) operates at a higher temperature, receiving heat
+from the energy source and delivering it to the load. The return flow from the
+load enters the bottom of the cold tank (blue tank in the diagram) before
+circulating back to the hot tank, where it absorbs heat from the source.
+
 
 \section{Separation subsystem}
 \labsec{solarmed:facility:med}

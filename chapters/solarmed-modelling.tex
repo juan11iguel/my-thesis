@@ -45,23 +45,70 @@ reach steady state.
 
 %===================================
 %===================================
-\subsection{Solar field}
-
-% Process diagram
-
-\begin{figure}
-    \includegraphics[width=.7\textwidth]{figures/solarmed-diagrams-solar_field.png}
-    \caption{Solar field process diagram}
-    \labfig{solarmed:diagrams:solar_field}
-\end{figure}
-
+\subsection{\fullgls{sfLabel}}
 
 % Describe input and outputs
+The solar field is basically a converter of electrical to thermal energy
+dependent on the irradiance availability. The two main outputs, in terms of
+operation of the solar field, are the conversion factor ($kW_{e}/kW_{th}$)
+and the temperature the heat is obtained.
+
+The diagram illustrates the individual loops that make up the field. In the
+model, it is assumed that all loops have equal flow rates and temperatures
+(\ie, a balanced flow distribution). As a result, the system can be simplified
+to a single loop with a collector area equal to the sum of the areas of the
+individual loops.
 
 % References
+A first-principles based on the one presented in Ampuño et
+al.~\sidecite{ampuno_modeling_2018} is used to model the solar field. The model
+has two types of parameters: dynamic and constant. The dynamic parameters are
+the thermal loss coefficient ($H\,\left( \frac{J}{s·^\circ C} \right)$) and
+the collector efficiency factor ($\beta\,(m)$), which are calibrated based on
+experimental data. The constant parameters are the ones defined in 
 
-% Model equations if necessary
 
+% Bloque de modelo con interfaz y ecuaciones
+\begin{modelcounter}{Solar field}
+    \begin{align*}
+        T_{\text{out}}(k) & \text{sf\:model}\left(
+            T_{\text{out}}(k\!-\!1),\,
+            \mathbf{T}_{\text{in}}[k\!-\!n : k],\,
+            \boldsymbol{\dot{m}}[k\!-\!n : k],\,
+            I(k),\,
+            T_{\text{amb}}(k);\,
+            \beta,\,
+            H
+        \right) \\
+        & C_{hx,p} = \dot{m}_{hx,p} \cdot c_{p,Tp,in} \\
+        & C_{hx,s} = \dot{m}_{hx,s} \cdot c_{p,Ts,in} \\
+        & C_{min} = min(C_{hx,p}, C_{hx,s}) \\
+        & C_{max} = max(C_{hx,p}, C_{hx,s}) \\
+        & C=\frac{C_{min}}{C_{max}} \\
+        & NTU = UA / C_{min} \\
+        & \epsilon = \frac{1 - e^{ (-NTU \cdot (1 - C))}}{1 - C \cdot e^{-NTU \cdot (1 - C)}} \\
+        & T_{hx,p,out} = T_{hx,p,in} - (\dot{Q}_{max} * \epsilon) / (C_{hx,p}) \\
+        & T_{hx,s,out} = T_{hx,s,in} + (\dot{Q}_{max} * \epsilon) / (C_{hx,s}) \\
+    \end{align*}
+
+    \labmod{solarmed:sf}
+\end{modelcounter}
+
+% Diagrama del componente con variables
+\begin{marginfigure}[-5.5cm]
+    \includegraphics[]{figures/solarmed-diagrams-solar_field_compact.png}
+    \caption{Solar field process diagram.}
+    \labfig{solarmed:diagrams:solar_field}
+\end{marginfigure}
+
+The main difference with respect to the model presented in is how the apparent transport delay is handled~\sidecite{ampuno_apparent_2019}\sidenote{
+    Transport delays are a common feature in dynamic systems, where the
+    response of the system to an input is not instantaneous, but rather
+    delayed by a certain amount of time. This delay can be caused by various
+    factors, in this particular system, is due to the time it takes for the
+    water to flow through the solar field and reach the temperature sensors.
+}. In this implementation, the transport delay is simplified to a single
+parameter based on the work presented in Normey-Rico et.al~\sidecite{normey-rico_robust_1998}. 
 
 %================================
 \subsubsection{Electrical consumption}
@@ -171,8 +218,8 @@ combination of the main recirculation pump and the individual loops.
 %===================================
 \subsection{Heat exchanger}
 
-The solar field and thermal storage are interfaced by a heat exchanger,
-particularly a counter-flow heat exchanger modelled using a first-principles
+The solar field and thermal storage are interfaced by a \gls{hexLabel},
+particularly a counter-flow heat exchanger. The component is modelled using a first-principles
 steady state model based on the effectiveness-NTU
 method\sidecite{cengel_heat_2015,kays_compact_1958}.
 
@@ -184,13 +231,57 @@ Modelling considerations \cite{cengel_heat_2015}:
     \item Changes in kinetic energy and potential energy are neglected.
 \end{itemize}
 
-% Diagrama del componente con variables
 
 % Bloque de modelo con interfaz y ecuaciones
+\begin{modelcounter}{Heat exchanger}
+    \begin{align*}
+        T_{hx,p,out},\,T_{hx,s,out}& = \text{hx\:model}(T_{hx,p,in},T_{hx,s,in},\dot{m}_p,\dot{m}_{s}, T_{amb}, (UA)_{hx}, H) \\
+        & C_{hx,p} = \dot{m}_{hx,p} \cdot c_{p,Tp,in} \\
+        & C_{hx,s} = \dot{m}_{hx,s} \cdot c_{p,Ts,in} \\
+        & C_{min} = min(C_{hx,p}, C_{hx,s}) \\
+        & C_{max} = max(C_{hx,p}, C_{hx,s}) \\
+        & C=\frac{C_{min}}{C_{max}} \\
+        & NTU = UA / C_{min} \\
+        & \epsilon = \frac{1 - e^{ (-NTU \cdot (1 - C))}}{1 - C \cdot e^{-NTU \cdot (1 - C)}} \\
+        & T_{hx,p,out} = T_{hx,p,in} - (\dot{Q}_{max} * \epsilon) / (C_{hx,p}) \\
+        & T_{hx,s,out} = T_{hx,s,in} + (\dot{Q}_{max} * \epsilon) / (C_{hx,s}) \\
+    \end{align*}
+
+    \labmod{solarmed:hex}
+\end{modelcounter}
+
+% Diagrama del componente con variables
+\begin{marginfigure}[-5.5cm]
+    \includegraphics[]{figures/solarmed-diagrams-heat_exchanger.png}
+    \caption{Heat exchanger process diagram.}
+    \labfig{solarmed:diagrams:heat_exchanger}
+\end{marginfigure}
+
+Where $p$ references the primary circuit (solar field side) and $s$ the
+secondary circuit (thermal storage side). As shown in the
+\refmod{solarmed:hex}, first the heat capacity $C$ is determined in order to
+calculate the effectiveness ($\epsilon$) of the heat exchanger. Finally, after
+determining the maximum heat transfer rate ($\dot{Q}_{max}$), the outlet temperatures
+can be obtained.
+
 
 
 %================================
 \subsubsection{Validation}
+
+In order to calibrate the two parameters of this model ($UA$ and $H$), one
+experimental test used where the parameters are varied in order to minimize the
+error between the model and the experimental data. The obtained values are
+shown in \reftab{} and the dynamic behavior of the model is shown in \reffig{}.
+It can be seen than the model performs fairly well even in transient conditions,
+with a mean absolute error of XX\% and a coefficient of determination $R^2$ of
+YY\%. 
+
+Several more tests are evaluated and the performance obtained is shown in
+\reftab{}. On average, the model has a mean absolute error of XX\% and a coefficient
+of determination $R^2$ of YY\%. The model is able to predict the outlet
+temperatures of the heat exchanger with a good accuracy, even in transient
+conditions, which is a good indication of the model's reliability.
 
 %===================================
 %===================================
