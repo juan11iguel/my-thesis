@@ -20,19 +20,78 @@
 % que ya se habrá hecho en la parte introductoria
 
 % Estado del arte en optimización en sistemas de refrigeración
-From a literature review, works can be found\todo{El estado del arte está por
-terminar L} that optimize the operation of the
-cooling system. Of special interest are the works of
-Marín~\sidecite{martin_optimal_2013,martin_optimal_2015} where a .... strategy
-is proposed to optimize both the power block and the cooling system. In
-\cite{martin_optimal_2013} a \gls{wctLabel} is analyzed, while on
-\cite{martin_optimal_2015} a \gls{dcLabel} is used instead. Annual analysis is
-performed (sampled monthly) and a techno-economic analysis is performed. The
-results show ... 
-It can be concluded that there are not many works focusing on the operation
-optimization. From those that do, they study only one particular system, either
-a dry cooler or a wet cooler, and not the combined cooling system. From those
-do, they are focused on the design optimization side, not on the operation.
+Over the years, various studies have compared wet and dry cooling systems for
+\gls{cspLabel} plants. Most of these works are limited to studying the effect of
+some operating parameters via a sensitivity analysis
+\sidecite{asfand_thermodynamic_2020,mdallal_modelling_2024,hu_thermodynamic_2018,tang_study_2013,asvapoositkul_comparative_2014,barigozzi_performance_2014}
+. Nonetheless, several have focused on improving cooling system performance
+through optimization of the individual component operation. Among them, the
+works from Martín et al. stand out. In \sidecite{martin_optimal_2013} they were
+the first to optimize the year-round operation of a CSP system not only
+considering the cooling side but also integrating the power block. The problem
+was formulated as a multiperiod \gls{nlpLabel} problem with air flow rate and
+outlet temperature as decision variables for the cooling system. They showed
+that the obtained complex problem can feasibly be solved and an average water
+consumption of 2.1 l/kWh was obtained with the least efficient month amounting
+to 2.5 l/kWh. In \sidecite{martin_optimal_2015} the same strategy was applied
+this time for a dry cooling alternative (\gls{accLabel}) and formulating the
+optimization as a multiperiod \gls{minlpLabel} problem. This integer extension
+to the problem was done to account for the addition of a new decision variable:
+the discrete number of units and fans that make up the \gls{accLabel} \ie their
+active state. The problem was solved via relaxation of the integer variables and
+after evaluating the annual operation they found the optimized dry cooler
+consumed around 5\% of the total generated power compared to 3.44\% of the wet
+alternative, and increasing a cent the LCOE (0.16 vs 0.15 €/kWh, respectively).
+A limitation of both studies is the use of monthly average values, which masks
+the significant daily temperature variations—often exceeding 10$^\circ$C—that coincide
+with peak power production and can have a substantial impact on cooling system
+performance.
+
+Two works dealing with a hybrid cooling system operation can be found in Rohani
+et al. \sidecite{rohani_optimization_2021} and Golkar et al
+\cite{golkar_determination_2019}. In the latter, Rohani et al. implement a
+thorough model of water streams in a \gls{cspLabel} plant that was
+experimentally validated. Different scenarios and cooling alternatives were
+analyzed and each of them was simulated for a year of operation. In the hybrid
+configuration the operation strategy consisted on always prioritizing the dry
+sections up until a set value in the condenser pressure was reached, in which
+case the wet units activated. This strategy offers a simple and robust solution
+but leaves a lot of performance on the table. Water will be left unused despite
+potentially being available to prioritize the more expensive dry cooler
+operation. While Golkar et al \cite{golkar_determination_2019} delved more in
+the design and sizing of the hybrid cooler by application of a genetic
+algorithm, it then applied a very similar operation strategy. 
+
+% Limitaciones en literatura
+One inherent limitation that no optimization strategy can fully overcome is the
+seasonal mismatch between temperature and water availability. In many locations,
+ambient temperatures are lowest—favoring dry cooling—during times of the year
+when water is most abundant—favoring wet cooling. The opposite occurs during
+hot, dry summer periods, when cooling demand is highest but water becomes a
+scarce resource.
+Many studies report annual water savings figures, but this does not offer
+a complete picture and can be misleading, as it may mask poor performance during
+critical periods. Reducing water use during times of abundance, while failing to
+achieve significant savings during water-scarce periods, does not represent an
+optimal solution—even if total annual water consumption appears lower.
+Nonetheless, there remains significant potential for improved water management
+through optimized system operation, particularly when resource availability is
+explicitly considered in the decision-making process:
+
+\begin{itemize}
+    \item Humidity is higher at night where ambient temperatures are lower,
+    partially alleviating the limitations of the dry system and making it less
+    unfavorable. 
+    \item Take full advantage of the cheaper and more efficient wet cooling when
+    water is plentiful.
+    \item Consider the availability of alternative water sources and their
+    dynamic costs.
+    \item When using a combined cooling system its operation is not trivial but
+    inherently becomes more complex; thus requiring an operation strategy to, at
+    a minimum, robustly satisfy the cooling demand.\sidenote{This is what
+    \cite{rohani_optimization_2021} and \cite{golkar_determination_2019}
+    achieve.}
+\end{itemize}
 
 \begin{marginfigure}[] % +5.5cm
     \includegraphics[]{figures/cc-optimization-environment.png}
@@ -40,15 +99,19 @@ do, they are focused on the design optimization side, not on the operation.
     \labfig{cc:optimization:environment}
 \end{marginfigure}
 
-In this chapter, the optimization of the operation of different cooling
-alternatives is analyzed in terms of their two main consumptions: electricity
-and water. The optimization problems are formulated to minimize the cost of
-cooling a thermal load, where this cost is made up by the two mentioned
-consumptions. Even though in principle this methodology could be applied to any
-application where cooling a thermal load is required, special focus is put on
-modelling and considering the water resource availability, since it is a key
-factor especially in solar thermal applications.\sidenote{See
-\nrefch{intro:cooling}}
+% Contribución de este capítulo
+This chapter analyzes the optimization of different cooling system
+configurations, focusing on their two primary resource consumptions: electricity
+and water. The optimization problems are formulated to minimize the total cost
+of cooling a thermal load, with cost defined as the combined use of these two
+resources. The thermal load is treated as an external requirement and is therefore
+excluded from the decision space. This work addresses existing limitations in
+the literature and presents, for the first time, an actual optimization of the
+operation of a combined cooling system in the context of \gls{cspLabel}
+applications.\sidenote{Although the proposed methodology is applicable to any
+system requiring thermal load cooling, particular emphasis is placed on water
+resource availability, given its critical importance in solar thermal
+applications.\\See \nrefsec{intro:csp:cooling}}
 
 % Estructura de este capítulo
 The chapter is structured as follows: first, the environment definition is
@@ -72,8 +135,8 @@ methodology to solve it.
 The environment for the optimization problems described in this section
 includes the following components and is visualized in \reffig{cc:optimization:environment}:
 
-\begin{description}
-    \item[Costs context] The cooling system has mainly two associated
+\begin{enumerate}
+    \item \textbf{Costs context} The cooling system has mainly two associated
     operational costs: electricity ($J_e$) and water use ($J_w$). For the
     electricity the sale price of electricity ($P_e$) is used since whatever is
     consumed by the cooling system, it is electricity that cannot be sold to
@@ -85,16 +148,16 @@ includes the following components and is visualized in \reffig{cc:optimization:e
     referred as $P_{w,s1}$ and $P_{w,s2}$ for source 2. Source 1 is cheaper
     than source 2.
 
-    \item[Weather forecast] The only two weather variables that have an impact
+    \item \textbf{Weather forecast} The only two weather variables that have an impact
     on the cooling system are the ambient temperature ($T_{amb}$) and the
     relative humidity ($HR$) since they set the dry and wet bulb temperatures.
 
-    \item[Thermal load] The thermal load is defined either by a vapor flow rate
+    \item \textbf{Thermal load} The thermal load is defined either by a vapor flow rate
     ($\dot{m}_v$) or a thermal power ($\dot{Q}$), which enters the condenser at
     a temperature $T_v$.\sidenote{Vapor can also be referred as steam, usually
     steam is used when the vapor performs work, like in a turbine.}
     
-    \item[Water resource availability] Two sources of water are available, one
+    \item \textbf{Water resource availability} Two sources of water are available, one
     of them, the cheaper one coming from a dam is limited in volume
     ($V_{avail}$). The cheaper source ($s_1$) is prioritized until it is
     depleted, then the alternative source ($s_2$) is used:
@@ -109,7 +172,7 @@ includes the following components and is visualized in \reffig{cc:optimization:e
     source is estimated and the source 1 availability is updated accordingly.
     $C_w$ represents the flow rate of water consumed and $T_s$ is the
     sample time at which steps are computed.
-\end{description}
+\end{enumerate}
 
 % %================================
 % \subsection{Water resource availability}
