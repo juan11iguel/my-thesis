@@ -253,10 +253,16 @@
 
 %----------------------------------------------------------------------------------------
 
-
-
 \begin{document}
 \wipbox{}
+
+\begin{kaobox}[title=asd what is going on,colback=MediumPurple2!25!white,colbacktitle=MediumPurple2!25!white]
+    What is thiiiis
+    \begin{enumerate}
+      \item adjust
+      \item asdasd
+    \end{enumerate}
+\end{kaobox}
 
 % \newgeometry{margin=0cm}
 % \begin{figure*}[!p]    % Full-page float
@@ -601,8 +607,8 @@ As can be seen in \refprob{test}, the counter is working.
 \mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
 
 \setchapterstyle{kao} % Choose the default chapter heading style
-\input{chapters/how-to-read-this-thesis.tex}
 \input{chapters/about-the-author.tex}
+\input{chapters/how-to-read-this-thesis.tex}
 
 
 %----------------------------------------------------------------------------------------
@@ -614,12 +620,12 @@ As can be seen in \refprob{test}, the counter is working.
 %----------------------------------------------------------------------------------------
 %	COMBINED COOLING
 %----------------------------------------------------------------------------------------
-% \input{chapters/cc.tex}
+\input{chapters/cc.tex}
+\input{chapters/cc-facility.tex}
 \input{chapters/cc-modelling.tex}
-% \input{chapters/cc-optimization.tex}
-% \input{chapters/cc-facility.tex}
-% \input{chapters/cc-validation.tex}
-% \input{chapters/cc-simulation.tex}
+\input{chapters/cc-optimization.tex}
+\input{chapters/cc-validation.tex}
+\input{chapters/cc-simulation.tex}
 
 %----------------------------------------------------------------------------------------
 %	SOLARMED
@@ -631,7 +637,6 @@ As can be seen in \refprob{test}, the counter is working.
 \input{chapters/solarmed-modelling.tex}
 \input{chapters/solarmed-optimization.tex}
 \input{chapters/solarmed-results.tex}
-
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSIONS
@@ -679,7 +684,6 @@ As can be seen in \refprob{test}, the counter is working.
 %----------------------------------------------------------------------------------------
 %	APPENDIX
 %----------------------------------------------------------------------------------------
-
 
 % \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
