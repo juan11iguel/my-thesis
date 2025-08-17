@@ -8,10 +8,11 @@
 \section{Introduction}
 
 The behavior of the \gls{solarmedLabel} process can be abstracted into two
-components, a continuous and a discrete one, described
-\nrefsec{solarmed:modelling:dynamic} and \nrefsec{solarmed:modelling:discrete},
-respectively. Then, they are combined to create a complete model of the
-\gls{solarmedLabel} process.
+components, a continuous and a discrete one. Each component is described and
+validated in the respective \nrefsec{solarmed:modelling:dynamic} and
+\nrefsec{solarmed:modelling:discrete} sections. Then, they are combined to
+create a complete model of the \gls{solarmedLabel} process in
+\nrefsec{solarmed:modelling:complete}.
 
 % The continuous-dynamic behavior of the process is described by a
 % set of differential equations, while the discrete behavior is described by
@@ -29,22 +30,20 @@ respectively. Then, they are combined to create a complete model of the
 \section{Dynamic modelling. Process variables}[Dynamic modelling]
 \labsec{solarmed:modelling:dynamic}
 
-The dynamic behavior of the \gls{solarmedLabel} regulates the values of the
-different process variables. This behaviour is modelled by integrating a set of
-models for each component of the \gls{solarmedLabel} system. A discrete
-representation of the system is used, where the process variables are
-sampled at a fixed rate, $T_s$, and the system is described by a set of
-difference equations.
-
-Even though this modelling component represents the dynamic behavior of the system,
-some of the models described in the following sections are steady-state models.
-This can lead to discrepancies between the model predictions and the actual
-system behavior, particularly during transient events. However, this is not
-deemed a significant limitation since the model is intended to be used for an
-optimization approach where the model sample rate is in the order of minutes,
-and inputs for slower component dynamics are changed sparingly, typically
-starting from 30 minutes and above, more than enough time for the system to
-reach steady state.
+The dynamic behavior of the \gls{solarmedLabel} determines the values of the
+process variables. This behavior is modelled by a set of models for each
+component of the \gls{solarmedLabel} system. A discrete representation of the
+system is used, where the process variables are sampled at a fixed sample time,
+$T_s$, and systems are described by a set of difference equations. This is the
+case for most cases, but for some, even though this modelling component
+represents the dynamic behavior of the system, some models described in the
+following sections are steady-state models. This can lead to discrepancies
+between the model predictions and the actual system behavior, particularly
+during transient events. However, this is not deemed a significant limitation
+since the model is intended to be used for an optimization approach where the
+model sample rate is in the order of minutes, and inputs for slower component
+dynamics are changed sparingly, typically starting from 30 minutes and above,
+more than enough time for the system to reach steady state.
 
 %===================================
 %===================================
@@ -73,28 +72,33 @@ the thermal loss coefficient ($H\,\left( \frac{J}{s·^\circ C} \right)$) which
 relates power losses to the environment and the collector conversion factor
 ($\beta\,(m)$) encompassing the collector transmisitivity and absorstance. It
 determines the amount of irradiance that is transfered to the working fluid.
-These two dynamic parameters are calibrated using on experimental data. The
+These two dynamic parameters are calibrated using experimental data. The
 constant parameters are the ones defined in \reftab{tablaenapartadofacility}.
 
 % Bloque de modelo con interfaz y ecuaciones
 \begin{modelcounter}{Solar field}
     \begin{align*}
         T_{\text{out}}(k) &= \text{sf\:model}\left(
-            T_{\text{out}}(k\!-\!1),\,
-            \mathbf{T}_{\text{in}}[k\!-\!n : k],\,
-            \boldsymbol{\dot{m}}[k\!-\!n : k],\,
-            I(k),\,
-            T_{\text{amb}}(k);\,
+            T_{\text{out},k\!-\!1},\,
+            \mathbf{T}_{\text{in},k\!-\!n:k},\,
+            \boldsymbol{q}_{k\!-\!n:k},\,
+            I_k,\,
+            T_{\text{amb},k};\,
             \beta,\,
-            H
+            H,\,
+            \theta
         \right) \\
-        & L_{pipe,eq} = \frac{T_s}{A_{pipe,eq}} \sum_{k=0}^{n} q_{sf}(k) \: \text{Description} \\
-        & L_{eq} = n_{c,s} \cdot L_t \\
-        & c_f = n_{c-loop} \cdot n_{tub-c} \\
-        & K_{1} = \beta / (\rho \cdot c_p \cdot A_{cs}) \\
-        & K_{2} = H / (L_{pipe,eq} \cdot A_{cs} \cdot \rho \cdot c_p) \\
-        & K_{3} = 1 / (L_{pipe,eq} \cdot A_{cs} \cdot c_f) \cdot (1/3600)\\
-        & T_{\text{out}}(k) = T_{\text{out}}(k-1) + (K_1 \cdot I - K_3 \cdot (T_{\text{out}}(k-1) - T_{\text{in}}(k-n_{d}) - K_2\cdot{\overline{T}})) \cdot T_s 
+        & L_{pipe,eq} = \frac{T_s}{A_{pipe,eq}} \sum_{k=0}^{n} q_{sf}[k] \quad \text{Equivalent pipe length [m]} \\
+        & L_{eq} = n_{c,s} \cdot L_t \quad \text{Eq. collector tube length [m]} \\
+        & c_f = n_{c-loop} \cdot n_{tub-c} \quad \text{Conversion factor [-]}\\
+        & K_{1} = \beta / (\rho \cdot c_p \cdot A_{cs}) \quad \text{Solar contribution [K·m$^2$/J]}\\
+        & K_{2} = H / (L_{pipe,eq} \cdot A_{cs} \cdot \rho \cdot c_p) \quad \text{Environment losses [1/s]} \\
+        & K_{3} = 1 / (L_{pipe,eq} \cdot A_{cs} \cdot c_f) \cdot (1/3600) \quad \text{Heat absorbed [h/(3600·m$^3$·s)]} \\
+        & T_{\text{out}}(k) = T_{\text{out}}(k-1) + \Big( \\
+        & \qquad + K_1 \cdot I \\
+        & \qquad - K_2\cdot (\overline{T}-T_{amb}) \\ 
+        & \qquad - K_3 \cdot \boldmath{q}_{k-n_d} \left( T_{\text{out},k-1} - T_{\text{in},k-n_{d}} \right) \\
+        & \Big) \cdot T_s 
     \end{align*}
 
     \labmod{solarmed:sf}
@@ -131,7 +135,7 @@ The main difference with respect to the model presented
         visually inspecting the response of the system to a step change in the
         input flow.
         \item Estimate the equivalent length of the solar field by taking the
-        average flow rate ($\overline{q_{sf}}$) across the delay samples
+        average flow rate ($\overline{q}_{sf}$) across the delay samples
         span\sidenote{In reverse order, from newest to oldest}, and divide it
         by a fixed parameter: the solar field pipe equivalent cross-sectional
         area ($A_{pipe,eq}$). 
@@ -221,6 +225,15 @@ function of the flow rate through the solar field from a minimum value of XX
 m$^3$/h to a maximum value of YY m$^3$/h. This is achieved as a result of the
 combination of the main recirculation pump and the individual loops.
 
+% [-8.47935428e-02, 2.29091363e-02, -8.72483421e-04, 1.29582523e-05]
+\begin{modelcounter}{Solar field electrical consumption}
+    % 0.04883341, -0.00695794, 0.01049481
+    \begin{align*}
+        C_{e,sf}\,[kW_e] &= \text{sf electrical consumption}(q_{sf}\,[m^3/h]) \\
+        & C_{e,sf} = -8.48\cdot{10}^{-2} \cdot q_{sf}^3 + 2.29\cdot{10}^{-1} \cdot q_{sf}^2 + -8.72\cdot{10}^{-4} \cdot q_{sf} + 1.3\cdot{10}^{-5}
+    \end{align*}
+    \labmod{solarmed:sf:electrical_consumption}
+\end{modelcounter}
 
 % 
 
@@ -234,6 +247,13 @@ combination of the main recirculation pump and the individual loops.
 % Probably a table with the elapsed time, MAE and R2 for the validation days
 
 % Plot with timeseries validation for one exemplary day
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/solarmed-modelling-solar_field_validation_20230630.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solarmed-modelling-solar_field_validation_20230630.html}}
+    \caption[]{Solar field model validation for a particular test.\\[1ex] \usebox\captionqr}
+    \labfig{::}
+\end{figure}
+
 
 
 %===================================
@@ -428,23 +448,32 @@ volume divisions are used to model the thermal storage. The model is based on
 % simplemente referenciar esa figura
 
 The first step train given in
-\reffig{\reffig{solarmed:modelling:sf:electrical_consumption_tests}} - 20250925
+\reffig{solarmed:modelling:sf:electrical_consumption_tests} - 20250925
 at 06:50 - 07:15 is used to characterize the electrical consumption of
 recirculating water ($q_{ts,src}$) in the thermal storage circuit. The
 electrical consumption is modelled as a function of the flow rate through the
 thermal storage from a minimum value of XX m$^3$/h - XX kW$_e$ to a maximum
 value of YY m$^3$/h - YY kW$_e$.
 
+
 \begin{modelcounter}{Thermal storage electrical consumption}
+    % 0.04883341, -0.00695794, 0.01049481
     \begin{align*}
-        C_{e,ts} &= \text{ts electrical consumption}(q_{ts,src}) \\
-        & C_{e,ts} = 0.0001 \cdot q_{ts,src}^3 - 0.01 \cdot q_{ts,src}^2 + 0.5 \cdot q_{ts,src} + 1
+        C_{e,ts}\,[kW_e] &= \text{ts electrical consumption}(q_{ts,src}\,[m^3/h]) \\
+        & C_{e,ts} = 4.88\cdot{10}^{-1} \cdot q_{ts,src}^2 + -6.95\cdot{10}^{-3} \cdot q_{ts,src} + 0.01
     \end{align*}
     \labmod{solarmed:ts:electrical_consumption}
 \end{modelcounter}
 
 %================================
 \subsubsection{Validation}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/solarmed-modelling-thermal_storage_validation_20230505.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solarmed-modelling-thermal_storage_validation_20230505.html}}
+    \caption[]{Thermal storage model validation for a particular test.\\[1ex] \usebox\captionqr}
+    \labfig{::}
+\end{figure}
 
 %===================================
 %===================================
@@ -521,6 +550,13 @@ of determination $R^2$ of YY\%. The model is able to predict the outlet
 temperatures of the heat exchanger with a good accuracy, even in transient
 conditions, which is a good indication of the model's reliability.
 
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/solarmed-modelling-heat_exchanger_validation_20231106.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solarmed-modelling-heat_exchanger_validation_20231106.html}}
+    \caption[]{Heat exchanger model validation for a particular test.\\[1ex] \usebox\captionqr}
+    \labfig{::}
+\end{figure}
+
 %===================================
 %===================================
 \subsection{\gls{medLabel}}
@@ -541,14 +577,6 @@ Patricia}.
 
 %================================
 \subsubsection{Validation}
-
-
-%===================================
-%===================================
-\subsection{Other components}
-
-%===================================
-\subsubsection{Three-way valve}
 
 
 %===================================
@@ -632,6 +660,7 @@ the condition, and $\forall$ represents that all meet the condition.}
 \end{margintable}
 
 \section{Complete system model}
+\labsec{solarmed:modelling:complete}
 
 Aquí describir cómo se combinan los componentes en función del estado del
 sistema y cómo ello depende de las máquinas de estado finito.
