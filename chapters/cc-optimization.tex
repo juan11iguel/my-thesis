@@ -47,7 +47,11 @@ the significant daily temperature variations—often exceeding 10$^\circ$C—tha
 with peak power production and can have a substantial impact on cooling system
 performance.
 
-Two works dealing with a hybrid cooling system operation can be found in Rohani
+
+Two distinct configurations can be found in the literature where a discussion is
+made about its operation strategy: water-enhanced dry cooling and parallel configuration.
+Rohani\todo{Realmente lo que proponen no es nada nuevo, exactamente esa
+operación ya se propuso por ejemplo en wiles\_description\_1978 y zaloudek\_study\_1976}
 et al. \sidecite{rohani_optimization_2021} and Golkar et al
 \cite{golkar_determination_2019}. In the latter, Rohani et al. implement a
 thorough model of water streams in a \gls{cspLabel} plant that was
@@ -60,7 +64,17 @@ but leaves a lot of performance on the table. Water will be left unused despite
 potentially being available to prioritize the more expensive dry cooler
 operation. While Golkar et al \cite{golkar_determination_2019} delved more in
 the design and sizing of the hybrid cooler by application of a genetic
-algorithm, it then applied a very similar operation strategy. 
+algorithm, it then applied a very similar operation strategy.
+
+In Maulbetsch et al.~\cite{maulbetsch_economic_2012}, a parallel combined system
+is analyzed, where the operation strategy is set as follows: At some
+temperature, the condensing pressure achieved will raise above a desired limit.
+For ambient temperatures above that level, both systems are operated at full
+design fan power. When the condensing pressure is below that limit, the capacity
+of the wet section is reduced to maintain it while the dry section is operated
+at full capacity. At lower temperature where the dry section can maintain the
+condensing pressure by itself, the wet system is no longer operated. Finally, at
+even lower temperatures, the fan power is gradually reduced on the dry section.
 
 % Limitaciones en literatura
 One inherent limitation that no optimization strategy can fully overcome is the
@@ -74,7 +88,10 @@ a complete picture and can be misleading, as it may mask poor performance during
 critical periods. Reducing water use during times of abundance, while failing to
 achieve significant savings during water-scarce periods, does not represent an
 optimal solution—even if total annual water consumption appears lower.
-Nonetheless, there remains significant potential for improved water management
+Significant cost savings can be achieved with increasing water availability,
+either from  the specification of a smaller condenser or by lowering operating
+turbine exhaust pressures (increasing the wet ratio).
+In conclusion, there remains significant potential for improved water management
 through optimized system operation, particularly when resource availability is
 explicitly considered in the decision-making process:
 
@@ -88,9 +105,8 @@ explicitly considered in the decision-making process:
     dynamic costs.
     \item When using a combined cooling system its operation is not trivial but
     inherently becomes more complex; thus requiring an operation strategy to, at
-    a minimum, robustly satisfy the cooling demand.\sidenote{This is what
-    \cite{rohani_optimization_2021} and \cite{golkar_determination_2019}
-    achieve.}
+    a minimum, robustly satisfy the cooling demand, but preferably also minimize
+    the cost of operation.
 \end{itemize}
 
 \begin{marginfigure}[] % +5.5cm
