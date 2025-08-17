@@ -21,5 +21,12 @@
 		"workbench.preferredLightColorTheme": "Quiet Light",
 		"workbench.preferredDarkColorTheme": "GNOME dark",
 		"rewrap.autoWrap.enabled": true,
+		"cSpell.words": [
+			"backpressure",
+			"heliostats",
+			"renewables",
+			"setpoint",
+			"setpoints"
+		],
 	}
 }
