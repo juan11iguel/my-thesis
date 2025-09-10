@@ -23,11 +23,16 @@
 		"rewrap.autoWrap.enabled": true,
 		"cSpell.words": [
 			"backpressure",
+			"cooldown",
 			"heliostats",
 			"interpretability",
+			"Plataforma",
 			"renewables",
 			"setpoint",
 			"setpoints"
 		],
-	}
+		"latex-workshop.message.badbox.show": "none",
+		"latex-workshop.message.information.show": true,
+		"latex-workshop.view.outline.sync.viewer": true
+	},
 }

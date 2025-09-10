@@ -78,7 +78,7 @@
 \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
 % Reset sidenote counter at chapters
-%\counterwithin*{sidenote}{chapter}
+\counterwithin*{sidenote}{chapter}
 
 %----------------------------------------------------------------------------------------
 %	PERSONAL MODIFICATIONS
@@ -255,14 +255,35 @@
 %----------------------------------------------------------------------------------------
 
 \begin{document}
-\wipbox{}
 
-\begin{kaobox}[title=asd what is going on,colback=MediumPurple2!25!white,colbacktitle=MediumPurple2!25!white]
+% ----------------------------------------------------------------------------------------
+% Components testing
+
+
+\wipbox{Additional text to add}
+
+\begin{kaobox}[title=Kaobox with custom color,colback=MediumPurple2!25!white,colbacktitle=MediumPurple2!25!white]
     What is thiiiis
     \begin{enumerate}
-      \item adjust
-      \item asdasd
+      \item Enumerations
+      \item should
+      \item be
+      \item okay
     \end{enumerate}
+
+    Even fancy figures\texttrademark{}. \\
+
+    \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cc-intro-hybrid-cooler-diagram-no-bg.png}\\
+    \small Hybrid cooler
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cc-intro-combined-cooler-diagram-no-bg.png}\\
+    \small Combined cooler
+    \end{minipage}
 \end{kaobox}
 
 % \newgeometry{margin=0cm}
@@ -273,13 +294,13 @@
 % \end{figure*}
 % \restoregeometry
 
-\newgeometry{margin=0.5cm}  % Remove margins completely
-\begin{sidewaysfigure*}
-    \centering
-    \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
-    \caption{A rotated figure}
-\end{sidewaysfigure*}
-\restoregeometry
+% \newgeometry{margin=0.5cm}  % Remove margins completely
+% \begin{sidewaysfigure*}
+%     \centering
+%     \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
+%     \caption{A rotated figure}
+% \end{sidewaysfigure*}
+% \restoregeometry
 
 % \newgeometry{margin=0cm}  % Remove margins completely
 % \begin{figure*}[!p]
@@ -290,6 +311,8 @@
 %     \caption{This is a test figure. It is a full-page float, and it is centered on the page.}
 % \end{figure*}
 % \restoregeometry
+
+\blindtext\blindtext
 
 \begin{modelcounter}{Test}
 	\begin{align*}
@@ -304,20 +327,12 @@
     & T_{dc,out},\,C_{e,dc} = \mathrm{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in}) \\
     % first mixer
     & q_{wct},\,T_{wct,in} = \mathrm{mixer\:model}(q_{wct,p},\,T_{T{cc,in}},\, q_{wct,s},\, T_{dc,out}) \\
-    % wct model
-    & T_{wct,out},\,C_{e,wct},\,C_{w,wct} = \mathrm{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in}) \\
-    % condenser model
-    & T_{c,in},\,T_{c,out} = \mathrm{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
-    % final mixer
-    & q_{cc},\,T_{cc,out} = \mathrm{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
-    % totals
-    & C_{e} = C_{e,dc} + C_{e,wct} + C_{e,c} \\
-    & C_{w} = C_{w,wct}
     \end{align*}
 	\labmod{test}
 \end{modelcounter}
 
 As can be seen in \refmod{test}, the counter is working.
+As can be seen in \refprob{test}, the counter is working.
 
 \begin{problemcounter}{Test}
 	\blindtext
@@ -361,72 +376,34 @@ As can be seen in \refmod{test}, the counter is working.
   \labprob{test}
 \end{problemcounter}
 
-As can be seen in \refprob{test}, the counter is working.
+\blindtext
 
-\tldrbox{test test}
-% \blindtext\blindtext
+\tldrbox{Too Long Didn't Read (TL;DR) boxes are defined with the \texttt{tldrbox}
+command. They are equivalent to abstracts or summaries and are placed at the
+beginning of sections or chapters.}
 
-\problemdefinitionbox{Test}{
-  \begin{equation*}
-	\min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = f(x)
-  \end{equation*}
+\blindtext
 
-  \textbf{with}:
-  \begin{itemize}
-	\item Model name model
-	\[
-	  out_1,\, out_2 = f(in_1,\, in_2,\, \ldots,\, in_N)
-	\]
-	\item Decision variables
-	\[
-	  \mathbf{x} = [x_1,\, x_2]
-	\]
-	\item Environment variables
-	\[
-	  \mathbf{e} = [e_1,\, e_2,\, \ldots,\, e_3]
-	\]
-	\item Fixed parameters
-	\[
-	  \boldsymbol{\theta} = [\theta_1 = X,\, \theta_2 = Y]
-	\]
-  \end{itemize}
-
-  \textbf{subject to}:
-  \begin{itemize}
-	\item Box-bounds
-	\begin{itemize}
-	  \item $x_{1} \in [\underline{x}_{1}, \overline{x}_{1}]$
-	  \item $x_{2} \in [\underline{x}_{2}, \overline{x}_{2}]$
-	\end{itemize}
-	\item Constraints
-	\begin{itemize}
-	  \item $\left| out_X - out_Y \right| \leq \epsilon_1$
-	  \item $out_X \leq out_Z - \Delta Z$
-	\end{itemize}
-  \end{itemize}
+\marginannotation[*-5]{Title of the annotation}{
+	Is everything in this life just a wrapped kaobox? What if I told you that a
+	kaobox is just a wrapper of tcolorbox?
 }
 
-\marginannotation{Process \textit{vs} waste heat definition of efficiency}{
-	In an efficient process heat driven system, between two plants that
-	produce the same amount of useful product, the most efficient one is the
-	one that uses the least amount of external heat.
-	While given two plants that consume the same amount of waste
-	heat, the most efficient one is the one that produces more product given
-	that heat.
-}
+\begin{definition}
+\labdef{openset}
+Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
+if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
+U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
+of all the open subsets of $(X, d).$
+\end{definition}
 
-\begin{figure}
-    \centering
-    \subfloat[\centering
-    Dynamic identification by means of PRBS signal]{{\includegraphics[width=0.48\textwidth]{figures/solarmed-std-control-tcout-ident.png}
-    }}%
-    \hspace{0.1cm}
-    \subfloat[\centering
-    Controller application results]{{\includegraphics[width=0.48\textwidth]{figures/solarmed-str-control-condenser_temperature.png}
-    }}%
-    \caption[Condenser outlet temperature controller implementation]{Condenser outlet temperature controller implementation. To tune the controller, the system was excited with a PRBS signal  (a), obtaining an ARX model ($n_a=20$, $n_b=49$, $n_k=5$, 96.38\% fit) using the \textit{System Identification Toolbox} from MATLAB, which allowed to extract an approximate first-order dynamic with which to tune the controller.}
-    \labfig{solarmed:std:condenser-control}
-\end{figure}
+\begin{remark}
+Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
+if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
+U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
+of all the open subsets of $(X, d).$
+\end{remark}
+
 
 
 % \marginreminder{Pareto front}{
@@ -470,6 +447,8 @@ As can be seen in \refprob{test}, the counter is working.
 % \end{algorithmic}
 % \end{algorithm}
 
+% ----------------------------------------------------------------------------------------
+
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
@@ -477,7 +456,7 @@ As can be seen in \refprob{test}, the counter is working.
 \titlehead{The \texttt{kaobook} class}
 \subject{PhD Thesis}
 
-\title[Towards optimal resource management in solar thermal applications]{Towards optimal resource management in solar thermal applications: desalination and CSP}
+\title[Towards optimal resource management in solar thermal applications]{Towards optimal resource management in solar thermal applications: CSP and desalination}
 % \subtitle{Customise this page according to your needs}
 
 \author[Juan Miguel Serrano]{Juan Miguel Serrano Rodríguez}
@@ -588,6 +567,8 @@ As can be seen in \refprob{test}, the counter is working.
 \tableofcontents % Output the table of contents
 
 \listoffigures % Output the list of figures
+% \listofmodels % TODO: Add support for this
+% \listofproblems % TODO: Add support for this
 
 % Comment both of the following lines to have the LOF and the LOT on 
 % different pages

@@ -1,4 +1,4 @@
-# Thesis title
+# Towards optimal resource management in solar thermal applications: CSP and desalination
 
 ## How to use
 

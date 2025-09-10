@@ -909,6 +909,7 @@ The experimental facility at \gls{psaLabel} is a complex system of considerable 
 \end{figure*}
 
 \subsubsection{Monitoring and control system}
+\labsec{solarmed:std:monitoring-control}
 
 % Startup - shutdown FSMs
 \textbf{Finite state machines}. Each day of operation requires starting up and shutting down the system, making it a repetitive and sufficiently complex process that requires an experienced operator. Manual management of the a process leads to errors that cause setbacks or, in the worst cases, premature failures in the facility: contamination of the condenser with brine due to erratic draining of the last effect, accumulation of scale on the surfaces of heat exchangers due to rapid cooling after shutdown, pumps cavitating because they are not stopped when the water flow at the intake ceases, etc. For this reason, two finite state machines have been implemented to manage the startup and shutdown of the facility. These have been designed to perform a sequence of operations that take the plant from an initial state to a final state following proper operating practices. A diagram of the process is shown in \reffig{solarmed:std:fsm}.

@@ -131,16 +131,17 @@ meaning the system spends most of its time operating near steady state.
 
 %% Limitations of modelling %%
 A model can be an incomplete and possibly incorrect representation of the
-phenomenon under study. This typically occurs when information about the phenomenon
-is lacking or when very complex processes are being modeled—such as biological
-systems that change their dynamics over time, or large-scale stochastic
-processes like climate, where small errors can propagate exponentially. All
-these factors contribute to uncertainty in modeling. Uncertainty is generally
-classified as aleatory or epistemic~\cite{sokolowski_principles_2011}. Aleatory
-uncertainty arises from inherent randomness in the system and is typically
-addressed through probabilistic or stochastic methods, though in some cases it
-may be simplified or ignored. Epistemic uncertainty, on the other hand, stems
-from incomplete knowledge, modeling assumptions, or limited data.
+phenomenon under study. This typically occurs when information about the
+phenomenon is lacking or when very complex processes are being modeled—such as
+biological systems that change their dynamics over time, or large-scale
+stochastic processes like climate, where small errors can propagate
+exponentially. All these factors contribute to uncertainty in modeling.
+Uncertainty is generally classified as aleatory or
+epistemic~\cite{sokolowski_principles_2011}. Aleatory uncertainty arises from
+inherent randomness in the system and is typically addressed through
+probabilistic or stochastic methods, though in some cases it may be simplified
+or ignored. Epistemic uncertainty, on the other hand, stems from incomplete
+knowledge, modeling assumptions, or limited data.
 
 %% Model construction %%
 Given a real-world scenario, the first step is to identify a problem to model,
@@ -778,7 +779,10 @@ $x_1^2 + x_2^2 \leq 1$. Both define convex regions so the problem is a convex \g
         that need to be satisfied in order to find a feasible solution. They can
         be equality or inequality constraints.
 
-        \item \textbf{Feasible region} or \textbf{Search-space}. This is the set of all possible values
+        \item \textbf{Search-space}. This is the set of all possible values
+        of the decision variables that satisfy the bounds.
+
+        \item \textbf{Feasible region}. This is the set of all possible values
         of the decision variables that satisfy the constraints. The optimal
         solution must lie within this region.
 
@@ -1165,11 +1169,10 @@ work:\todo{Añadir figuras para visualizar algunos de los algoritmos}
     \centering
     \subfloat[\centering CMA-ES \\ Source: \href{https://en.wikipedia.org/wiki/File:Concept_of_directional_optimization_in_CMA-ES_algorithm.png}{Wikipedia}]{{\includegraphics[width=0.48\linewidth]{figures/Concept_of_directional_optimization_in_CMA-ES_algorithm.png}}}%
     \hspace{0.01\linewidth}
-    \subfloat[\centering Compass-search \\ Source: \href{https://esa.github.io/pagmo2/docs/cpp/algorithms/compass_search.html}{Pagmo 2.19.1 documentation}]{{\includegraphics[width=0.48\linewidth]{figures/compass-search.png}}}%
+    \subfloat[\centering Compass-search \\ Source: \href{https://esa.github.io/pagmo2/docs/cpp/algorithms/compass_search.html}{Pagmo 2.19.1 documentation}]{{\includegraphics[width=0.44\linewidth]{figures/compass-search.png}}}%
     \caption[Illustration of optimization runs for two algorithms]{Illustration of optimization runs for two algorithms. In CMA-ES (a) it shows the covariance matrix adaptation on a simple two-dimensional problem. The spherical optimization landscape is depicted with solid lines of equal f-values. It  shows how the distribution (dotted line) of the population (dots) changes during the optimization. On this simple problem, the population concentrates over the global optimum within a few generations.}
     \labfig{label:context:descriptor}
 \end{figure*}
-
 
 
 

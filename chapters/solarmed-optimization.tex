@@ -22,11 +22,137 @@
 \section{Introduction}
 
 % Estado del arte de la optimización de procesos de desalación térmica
-LRoca, Carballo, Juan Diego
+Most of the literature on automatic control of \gls{medLabel} processes focuses
+on low-level control strategies. These are typically based on simple control
+loops, using either \gls{pidLabel} controllers~\sidecite{roca_solar_2008a} or
+\gls{mpcLabel}~\sidecite{gonzalez_economic_2014a}, with the main objective of
+maintaining desired temperature setpoints—primarily the heat source inlet
+temperature. A number of works have also addressed optimization of the
+\gls{medLabel} process in isolation. For example, Carballo et
+al.~\sidecite{carballo_optimal_2018} optimized the steady-state \gls{medLabel}
+process using genetic algorithms under different criteria (\eg, maximum
+production, highest performance ratio, minimum energy consumption, best
+second-law efficiency, and combinations thereof). However, their approach
+treated the inlet cooling/seawater flow as a decision variable, which is an
+uncontrolled input and thus invalidates the results. The condenser outlet
+temperature, which can be regulated through the cooling water flow, would have
+been the appropriate decision variable. Similarly, Chorak et
+al.~\sidecite{chorak_experimental_2017} experimentally characterized the pilot
+plant described in \refch{solarmed:facility} under a wide range of operating
+conditions. Their results highlighted how distillate production and thermal
+performance are highly sensitive to the chosen operating point: feedwater flow
+rate, condenser operating temperature, and heat source temperature have strong
+impacts, whereas the system is less sensitive to variations in heat source flow
+rate, owing to its sensible heat transfer nature.
+
+There are inherent limitations in optimizing the \gls{medLabel} process in isolation,
+without considering the complete system. As explained in \refch{solarmed:std}, an \gls{medLabel}
+plant (or any thermal separator) requires two forms of energy: heat and
+electricity. Electricity costs can be directly assigned using, for instance,
+market prices. For fossil-fuel-based thermal energy, it is straightforward to
+relate operating conditions to fuel consumption and cost. However, when thermal
+energy is provided by a variable source such as solar, the situation becomes
+more complex. Solar availability is intermittent, and both the operation and
+efficiency of the solar field depend strongly on how the \gls{medLabel} load is managed.
+The two subsystems are intrinsically coupled. This complexity is further
+amplified by the presence of thermal storage, which enables time-shifting of
+solar energy use and adds another layer of operational decisions.
+
+In short, the true cost of thermal energy in a solar-driven system is difficult
+to assess, and achieving optimal \gls{medLabel} operation requires optimizing the entire
+coupled system.
+
+Several studies address this broader problem at different levels of complexity.
+González et al.~\cite{gonzalez_economic_2014a} proposed a receding-horizon
+optimal control strategy with economic objectives—maximizing water production
+while minimizing electricity costs. Their work relied on a simplified linear
+model, optimizing only the solar field flow, while fixing the \gls{medLabel} inlet
+temperature at a constant value. The most advanced optimization efforts in the
+literature, however, have been developed not for \gls{medLabel} but for \fullgls{mdLabel}.
+
+In Porrazzo et al.~\sidecite{porrazzo_neural_2013}, the authors developed a
+neural network-based optimizing control system for a solar-powered seawater \gls{mdLabel}
+unit. Because solar energy is intermittent and variable, efficient operation
+requires advanced control strategies. A neural network model, trained on
+experimental data, was used to capture the relationships between solar
+radiation, feed flow rate, inlet water temperature, and distillate production.
+This model was then applied to identify optimal feed flow conditions that
+maximize distillate output under varying conditions. The proposed feedforward
+control strategy was validated through simulations and tested in a pilot plant,
+demonstrating improved efficiency.
+
+Gil et al.~\sidecite{gil_hybrid_2019} extended this approach by recognizing that
+a solar \gls{mdLabel} plant does not operate as a single continuous process but transitions
+through distinct operating modes (\eg, heating the solar field, charging
+the storage tank, or running the \gls{mdLabel} module) dictated by solar and thermal
+conditions. In their formulation, the switching logic is predefined: the solar
+field is started once irradiance exceeds a threshold, the tank is then charged,
+and the \gls{mdLabel} module only begins operation once its inlet temperature reaches a set
+value. In other words, the decision of when to start each subsystem is
+hardwired into the control rules. As a result, these operating modes are
+treated as part of the environment, not as free decision
+variables—representing a limitation of the work. To manage the predefined mode
+transitions, the authors modeled the facility as a hybrid system and
+developed a Hybrid Nonlinear Model Predictive Control (H-PNMPC) scheme. This
+framework optimizes flow rates while anticipating and coordinating the fixed
+transitions between modes. In doing so, it generalizes the earlier feedforward
+optimization into a predictive control framework that incorporates environmental
+constraints, enabling more robust operation. Simulation results showed that the
+HPNMPC increased operating hours and slightly improved water production compared
+to rule-based control. Nevertheless, the choice of optimization
+parameters—operation time, operating temperature, and distillate
+production—together with the omission of electrical consumption, led to
+potentially inefficient outcomes. For instance, the system achieved an 11.31~\%
+increase in operating time for only a 1.23~\% gain in production, likely at the
+expense of higher auxiliary energy consumption.
+
+Firstly, existing literature on the optimization of \gls{medLabel} plants presents
+important limitations. Many studies either consider too few variables, rely on
+uncontrollable variables, or use overly simplified models. From the process
+analysis in Chapter X, it was concluded that the key controllable variables that
+fully define the operating conditions of an \gls{medLabel} plant are: the heat source flow
+rate ($q_{med,s}$), the heat source inlet temperature ($T_{med,s,in}$), the
+feedwater flow rate ($q_f$), and the condenser outlet temperature
+($T_{med,c,out}$). These should therefore serve as the decision variables when
+optimizing plant operation. 
+
+Secondly, the objective in optimizing desalination processes is to maximize
+distillate production while minimizing the resources required. In solar-driven
+processes, the solar resource itself has no direct cost. However, its use
+requires electricity to recirculate the working fluid through the solar field.
+Since the solar field essentially acts as a solar-to-heat converter, the only
+relevant consumption to be minimized in the optimization is the electricity
+demand of all system components.
+
+A further consideration, often overlooked in the literature, concerns decisions
+on when to start and stop the operation of different subsystems in the presence
+of thermal storage. Thermal storage allows heat to be used independently of
+solar availability, within certain limits. Depending on its size, this makes the
+timing of subsystem operation—solar field and thermal separator—crucial for
+maximizing system performance both on the current day and over subsequent days.
+Relying on a fixed irradiance threshold to trigger the system startup sequence
+is therefore suboptimal, as it ignores the state of thermal storage and
+forecasts of solar availability that could enable longer or shorter operation of
+the heat source, or earlier or later startup of the load.
 
 % Contribución
+In this work, the operation of a solar-driven \gls{medLabel} system is optimized with these
+aspects in mind. This is the first study to include explicit decisions on when
+to start and stop each subsystem, while also accounting for a two-day prediction
+horizon. This allows the optimization to consider not only immediate
+performance, but also the impact of present decisions on future production. The
+method relies on an experimentally validated system model that incorporates the
+electrical consumption of each component, combined with the most comprehensive
+data-driven \gls{medLabel} model currently available in the literature.
 
 % Estructura del capítulo
+This chapter is structured as follows: first, the optimization problem is
+described in \refsec{solarmed:optimization:problem-description}, then the
+proposed optimization strategy to solve it is presented in
+\refsec{solarmed:optimization:strategy}. The strategy consists on two
+fundamental blocks which are detailed in
+\nrefsec{solarmed:optimization:op-plan-layer} and
+\nrefsec{solarmed:optimization:op-optim-layer}.
 
 %===================================
 %===================================
@@ -200,7 +326,7 @@ The problem is designed as an optimization problem with a shrinking
 horizon\marginreminder[*-2]{Shrinking horizon optimization}{
 An optimization where the horizon end is fixed, and as time progresses, the
 start of the horizon moves forward.\footnote{See
-\nrefch{intro:optimization}}
+\nrefsec{intro:optimization}}
 }. The horizon size should be large enough so that
 decisions on how to operate the system are made with perspective, taking into
 account how they will affect the system in the future, but not so large that
@@ -293,6 +419,7 @@ problem. This is done by forward filling \cite{hyndman_forecasting_2021}
 the values of the decision vector until the next update time. 
 
 %===================================
+
 \section[]{Proposed optimization strategy}[Proposed strategy]
 \labsec{solarmed:optimization:strategy}
 
@@ -329,7 +456,8 @@ the following sections.
 % proposed strategy is composed by an ordered sequence of evaluations of the
 % different layers. 
 
-\section{Operation Plan Layer Description}
+\section{Operation plan layer description}
+\labsec{solarmed:optimization:op-plan-layer}
 
 \marginnote{The number of updates available for each integer variable
 $n_{updates,xi}$ will be interchangeably referred to as \fullgls{dofLabel}.}
@@ -499,8 +627,8 @@ Once computed the integer decision are updated in this layer. The faster the
 computation the better, since it will allow the operation optimization layer to
 optimize operation for the actual shutdown time and adapt accordingly.
 
-
 \section{Operation optimization layer description}
+\labsec{solarmed:optimization:op-optim-layer}
 
 As mentioned, this middle layer establishes the setpoints for the continuous
 process variables, \ie the continuous part of the \gls{minlpLabel} problem. The
@@ -512,8 +640,6 @@ $n_{problems}=1$}. It uses the latest available state of the system and
 environment predictions to evaluate the objective function.
 
 The layer computation time is named $\Delta t_{eval,optim}$.
-
-
 
 \begin{kaobox}[title=\gls{solarmedLabel} optimization methodology]
 
