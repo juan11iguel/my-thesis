@@ -12,32 +12,32 @@
 
 \pagelayout{wide} % No margins
 \addpart{Optimal water and electricity management in a combined cooling system}
-\pagelayout{margin} % Restore margins
 
 % \section*{TL;DR}
 % \addcontentsline{toc}{section}{TL;DR}
 
-\tldrbox{
-In the pursuit of extending the use and feasibility of solar thermal
-applications, a case study consisting of a commercial 50~MW-8 hours of
-storage \gls{cspLabel} plant, Andasol-II, is analyzed in annual simulations
-where the cooling solution makes use of the novel proposed \gls{ccsLabel}.
-To obtain these results, a model of the \gls{ccsLabel} has been developed
-based on the same configuration as the \gls{psaLabel} pilot plant.
-Different optimization strategies based on evolutionary algorithms have
-been implemented to adapt the system operation to the changing conditions.
-The strategy has been experimentally validated in the pilot plant and the
-simulated results show than the proposed scheme can yield ... compared to
-the \gls{dcLabel} only and ... with the \gls{wctLabel} only
-alternatives.\\
+\tldrbox{ To enhance the applicability and sustainability of solar thermal
+technologies, this work investigates a novel cooling system for the power block
+of a \gls{cspLabel} plant, combining dry and wet cooling components. A model of
+the \gls{ccsLabel} was developed alongside a two-stage optimization strategy.
+The methodology was validated using an experimental pilot plant, achieving R$^2$
+values above 0.9 for the main output variables and successfully adapting the
+plant's operation to changing conditions.
+
+A case study is presented for a commercial 50~MWe CSP plant with 8 hours
+of storage, Andasol-II, using annual simulations under a water-scarcity
+scenario where the current wet-only cooling system is replaced with the proposed
+\gls{ccsLabel}. Results indicate a potential 80~\% reduction in cooling costs
+and a 48~\% reduction in mean annual water use, but more importantly, a 38~\%
+reduction during the driest and hottest months, demonstrating the significant
+potential of the system when operated optimally. \\
 
 \begin{minipage}{\linewidth}
-\centering
-\includegraphics[width=\linewidth]{figures/cc-visual-abstract.png}\\
-\small \textit{Visual abstract}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cc-visual-abstract-with-results.png}\\
+    \small \textit{Visual abstract}
 \end{minipage}
 }
-
 % \section*{Derived scientific contributions}
 % \addcontentsline{toc}{section}{Derived scientific contributions}
 
@@ -45,17 +45,18 @@ alternatives.\\
 \section*{Part structure}
 
 This part is structured as follows: first in \nrefch{cc:intro} a context of
-concentrated solar thermal technologies 
-is provided and their relationship with the water resource, specifically for the
-case of \gls{cspLabel}. Then, the experimental combined cooling system pilot at
-\gls{psaLabel} is presented in \refch{cc:facility}. The methodology for
-modelling and optimizing the operation of the system are described in
-\refch{cc:modelling} and \refch{cc:optimization}, respectively. Both are
-validated in the experimental plant as showcased in \refch{cc:validation}.
-Finally, in this part's last chapter, \nrefch{cc:simulation}, describes
-and analyzes the results of the annual simulations performed for a commercial
-\gls{cspLabel} plant using different cooling alternatives.
+concentrated solar thermal technologies is provided and their relationship with
+the water resource, specifically for the case of \gls{cspLabel}. Then, the
+experimental \gls{ccsLabel} pilot at \gls{psaLabel} is presented in
+\refch{cc:facility}. The methodology for modelling and optimizing the operation
+of the system are described in \refch{cc:modelling} and \refch{cc:optimization},
+respectively. Both are validated in the experimental plant as showcased in
+\refch{cc:validation}. Finally,
+\nrefch{cc:simulation}, describes and analyzes the results of the annual
+simulations performed for a commercial \gls{cspLabel} plant using the proposed
+cooling system.
 
+\pagelayout{margin} % Restore margins
 %===================================
 %===================================
 %===================================
@@ -69,19 +70,20 @@ generation and replacing them by renewable sources, \fullgls{cspLabel}
 has proven to be a reliable contributor. In particular, in providing much
 needed energy storage, dispatchability and ensuring grid stability. \\
 
-In this context, water availability emerges not only as a technical constraint
+However, water availability emerges not only as a technical constraint
 but also as a planning and policy issue. \gls{cspLabel} deployment in water-stressed
 regions is strongly dependent on innovative cooling solutions, policy
 incentives, and careful water resource management to ensure sustainable
 operation without compromising water security for local communities.\\
 
-Ideally, negligible raw water would be needed to operate a \gls{cspLabel} plant and it
-should be achieved with no increase in the \gls{lcoeLabel}. The most water demanding
-component is the cooling of the power block, and currently this water saving can
-be achieved with dry cooling and an increase of 7\% in the \gls{lcoeLabel}. A compromise
-solution can be reached by using hybrid cooling solutions together with water
-preservation strategies, achieving an 83\% decrease in raw water consumption with
-respect to wet cooling with no reuse and a 5\% increase in the \gls{lcoeLabel}~\cite{rohani_optimization_2021}.\\
+Ideally, negligible raw water would be needed to operate a \gls{cspLabel} plant
+and it should be achieved with no increase in the \gls{lcoeLabel}. The most
+water demanding component is the cooling of the power block, and currently this
+water saving can be achieved with dry cooling and an increase of 7\% in the
+\gls{lcoeLabel}. A compromise solution can be reached by using hybrid cooling
+solutions together with water preservation strategies, achieving an 83\%
+decrease in raw water consumption with respect to wet cooling with no reuse and
+a 5\% increase in the \gls{lcoeLabel}~\cite{rohani_optimization_2021}.\\
 
 Further savings can be achieved by optimizing the operation of the combined
 cooler and take full advantage of its flexibility towards optimal resource
@@ -106,7 +108,7 @@ using temperature, two broad groups can be identified.
     \centering
     \subfloat[\centering Parabolic trough pilot plant at \gls{psaLabel}]{{\includegraphics[width=0.48\linewidth]{figures/parabolic-through-pt100-psa.jpg}}}%
     \hspace{0.01\linewidth}
-    \subfloat[\centering Gemasolar 20MW-15h central tower \gls{cspLabel} plant in Sevilla,
+    \subfloat[\centering Gemasolar 20MWe-15h central tower \gls{cspLabel} plant in Sevilla,
     Spain. Source:
     \href{https://commons.wikimedia.org/wiki/File:Gemasolar_Thermosolar_Plant_2.jpg}{Wikipedia}]{{\includegraphics[width=0.48\linewidth]{figures/solar-tower-gemasolar.png}}}%
     \caption[Two main \gls{cstLabel}
@@ -124,7 +126,7 @@ desalination. It is worth noting that most industrial heat demand lies within
 this relatively low-temperature range of
 100--400~$^\circ$C~\sidecite{schoeneberger_solar_2020}. This segment of
 \gls{cstLabel} is also the most technically mature. Over the past decades,
-considerable progress has been made in line-focusing technologies such as
+considerable progress has been made in line-focus technologies such as
 parabolic troughs (see \reffig{cc:intro:cst-technologies} (a)) and linear
 Fresnel collectors\sidenote[][*-1]{Flat-plate collectors, though non-concentrating also
 deserve mention here, as they remain the most widely deployed solar thermal
@@ -133,7 +135,7 @@ level of development, their potential for significant further cost reduction is
 relatively limited.
 
 The second group comprises high-temperature systems operating above
-600~$^\circ$C. These rely on point-focusing technologies, most notably central
+600~$^\circ$C. These rely on point-focus technologies, most notably central
 receiver systems (see \reffig{cc:intro:cst-technologies} (b)). Still under
 development, they show promising potential for higher-value applications,
 including solar-driven chemical processes (such as aviation fuel production) and
@@ -151,7 +153,7 @@ approaches~\sidecite{mehos_concentrating_2020}.
 In a concentrated solar power plant, power is generated with a Rankine-cycle
 like in a conventional thermal power plant, however, the working fluid is heated
 up not by combusting/burning a fossil fuel, but as mentioned, by concentrating
-solar energy. 
+solar energy as shown in \reffig{cc:intro:csp-plant-diagram}. 
 
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/solar-tower-diagram.png}
@@ -159,21 +161,22 @@ solar energy.
     \labfig{cc:intro:csp-plant-diagram}
 \end{figure}
 
-In a typical \gls{cspLabel} plant-- \reffig{cc:intro:csp-plant-diagram} -
-\textit{Power block} --the exhaust steam from the turbine is directed to a
-condenser, where its latent heat of vaporization is transferred to the available
-cooling medium. By coupling \gls{cspLabel} with thermal
-storage-- \reffig{cc:intro:csp-plant-diagram} - \textit{Thermal Storage System} --
-it can generate electricity after sundown or even days later, for example during
-adverse weather periods. Because of this ability, \gls{cspLabel} is one of the few
-renewable electricity technologies that can generate fully dispatchable or even
-fully baseload power at very large scale~\sidecite{pfenninger_potential_2014}. 
+By coupling \gls{cspLabel} with thermal storage --
+\reffig{cc:intro:csp-plant-diagram} - \textit{Thermal Storage System} -- it can
+generate electricity after sundown or even days later, for example during
+adverse weather periods. Because of this ability, \gls{cspLabel} is one of the
+few renewable electricity technologies that can generate fully dispatchable or
+even fully baseload power at very large
+scale~\sidecite{pfenninger_potential_2014}. Finally,  the exhaust steam from the
+turbine --\reffig{cc:intro:csp-plant-diagram} - \textit{Power block} -- is
+directed to a condenser, where its latent heat of vaporization is transferred to
+the available cooling medium. 
 
 \gls{cspLabel} is an engineering-heavy, complex technology, with each project being
 different and tailored to both the environment in which it stands and the
 requirements of each single offtaker~\sidecite{binz_technologysensitive_2017}.
 This means, that despite its relative long history, is still in its formative
-phase~\sidecite{lilliestam_midterm_2021}\sidenote{In the context of the
+phase~\sidecite{lilliestam_midterm_2021}\sidenote[][*-15]{In the context of the
 industrial life-cycle (ILC)~\cite{bento_measuring_2016}, the formative phase
 considers the period in which a technology and its industry and innovation
 system are still immature and need to grow and develop}. As \gls{cspLabel} is not yet
@@ -188,14 +191,14 @@ historical development.
 At one point, \gls{cspLabel} was seen as the leading alternative for large-scale
 solar energy. Ambitious visions and bold initiatives—such as the Desertec
 project—played a key role in generating immediate excitement around the
-technology. However, the political consequences of raising expectations that
-were ultimately unmet proved significant. In Europe, this disillusionment
-contributed to \gls{cspLabel} becoming politically sidelined for many
-years~\sidecite{schmitt_why_2018}. Additionally, around 2010-2012 the cost
-crossover with photovoltaic ocured and from there only
-increased~\sidecite{irena_renewable_2025}. Many investments shifted from
-\gls{cspLabel} to the more straightforward and profitable \gls{pvLabel}
-technology.
+technology~\sidecite{schmitt_why_2018}. However, the political consequences of
+raising expectations that were ultimately unmet proved significant. In Europe,
+this disillusionment contributed to \gls{cspLabel} becoming politically
+sidelined for many years~\cite{schmitt_why_2018}. Additionally, around 2010-2012
+the cost crossover with \gls{pvLabel} occurred and from there the \gls{pvLabel}
+cost advantage only increased~\sidecite{irena_renewable_2025}. Many investments
+shifted from \gls{cspLabel} to the more straightforward and profitable
+\gls{pvLabel} technology.
 
 \begin{figure*}
     \centering
@@ -214,58 +217,59 @@ technology.
 The development of \gls{cspLabel} has been marked by alternating periods of
 rapid expansion and sharp decline, largely shaped by national policy support. In
 the 1980s, California's incentives led to the construction of nine
-\gls{cspLabel} plants totaling around 350~MW, but the withdrawal of support
-caused the bankruptcy of Luz in 1991, resulting in a 15-year global pause in new
-projects. A second growth phase began in 2007 with feed-in tariffs in Spain and
-temporary backing in the US, leading to the construction of about 50 plants,
-mostly supplied by Spanish and German companies. However, the end of policy
-support in both countries around 2013 led to a sharp slowdown, with construction
-activity in 2016 at just one-third the 2012 level, and many firms exiting the
-sector. \gls{cspLabel} remained commercially active mainly through projects in
-Morocco and South Africa, although costs increased and future prospects dimmed.
-Momentum returned in 2016 when China introduced a new feed-in tariff aimed at
-5~GW of capacity, sparking renewed global interest. Optimism was further
-strengthened by major projects launched in Dubai and Morocco in 2018-2019.  The
-near- to mid-term outlook for \gls{cspLabel} is very uncertain: there are
-several positive developments concerning the global value chain and cost
-development. The market and policy outlook is bleak with the risk of a complete
-loss in many markets for \gls{cspLabel} ~\sidecite{lilliestam_midterm_2021}.
+\gls{cspLabel} plants totaling around 350~MWe, but the withdrawal of support
+caused the bankruptcy of the main developer of solar thermal electric projects,
+\textit{Luz}, in 1991, resulting in a 15-year global pause in new projects. A
+second growth phase began in 2007 with feed-in tariffs in Spain and temporary
+backing in the US, leading to the construction of about 50 plants, mostly
+supplied by Spanish and German companies. However, the end of policy support in
+both countries around 2013 led to a sharp slowdown, with construction activity
+in 2016 at just one-third the 2012 level, and many firms exiting the sector.
+\gls{cspLabel} remained commercially active mainly through projects in Morocco
+and South Africa, although costs increased and future prospects dimmed. Momentum
+returned in 2016 when China introduced a new feed-in tariff aimed at 5~GWe of
+capacity, sparking renewed global interest. Optimism was further strengthened by
+major projects launched in Dubai and Morocco in 2018-2019.  The near- to
+mid-term outlook for \gls{cspLabel} is very uncertain but there are several
+positive developments concerning the global value chain and cost development.
+The market and policy outlook is bleak with the risk of a complete loss in many
+markets for \gls{cspLabel} ~\sidecite{lilliestam_midterm_2021}.
 
 
 Setting realistic targets may ultimately be more effective than raising
 expectations that cannot be met.~\gls{cspLabel} remains a valuable technology
 for the energy transition—though likely at a smaller scale than initially
 envisioned, and over a longer timeframe. Several studies highlight its potential
-role in a zero-carbo or near zero power
+role in a zero-carbon or near zero power
 system~\sidecite{bonilla_feasibility_2022}. For instance, the \gls{ieaLabel}'s
 Net Zero by 2050 report projects that the global \gls{cspLabel} capacity should
-reach 73~GW by 2030 and 281~GW by 2040~\sidecite{iea_net_2021}. Likewise,
+reach 73~GWe by 2030 and 281~GWe by 2040~\sidecite{iea_net_2021}. Likewise,
 \gls{irenaLabel} envisions several hundred gigawatts of \gls{cspLabel} by 2050,
-contributing to grid stability alongside a projected 8500~GW of solar
-\gls{pvLabel} and 6000 GW of wind capacity~\sidecite{irena_world_2024}. These
+contributing to grid stability alongside a projected 8500~GWe of solar
+\gls{pvLabel} and 6000~GWe of wind capacity~\sidecite{irena_world_2024}. These
 projections suggest that \gls{cspLabel} can play a complementary role to
 \gls{pvLabel} and wind by providing dispatchable, on-demand renewable
-electricity—further enabling intermittent renewable alternatives\sidenote{See
-\reffig{cc:intro:csp-lcoe-capacity} (b)}. However, even at these more modest
-levels, \gls{cspLabel} deployment would need to accelerate rapidly. To meet the
+electricity—further enabling intermittent renewable alternatives. However, even
+at these more modest levels, \gls{cspLabel} deployment would need to accelerate
+rapidly (see \reffig{cc:intro:csp-lcoe-capacity} (b)). To meet the
 \gls{ieaLabel}'s 2030 target, the global \gls{cspLabel} fleet—standing at just
-6~GW in 2021—would need to expand more than tenfold in under a
+6~GWe in 2021—would need to expand more than tenfold in under a
 decade~\sidecite{lilliestam_scaling_2023}.
 %[See figure X. La figura esté en el margen y el pie de página describa cuánto
 %de cada tecnología está previsto]. [`lilliestam_midterm_2021`](Bibliography/@lilliestam_midterm_2021.md). 
 So far this is not happening, \gls{cspLabel} technology remains niche with only
-7 plants coming online in the 2020--2023 period~\cite{irena_renewable_2025} and is unlikely
-to become a globally important contributor to power system balancing in the next
-decade~\cite{lilliestam_scaling_2023}. However the winds might be changing:
-4 new plants came online in 2024, the costs of new \gls{cspLabel} stations have
-decreased rapidly in the last years, 77\% from 2010 to 2024, including a 46\%
-reduction from 2023 to 2024. In terms of \gls{lcoeLabel}, it means that
-\gls{cspLabel} has improved from 0.402 $\mathdollar_{2024}$/kWh to below 10 cents
-(0.092 $\mathdollar_{2024}$/kWh) making it competitive with new fossil fuel power
-stations~\sidecite{irena_renewable_2025}\sidenote{See
-\reffig{cc:intro:csp-lcoe-capacity} (a)} and the
-Chinese \gls{cspLabel} project pipeline includes 37 future and ongoing projects,
-with a total capacity of 4.8~GW~\sidecite{chinasolarthermalalliance_blue_2024}.
+7 plants coming online in the 2020--2023 period~\cite{irena_renewable_2025} and
+is unlikely to become a globally important contributor to power system balancing
+in the next decade~\cite{lilliestam_scaling_2023}. However the winds might be
+changing: 4 new plants came online in 2024, the costs of new \gls{cspLabel}
+stations have decreased rapidly in the last years, 77\% from 2010 to 2024,
+including a 46\% reduction from 2023 to 2024 (see
+\reffig{cc:intro:csp-lcoe-capacity} (a)). In terms of \gls{lcoeLabel}, it means
+that \gls{cspLabel} has improved from 0.402~$\mathdollar_{2024}$/kWh to below 10
+cents (0.092~$\mathdollar_{2024}$/kWh) making it competitive with new fossil
+fuel power stations~\sidecite{irena_renewable_2025} and the Chinese
+\gls{cspLabel} project pipeline includes 37 future and ongoing projects, with a
+total capacity of 4.8~GWe~\sidecite{chinasolarthermalalliance_blue_2024}.
 
 %================================
 %================================
@@ -273,14 +277,13 @@ with a total capacity of 4.8~GW~\sidecite{chinasolarthermalalliance_blue_2024}.
 \section{Cooling and water use}
 \labsec{intro:csp:cooling}
 
-As can be inferred from the previous description, the successful deployment of
-\gls{cspLabel} plants depends on several key factors: high annual direct normal
-irradiance, adequate land availability, and sufficient water resources.
-However, while the first two are typically found in arid regions as shown in
-\reffig{cc:intro:solar-vs-water-availability}, the availability of water is
-often limited. In such locations, the source of raw water is usually restricted
-to groundwater or limited surface water bodies such as rivers, lakes, wells, or
-artificial reservoirs.
+The successful deployment of \gls{cspLabel} plants depends on several key
+factors: high annual direct normal irradiance, adequate land availability, and
+sufficient water resources. However, while the first two are typically found in
+arid regions as shown in \reffig{cc:intro:solar-vs-water-availability}, the
+availability of water is often limited. In such locations, the source of raw
+water is usually restricted to groundwater or limited surface water bodies such
+as rivers, lakes, wells, or artificial reservoirs.
 
 \begin{figure*}
     \centering
@@ -296,7 +299,7 @@ significant demand coming from the cooling of the power block\sidenote{When wet
 cooling is used, further explained in the following}. The power output and
 efficiency of a thermal power plant are strongly influenced by the operating
 temperature and pressure conditions at the condenser, which are directly linked
-to the turbine backpressure, and in turn depend on the cooling system.
+to the turbine backpressure, and in turn to the cooling system.
 
 In addition to cooling, water is also required for other plant operations, including~\sidecite{rohani_optimization_2021}:
 
@@ -308,7 +311,7 @@ In addition to cooling, water is also required for other plant operations, inclu
 
 In wet-cooled \gls{cspLabel} plants, cooling water accounts for over 95\% of the total
 water consumption, which can be further broken down into evaporation: 77.8\% and
-blowdown and drift: 19.1\%. 
+blowdown and drift: 19.1\%~\cite{rohani_optimization_2021}.
 
 
 \begin{marginfigure}[] % -5.5cm
@@ -345,7 +348,9 @@ cost.
     \begin{itemize}
         \item The \textit{cooling range} refers to the temperature drop experienced by the cooling water as it circulates through the condenser. The greater the better.
         \item The \textit{approach} of the cooling tower is the temperature difference between the circulating water at the condenser inlet (or cooling tower outlet) and the lowest attainable cooling medium temperature, which varies depending on the cooling technology used.
-        \item The \fullgls{itdLabel} is the temperature difference between the cooler inlet the sink.
+        \item The \fullgls{itdLabel} is the temperature difference between
+        the hot fluid entering the cooler and the reference sink (\eg, dry-bulb temperature) at the cooler inlet.
+
         \item \fullgls{ttdLabel} represents the difference between the outlet
         temperatures of the cooling and the cooled fluids.  
     \end{itemize}
@@ -371,7 +376,25 @@ technology due to its high heat capacity and the possibility of reuse. In power
 plants, the steam exiting the turbine is condensed in a surface condenser, where
 cooling water circulates through tubes and absorbs the latent heat of the steam.
 The warmed cooling water is then returned to the cooling system for heat
-rejection.
+rejection, in closed-loop systems, or returned to the body of water in open-loop
+(\ie once-through) systems. In \gls{cspLabel} plants, closed-loop systems are
+predominantly used, as they require significantly less
+water.
+
+\marginannotation[*-5]{{\gls{cspLabel} plants next to the sea, why not?}}{
+	Building \gls{cspLabel} plants near the sea is generally not recommended.  
+    Although seawater could serve as an unlimited resource for once-through steam
+    condensation, solar radiation is typically lower in coastal areas, land prices
+    are higher, and the salty environment accelerates corrosion, which significantly
+    reduces optical efficiency
+}
+
+Wet cooling towers function as heat rejection devices by bringing warm water
+from the condenser into direct contact with air. As part of the water
+evaporates, it absorbs heat from the remaining liquid, thereby lowering its
+temperature. The cooled water is then recirculated back to the condenser,
+completing the loop. This process is highly efficient, but it also leads to
+water losses from evaporation, drift, and blowdown.
 
 Wet cooling technology requires a substantial amount of water (1.8--4 l/kWh) for
 condenser cooling, particularly in closed-loop systems that employ wet cooling
@@ -380,13 +403,6 @@ evaporative cooling~\sidecite{meldrum_life_2013}. While a small share of heat is
 removed through sensible air-to-water heat transfer, 80--90\% of the cooling is
 achieved through the latent heat of
 vaporization~\sidecite{colmenar-santos_water_2014}.
-
-Wet cooling towers function as heat rejection devices by bringing warm water
-from the condenser into direct contact with air. As part of the water
-evaporates, it absorbs heat from the remaining liquid, thereby lowering its
-temperature. The cooled water is then recirculated back to the condenser,
-completing the loop. This process is highly efficient, but it also leads to
-water losses from evaporation, drift, and blowdown.
 
 Land availability for cooling systems is often constrained, particularly in
 central receiver plants where the solar field surrounds the receiver and
@@ -398,11 +414,11 @@ as the example shown in \reffig{cc:intro:conventional-coolers} (a).
 \begin{kaobox}[title=Wet cooling main characteristics,colback=MediumPurple2!25!white,colbacktitle=MediumPurple2!25!white]
     \begin{itemize}
         \item Water consumption: 1.8--4 l/kWh~\cite{meldrum_life_2013}
-        \item Parasitic load: $\approx$0.0165 kW/KWh  or 0.165\% average annual consumption~\cite{habl_exergoeconomic_}.
+        \item Parasitic load: $\approx$0.0165~kW/KWh  or 0.165~\% average annual consumption~\cite{habl_exergoeconomic_}.
         \item Wet cooling consumes similar power along the year but increases its water consumption in the hotter months~\cite{martin_optimal_2013}.
-        \item \gls{cspLabel} plants with wet cooling towers consume as much as 1.7x10$^6$ m$^3$ per year of operation~\cite{rohani_optimization_2021}.
+        \item \gls{cspLabel} plants with wet cooling towers consume as much as 1.7x10$^6$~m$^3$ per year of operation~\cite{rohani_optimization_2021}.
         \item Greater available approach, since the lowest attainable temperature is the wet-bulb temperature. 
-        \item 55\% of \gls{cspLabel} plants worldwide make use of wet cooling technology for condenser cooling~\cite{thonig_cspguru_2023,bonilla_csp_2024}
+        \item 55~\% of \gls{cspLabel} plants worldwide make use of wet cooling technology for condenser cooling~\cite{thonig_cspguru_2023,bonilla_csp_2024}
     \end{itemize}
 \end{kaobox}
 
@@ -431,7 +447,7 @@ process relies on latent heat transfer and can employ either mechanical or
 natural draft designs. \glspl{accLabel} have been used for nearly 70 years, and
 were pioneered in regions as diverse as Western Europe, South Africa and the
 Middle East. The largest \gls{accLabel} units in operation is in South Africa
-(Medupi) with six 800-MW units on
+(Medupi) with six fossil-fuel driven 800-MWe units on
 \glspl{accLabel}~\sidecite{maulbetsch_economic_2012}.
 
 In indirect systems, steam first condenses in a separate condenser, which may be
@@ -469,8 +485,8 @@ natural draft operation~\sidecite{andras_advanced_2005}. According to
 Andras et al., Heller systems require approximately the same
 capital costs but are much cheaper to operate since they do not need to be
 mechanically driven. They have been operating for decades in 17 power plants
-including with the largest indirect dry cooled combined cycle power plant with
-3x777 MWe dry towers at Gebze-Adapazari combined cycle (Turkey).
+including the largest indirect dry cooled combined cycle power plant with
+3x777~MWe dry towers at Gebze-Adapazari combined cycle (Turkey).
 
 %% Costes %%
 Unlike wet cooled plants, the dry cooled plants require minimal waterside
@@ -479,8 +495,8 @@ as water supply network evaporation ponds, storage ponds, treatment plants for
 condenser cooling water. As a consequence, for the dry-cooled plants, capital
 and operation and maintenance costs of these components are negligible~\cite{maulbetsch_economic_2012}.
 
-A recent review on condenser cooling
-technologies~\sidecite{aseri_condenser_2022} observes that a dry-cooled
+However, a recent review on condenser cooling
+technologies~\sidecite{aseri_condenser_2022} shows that a dry-cooled
 \gls{ptLabel} based plant would deliver 3--10\% less annual electricity output
 and would cost 4\% to 10\% more than a wet-cooled plant resulting in 2\% to 19\%
 increase in \gls{lcoeLabel}. It was also observed that due to large differences in
@@ -495,18 +511,19 @@ hours of storage capacity) can reduce the overall penalty of \gls{lcoeLabel} con
 plants~\cite{aseri_condenser_2022}. According to Maulbetsch et
 al.~\sidecite{maulbetsch_comparison_2004}, the \textit{breakeven} water cost at
 which wet and dry cooling have the same annual costs (for situations in which
-the rest of the base case values and assumptions apply) is between 2.00
-USD$_{2002}$/kgal and 3.00 USD$_{2002}$/kgal.
+the rest of the base case values and assumptions apply) is between 2.00 and 3.00~USD$_{2002}$/kgal.
 
 
 \begin{kaobox}[title=Dry cooling main characteristics,colback=OliveDrab3!25!white,colbacktitle=OliveDrab3!25!white]
-    \begin{enumerate}
-        \item Capital cost ratio ranges from 4.5x at a hot, arid site to about 3.5x at more moderate sites~\cite{maulbetsch_comparison_2004}.
-        \item Electrical consumption: 1.5 to 5 times wet cooling, 0.05-0.06 kW/kWh
+    \begin{itemize}
+        \item Capital cost ratio ranges from 4.5 times at a hot, arid site to about 3.5 times at more moderate sites~\cite{maulbetsch_comparison_2004}.
+        \item Electrical consumption: 1.5 to 5 times wet cooling, 0.05-0.06 kWe/kWh
         \item Penalty up to 25\% during the hottest hour of the year~\cite{maulbetsch_comparison_2004} and 5--6\% average annual parasitic consumption~\cite{aseri_condenser_2022,martin_optimal_2015,birkinshaw_comparison_2002}.
         \item Limited approach, constrained by the dry-bulb temperature, worsened if an indirect contact surface condenser is used.
         \item 24\% of commercial plants make use of this technology~\cite{thonig_cspguru_2023, bonilla_csp_2024}.
-    \end{enumerate}
+        \item Most new plants expected to be built in the next years
+        will make use of dry cooling~\cite{chinasolarthermalalliance_blue_2024}. 
+    \end{itemize}
 \end{kaobox}
 
 
@@ -522,7 +539,7 @@ the world experience prolonged periods of water stress. In response, a third
 alternative is gaining traction: hybrid or combined cooling technologies, which
 integrate the advantages of different cooling methods (wet and dry) into a
 single, innovative system. The concept has been explored since the
-1970s~\sidecite{hu_engineering_1976,zaloudek_study_1976,loscutoff_preliminary_1975,
+1970s~\sidecite[*-10]{hu_engineering_1976,zaloudek_study_1976,loscutoff_preliminary_1975,
 wiles_description_1978} and regained momentum in the following
 decades~\cite{maulbetsch_comparison_2004,maulbetsch_economic_2012}, although
 early studies primarily focused on fossil-fuel and nuclear thermal power plants.
@@ -571,25 +588,32 @@ Many heterogeneous hybrid/combined coolers can be found comprising different
 components with different arrangements:
 
 \begin{enumerate}
-    \item Water-enhanced dry cooling. A dry cooler (usually \gls{accLabel}) switchable to
-    wet (deluge condenser cell). In the deluged condenser configuration,
-    dry-cooling is prioritized until a certain backpressure is reached, when
-    water is sprayed wetting the exchanging surfaces, which now act equivalently
-    to the packing bed in a wet cooling tower
-    \sidecite{loscutoff_preliminary_1975,zaloudek_study_1976,wiles_description_1978,golkar_determination_2019,rohani_optimization_2021}.
+    \item Water-enhanced dry cooling. A dry cooler (usually \gls{accLabel})
+    switchable to wet (deluge condenser cell). In the deluged condenser
+    configuration, dry-cooling is prioritized until a certain backpressure is
+    reached. When this happens water is sprayed wetting the exchanging surfaces,
+    which now act equivalently to the packing bed in a wet cooling tower
+    \sidecite[*-20]{loscutoff_preliminary_1975,zaloudek_study_1976,wiles_description_1978,golkar_determination_2019,rohani_optimization_2021}.
     The overall heat transfer rates are improved since now the transfer
-    mechanism is air to the water film that evaporates, but air–metal contact is
+    mechanism is air to the water film that evaporates, but air-metal contact is
     lost, effectively disabling the dry-cooling mechanism. In this configuration
-    is either one or the other. Still, since the cooling system nominal cooling
-    capacity is usually reached by stacking together smaller capacity cells, a
-    parallel configuration could be achieved by keeping some  of the cells dry
-    (even having them only dry by design). 
+    is either one or the other. Still, because the nominal cooling capacity of
+    such systems is usually achieved by assembling multiple smaller cells, it is
+    possible to operate them in parallel. In practice, this means that some
+    cells can remain in dry mode (or even be designed exclusively for dry
+    operation), while others can be switchable to wet mode when needed. See
+    \reffig{cc:intro:hybrid-combined-examples} (a) for an example of such
+    system.
+    
     \item Dry cooler (usually \gls{accLabel}) + \gls{wctLabel} in parallel
-    \sidecite{maulbetsch_economic_2012,barigozzi_wet_2011,barigozzi_performance_2014}.
-    In this configuration part of the vapor is directed to a dry \gls{accLabel} while the
+    \sidecite[*-10]{maulbetsch_economic_2012,barigozzi_wet_2011,barigozzi_performance_2014}.
+    In this configuration part of the vapor is directed to an \gls{accLabel} while the
     rest goes to a surface condenser cooled by a wet cooling tower. Each cooler
-    can be sized independently.
+    can be sized independently. A commercial example of such system can be seen
+    in \reffig{cc:intro:hybrid-combined-examples} (b).
+    
     \item \gls{scLabel} + \gls{acheLabel} + \gls{wctLabel} in series.
+    
     \item \gls{scLabel} + (\gls{acheLabel}+\gls{wctLabel}) in
     series-parallel~\sidecite{palenzuela_experimental_2022,
     asvapoositkul_comparative_2014,hu_thermodynamic_2018}. The series-parallel
@@ -606,7 +630,7 @@ components with different arrangements:
     alternative it might not be as straightforward}. This allows to optimize the
     system adhoc for each particular deployment by running simulations with the
     expected operation conditions and prioritizing more the wet or the dry
-    component.
+    component. An example of such system is shown in \reffig{cc:intro:hybrid-combined-examples} (c).
 \end{enumerate}
 
 From a literature review a few conclusions can be drawn:
@@ -615,7 +639,9 @@ From a literature review a few conclusions can be drawn:
     \item Air flow rates are very different between dry and wet systems, so any
     design needs to allow independent regulation of each. In the combined
     configuration (separate coolers) this is easily achieved since they have
-    independent fans. On the other hand for hybrid systems curtains?
+    independent fans. On the other hand for hybrid systems with a single shared
+    fan louvers can be used to regulate the air flow through each
+    section~\cite{asvapoositkul_comparative_2014}.
     \item Corrosion might be a problem in the deluged condenser, if so, plastic
     exchange surfaces might have to be used, further decreasing already low heat
     transfer coefficients.
@@ -639,49 +665,48 @@ From a literature review a few conclusions can be drawn:
 
 \begin{figure*}
     \centering
-    \subfloat[\centering Schematic diagram of a hybrid cooling tower. \\ Source:
-    Asvapoositekul
-    t al.~\cite{asvapoositkul_comparative_2014}]{{\includegraphics[width=0.2\linewidth]{figures/hybrid-cooler-diagram-asvapoositkul.png}}}%
-    \hspace{0.1cm}
     \subfloat[\centering Schematic depicting the integration of a deluge
     condenser (wet) cell together with an \gls{accLabel} cell \\ Source:  \href{https://www.minwatercsp.eu/blog-29-full-scale-testing-in-stellenbosch-south-africa/}{ENEXIO
     Management
-    GmbH}]{{\includegraphics[width=0.35\linewidth]{figures/minwatercsp_deluge_condenser_ACC-cell.png}}}%
+    GmbH}]{{\includegraphics[width=0.3\linewidth]{figures/minwatercsp_deluge_condenser_ACC-cell.png}}}%
     \hspace{0.1cm}
-    \subfloat[\centering Combined cooling system at \gls{psaLabel}]{{\includegraphics[width=0.4\linewidth]{figures/cc-intro-combined.png}}}%
+    \subfloat[\centering A parallel \gls{accLabel}-\gls{wctLabel}. \\ Source:
+    Maulbetsch et al.~\cite{maulbetsch_comparison_2004}]{{\includegraphics[width=0.3\linewidth]{figures/cc-acc-wct-parallel.png}}}%
+    \hspace{0.1cm}
+    \subfloat[\centering Combined cooling system at \gls{psaLabel}]{{\includegraphics[width=0.35\linewidth]{figures/cc-intro-combined.png}}}%
     
     \caption{Different hybrid/combined coolers configurations}
     \labfig{cc:intro:hybrid-combined-examples}
 \end{figure*}
 
-A hybrid cooling technology requires relatively larger infrastructure as it
- comprises of components of both wet and dry cooling technologies, though much
- smaller water side infrastructure~\sidecite{rohani_optimization_2021}. Also,
- the potential for water reuse for a hybrid system according to Rohani et
- al.~\cite{rohani_optimization_2021} can amount to 23\% of the total raw water
- consumption. An important part of this water can be treated and reused without
- significantly increasing the production costs: up to 14\% reduction with the
- same production cost or even slightly reduced.
+Hybrid/combined cooling technology generally requires larger infrastructure as
+it comprises of components of both wet and dry cooling technologies, though
+much smaller water side infrastructure~\sidecite{rohani_optimization_2021}.
+Also, the potential for water reuse for a hybrid system according to Rohani et
+al.~\cite{rohani_optimization_2021} can amount to 23\% of the total raw water
+consumption. An important part of this water can be treated and reused without
+significantly increasing the production costs: up to 14\% reduction with the
+same production cost or even slightly reduced.
 
-Hybrid/combined systems are a compromise between full-wet and full-dry systems.
+These systems are a compromise between full-wet and full-dry systems.
 Due to their heterogeneity depending on the prioritized objective their costs
 and consumptions can be closer to one or the other. Such systems can be sized
 for a range of desired water savings. The systems are normally considered for
-annual water use targets of from 15\% to 85\% of that used by a wet cooling
+annual water use targets of from 15~\% to 85~\% of that used by a wet cooling
 system. Outside that range, they are normally not economically attractive. When
 even less water than this is available, water-enhanced dry systems might be the
 better option~\cite{maulbetsch_comparison_2004}. For some configurations (when
 using indirect dry cooling) they can get more expensive than the standalone \gls{accLabel}
-alternative~\cite{maulbetsch_economic_2012}. The inclusion of thermal energy storage
+alternative~\cite{maulbetsch_economic_2012}. Finally, the inclusion of thermal energy storage
 in the hybrid cooled plant (six hours of storage capacity) can reduce the
-overall penalty of \gls{lcoeLabel} form 6.4\% to 3.2 compared to wet-cooled
+overall penalty of \gls{lcoeLabel} from 6.4~\% to 3.2 compared to wet-cooled
 plants~\sidecite{aseri_condenser_2022}.
 
 \begin{kaobox}[title=Hybrid cooling main characteristics,colback=HotPink3!25!white,colbacktitle=HotPink3!25!white]
     \begin{enumerate}
         \item Capital cost: 2--3.5x~\cite{maulbetsch_economic_2012}
-        \item Penalty: 1--3\%, 2--8\% in \gls{lcoeLabel}~\cite{aseri_condenser_2022}, 
-        \item Just one commercial \gls{cspLabel} plant makes use of this technology~\cite{spx_}
+        \item Penalty: 1--3~\%, 2--8~\% in \gls{lcoeLabel}~\cite{aseri_condenser_2022}, 
+        \item Just one commercial \gls{cspLabel} plant makes use of this technology~\cite{spx_spx_2012}
     \end{enumerate}
     \textbf{NOTE}: Due to the novelty and heterogeneity of these systems, values can change significantly.
 \end{kaobox}
@@ -691,23 +716,23 @@ plants~\sidecite{aseri_condenser_2022}.
 \subsection{Selection of the cooling technology}[Cooling technology selection]
 
 Selection of condenser cooling technology can affect the financial as well as
-technical viability of concentrating solar power (\gls{cspLabel}) plants. These difference
-between technologies are dependent on the environment conditions (local water
-cost, local temperature, etc). Except for extreme cases: no water availability
-only dry cooler or plenty water availability throughout the year leading to the
-immediate decision of a wet cooler, this is not an obvious decision. Dry
-cooling or hybrid cooling systems are increasingly used in \gls{cspLabel} projects,
+technical viability of concentrating solar power (\gls{cspLabel}) plants. These
+difference between technologies are dependent on the environment conditions
+(local water cost, local temperature, etc). Except for extreme cases: no water
+availability making a dry cooler the only choice or plenty water availability
+throughout the year leading to the obvious decision of a wet cooler, this is not
+a trivial decision. Dry cooling is increasingly used in \gls{cspLabel} projects,
 even though they typically come with higher capital costs and reduced
 thermodynamic performance, particularly in hot weather for the dry only
-alternative. These systems trade water savings for lower efficiency,
-making the choice of cooling technology a critical design decision that
-balances technical, economic, and environmental considerations. 
+alternative. These systems trade water savings for lower efficiency, making the
+choice of cooling technology a critical design decision that balances technical,
+economic, and environmental considerations. 
 
 Selecting the cooling technology is not trivial, specially if a hybrid cooler is
 chosen. The relative capability of the wet and dry systems is the primary
 determinant of the system cost. This, in turn, depends on: the amount of water
 available for cooling and the value of plant output during the hottest hours of
-the year compared to the average value over the entire year  As a general rule,
+the year compared to the average value over the entire year.  As a general rule,
 the more water available for cooling, the cheaper and more efficient is the
 cooling system. If the amount of water available is between 15\% and 85\% of
 that required for an all-wet system, the capital cost of a hybrid system will be
@@ -731,9 +756,9 @@ Generating Station in Farmington, New Mexico. It consists of a conventional,
 shell-and-tube steam condenser coupled to a hybrid tower with an air-cooled dry
 section on top which discharges into a wet cooling tower beneath. For \gls{cspLabel}, the
 only known plant to make use of this technology is the Crescent Dunes Solar
-Energy Project, a 110~MW concentrated solar power station equipped with 1.1~GWh
+Energy Project, a 110~MWe concentrated solar power station equipped with 1.1~GWh
 of molten-salt thermal energy storage. This plant makes use of the described
-parallel configuration~\sidecite{spx_}. Also, within the \textit{MinWaterCSP}
+parallel configuration~\sidecite{spx_spx_2012}. Also, within the \textit{MinWaterCSP}
 project, a full scale pilot hybrid plant consisting of an air cooled deluged
 condenser was successfully built and tested in Stellenbosch, South
 Africa~\sidecite{steinbeis2igmbh_blog_2020}. 
