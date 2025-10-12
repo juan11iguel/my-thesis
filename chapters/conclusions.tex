@@ -26,40 +26,56 @@
 \subsection*{Optimal water and electricity management in a combined cooling system}
 
 \textbf{Improved Pareto front computation}. In the current optimization
-    implementation, the Pareto front for each step in the optimization horizon
-    is constructed using a grid search over the decision space. This approach
-    can become computationally expensive, especially as the grid resolution
-    increases. Additionally, the Pareto front must be recalculated from scratch
-    at every step, even though the sequential steps are often very similar—cost
-    parameters remain constant, and only the thermal load and weather
-    conditions change, typically with small variations. A more efficient
-    solution would be to use a multi-objective optimization algorithm such as
-    NSGA-II~\sidecite{}, which can transfer evolved populations between
-    successive evaluations, significantly reducing redundant computations.
+implementation, the Pareto front for each step in the optimization horizon is
+constructed using a grid search over the decision space. This approach can
+become computationally expensive, especially as the grid resolution increases.
+Additionally, the Pareto front must be recalculated from scratch at every step,
+even though the sequential steps are often very similar—cost parameters remain
+constant, and only the thermal load and weather conditions change, typically
+with small variations. A more efficient solution would be to use a
+multi-objective optimization algorithm, which can transfer evolved populations
+between successive evaluations, significantly reducing redundant computations.
 
 \textbf{Better water management} In the current implementation, the primary
-    water source is distributed evenly each day, so the optimization process
-    uses up the entire supply daily. However, a more intelligent daily
-    distribution—essentially, a new optimization problem—could improve water
-    management by allocating different amounts on different days, based on
-    expected weather conditions and predicted generation. This approach would
-    likely be incorporated as a new uppper layer in the hierarchical control
-    structure.\sidenote{The resulting structure would be: 1.~Water allocation,
-    2.~ \gls{ccsLabel} \hyperref[sec:cc:optimization]{operation optimization},
-    3.~\gls{ccLabel} regulatory control.}. At the higher level a simpler and
-    more abstract model would be considered to predict the long term behavior of
-    the system and to optimize it over a long time horizon, probably considering
-    the availability and capacity of a water reservoir.
+water source is distributed evenly each day, so the optimization process
+uses up the entire supply daily. However, a more intelligent daily
+distribution—essentially, a new optimization problem—could improve water
+management by allocating different amounts on different days, based on
+expected weather conditions and predicted generation. This approach would
+likely be incorporated as a new uppper layer in the hierarchical control
+structure.\sidenote{The resulting structure would be: 1.~Water allocation,
+2.~ \gls{ccsLabel} \hyperref[sec:cc:optimization]{operation optimization},
+3.~\gls{ccLabel} regulatory control.}. At the higher level a simpler and
+more abstract model would be considered to predict the long term behavior of
+the system and to optimize it over a long time horizon, probably considering
+the availability and capacity of a water reservoir.
+
+\textbf{Analyze different combined coolers configurations and within each
+configuration, different component sizes}. The cooler analyzed has a combined
+dry and wet coolers which can either satisfy the nominal cooling load. Different
+ratios could be analyzed and one would probably be a better fit for the
+particular case study. Furthermore, the \fullgls{acheLabel} is used for the
+\gls{dcLabel}, but other options could be considered and added to the
+comparison, such as an \fullgls{accLabel} in parallel with a surface condenser
+together with a \gls{wctLabel} or a deluged condenser.
+    
+This in itself is a design optimization problem that is not addressed in this
+thesis. However, it is important to integrate a method like the proposed
+optimization and include it in the design process to evaluate the
+performance of different configurations and sizes. In the end the decision
+of cooling system configuration and size will be informed by a
+techno-economic analysis.
+    
 
 \textbf{Techno-economic analysis.} The presented cooling alternatives
-comparative in this thesis focus on the operation cost of the system, but to
-get a better picture of the alternatives performance, a techno-economic
-analysis that includes the capital cost of the system and the
-expected lifetime of the components should be performed \ie considering all
-costs associated with the system the plant's lifetime. This is currently being
-worked on as part of \cite{SOLHycool}, where the methodology presented here in
-terms of operation costs will be integrated in a techno-economic analysis for
-different case studies.
+comparative in this thesis focus on the operation cost of the system, but to get
+a better picture of the alternatives performance, a techno-economic analysis
+that includes the capital cost of the system and the expected lifetime of the
+components should be performed \ie considering all costs associated with the
+system the plant's lifetime. This is currently being worked on as part of
+\href{https://solhycool.psa.es/}{SOLHycool}\sidenote{\url{https://solhycool.psa.es/}},
+where the methodology presented here in terms of operation costs will be
+integrated in a techno-economic analysis for different case studies.
 
 
 
@@ -109,15 +125,149 @@ In conclusion this system, although improvable, allows to validate the feasibili
 % % TODO: Add \listofcontributions
 
 % \endgroup
+The author has published or submitted for publication several journal articles,
+contributed to conferences (national and international) and colloquiums:
 
-\begin{enumerate}
-	\item Publicaciones en revista
-	\item Contribuciones a congreso
-	\item Coloquios doctorales
-	\item Colaboraciones en proyectos de investigación
-	\item Estancias de investigación
-	\item Repositorios de código
-	\item Repositorios de datos
-	\item Herramientas interactivas
-	\item Contribuciones a librerías de código abierto?
-\end{enumerate}
+\begin{kaobox}[title=Journal publications,colback=Azure2!25!white,colbacktitle=Azure2!25!white]
+
+	\begin{itemize}
+		\item J. M. Serrano, P. Navarro, J. Ruiz, P. Palenzuela, Manuel Lucas, and L. Roca. “Wet Cooling Tower Performance
+		Prediction in CSP Plants: A Comparison between Artificial Neural
+		Networks and Poppe's Model.” Energy, May 29, 2024, 131844.\\
+		DOI: \href{https://doi.org/10.1016/j.energy.2024.131844}{https://doi.org/10.1016/j.energy.2024.131844}.
+		
+		\item P. Navarro, J. M. Serrano, L. Roca, P. Palenzuela, M. Lucas, and
+		J. Ruiz. “A Comparative Study on Predicting Wet Cooling Tower
+		Performance in Combined Cooling Systems for Heat Rejection in CSP
+		Plants.” Applied Thermal Engineering, June 21, 2024, 123718.\\
+		DOI: \href{https://doi.org/10.1016/j.applthermaleng.2024.123718}{https://doi.org/10.1016/j.applthermaleng.2024.123718}.
+
+		\item J. M. Serrano, P. Navarro, L. Roca, P. Bartolomé, ..., P. Palenzuela,
+		M. Lucas, and J. Ruiz. “Combined cooling for CSP plants: Modeling,
+		experimental validation and optimization analysis” Applied Thermal
+		Engineering, December 21, 2025, 123718.\\
+		DOI: \href{https://doi.org/...}{https://doi.org/...} (Under review).
+
+		
+	\end{itemize}
+\end{kaobox}
+
+
+\begin{kaobox}[title=Contribution to conferences,colback=ForestGreen!15!white,colbacktitle=ForestGreen!15!white]
+
+	\begin{itemize}
+		\item J. M. Serrano, J. D. Gil, J. Bonilla, P. Palenzuela, and L. Roca,
+		“Optimal operation of a combined cooling system” in 4th IFAC
+		International Conference on Advances in Proportional-Integral-Derivative Control,
+		Almería, Spain, 2024-06-12/2024-06-14.
+
+		\item J. M. Serrano, J. D. Gil Vergel, J. Bonilla, P.
+		Palenzuela, and L. Roca, “Operación óptima de un sistema de
+		refrigeración combinada,” in XLIV Jornadas de Automática, Universidad
+		de Zaragoza, 6, 7 y 8 de septiembre de 2023, Zaragoza, 2023rd ed., Aug.
+		2023, pp. 477-482. \\DOI:
+		\href{https://doi.org/10.17979/spudc.9788497498609.477}{10.17979/spudc.9788497498609.477}.
+
+		\item P. Navarro, J. M. Serrano, J. Ruiz, M. Lucas, L. Roca, and
+		P. Palenzuela. “Comparison Between an Artificial Neural
+		Network and Poppe's Model for Wet Cooling Tower Performance Prediction
+		in CSP Plants.” Efficiency, Cost, Optimization, Simulation and
+		Environmental Impact of Energy Systems. International Conference., ECOS
+		2023, June 25, 2023, 1609–20.\\DOI: \href{https://doi.org/10.52202/069564-0146}{10.52202/069564-0146}.
+
+		\item L. Roca, J. M. Serrano, J.D. Gil, G. Zaragoza, M. Beschi, and A.
+		Visioli. “Modelo de parámetros concentrados para captadores solares
+		planos con reflectores.” Jornadas de Automática, no. 45 (July 2024): 45.
+		\\DOI: \href{https://doi.org/10.17979/ja-cea.2024.45.10930}{10.17979/ja-cea.2024.45.10930}
+	\end{itemize}
+\end{kaobox}
+
+\begin{kaobox}[title=Participation in conferences and colloquiums, colback=Violet!15!white,colbacktitle=Violet!15!white]
+
+	\begin{itemize}
+		\item J.M. Serrano, L. Roca, P. Palenzuela. "Yearly Simulation of a
+		Combined Cooling System Integrated into a Concentrating Solar Power
+		Plant". SolarPACES. Almería, Spain (September 2025).
+		\item J.M. Serrano, P. Palenzuela and L. Roca. "Methodology for the
+		implementation of a steady state simulation model in a multi-effect
+		distillation plant. Case study: PSA MED pilot plant". Desalination for
+		the Environment, Clean Water and Energy (EDS). Las Palmas de Gran
+		Canaria, Spain (2022).
+		\item J.M. Serrano, P. Palenzuela and L. Roca. Experimental evaluation
+		of MED at high top brine temperatures with no divalent ions in feed
+		water. Desalination for the Environment, Clean Water and Energy (EDS).
+		Limassol, Chipre (2023).
+		\item Patri ponemos el EDS de Marruecos?
+		\item 3rd SFERA-III Doctoral Colloquiums:
+		\begin{enumerate}
+			\item Technological developments for solar multi-effect distillation
+			processes. Almería, Spain (2021).
+			\item Modelling and automation of a multi-effect distillation plant
+			for the optimal coupling with solar energy. ETH Zurich, Switzerland (2022).
+			\item Towards the optimal coupling of multi-effect distillation with
+			solar energy. DLR. Cologne, Germany (2023).
+		\end{enumerate}
+	\end{itemize}
+
+\end{kaobox}
+
+As a result of the work developed in the present research work, several
+repositories containing experimental datasets and open-source code have been
+made publicly available. Particularly, each of the parts of the thesis has an
+associated repository with the implementation of the presented results, in order
+to facilitate transparency, reproducibility, and reusability of the developed
+methods. Additionally, this thesis manuscript itself is also made available
+together with all its associated media: 
+
+\begin{kaobox}[title=Open datasets,colback=MediumPurple2!25!white,colbacktitle=MediumPurple2!25!white]
+
+	\begin{itemize}
+		
+		\item P. Palenzuela, L. Roca, J.M. Serrano (CIEMAT-PSA). “Steady-State
+		Operation Dataset of an Experimental Wet Cooling Tower Pilot Plant
+		Located at Plataforma Solar de Almería.” Version 1.0.0. Zenodo, June 21,
+		2024.\\
+		DOI: \href{https://doi.org/10.5281/zenodo.10806201}{10.5281/zenodo.10806201}.
+	
+		\item P. Palenzuela, L. Roca, J.M. Serrano (CIEMAT-PSA). “Steady-State
+		Operation Dataset of an Experimental Air-Cooled Heat Exchanger Located
+		at Plataforma Solar de Almería.” Version 1.0.0. Zenodo, December? ,
+		2025.\\
+		DOI: \href{https://doi.org/10.5281/zenodo.17312369}{10.5281/zenodo.17312369}
+		(To be published).
+	
+		\item P. Palenzuela, L. Roca, J.M. Serrano (CIEMAT-PSA). “Steady-State
+		Operation Dataset of an Experimental Surface Condenser Located at
+		Plataforma Solar de Almería.” Version 1.0.0. Zenodo, December? , 2025.\\
+		DOI: \href{https://doi.org/10.5281/zenodo.17312530}{10.5281/zenodo.17312530}
+		(To be published).
+	
+		\item P. Palenzuela, L. Roca, J.M. Serrano (CIEMAT-PSA). “Steady-State
+		Operation Dataset of an Experimental Combined Cooling System Located at
+		Plataforma Solar de Almería.” Version 1.0.0. Zenodo, December? , 2025.\\
+		DOI:\href{https://doi.org/10.5281/zenodo.17312546}{10.5281/zenodo.17312546}
+		(To be published).
+
+	\end{itemize}
+\end{kaobox}
+
+
+\begin{kaobox}[title=Open-source implementation,colback=Goldenrod!25!white,colbacktitle=Goldenrod!25!white]
+
+	\begin{itemize}
+		\item J.M. Serrano, L. Roca. "Repository with the implementation source code for modeling,
+		optimization and simulation of a combined cooling system (wet cooling
+		tower, dry cooler and surface condenser) at Plataforma Solar de Almería
+		as part of the SOLhycool research project".\\
+		DOI: \href{https://doi.org/10.5281/zenodo.CHANGEME}{https://doi.org/10.5281/zenodo.CHANGEME}
+
+		\item J.M. Serrano, "Repository with the implementation and results of the modeling and optimization of a solar-driven multi-effect distillation system at Plataforma Solar de Almería".\\
+		DOI: \href{https://doi.org/10.5281/zenodo.CHANGEME}{https://doi.org/10.5281/zenodo.CHANGEME}
+
+		\item J.M. Serrano, Repository with the source code for the PhD thesis
+		manuscript: "Towards optimal resource management in solar thermal
+		applications: CSP and desalination".\\
+		DOI: \href{https://doi.org/10.5281/zenodo.CHANGEME}{https://doi.org/10.5281/zenodo.CHANGEME}
+	\end{itemize}
+	
+\end{kaobox}

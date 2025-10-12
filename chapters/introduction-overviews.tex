@@ -398,6 +398,7 @@ from 0.1 to 30 have been tested for this parameter.
 
 %================================
 \subsubsection{Other machine learning methods}
+\labsec{intro:modelling:other-ml}
 
 \begin{itemize}
     \item \textbf{Random Forest}. A random forest for regression is a method
@@ -424,7 +425,7 @@ from 0.1 to 30 have been tested for this parameter.
 
 %===================================
 %===================================
-\subsubsection{Data-driven from first-principles models. Synthetic dataset generation}
+\subsubsection{Surrogate Data-driven models from first-principles models. Synthetic dataset generation}
 \labsec{intro:modelling:sample-generation}
 
 % Mencionar modelos basados en datos a partir de modelos físicos. Describir
@@ -443,14 +444,16 @@ those experimentally used for some parameter calibration.
 
 On the contrary, data-driven models are very specific to the system and
 operating ranges they are trained for. That is why training/calibrating a
-data-driven model with data from a first-principles model is a common practice
-to obtain a model that can be used in a larger range of operating conditions...
+data-driven model with a synthetic dataset generated from the evaluation of the
+first-principles model is common practice to obtain a surrogate model that can
+then be used in a larger range of operating conditions and that provides
+superior computational performance.
 
 The process of generating samples from a first-principles model to train a
-data-driven model is called sample generation. It consists of running the
-first-principles model for a set of input parameters, which can be selected
-randomly or following a specific distribution, and then using the outputs of
-the first-principles model as the training data for the data-driven model.
+data-driven model is called synthetic dataset generation. It consists of running
+the first-principles model for a set of input parameters, which can be selected
+randomly or following a specific distribution, and then using the outputs of the
+first-principles model as the training data for the data-driven model.
 
 The first step is to define the input parameters and their ranges. This can be
 done by selecting the most relevant parameters for the system and determining
@@ -462,7 +465,7 @@ that cover the entire range of the input parameters and ensure that the
 generated samples are representative of the system's behaviour. Once the input
 parameters are defined, the first-principles model is run for each set of input
 parameters, and the outputs of the model are recorded. Finally, the recorded
-outputs are used to train the data-driven model.
+outputs are used to train the surrogate data-driven model.
 
 
 %===================================
