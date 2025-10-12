@@ -19,6 +19,24 @@ to check them out in [latex.code-snippets](.vscode/latex.code-snippets).
 
 ![Snippets](./assets/snippets.mp4)
 
+## Cheatsheet
+
+| Command                   | Description                                                                    | Example Output                                   |
+| ------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------ |
+| `\glsentrylong{label}`    | Prints the **long form** of the entry.                                         | *Solar Thermal Collector*                        |
+| `\glsentryshort{label}`   | Prints the **short form** (abbreviation).                                      | *STC*                                            |
+| `\glsentryfull{label}`    | Prints the **long (short)** form.                                              | *Solar Thermal Collector (STC)*                  |
+| `\glsentryname{label}`    | Prints the **name** field (if defined separately).                             | Depends on entry                                 |
+| `\glsentrytext{label}`    | Prints the **text** field (generic, for non-acronyms).                         | Usually same as long form                        |
+| `\glsentrydesc{label}`    | Prints the **description** field.                                              | *A solar device that collects thermal energy...* |
+| `\glsentrysymbol{label}`  | Prints the **symbol** field.                                                   | *α*, *Q̇*, etc.                                  |
+| `\glsentryplural{label}`  | Prints the **plural form** (uses `longplural` if defined, otherwise adds ‘s’). | *Solar Thermal Collectors*                       |
+| `\glsentrylongpl{label}`  | Plural form of `\glsentrylong`.                                                | *Solar Thermal Collectors*                       |
+| `\glsentryshortpl{label}` | Plural form of `\glsentryshort`.                                               | *STCs*                                           |
+| `\glsentryfullpl{label}`  | Plural form of `\glsentryfull`.                                                | *Solar Thermal Collectors (STCs)*                |
+| `\glsentrytextpl{label}`  | Plural form of `\glsentrytext`.                                                | (Depends on definition)                          |
+
+
 
 ## Compiling the document
 

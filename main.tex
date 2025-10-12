@@ -75,7 +75,7 @@
 
 \makeglossaries % Make LaTeX produce the files required to compile the glossary
 \input{glossary.tex} % Include the glossary definitions
-\makenomenclature % Make LaTeX produce the files required to compile the nomenclature
+% \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
 % Reset sidenote counter at chapters
 \counterwithin*{sidenote}{chapter}
@@ -96,7 +96,6 @@
 % Links to additional material
 \usepackage{qrcode}
 % \usepackage{fancyqr}
-
 \usepackage{fontspec}
 \usepackage{etoolbox}
 \usepackage[percent]{overpic}
@@ -120,15 +119,20 @@
 	]{Fira Sans Light}
 \setsansfont[Ligatures=TeX]{Fira Sans}
 \setmonofont[Ligatures=TeX]{Fira Mono}
+\setmathfont{Fira Math}     % the matching math font
 
 % Customising margin citations, from TheoWinterhalter-PhD
 \renewcommand{\formatmargincitation}[1]{%
 \color{Gray!90} \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\%
 }
 
-% Set some mathematical operators
+% Declare maths operators 
 \DeclareMathOperator{\lew}{Le}
 \DeclareMathOperator{\Me}{Me}
+\DeclareMathOperator{\Rey}{Re}
+\DeclareMathOperator{\Pra}{Pr}
+\DeclareMathOperator{\Nus}{Nu}
+\DeclareMathOperator{\LMTD}{LMTD}
 
 % Define the base URL for the figures repository
 % Used for QR codes to link to the interactive version of some figures
@@ -257,15 +261,47 @@
   \endgroup
 }
 
-\newcommand{\fullgls}[1]{\gls[format=long]{#1}}
+\newcommand{\fullgls}[1]{\glsentryfull{#1}}
+
+% | Command                   | Description                                                                    | Example Output                                   |
+% | ------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------ |
+% | `\glsentrylong{label}`    | Prints the **long form** of the entry.                                         | *Solar Thermal Collector*                        |
+% | `\glsentryshort{label}`   | Prints the **short form** (abbreviation).                                      | *STC*                                            |
+% | `\glsentryfull{label}`    | Prints the **long (short)** form.                                              | *Solar Thermal Collector (STC)*                  |
+% | `\glsentryname{label}`    | Prints the **name** field (if defined separately).                             | Depends on entry                                 |
+% | `\glsentrytext{label}`    | Prints the **text** field (generic, for non-acronyms).                         | Usually same as long form                        |
+% | `\glsentrydesc{label}`    | Prints the **description** field.                                              | *A solar device that collects thermal energy...* |
+% | `\glsentrysymbol{label}`  | Prints the **symbol** field.                                                   | *α*, *Q̇*, etc.                                  |
+% | `\glsentryplural{label}`  | Prints the **plural form** (uses `longplural` if defined, otherwise adds ‘s’). | *Solar Thermal Collectors*                       |
+% | `\glsentrylongpl{label}`  | Plural form of `\glsentrylong`.                                                | *Solar Thermal Collectors*                       |
+% | `\glsentryshortpl{label}` | Plural form of `\glsentryshort`.                                               | *STCs*                                           |
+% | `\glsentryfullpl{label}`  | Plural form of `\glsentryfull`.                                                | *Solar Thermal Collectors (STCs)*                |
+% | `\glsentrytextpl{label}`  | Plural form of `\glsentrytext`.                                                | (Depends on definition)                          |
+
 
 %----------------------------------------------------------------------------------------
 
 \begin{document}
 
+%----------------------------------------------------------------------------------------
+%	FRONT COVER
+%----------------------------------------------------------------------------------------
+
+% If you have a PDF/image file that you want to use as a front cover, uncomment the following lines
+
+\clearpage
+\thispagestyle{empty}
+\null%
+\clearpage
+\includepdf{assets/cover-front.pdf}
+
+%----------------------------------------------------------------------------------------
+
 % ----------------------------------------------------------------------------------------
 % Components testing
 
+Normal: $\omega$ \\
+Bold: $\pmb{\omega}$
 
 \wipbox{Additional text to add}
 
@@ -363,7 +399,7 @@ As can be seen in \refprob{test}, the counter is working.
 	\]
 	\item Fixed parameters
 	\[
-	  \boldsymbol{\theta} = [\theta_1 = X,\, \theta_2 = Y]
+	  \pmb{\theta} = [\theta_1 = X,\, \theta_2 = Y]
 	\]
   \end{itemize}
 
@@ -491,39 +527,7 @@ of all the open subsets of $(X, d).$
 % }
 % \makeatother
 
-%----------------------------------------------------------------------------------------
-%	COPYRIGHT PAGE
-%----------------------------------------------------------------------------------------
-
-\makeatletter
-\uppertitleback{\@titlehead} % Header
-
-\lowertitleback{
-	\textbf{Disclaimer}\\
-	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
-	
-	\medskip
-	
-	\textbf{No copyright}\\
-	\cczero\ This book is released into the public domain using the CC0 code. To the extent possible under law, I waive all copyright and related or neighbouring rights to this work.
-	
-	To view a copy of the CC0 code, visit: \\\url{http://creativecommons.org/publicdomain/zero/1.0/}
-	
-	\medskip
-	
-	\textbf{Colophon} \\
-	This document was typeset with the help of \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and \href{https://www.latex-project.org/}{\LaTeX} using the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
-	
-	The source code of this book is available at:\\\url{https://github.com/fmarotta/kaobook}
-	
-	(You are welcome to contribute!)
-	
-	\medskip
-	
-	\textbf{Publisher} \\
-	First printed in May 2019 by \@publishers
-}
-\makeatother
+\input{chapters/copyright.tex} % Include the copyright page
 
 %----------------------------------------------------------------------------------------
 %	DEDICATION
@@ -584,9 +588,9 @@ of all the open subsets of $(X, d).$
 
 \listoftables % Output the list of tables
 
-\listoflstlistings % Output the list of listings
-
-% TODO: Add \listofcontributions
+% \listoflstlistings % Output the list of listings
+% TODO: Add list of models
+% TODO: Add list of optimization problems
 
 \endgroup
 
@@ -603,7 +607,7 @@ of all the open subsets of $(X, d).$
 %----------------------------------------------------------------------------------------
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
-% \input{chapters/introduction.tex}
+\input{chapters/introduction.tex}
 % \input{chapters/introduction-overviews.tex}
 
 %----------------------------------------------------------------------------------------
@@ -700,14 +704,15 @@ of all the open subsets of $(X, d).$
 %	NOMENCLATURE
 %----------------------------------------------------------------------------------------
 
+% TODO: Get this working
 % The nomenclature needs to be compiled on the command line with 'makeindex main.nlo -s nomencl.ist -o main.nls' from the template directory
 
-\input{nomenclature.tex}
+% \input{nomenclature.tex}
 
-\renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
-\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.} % Prepend this text to the nomenclature
+% \renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
+% \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.} % Prepend this text to the nomenclature
 
-\printnomenclature % Output the nomenclature
+% \printnomenclature % Output the nomenclature
 
 %----------------------------------------------------------------------------------------
 %	GREEK ALPHABET
@@ -747,7 +752,7 @@ of all the open subsets of $(X, d).$
 % The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
 % TODO: This is not showing, maybe because we are compiling with lualatex?
 % \setglossarystyle{list} % listgroup % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
-\printglossary[title=Special Terms, toctitle=List of Terms] 
+\printglossary[title=Glossary, toctitle=List of Terms] 
 % Output the glossary, 'title' is the chapter heading for the glossary,
 % toctitle is the table of contents heading
 
@@ -766,11 +771,11 @@ of all the open subsets of $(X, d).$
 
 % If you have a PDF/image file that you want to use as a back cover, uncomment the following lines
 
-%\clearpage
-%\thispagestyle{empty}
-%\null%
-%\clearpage
-%\includepdf{cover-back.pdf}
+\clearpage
+\thispagestyle{empty}
+\null%
+\clearpage
+\includepdf{assets/cover-back.pdf}
 
 %----------------------------------------------------------------------------------------
 

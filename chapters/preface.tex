@@ -6,41 +6,298 @@ Test test test
 % single time you saw me, I might have forgotten I had to actually finish it.
 
 \begin{flushright}
-	\textit{Federico Marotta}
+	\textit{Juanmi}
 \end{flushright}
 
 
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+% Ejemplo sobre el que basarse: Sokolowski, John A., and Catherine M. Banks. Principles of Modeling and Simulation: A Multidisciplinary Approach. John Wiley & Sons, 2011.
+
+The present manuscript is the result of a PhD thesis research work carried out
+at the Plataforma Solar de Almería, Spain, under the supervision of Dr.~Lidia
+Roca and Dr.~Patricia Palenzuela and is ascribed to the Computer Science
+Doctorate Program at the University of Almería. The research was funded by a
+scholarship from CIEMAT, a public research organization attached to the Ministry
+of Science, Innovation and Universities.
+
+% Participación en proyectos de investigación
+The research work was developed within the framework of several national and
+international research projects, including the European Union's Horizon 2020
+research and innovation programme \textit{SFERA-III -- Solar Facilities for the
+European Research Area} (823802) and \textit{Water Mining -- Next generation
+water-smart management systems} (869474), as well as the national project
+\textit{SOLhycool -- Hybrid cooling solutions for water saving in solar thermal
+applications} (PID2021-126452OA-I00).
+
+Different parts of the research work to be presented in the following, were
+developed during international stays. In a combined short-stay at the Cyprus
+Insitute (Nicosia, Cyprus - 2023) and attendance to the EDS conference in
+Limassol, it was matured and presented the initial \textit{Proposal for a
+standard methodology for performance evaluation in multi-effect distillation
+processes} under the supervision of Dr.~Marios Georgiou (EEWRC). A year later
+(February - June 2024), the main research stay at the Universidade Federal de
+Santa Catarina (UFSC), in Florianópolis (Brazil) took place under the
+supervision of Dr.~Julio E. Normey-Rico. There it was completed the
+\textit{Hybrid model of a solar desalination system, composed of finite state
+machines coupled to data-driven and first-principles models}. Finally, at the
+end of the contractual relationship with CIEMAT, in 2025, a one month stay at
+the Technische Universität Chemnitz financed by the Erasmus program served to
+advance the work in \textit{Evaluation and comparison of annual simulations of
+different cooling alternatives for a case study CSP plant} which would culminate
+with its presentation at the SolarPACES conference in September 2025.
+
+This manuscript has been prepared with an intention of making it accessible to a
+non-expert audience, however, it is primarily aimed at researchers and
+professionals in the fields of renewable energy and water treatment, with the
+technical parts of the document delving into thermodynamic, mathematical
+modelling and optimization concepts. The content is structured to provide a
+comprehensive understanding of the topics discussed, while also being
+approachable for those who may not have a deep technical background in these
+areas.
+
+\bigskip
+
+The text is divided into three parts where each contains a number of chapters.
+Part One introduces the context and motivation of the thesis, the research plan,
+and presents the main contributions of this research work. This introductory
+part is then followed by two parts with the main contributions, where each part
+is a complete unit: it describes the problem, presents the proposed solutions
+and analyses the obtained results. 
+
+Part Two is devoted to the cooling of the power block in \gls{cspLabel} plants,
+with a focus on the optimal management of the water resource through the
+modelling and optimization of alternative combined cooling systems. The work
+also includes the experimental validation of the proposed solution in a
+pilot plant.
+
+Part Three centers around thermal desalination processes, particularly
+multi-effect distillation. First by analyzing the separation process from a
+thermodynamic and qualitative perspective in order to standardize its evaluation
+and later in the part, the process is integrated with a variable energy source:
+solar thermal energy and its operation is modelled and optimized to manage the
+solar resource, maximizing fresh water generation and advancing the state of
+research in this area.
+
+The manuscript is completed with a recapitulation of the main conclusions and
+findings, as well as a discussion on potential future research directions in
+the studied topics.
+
+
 \chapter*{Summary}
-\addcontentsline{toc}{chapter}{Summary} % Add the preface to the table of contents as a chapter
+\addcontentsline{toc}{chapter}{Summary}
 
-I am of the opinion that every \LaTeX\xspace geek, at least once during 
-his life, feels the need to create his or her own class: this is what 
-happened to me and here is the result, which, however, should be seen as 
-a work still in progress. Actually, this class is not completely 
-original, but it is a blend of all the best ideas that I have found in a 
-number of guides, tutorials, blogs and tex.stackexchange.com posts. In 
-particular, the main ideas come from two sources:
+\glsresetall
 
-\begin{itemize}
-	\item \href{https://3d.bk.tudelft.nl/ken/en/}{Ken Arroyo Ohori}'s 
-	\href{https://3d.bk.tudelft.nl/ken/en/nl/ken/en/2016/04/17/a-1.5-column-layout-in-latex.html}{Doctoral 
-	Thesis}, which served, with the author's permission, as a backbone 
-	for the implementation of this class;
-	\item The 
-		\href{https://github.com/Tufte-LaTeX/tufte-latex}{Tufte-Latex 
-			Class}, which was a model for the style.
-\end{itemize}
+\gls{cspLabel} is poised to be a crucial contributor to the energy
+transition away from fossil fuels. The first phase of this transition is well
+underway, driven by the massive deployment of low-cost and non-dispatchable
+renewable technologies such as wind and solar photovoltaics. However, the second
+and more challenging phase, which involves achieving large-scale dispatchable
+renewable generation, is still ahead. \gls{cspLabel} stands out as a renewable
+and scalable dispatchable technology with the potential to outcompete
+combined-cycle and coal-fired power plants. 
 
-The first chapter of this book is introductory and covers the most
-essential features of the class. Next, there is a bunch of chapters 
-devoted to all the commands and environments that you may use in writing 
-a book; in particular, it will be explained how to add notes, figures 
-and tables, and references. The second part deals with the page layout 
-and design, as well as additional features like coloured boxes and 
-theorem environments.
+One of the key challenges in \gls{cspLabel} systems lies in cooling the power
+block, which is typically associated with high water consumption. The first part
+of this research is therefore dedicated to the efficient management of water
+resources in \gls{cspLabel} plants. An optimal water management strategy is
+proposed for \gls{cspLabel} systems that integrate novel combined cooling
+configurations. To this end, the annual performance of different cooling
+alternatives is evaluated for a commercial 50~MW$_e$ \gls{cspLabel} plant,
+Andasol-II, located in southern Spain. Specifically, three cooling systems, all
+modelled and validated, are compared: the plant's existing \gls{wctLabel},
+and two variants of a novel \gls{ccLabel} system with dry cooler capacities
+of 75~\% and 100~\% of the nominal thermal load of the \gls{wctLabel} system. 
 
-I started writing this class as an experiment, and as such it should be 
-regarded. Since it has always been intended for my personal use, it may
-not be perfect but I find it quite satisfactory for the use I want to 
-make of it. I share this work in the hope that someone might find here 
-the inspiration for writing his or her own class.
+For each alternative, plant operation is optimized under the same water-scarcity
+scenario using a proposed multi-stage optimization framework. This framework
+minimizes the daily cooling cost, which includes both electricity and water
+expenses, while ensuring that the cooling demand is satisfied. The key challenge
+lies in effectively managing the limited water resource. Results show that
+integrating the \gls{ccLabel} can reduce specific cooling costs by up to 80~\%
+and annual water consumption by about 48~\%, with 38~\% savings during the driest
+months. These benefits arise primarily from reduced reliance on costly
+alternative water sources. The \gls{ccLabel} alternatives also provide more
+stable and cost-effective operation throughout the year compared to the
+\gls{wctLabel}, which is highly sensitive to water availability. 
+
+\bigskip
+
+Thermal desalination, particularly \gls{medLabel}, can play an
+important role in mitigating water scarcity. Although it may not become the
+dominant desalination technology, it is well suited for specific applications.
+Its competitiveness can be improved by leveraging opportunities such as brine
+mining or industrial wastewater treatment, which enhance both economic
+feasibility and environmental benefits. \gls{medLabel} systems use thermal and electrical
+energy to separate seawater or contaminated feedwater into fresh water and
+concentrated brine. 
+
+To expand their applicability, \gls{medLabel} systems must improve in two directions:
+(i) by enhancing efficiency through wider operating ranges, or (ii) by adapting
+to low-temperature applications in which their heat demands can be partially or
+fully met using low-exergy sources such as waste heat or solar thermal energy.
+However, the true cost of thermal energy, and consequently the performance of
+such systems, is often difficult to quantify. 
+
+To address this challenge, this research proposes a standardized methodology for
+evaluating the performance of \gls{medLabel} processes, which can also be
+extended to other thermal separation technologies. The method covers key aspects
+such as instrumentation requirements, process control, and the suitability of
+performance metrics. It also includes uncertainty quantification and an
+algorithm for automatic steady-state detection. The proposed approach enhances
+the reliability and robustness of experimental evaluations under variable
+conditions. Experimental results confirm that the methodology is both reliable
+and consistent, enabling fair comparisons of \gls{medLabel} systems across
+different operating scenarios.
+
+The experimental campaign includes evaluations at high \glspl{tbtLabel}. Results
+analyzed using several performance metrics and scale formation risks demonstrate
+that the \gls{medLabel} process can operate at high \glspl{tbtLabel} without
+significant scaling and can achieve higher concentrations. However, no
+substantial improvements in thermal performance or reconcentration capacity are
+observed unless specific design modifications are introduced.
+
+\medskip
+
+Finally, a novel operational strategy is proposed to enable the seamless,
+autonomous, and optimal integration of a solar-driven \gls{medLabel} system. The
+method explicitly determines when to start and stop each subsystem while
+considering a two-day prediction horizon. This allows the optimization to
+account not only for immediate performance but also for the effect of present
+decisions on future production. The approach is based on an experimentally
+validated system model that includes the electrical consumption of each
+component, combined with the most comprehensive data-driven \gls{medLabel}
+model currently available in the literature. The control architecture follows a
+hierarchical three-layer structure, in which the upper operational layer solves
+a \glsentrylong{minlpLabel} problem aimed at maximizing water production while minimizing
+operating costs. Results from a week-long system simulation are compared with
+two alternative strategies, a baseline operation and a fixed-schedule optimized
+operation. The proposed method significantly increases water production by
+XX~\%, fully leveraging the solar resource and thermal storage capacity while
+accounting for primary operational costs.
+
+\bigskip
+
+This research encompasses two complementary studies on two intrinsically linked
+resources: water and energy. The first part focuses on the efficient management
+of water resources for power generation, while the second explores the efficient
+use of solar energy for clean water production.
+
+
+
+\chapter*{Resumen}
+\addcontentsline{toc}{chapter}{Resumen}
+
+\glsresetall
+
+La Energía Solar de Concentración (\gls{cspLabel}, por sus siglas en inglés) está
+destinada a ser un contribuyente crucial en la transición energética hacia el
+abandono de los combustibles fósiles. La primera fase de esta transición está
+bien encaminada, impulsada por el despliegue masivo de tecnologías renovables de
+bajo costo y no gestionables, como la eólica y la solar fotovoltaica. Sin
+embargo, la segunda y más desafiante fase, que implica lograr una generación
+renovable gestionable a gran escala, aún está por venir. La
+\gls{cspLabel} se destaca como una tecnología renovable y escalable con
+capacidad gestionable y el potencial de superar a las plantas de ciclo combinado
+y de carbón. 
+
+Uno de los principales desafíos en los sistemas \gls{cspLabel} radica en la
+refrigeración del bloque de potencia, la cual suele asociarse con un alto
+consumo de agua. Por ello, la primera parte de esta investigación se dedica a la
+gestión eficiente de los recursos hídricos en plantas \gls{cspLabel}. Se propone
+una estrategia óptima de gestión del agua para sistemas \gls{cspLabel} que
+integran configuraciones de refrigeración combinada novedosas. Con este fin, se
+evalúa el rendimiento anual de diferentes alternativas de refrigeración para una
+planta comercial de 50~MW$_e$ \gls{cspLabel}, Andasol-II, ubicada en el sur de
+España. En concreto, se comparan tres sistemas de refrigeración, todos ellos
+modelados y validados: la \gls{wctLabel} existente de la planta, y dos variantes
+de un novedoso sistema \gls{ccLabel} con capacidades de enfriador seco del
+75~\% y del 100~\% de la carga térmica nominal del sistema \gls{wctLabel}. 
+
+Para cada alternativa, la operación de la planta se optimiza bajo el mismo
+escenario de escasez de agua utilizando un marco de optimización multi-etapa
+propuesto. Este marco minimiza el costo diario de refrigeración, que incluye los
+gastos de electricidad y agua, garantizando al mismo tiempo que se satisfaga la
+demanda de refrigeración. El desafío clave radica en gestionar eficazmente el
+recurso hídrico limitado. Los resultados muestran que la integración del
+\gls{ccLabel} puede reducir los costos específicos de refrigeración hasta en un
+80~\% y el consumo anual de agua en alrededor del 48~\%, con un ahorro del
+38~\% durante los meses más secos. Estos beneficios surgen principalmente de la
+menor dependencia de fuentes de agua alternativas y costosas. Las alternativas
+\gls{ccLabel} también ofrecen una operación más estable y rentable a lo largo
+del año en comparación con la \gls{wctLabel}, que es altamente sensible a la
+disponibilidad de agua. 
+
+\bigskip
+
+La desalación térmica, en particular la Destilación Multiefecto
+(\gls{medLabel}, por sus siglas en inglés), puede desempeñar un papel
+importante en la mitigación de la escasez de agua. Aunque puede que no llegue a
+ser la tecnología de desalación dominante, es muy adecuada para aplicaciones
+específicas. Su competitividad puede mejorarse aprovechando oportunidades como
+la minería de salmuera o el tratamiento de aguas residuales industriales, que
+mejoran tanto la viabilidad económica como los beneficios ambientales.
+Los sistemas \gls{medLabel} utilizan energía térmica y eléctrica para separar
+agua de mar o agua contaminada en agua dulce y salmuera concentrada. 
+
+Para ampliar su aplicabilidad, los sistemas \gls{medLabel} deben mejorar en dos
+direcciones: (i) aumentando su eficiencia mediante rangos de operación más
+amplios, o (ii) adaptándose a aplicaciones de baja temperatura en las que sus
+demandas térmicas puedan satisfacerse parcial o totalmente mediante fuentes de
+baja exergía, como el calor residual o la energía solar térmica. Sin embargo, el
+costo real de la energía térmica, y por tanto el rendimiento de estos sistemas,
+a menudo es difícil de cuantificar. 
+
+Para abordar este desafío, esta investigación propone una metodología
+estandarizada para evaluar el rendimiento de los procesos \gls{medLabel}, la
+cual también puede extenderse a otras tecnologías de separación térmica. El
+método abarca aspectos clave como los requisitos de instrumentación, el control
+del proceso y la idoneidad de las métricas de rendimiento. También incluye la
+cuantificación de incertidumbre y un algoritmo para la detección automática del
+estado estacionario. El enfoque propuesto mejora la fiabilidad y la robustez de
+las evaluaciones experimentales bajo condiciones variables. Los resultados
+experimentales confirman que la metodología es confiable y consistente, lo que
+permite comparaciones justas entre sistemas \gls{medLabel} bajo diferentes
+escenarios operativos. 
+
+La campaña experimental incluye evaluaciones a altas \glspl{tbtLabel}. Los
+resultados, analizados mediante diversas métricas de rendimiento y riesgos de
+formación de incrustaciones, demuestran que el proceso \gls{medLabel} puede
+operar a altas \glspl{tbtLabel} sin incrustaciones significativas y puede
+alcanzar mayores concentraciones. Sin embargo, no se observan mejoras
+sustanciales en el rendimiento térmico o la capacidad de reconcentración, a
+menos que se introduzcan modificaciones específicas en el diseño. 
+
+\medskip
+
+Finalmente, se propone una estrategia operativa novedosa que permite la
+integración fluida, autónoma y óptima de un sistema \gls{medLabel} impulsado por
+energía solar. El método determina explícitamente cuándo iniciar y detener cada
+subsistema, considerando un horizonte de predicción de dos días. Esto permite
+que la optimización tenga en cuenta no solo el rendimiento inmediato, sino
+también el efecto de las decisiones presentes sobre la producción futura. El
+enfoque se basa en un modelo del sistema validado experimentalmente que incluye
+el consumo eléctrico de cada componente, combinado con el modelo
+\gls{medLabel} basado en datos más completo disponible actualmente en la
+literatura. La arquitectura de control sigue una estructura jerárquica de tres
+niveles, en la que la capa operativa superior resuelve un problema
+\glsentrylong{minlpLabel} destinado a maximizar la producción de agua mientras se minimizan
+los costos operativos. Los resultados de una simulación del sistema durante una
+semana se comparan con dos estrategias alternativas: una operación base y una
+operación optimizada con horario fijo. El método propuesto aumenta
+significativamente la producción de agua en un XX~\%, aprovechando plenamente el
+recurso solar y la capacidad de almacenamiento térmico, al tiempo que tiene en
+cuenta los costos operativos principales. 
+
+\bigskip
+
+Esta investigación abarca dos estudios complementarios sobre dos recursos
+intrínsecamente vinculados: el agua y la energía. La primera parte se centra en
+la gestión eficiente de los recursos hídricos para la generación eléctrica,
+mientras que la segunda explora el uso eficiente de la energía solar para la
+producción de agua limpia.
+
+
+
