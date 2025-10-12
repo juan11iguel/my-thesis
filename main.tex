@@ -71,7 +71,7 @@
 
 \graphicspath{{examples/documentation/images/}{images/}{figures/}} % Paths in which to look for images
 
-\makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
+% \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
 \makeglossaries % Make LaTeX produce the files required to compile the glossary
 \input{glossary.tex} % Include the glossary definitions
@@ -261,23 +261,8 @@
   \endgroup
 }
 
-\newcommand{\fullgls}[1]{\glsentryfull{#1}}
-
-% | Command                   | Description                                                                    | Example Output                                   |
-% | ------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------ |
-% | `\glsentrylong{label}`    | Prints the **long form** of the entry.                                         | *Solar Thermal Collector*                        |
-% | `\glsentryshort{label}`   | Prints the **short form** (abbreviation).                                      | *STC*                                            |
-% | `\glsentryfull{label}`    | Prints the **long (short)** form.                                              | *Solar Thermal Collector (STC)*                  |
-% | `\glsentryname{label}`    | Prints the **name** field (if defined separately).                             | Depends on entry                                 |
-% | `\glsentrytext{label}`    | Prints the **text** field (generic, for non-acronyms).                         | Usually same as long form                        |
-% | `\glsentrydesc{label}`    | Prints the **description** field.                                              | *A solar device that collects thermal energy...* |
-% | `\glsentrysymbol{label}`  | Prints the **symbol** field.                                                   | *α*, *Q̇*, etc.                                  |
-% | `\glsentryplural{label}`  | Prints the **plural form** (uses `longplural` if defined, otherwise adds ‘s’). | *Solar Thermal Collectors*                       |
-% | `\glsentrylongpl{label}`  | Plural form of `\glsentrylong`.                                                | *Solar Thermal Collectors*                       |
-% | `\glsentryshortpl{label}` | Plural form of `\glsentryshort`.                                               | *STCs*                                           |
-% | `\glsentryfullpl{label}`  | Plural form of `\glsentryfull`.                                                | *Solar Thermal Collectors (STCs)*                |
-% | `\glsentrytextpl{label}`  | Plural form of `\glsentrytext`.                                                | (Depends on definition)                          |
-
+% See glossary.tex for glossary entries and commands to add new entries
+\newcommand{\fullgls}[1]{\glsentryfull{#1}} % Alias to print full form of a glossary entry
 
 %----------------------------------------------------------------------------------------
 
@@ -558,7 +543,6 @@ of all the open subsets of $(X, d).$
 %----------------------------------------------------------------------------------------
 
 \input{chapters/preface.tex}
-\index{preface}
 
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
@@ -578,19 +562,16 @@ of all the open subsets of $(X, d).$
 \tableofcontents % Output the table of contents
 
 \listoffigures % Output the list of figures
+\listoftables % Output the list of tables
 % \listofmodels % TODO: Add support for this
 % \listofproblems % TODO: Add support for this
+% \listoflstlistings % Output the list of listings
 
 % Comment both of the following lines to have the LOF and the LOT on 
 % different pages
 \let\cleardoublepage\bigskip
 \let\clearpage\bigskip
 
-\listoftables % Output the list of tables
-
-% \listoflstlistings % Output the list of listings
-% TODO: Add list of models
-% TODO: Add list of optimization problems
 
 \endgroup
 
@@ -623,13 +604,13 @@ of all the open subsets of $(X, d).$
 %----------------------------------------------------------------------------------------
 %	SOLARMED
 %----------------------------------------------------------------------------------------
-% \input{chapters/solarmed.tex}
-% \input{chapters/solarmed-facility.tex}
-% \input{chapters/solarmed-standardization.tex}
-% % \input{chapters/solarmed-tbt.tex}
-% \input{chapters/solarmed-modelling.tex}
-% \input{chapters/solarmed-optimization.tex}
-% \input{chapters/solarmed-results.tex}
+\input{chapters/solarmed.tex}
+\input{chapters/solarmed-facility.tex}
+\input{chapters/solarmed-standardization.tex}
+% \input{chapters/solarmed-tbt.tex}
+\input{chapters/solarmed-modelling.tex}
+\input{chapters/solarmed-optimization.tex}
+\input{chapters/solarmed-results.tex}
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSIONS
@@ -762,8 +743,7 @@ of all the open subsets of $(X, d).$
 %----------------------------------------------------------------------------------------
 
 % The index needs to be compiled on the command line with 'makeindex main' from the template directory
-
-\printindex % Output the index
+% \printindex % Output the index
 
 %----------------------------------------------------------------------------------------
 %	BACK COVER

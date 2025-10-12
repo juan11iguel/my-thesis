@@ -1379,44 +1379,74 @@
 
 
 %----------------------------------------------------------------------------------------
-%	MODEL ENVIRONMENT
+%   LIST OF MODELS & PROBLEMS
 %----------------------------------------------------------------------------------------
-% Define an environment titled 'Model' and numbered incrementally
-% Define the counter *before* using it
-\newcounter{modelcounter}
-\counterwithin{modelcounter}{chapter}
-% Format command for display
-\newcommand*{\modelcounterformat}{Model~\themodelcounter\csname autodot\endcsname}
-% Environment definition using kaobox
-\newenvironment{modelcounter}[1]{
-	\refstepcounter{modelcounter}
-	\begingroup
-    \edef\tempTitle{\modelcounterformat: #1}%
-	\begin{kaobox}[title=\tempTitle,colback=Tan!25!white,colbacktitle=Tan!25!white]
-}{
-	\end{kaobox}
-	\endgroup
+\RequirePackage{tocloft}
+
+% Define custom lists (similar to list of figures/tables)
+\newlistof{listofmodels}{lom}{List of Models}
+\newlistof{listofproblems}{lop}{List of Problems}
+
+% Define commands for adding entries
+\newcommand{\addmodeltotoc}[1]{%
+  \addcontentsline{lom}{modelcounter}{\protect\numberline{\themodelcounter}#1}%
+}
+
+\newcommand{\addproblemtotoc}[1]{%
+  \addcontentsline{lop}{problemcounter}{\protect\numberline{\theproblemcounter}#1}%
 }
 
 %----------------------------------------------------------------------------------------
-%	PROBLEM ENVIRONMENT
+%   MODEL ENVIRONMENT
 %----------------------------------------------------------------------------------------
-% Define an environment titled 'Problem' and numbered incrementally
-% Define the counter *before* using it
-\newcounter{problemcounter}
-\counterwithin{problemcounter}{part}
-% Format command for display
-\newcommand*{\problemcounterformat}{Problem~\theproblemcounter\csname autodot\endcsname}
-% Environment definition using kaobox
-\newenvironment{problemcounter}[1]{
-	\refstepcounter{problemcounter}
-	\begingroup
-    \edef\tempTitle{\problemcounterformat: #1}%
-	\begin{kaobox}[title=\tempTitle,colback=Snow3!25!white,colbacktitle=Snow3!25!white]
+\newcounter{modelcounter}
+\counterwithin{modelcounter}{chapter}
+\newcommand*{\modelcounterformat}{Model~\themodelcounter\csname autodot\endcsname}
+
+\newenvironment{modelcounter}[1]{
+  \refstepcounter{modelcounter}
+  \addmodeltotoc{#1}% Add to list of models
+  \begingroup
+  \edef\tempTitle{\modelcounterformat: #1}%
+  \begin{kaobox}[title=\tempTitle,colback=Tan!25!white,colbacktitle=Tan!25!white]
 }{
-	\end{kaobox}
-	\endgroup
+  \end{kaobox}
+  \endgroup
 }
+
+%----------------------------------------------------------------------------------------
+%   PROBLEM ENVIRONMENT
+%----------------------------------------------------------------------------------------
+\newcounter{problemcounter}
+\counterwithin{problemcounter}{chapter}
+\newcommand*{\problemcounterformat}{Problem~\theproblemcounter\csname autodot\endcsname}
+
+\newenvironment{problemcounter}[1]{
+  \refstepcounter{problemcounter}
+  \addproblemtotoc{#1}% Add to list of problems
+  \begingroup
+  \edef\tempTitle{\problemcounterformat: #1}%
+  \begin{kaobox}[title=\tempTitle,colback=Snow3!25!white,colbacktitle=Snow3!25!white]
+}{
+  \end{kaobox}
+  \endgroup
+}
+
+%----------------------------------------------------------------------------------------
+%   COMMANDS TO PRINT THE LISTS
+%----------------------------------------------------------------------------------------
+\newcommand{\listofmodels}{%
+  \chapter*{List of Models}%
+  \addcontentsline{toc}{chapter}{List of Models}%
+  \listoflistofmodels%
+}
+
+\newcommand{\listofproblems}{%
+  \chapter*{List of Problems}%
+  \addcontentsline{toc}{chapter}{List of Problems}%
+  \listoflistofproblems%
+}
+
 
 %----------------------------------------------------------------------------------------
 %	FLOATING ENVIRONMENT WITH TOC ENTRIES
