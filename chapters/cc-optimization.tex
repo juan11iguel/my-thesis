@@ -2,18 +2,13 @@
 \chapter{Optimization of a combined cooling system}
 \labch{cc:optimization}
 
-\tldrbox{
-    This chapter describes optimization problems for a combined cooling system,
-    a \gls{dcLabel} and a \gls{wctLabel} as well as different optimization
-    strategies propositions to solve them. The objective is to minimize the
-    daily cost of operation made up by the electricity and water costs, while
-    ensuring the cooling demand is met. They key challenge is to manage the
-    available water resource, since there is a limited amount of cheap
-    rainwater available and any excess water required must be purchased at a
-    significantly higher cost. From the alternatives, this can only be
-    effectively achieved by the shrinking horizon optimization strategy applied
-    to the combined cooler for which an implementation methodology is proposed.
-}
+\tldrbox{ This chapter describes optimization problems for a combined cooling
+    system as well as different optimization strategies propositions to solve
+    them. The objective is to minimize the daily cost of operation made up by
+    the electricity and water costs, while ensuring the cooling demand is met.
+    They key challenge is to manage the limited water resource. From the studied
+    alternatives, this can only be effectively achieved by the proposed
+    two-stage horizon optimization strategy. }
 
 \section*{Introduction}
 % Recodatorio: No hace falta introducir mucho el contexto porque eso es algo
@@ -29,7 +24,7 @@ some operating parameters via a sensitivity analysis
 . Nonetheless, several have focused on improving cooling system performance
 through optimization of the individual component operation. Among them, the
 works from Martín et al. stand out. In \sidecite{martin_optimal_2013} they were
-the first to optimize the year-round operation of a CSP system not only
+the first to optimize the year-round operation of a \gls{cspLabel} system not only
 considering the cooling side but also integrating the power block. The problem
 was formulated as a multiperiod \gls{nlpLabel} problem with air flow rate and
 outlet temperature as decision variables for the cooling system. They showed
@@ -49,24 +44,29 @@ the significant daily temperature variations—often exceeding 10$^\circ$C—tha
 with peak power production and can have a substantial impact on cooling system
 performance.
 
+Little discussion can be found in the literature regarding the operation
+strategy of combined cooling systems. For water-enhanced dry cooling and
+parallel configurations, the proposed operation
+strategy~\sidecite{wiles_description_1978,zaloudek_study_1976,rohani_optimization_2021}
+consists on always prioritizing the dry sections up until a set value in the
+condenser pressure is reached, in which case the wet units activated. This
+strategy offers a simple and robust solution but leaves a lot of performance on
+the table.
 
-Two distinct configurations can be found in the literature where a discussion is
-made about its operation strategy: water-enhanced dry cooling and parallel configuration.
-Rohani\todo{Realmente lo que proponen no es nada nuevo, exactamente esa
-operación ya se propuso por ejemplo en wiles\_description\_1978 y zaloudek\_study\_1976}
-et al. \sidecite{rohani_optimization_2021} and Golkar et al
-\cite{golkar_determination_2019}. In the latter, Rohani et al. implement a
-thorough model of water streams in a \gls{cspLabel} plant that was
-experimentally validated. Different scenarios and cooling alternatives were
-analyzed and each of them was simulated for a year of operation. In the hybrid
-configuration the operation strategy consisted on always prioritizing the dry
-sections up until a set value in the condenser pressure was reached, in which
-case the wet units activated. This strategy offers a simple and robust solution
-but leaves a lot of performance on the table. Water will be left unused despite
-potentially being available to prioritize the more expensive dry cooler
-operation. While Golkar et al \cite{golkar_determination_2019} delved more in
-the design and sizing of the hybrid cooler by application of a genetic
-algorithm, it then applied a very similar operation strategy.
+% Two distinct configurations can be found in the literature where a discussion is
+% made about its operation strategy: water-enhanced dry cooling and parallel configuration.
+% Rohani\todo{Realmente lo que proponen no es nada nuevo, exactamente esa
+% operación ya se propuso por ejemplo en wiles\_description\_1978 y zaloudek\_study\_1976}
+% et al. \sidecite{rohani_optimization_2021} and Golkar et al
+% \cite{golkar_determination_2019}. In the latter, Rohani et al. implement a
+% thorough model of water streams in a \gls{cspLabel} plant that was
+% experimentally validated. Different scenarios and cooling alternatives were
+% analyzed and each of them was simulated for a year of operation. In the hybrid
+% configuration  Water will be left unused despite
+% potentially being available to prioritize the more expensive dry cooler
+% operation. While Golkar et al \cite{golkar_determination_2019} delved more in
+% the design and sizing of the hybrid cooler by application of a genetic
+% algorithm, it then applied a very similar operation strategy.
 
 In Maulbetsch et al.~\cite{maulbetsch_economic_2012}, a parallel combined system
 is analyzed, where the operation strategy is set as follows: At some
@@ -132,17 +132,15 @@ resource availability, given its critical importance in solar thermal
 applications.\\See \nrefsec{intro:csp:cooling}}
 
 % Estructura de este capítulo
-The chapter is structured as follows: first, the environment definition is
-presented in \nrefsec{cc:optimization:environment}, which includes a
-description of the variables taking part in the costs context, weather
-forecast, thermal load, and water resource availability. Next the two
-optimization strategies are presented, first a static optimization in
-\nrefsec{cc:optimization:static} where the dry cooler, wet cooler and combined
-cooler static problems are defined; followed by a shrinking horizon
-optimization approach in \nrefsec{cc:optimization:horizon} where the
-combined cooler is optimized over a prediction horizon. This last section
-includes a discussion on the problem nature and then presents the proposed
-methodology to solve it.
+This chapter is organized as follows: \nrefsec{cc:optimization:environment}
+introduces the context by describing the key variables involved, including cost
+factors, weather forecasts, thermal load, and water resource availability.
+\nrefsec{cc:optimization:static} presents the first optimization approach,
+focusing on static problems for the dry cooler, wet cooler, and their combined
+configurations. \nrefsec{cc:optimization:horizon} introduces a shrinking
+horizon optimization strategy applied to the combined cooler, optimizing its
+performance over a prediction horizon. This final section also explores the
+nature of the problem and outlines the proposed methodology for its resolution.
 
 
 %===================================
@@ -150,23 +148,21 @@ methodology to solve it.
 \section{Environment description}
 \labsec{cc:optimization:environment}
 
-The environment for the optimization problems described in this section
-includes the following components and is visualized in \reffig{cc:optimization:environment}:
+The environment for the optimization problems includes the following components
+(See \reffig{cc:optimization:environment}):
 
 \begin{enumerate}
-    \item \textbf{Costs context} The cooling system has mainly two associated
-    operational costs: electricity ($J_e$) and water use ($J_w$). For the
-    electricity the sale price of electricity ($P_e$) is used since whatever is
-    consumed by the cooling system, it is electricity that cannot be sold to
-    the market in the case of a system that produces electricity like a
-    \gls{cspLabel} plant, and it is electricity that needs to be purchased at market
-    price in the case of any other system. 
+    \item \textbf{Costs context} There are mainly two operational costs
+    associated with the cooling system: electricity ($J_e$) and water
+    ($J_w$). In a system that generates electricity, such as a \gls{cspLabel}
+    plant, this is electricity that could otherwise be sold to the market, so
+    the associated price ($P_e$) is the pool market price. In other
+    applications,this electricity must be purchased at the market price. 
     
-    As for the water, two sources are considered, water price from source 1 is
-    referred as $P_{w,s1}$ and $P_{w,s2}$ for source 2. Source 1 is cheaper
-    than source 2.
+    As for the water, two sources are considered: the water price from source 1
+    is denoted as $P_{w,s1}$, and from source 2 as $P_{w,s2}$, being $P_{w,s1}<P_{w,s2}$.
 
-    \item \textbf{Weather forecast} The only two weather variables that have an impact
+    \item \textbf{Weather conditions} The weather variables that have an impact
     on the cooling system are the ambient temperature ($T_{amb}$) and the
     relative humidity ($HR$) since they set the dry and wet bulb temperatures.
 
@@ -176,14 +172,17 @@ includes the following components and is visualized in \reffig{cc:optimization:e
     steam is used when the vapor performs work, like in a turbine.}
     
     \item \textbf{Water resource availability} Two sources of water are available, one
-    of them, the cheaper one coming from a dam is limited in volume
+    of them, the cheaper one coming from a dam/reservoir is limited in volume
     ($V_{avail}$). The cheaper source ($s_1$) is prioritized until it is
     depleted, then the alternative source ($s_2$) is used:
 
     \begin{align}
-        & \quad C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} \label{eq:cc:optimization:wa1} \\
-        & \quad C_{w,s2,i} = C_{w,i} - C_{w,s1,i} \label{eq:cc:optimization:wa2} \\
-        & \quad V_{avail,i} = V_{avail,i-1} - C_{w,s1,i} \cdot T_s \label{eq:cc:optimization:wa3}
+        & \quad C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} 
+        \labeq{cc:optimization:wa1} \\
+        & \quad C_{w,s2,i} = C_{w,i} - C_{w,s1,i} 
+        \labeq{cc:optimization:wa2} \\
+        & \quad V_{avail,i} = V_{avail,i-1} - C_{w,s1,i} \cdot T_s 
+        \labeq{cc:optimization:wa3}
     \end{align}
 
     where $i$ represents the step, at every step the amount used from each
@@ -200,14 +199,14 @@ includes the following components and is visualized in \reffig{cc:optimization:e
 \section{Static optimization}
 \labsec{cc:optimization:static}
 
-Static optimization problems are defined in a particular time, given an
-environment, and decisions do not take into account prior states or decisions,
-neither consider the effect on future state.
+Static optimization problems are defined in a particular instant, given an
+environment. Decisions are made without considering past states or actions, nor
+their impact on future states.
 
 From a process perspective this also characterizes the cooling process, except for
 the water resource availability, being the only variable that depends on the
 previous state, \ie is not static. Each time a static problem is evaluated, it
-begins with a specific initial water volume ($V_{\text{avail},0}$) for that
+begins with a specific initial water volume ($V_{{avail},0}$) for that
 step. After solving the problem, this volume must be updated before proceeding
 to the next step. As a result, evaluating multiple consecutive steps requires a
 sequential approach.
@@ -215,7 +214,7 @@ sequential approach.
 \reminder{Optimization problem definition}{
     The general optimization function is defined as:\footnote{See \nrefsec{intro:optimization}}
     \begin{equation*}
-    \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) 
+    \min_{\mathbf{x},\, \mathbf{e};\, \pmb{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \pmb{\theta}) 
         \quad \text{s.t.} \quad g_i(\mathbf{x}) \leq 0, \quad i = 1, \ldots, m
     \end{equation*}
 
@@ -244,27 +243,27 @@ $R_s$=0}. This configuration is illustrated in
 \marginnote[*5]{See \nrefsec{cc:modelling:dc} for a detailed description of the
 dry cooler and \nrefsec{cc:modelling:condenser} for the condenser model.}
 
-\problemdefinitionbox{\gls{dcLabel} - static}{
+\begin{problemcounter}{\gls{dcLabel} - static}
     \begin{equation*}
-        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = C_e \cdot P_e
+        \min_{\mathbf{x},\, \mathbf{e};\, \pmb{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \pmb{\theta}) = C_e \cdot P_e
     \end{equation*}
 
     \textbf{with}:
     \begin{align*}
-        T_{dc,out},\,C_e,\,T_{c,in},\,T_{c,out} &= \text{dcs\:model}(q_c,\,\omega_{\text{dc}},\, T_{\text{amb}},\, T_v,\, \dot{m}_v)
+        T_{dc,out},\,C_e,\,T_{c,in},\,T_{c,out} &= \text{ccs model}(q_c,\,\omega_{{dc}},\, T_{{amb}},\, T_v,\, \dot{m}_v)
     \end{align*}
     \begin{itemize}
         \item Decision variables
         \[
-        x = [q_c,\, \omega_{\text{dc}}]
+        x = [q_c,\, \omega_{{dc}}]
         \]
         \item Environment variables
         \[
-        e = [T_{\text{amb}},\, P_e,\, T_v,\, \dot{m}_v]
+        e = [T_{{amb}},\, P_e,\, T_v,\, \dot{m}_v]
         \]
         \item Fixed parameters
         \[
-        \theta = [R_p = 0,\, R_s = 0,\, \omega_{\text{wct}} = 0]
+        \theta = [R_p = 0,\, R_s = 0,\, \omega_{{wct}} = 0]
         \]
 
     \end{itemize}
@@ -274,22 +273,23 @@ dry cooler and \nrefsec{cc:modelling:condenser} for the condenser model.}
         
         \item Box-bounds
         \begin{itemize}
-                \item $w_{dc} \in [\underline{w}_{dc}, \overline{w}_{dc}]$
-                % \item $w_{wct} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
-                \item $q_{c} \in [\underline{q}_{c}, \overline{q}_{c}]$
+                \item $\omega_{dc} \in [\underline{\omega_{dc}}, \overline{\omega_{dc}}]$
+                % \item $\omega_{wct} \in [\underline{\omega}_{wct}, \overline{w}_{wct}]$
+                \item $q_{c} \in [\underline{q_{c}}, \overline{q_{c}}]$
                 % \item $R_p \in [0,1]$
                 % \item $R_s \in [0,1]$
         \end{itemize}
 
         \item Constraints
         \begin{itemize}
-            \item $\left| T_{\text{dc,out}} - T_{\text{c,in}} \right| \leq \epsilon_1$
-            \item $T_{\text{c,out}} \leq T_v - \Delta T_{\text{c-v,min}}$
-            \item $\left| Q_{\text{dc}}- Q_{\text{c,released}} \right| \leq \epsilon_2$
+            \item $\left| T_{{dc,out}} - T_{{c,in}} \right| \leq \epsilon_1$
+            \item $\left| Q_{{dc}}- Q_{{c,released}} \right| \leq \epsilon_2$
+            \item $T_{{c,out}} \leq T_v - \Delta T_{{c-v,min}}$
         \end{itemize}
 
     \end{itemize}
-    }
+    \labprob{cc:dc}
+\end{problemcounter}
 
 \begin{marginfigure}[*-20]
     \includegraphics[]{figures/wascop-optimization-dc-diagram.png}
@@ -323,56 +323,57 @@ associated variables are included in the problem formulation:\sidenote{See
 \nrefsec{cc:modelling:wct} for a detailed description of the wet cooler and
 condenser model.}
 
-\problemdefinitionbox{\gls{wctLabel} -- static}{
+\begin{problemcounter}{\gls{wctLabel} -- static}
     \begin{equation*}
-        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = J_e + J_w
+        \min_{\mathbf{x},\, \mathbf{e};\, \pmb{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \pmb{\theta}) = J_e + J_w
     \end{equation*}
-
+    
     \textbf{with}:
     \begin{align*}
         J_e &= C_e \cdot P_e \\
         J_{w} &= C_{w,s1} \cdot P_{w,s1} + C_{w,s2} \cdot P_{w,s2} \\
         C_{w,s1} &= \min \left((V_{avail}, C_{w} \cdot T_s)/T_s \right) \\
         C_{w,s2} &= C_w-C_{w,s1} \\
-        T_{wct,out},\,C_e,\,C_w,\,T_{c,in},\,T_{c,out}&=\text{wcs\:model}(q_c, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
+        T_{wct,out},\,C_e,\,C_w,\,T_{c,in},\,T_{c,out}&=\text{ccs model}(q_c, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
     \end{align*}
     \begin{itemize}
         \item Decision variables
         \[
-        x = [q_c,\, \omega_{\text{wct}}]
+        x = [q_c,\, \omega_{{wct}}]
         \]
         \item Environment variables
         \[
-        e = [T_{\text{amb}}, HR,\, P_e,\, P_{w,s1},\, P_{w,s2}, V_{avail},\, T_v,\, \dot{m}_v]
+        e = [T_{{amb}}, HR,\, P_e,\, P_{w,s1},\, P_{w,s2}, V_{avail},\, T_v,\, \dot{m}_v]
         \]
         \item Fixed parameters
         \[
-        \theta = [R_p = 1,\, R_s = 0,\, \omega_{\text{dc}} = 0]
+        \theta = [R_p = 1,\, R_s = 0,\, \omega_{{dc}} = 0]
         \]
-
+    
     \end{itemize}
-
+    
     \textbf{subject to}:
     \begin{itemize}
         
         \item Box-bounds
         \begin{itemize}
-                \item $w_{wct} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
-                % \item $w_{wct} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
-                \item $q_{c} \in [\underline{q}_{c}, \overline{q}_{c}]$
+                \item $\omega_{wct} \in [\underline{\omega_{wct}}, \overline{\omega_{wct}}]$
+                % \item $w_{wct} \in [\underline{\omega}_{wct}, \overline{w}_{wct}]$
+                \item $q_{c} \in [\underline{q_{c}}, \overline{q_{c}}]$
                 % \item $R_p \in [0,1]$
                 % \item $R_s \in [0,1]$
         \end{itemize}
-
+    
         \item Constraints
         \begin{itemize}
-            \item $\left| T_{\text{wct,out}} - T_{\text{c,in}} \right| \leq \epsilon_1$
-            \item $T_{\text{c,out}} \leq T_v - \Delta T_{\text{c-v,min}}$
-            \item $\left| Q_{\text{wct}} - Q_{\text{c,released}} \right| \leq \epsilon_2$
+            \item $\left| T_{{wct,out}} - T_{{c,in}} \right| \leq \epsilon_1$
+            \item $\left| \dot{Q}_{{wct}} - \dot{Q}_{{c,released}} \right| \leq \epsilon_2$
+            \item $T_{{c,out}} \leq T_v - \Delta T_{{c-v,min}}$
         \end{itemize}
-
+    
     \end{itemize}
-}
+    \labprob{cc:wct}
+\end{problemcounter}
 
 \begin{marginfigure}[*-20]
     \includegraphics[]{figures/wascop-optimization-wct-diagram.png}
@@ -385,7 +386,7 @@ recirculation flow rate, but now the fan speed of the wet cooler
 ($\omega_{wct}$) is included. The cost of cooling now includes the cost of
 water ($J_w$) and its availability is updated using the water consumption
 ($C_{w}$) as described in
-Equations~\eqref{eq:cc:optimization:wa1}--\eqref{eq:cc:optimization:wa3}. The
+Equations~\ref{cc:optimization:wa1}--\ref{cc:optimization:wa3}. The
 environment now includes the air relative humidity and water prices.
 
 
@@ -402,9 +403,10 @@ problem is defined as follows:\sidenote{
     combined cooler and condenser model.
 }
 
-\problemdefinitionbox{\gls{ccLabel} - static}{
+\begin{problemcounter}{\gls{ccLabel} - static}
+    
     \begin{equation*}
-        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = J_e + J_w
+        \min_{\mathbf{x},\, \mathbf{e};\, \pmb{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \pmb{\theta}) = J_e + J_w
     \end{equation*}
 
     \textbf{with}:
@@ -413,16 +415,16 @@ problem is defined as follows:\sidenote{
         J_{w} &= C_{w,s1} \cdot P_{w,s1} + C_{w,s2} \cdot P_{w,s2} \\
         C_{w,s1} &= \frac{\min(V_{avail}, C_{w} \cdot T_s)}{T_s} \\
         C_{w,s2} &= C_w-C_{w,s1} \\
-        T_{cc,out},\,C_e,\,C_w,\,T_{c,in},\,T_{c,out}&=\text{ccs\:model}(q_c, R_p, R_s, \omega_{dc}, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
+        T_{cc,out},\,C_e,\,C_w,\,T_{c,in},\,T_{c,out}&=\text{ccs model}(q_c, R_p, R_s, \omega_{dc}, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_v)
     \end{align*}
     \begin{itemize}
         \item Decision variables
         \[
-        x = [q_c, R_p, R_s, \omega_{\text{dc}}, \omega_{\text{wct}}]
+        x = [q_c, R_p, R_s, \omega_{{dc}}, \omega_{{wct}}]
         \]
         \item Environment variables
         \[
-        e = [T_{\text{amb}}, HR,\, P_e,\, P_{w,s1},\, P_{w,s2}, V_{avail},\, T_v,\, \dot{m}_v]
+        e = [T_{{amb}}, HR,\, P_e,\, P_{w,s1},\, P_{w,s2}, V_{avail},\, T_v,\, \dot{m}_v]
         \]
 
     \end{itemize}
@@ -432,8 +434,8 @@ problem is defined as follows:\sidenote{
         
         \item Box-bounds
         \begin{itemize}
-                \item $w_{dc} \in [\underline{w}_{dc}, \overline{w}_{dc}]$
-                \item $w_{wct} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
+                \item $\omega_{dc} \in [\underline{\omega_{dc}}, \overline{\omega_{dc}}]$
+                \item $\omega_{wct} \in [\underline{\omega_{wct}}, \overline{\omega_{wct}}]$
                 \item $q_{c} \in [\underline{q}_{c}, \overline{q}_{c}]$
                 \item $R_p \in [0,1]$
                 \item $R_s \in [0,1]$
@@ -441,40 +443,86 @@ problem is defined as follows:\sidenote{
 
         \item Constraints
         \begin{itemize}
-            \item $\left| T_{\text{cc,out}} - T_{\text{c,in}} \right| \leq \epsilon_1$
-            \item $T_{\text{c,out}} \leq T_v - \Delta T_{\text{c-v,min}}$
-            \item $\left| Q_{\text{cc}} - Q_{\text{c,released}} \right| \leq \epsilon_2$
+            \item $\left| T_{{cc,out}} - T_{{c,in}} \right| \leq \epsilon_1$
+            \item $\left| \dot{Q}_{{cc}} - \dot{Q}_{{c,released}} \right| \leq \epsilon_2$
+            \item $T_{{c,out}} \leq T_v - \Delta T_{{c-v,min}}$
         \end{itemize}
 
     \end{itemize}
-}
+    \labprob{cc:static}
+\end{problemcounter}
+
 
 \begin{marginfigure}[*-20]
     \includegraphics[]{figures/wascop-optimization-cc-diagram.png}
     \caption{Diagram of the combined cooler and condenser problem}
     \labfig{cc:optimization:diagram-cc}
 \end{marginfigure}
-% TODO: Add a background color that depends on the cooling color provided by
-% each cooler, this way it can be visualized how the cooling contribution
-% changes
-\begin{marginfigure}[*-5]
-    \includegraphics[]{figures/cc-optimization-pareto.png}
-    \caption{Pareto front for a particular problem instance of the combined cooler optimization problem.}
-    \labfig{cc:optimization:pareto}
-\end{marginfigure}
 
-\reffig{cc:optimization:pareto}\todo{Add a background color antes del domingo} illustrates the various ways a combined cooler
-can meet a specific cooling load under identical environmental conditions. The
-optimal operating points—the Pareto front—are highlighted in the figure\marginreminder{Pareto front}{
+Since any given decision variables do not necessarily yield a feasible solution,
+the same three constraints as in the previous problems are included to ensure
+the proper operation of the system. The decision vector now includes the
+recirculation flow rate, the fan speeds of both coolers, and the hydraulic
+distribution variables ($R_p$ and $R_s$). The environment remains unchanged from
+the wet cooler case, as it still includes water-related variables.
+
+\begin{figure}
+    \includegraphics[width=.7\textwidth]{figures/cc-pareto_fronts_for_different_scenarios_and_power_and_hydraulic_dist_for_different_scenarios.png}
+    \caption{Pareto fronts in different representative scenarios (top) and detailed power and hydraulic distribution for a specific scenario (bottom)}
+    \labfig{cc:optimization:paretos}
+\end{figure}
+
+\reffig{cc:optimization:paretos} illustrates the various ways a combined
+cooler\sidenote{Particularly for the pilot plant described in \refch{cc:facility}}
+can meet a specific cooling load under four diverse scenarios: two  different
+environment conditions and cooling loads. The
+optimal operating points are evaluated in terms of the two consumptions: electricity
+($C_e$) and water ($C_w$) and form the Pareto front\marginreminder{Pareto front}{
     When dealing with multiple objectives where no single solution is optimal, but
     improvements in one objective lead to trade-offs in others, a set of points is
     obtained that represents the best trade-offs between the objectives—known as a
     Pareto front\footnote{See \nrefsec{intro:optimization:multi-objective}}.
-}. The background color represents the distribution of cooling power: green
-indicates a greater contribution from the dry cooler, while purple indicates a
-greater contribution from the wet cooler. Notably, only the leftmost point
-relies exclusively on the dry cooler. Moving even slightly to the right results
-in a rapidly increasing contribution from the wet cooler.
+}. 
+
+
+In \texttt{Case I}, which presents the highest water and electricity
+consumptions, it can be observed that the water consumption is always above
+zero. This indicates that the use of the \gls{wctLabel} is essential, as the DC
+alone is not capable of cooling the nominal thermal load at 42~$^\circ$C, during
+summer conditions. If the system operated only with the \gls{dcLabel}, the vapor
+temperature (\ie turbine back-pressure) would rise, negatively impacting the
+power cycle performance of a \gls{cspLabel} plant. Maintaining the same ambient
+conditions, when the thermal power is reduced (\texttt{Case II}), it becomes
+feasible to operate using only the \gls{dcLabel}, although with a high parasitic
+load (7.4~kW$_e$). By combining the \gls{dcLabel} with the \gls{wctLabel},
+electricity consumption can be reduced by half, with water consumption remaining
+below 50~l/h. Under more favorable winter conditions (\texttt{Cases III} and
+\texttt{IV}), the \gls{dcLabel} alone becomes more efficient as demonstrated by
+the significant reduction in electricity demand. Still, when coupled with the
+\gls{wctLabel}, electricity consumption can decrease by about 35 \% at full
+thermal load, with a limited water consumption of 50~l/h. At reduced thermal
+load the additional benefit of the \gls{wctLabel} becomes negligible, making
+this the only case where operating with \gls{dcLabel} alone is more favorable.
+
+The figure also details the optimal cooling power and hydraulic distribution for
+\texttt{Case III}. The background color represents the distribution of cooling
+power: green indicates a greater contribution from the dry cooler, while purple
+indicates a greater contribution from the wet cooler. To avoid water
+consumption, steam must be cooled exclusively using the \gls{dcLabel}. At the
+other extreme, to minimize electricity consumption, only the \gls{wctLabel}
+should be used. At intermediate optimal points, both systems are combined. This
+is achieved by series configurations at prioritized dry cooling and
+progressively increasing parallel configurations for predominantly
+\gls{wctLabel} use. As expected, the cooling water flow rate
+(\reffig{cc:optimization:paretos} - \textit{Hydraulic distribution}) is higher
+(17~m$^3$/h) for a drier operation, since the reduced temperature component of
+the cooling driving force is limited and therefore needs to be compensated with
+a higher flow. Higher compared to the wet operation and its inherently higher
+temperature difference available, allowing for a better (lower) flow of
+10~m$^3$/h. In \reffig{cc:optimization:paretos} - \textit{Cooling power
+distribution} it is also interesting to highlight how the series-parallel
+flexibility of the system enables it to achieve almost a continuous division of
+the cooling power from full dry to full wet, at least for this particular case.  
 
 
 \section{Horizon optimization}
@@ -484,41 +532,42 @@ The problem structure is very similar to the static alternative, the main
 difference is that now the decision and environment vectors are composed not
 from the expected value for the optimization step, but an array of values from
 the current optimization step ($i$) until the end of the prediction horizon
-($n_{steps}$)\sidenote{
+($n_{steps}$)\sidenote[][*-3]{
     Bold notation is used to indicate that the variable is an array and not a
     single value, \eg $\mathbf{x}$
 }:
 
-\marginnote[*5]{$\forall i = 1 \ldots n_{steps}$ is a notation to indicate that
+\marginnote[*10]{$\forall i = 1 \ldots n_{steps}$ is a notation to indicate that
     a condition must be held at every step $i$ in the optimization horizon
     ($n_{steps}$)}
 
-\problemdefinitionbox{\gls{ccLabel} - horizon}{
+
+\begin{problemcounter}{\gls{ccLabel} - horizon}
     \begin{equation*}
-        \min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = \sum_{i=1}^{n_{steps}} \left( J_{e,i} + J_{w,i} \right) \cdot T_s
+        \min_{\mathbf{x},\, \mathbf{e};\, \pmb{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \pmb{\theta}) = \sum_{i=1}^{n_{steps}} \left( J_{e,i} + J_{w,i} \right) \cdot T_s
     \end{equation*}
 
     \textbf{with}:
     \begin{align*}
-        \quad for\: i &= 1 \ldots n_{steps}: \\
-        & \quad J_{e,i} = C_{e,i} \cdot P_{e,i} \\
-        & \quad J_{w,i} = C_{w,s1,i} \cdot P_{w,s1,i} + C_{w,s2,i} \cdot P_{w,s2,i} \\
-        & \quad C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} \\
-        & \quad C_{w,s2,i} = C_{w,i}-C_{w,s1,i} \\
-        & \quad V_{avail,i} = V_{avail,i-1}-C_{w,s1,i}\cdot T_s \\
-        & \quad T_{cc,out,i},\,C_{e,i},\,C_{w,i},\,T_{c,out,i}=f(q_{c,i}, R_{p,i}, R_{s,i}, \omega_{dc,i}, \omega_{wct,i},T_{amb,i},HR_i,T_{v,i},\dot{m}_{v,i})
+        \quad for&\: i = 1 \ldots n_{steps}: \\
+        & J_{e,i} = C_{e,i} \cdot P_{e,i} \\
+        & J_{w,i} = C_{w,s1,i} \cdot P_{w,s1,i} + C_{w,s2,i} \cdot P_{w,s2,i} \\
+        & C_{w,s1,i} = \frac{\min(V_{avail,i}, C_{w,i} \cdot T_s)}{T_s} \\
+        & C_{w,s2,i} = C_{w,i}-C_{w,s1,i} \\
+        & V_{avail,i} = V_{avail,i-1}-C_{w,s1,i}\cdot T_s \\
+        & T_{cc,out,i},\,C_{e,i},\,C_{w,i},\,T_{c,out,i}=f(q_{c,i}, R_{p,i}, R_{s,i}, \omega_{dc,i}, \omega_{wct,i},T_{amb,i},HR_i,T_{v,i},\dot{m}_{v,i})
     \end{align*}
     \begin{itemize}
         \item Decision variables
         \[
-        \mathbf{x} = [\mathbf{q_c}, \mathbf{R_p}, \mathbf{R_s}, \boldsymbol{\omega}_{\text{dc}}, \boldsymbol{\omega}_{\text{wct}}]
+        \mathbf{x} = [\mathbf{q_c}, \mathbf{R_p}, \mathbf{R_s}, \pmb{\omega}_{{dc}}, \pmb{\omega}_{{wct}}]
         \]
-        where $x=[x_{1,1},\,\ldots\, x_{1,n_{steps}},\, \ldots,\, x_{n_{x},n_{steps}}]$
+        where $\mathbf{x}=[x_{1,1},\,\ldots,\, x_{1,n_{steps}},\, \ldots,\, x_{n_{x},n_{steps}}]$
         \item Environment variables
         \[
-        \mathbf{e} = [\mathbf{T_{\text{amb}}}, \mathbf{HR},\, \mathbf{P_e},\, \mathbf{P_{w,s1}},\, \mathbf{P_{w,s2}}, \mathbf{V_{avail,0}},\, \mathbf{T_v},\, \mathbf{\dot{m}_v}]
+        \mathbf{e} = [\mathbf{T_{amb}}, \mathbf{HR},\, \mathbf{P_e},\, \mathbf{P_{w,s1}},\, \mathbf{P_{w,s2}}, \mathbf{V_{avail,0}},\, \mathbf{T_v},\, \mathbf{\dot{m}_v}]
         \]
-        where $e=[e_{1,1},\,\ldots\, e_{1,n_{steps}},\, \ldots,\, e_{n_{e},n_{steps}}]$
+        where $\mathbf{e}=[e_{1,1},\,\ldots,\, e_{1,n_{steps}},\, \ldots,\, e_{n_{e},n_{steps}}]$
 
     \end{itemize}
 
@@ -527,29 +576,44 @@ the current optimization step ($i$) until the end of the prediction horizon
         
         \item Box-bounds
         \begin{itemize}
-                \item $\mathbf{w_{dc}} \in [\underline{w}_{dc}, \overline{w}_{dc}]$
-                \item $\mathbf{w_{wct}} \in [\underline{w}_{wct}, \overline{w}_{wct}]$
-                \item $\mathbf{q_{c}} \in [\underline{q}_{c}, \overline{q}_{c}]$
+                \item $\pmb{\omega_{dc}} \in [\underline{\omega_{dc}}, \overline{\omega_{dc}}]$
+                \item $\pmb{\omega_{wct}} \in [\underline{\omega_{wct}}, \overline{\omega_{wct}}]$
+                \item $\mathbf{q_{c}} \in [\underline{q_{c}}, \overline{q_{c}}]$
                 \item $\mathbf{R_p} \in [0,1]$
                 \item $\mathbf{R_s} \in [0,1]$
         \end{itemize}
 
         \item Constraints, $\forall i = 1 \ldots n_{steps}$:
         \begin{itemize}
-            \item $\left| T_{\text{cc,out},i} - T_{\text{c,in},i} \right| \leq \epsilon_1$
-            \item $T_{\text{c,out},i} \leq T_{v,i} - \Delta T_{\text{c-v,min}}$
-            \item $\left| Q_{\text{cc},i} - Q_{\text{c,released},i} \right| \leq \epsilon_2$
+            \item $\left| T_{{cc,out},i} - T_{{c,in},i} \right| \leq \epsilon_1$
+            \item $\left| \dot{Q}_{{cc},i} - \dot{Q}_{{c,released},i} \right| \leq \epsilon_2$
+            \item $T_{{c,out},i} \leq T_{v,i} - \Delta T_{{c-v,min}}$
         \end{itemize}
 
     \end{itemize}
-}
+    \labprob{cc:horizon}
+\end{problemcounter}
 
-This formulation allows for an arbitrary long prediction horizon, however,
-since forecasts for each variable in the environment are needed, it will be
-limited to a number of steps where reliable predictions can be obtained. On
-this work water availability is allocated daily, so the prediction horizon is
-established until the end of the operation day and it starts from the current
-time when the optimization is launched.
+
+\begin{marginfigure}[*-10]
+    \includegraphics[]{figures/optimization-diagrams-search-space.png}
+    \caption{Visualization of a constrained search space for two decision variables}
+    \labfig{cc:optimization:search-space}
+\end{marginfigure}
+
+Although the formulation in principle allows for an arbitrarily long prediction 
+horizon, in practice it is limited to the number of steps for which reliable 
+forecasts of the environmental variables are available. In this study, water 
+availability is allocated on a daily basis; therefore, the prediction horizon 
+begins at the current time when the optimization is launched and extends until 
+the end of the operation day. 
+
+\begin{remark}
+    A fixed sample time (\(T_s\)) is assumed, although the formulation can be
+    adapted to handle variable sample times if the problem data are provided as
+    time series with non-uniform time steps.
+\end{remark}
+
 
 % \begin{enumerate} 
 %     \item An operation plan of the thermal load (power block or MED operating
@@ -562,11 +626,6 @@ time when the optimization is launched.
 %================================
 \subsection{A discussion on solving the optimization problem}[Problem discussion]
 
-\begin{marginfigure}
-    \includegraphics[]{figures/optimization-diagrams-search-space.png}
-    \caption{Visualization of a constrained search space for two decision variables}
-    \labfig{cc:optimization:search-space}
-\end{marginfigure}
 
 % Aquí comentar cómo no es factible resolver el problema directamente porque es
 % muy difícil encontrar soluciones factibles debido a la estructura del problema.
@@ -575,27 +634,28 @@ time when the optimization is launched.
 % de la complejidad del problema con el número de pasos en el horizonte, etc..
 
 As defined, the \gls{ccsLabel} problem decision vector is composed by five
-variables that are direct inputs on the process\sidenote{\ie Decision variables
-represent actuators in the system}. But as mentioned, not any five values for
-these variables will yield a feasible solution, in the real system this
-translates to the fact that a stable operation \ie steady-state would never be
-reached for that set of inputs. To check for feasible operation the three
-mentioned constraints are introduced, however, this increases the complexity of
-the solution space significantly, since the solution space will not be
-continuous, but as seen in \reffig{cc:optimization:search-space}, it will be
-formed by islands of feasible solution space regions separated by infeasible
-regions. This means that finding a feasible solution is not trivial, and the
-optimization algorithm will need to explore the solution space-a global search
-algorithm-in an attempt to find the global minimum.
+variables that are direct inputs on the process, \ie decision variables
+represent actuators in the system. As explained in
+\refsec{cc:modelling:complete-model}, not every combination of these variables
+yields a feasible solution. In the real system, this implies that stable
+operation would not be achieved for such a set of inputs\sidenote{Either the
+system would be overcooled, causing the vapor pressure and temperature to
+decrease until a new equilibrium is reached, or undercooled, leading them to
+increase instead}. To check for feasible operation the three mentioned
+constraints are introduced. However, this increases the complexity of the
+solution space significantly, since the solution space will not be continuous,
+but as seen in \reffig{cc:optimization:search-space}, it will be formed by
+islands of feasible solution space regions separated by infeasible regions. This
+means that finding a feasible solution is not trivial, and the optimization
+algorithm will need to explore the solution space-a global search algorithm-in
+an attempt to find the global minimum.
 
-For one single step, most global search algorithms with multiple runs\sidenote{
-    Tried algorithms include: Algoritmos probados de pygmo y Poner Gaussian también
-} were able to consistently find the global optima, this was not the case
-    for local gradient-based algorithms, which were very sensible to the
-    initial conditions and often converged to local minima, even when coupled
-    with other techniques, such as Generalized Monotonic Basin Hopping
-    \sidecite{wales_global_1997}, they struggled to consistently escape these
-    local optima.
+For one single step (equivalent to the static \refprob{cc:static}), most global
+search algorithms with multiple runs are able to consistently find the global
+optima. Local gradient-based algorithms are not suitable in this case because of
+its sensitivity to the initial solution and often converge to local minima,
+even when coupled with other techniques such as Generalized Monotonic Basin
+Hopping~\sidecite{wales_global_1997}.
 
 The problem becomes significantly more complex when the prediction horizon is
 extended, the decision vector grows five-fold for each additional step in the
@@ -611,14 +671,14 @@ solution was that same initial guess.
 %================================
 \subsection{Proposed solution: Decomposition-based multi-objective optimization with trajectory planning}[Proposed solution]
 
-A two-level optimization strategy is proposed to solve a multi-step decision
+A two-stage optimization strategy is proposed to solve a multi-step decision
 problem\sidenote[][*-3]{Alternative wording: Pareto front chaining, multi-step
 Pareto optimization, path planning on Pareto surfaces.}. At each step of the
 prediction horizon, a multi-objective optimization problem is independently
 solved, yielding a Pareto front. A global optimization problem is then
 formulated to select a path through the sequence of Pareto fronts, minimizing a
-cumulative objective (\ie, cost), akin to a pathfinding or \gls{tspLabel}-like
-over Pareto-optimal points.
+cumulative objective \ie the cost of cooling\sidenote{This is akin to a
+pathfinding or the traveling salesman problem over the Paretos set}.
 
 The methodology is illustrated in \reffig{cc:optimization:horizon-methodology}
 and its components are described in the following sections.
@@ -652,11 +712,11 @@ and its components are described in the following sections.
     \caption[Proposed methodology. Decomposition-based multi-objective
     optimization with trajectory planning]{Proposed methodology.
     Decomposition-based multi-objective optimization with trajectory planning.
-    \textcolor[HTML]{6C8EBF}{\textit{Blue-dots} (\textbf{·})} represent
-    points on the Pareto front. In step 2. three paths are illustrated: a water-greedy
+    \textcolor[HTML]{6C8EBF}{\textit{Blue-dots} ($\bullet$)} represent
+    points on the Pareto front. Three paths are illustrated: a water-greedy
     \textcolor[HTML]{9673A6}{dash-purple (- -) path}, a water-conservative
-    \textcolor[HTML]{82B366}{green-dotted path (\texttt{..})} and a
-    compromise-approach \textcolor[HTML]{FFCE9F}{solid-\textit{orangey} path
+    \textcolor[HTML]{82B366}{green-dotted path (\texttt{..})} and an
+    optimized-approach \textcolor[HTML]{FFCE9F}{solid-\textit{orangey} path
     (\texttt{--})}}
     \labfig{cc:optimization:horizon-methodology}
 \end{figure*}
@@ -664,7 +724,7 @@ and its components are described in the following sections.
 \subsubsection{Solving the multi-objective optimization problems}
 
 To limit the complexity of the problem, the decision space can be reduced by
-one by variable by analyzing how the complete model is solved and described in
+one variable by analyzing how the complete model is solved and described in
 \nrefsec{cc:modelling:complete-model}; firstly, the condenser can be solved
 just by using the recirculation flow rate ($q_c$), it follows the dry cooler by
 adding the first valve ratio ($R_p$) and dry cooler fan speed ($\omega_{dc}$).
@@ -680,7 +740,7 @@ The result of this analysis is that the wet cooler fan speed is not a decision
 variable anymore, but an output of the model, which can be computed by inverting the
 wet cooler model, where an outlet temperature is provided as input, and the fan
 speed is computed as an output. Summarizing, the decision vector can be reduced
-from five to four variables:\sidenote{This reasoning works only for a system
+from five to four variables:\sidenote[][*-5]{This reasoning works only for a system
 with this particular configuration, a different combined cooler layout would
 require a different analysis.}
 
@@ -692,8 +752,8 @@ More importantly, now the optimization algorithm does not need to find a set of
 five inputs that produce a feasible solution in a complex solution space, but
 only four values from which a feasible wet cooling tower fan speed
 exists\sidenote{\ie within its bounds $\omega_{wct}\,\in
-[\underline{\omega}_{wct}, \overline{\omega}_{wct}]$}, thus greatly simplifying
-the problem.
+[\underline{\omega_{wct}}, \overline{\omega_{wct}}]$}, thus greatly simplifying
+the solution-space complexity.
 
 A straightforward approach to solve the multi-objective optimization is to do a
 grid-search over the decision space, evaluating the model for every combination
@@ -709,8 +769,7 @@ improved in one objective without worsening the other, and it is computed by
 checking for each point if there is another point that is better in both
 objectives, and if so, it is removed from the set of feasible points. The
 remaining points form the Pareto front. This process is repeated for
-each step in the prediction horizon, resulting in a set of Pareto fronts, one
-for each step, as visualized in
+each step in the horizon, resulting in a set of Pareto fronts as visualized in
 \reffig{cc:optimization:horizon-methodology}--\texttt{1}.
 
 
@@ -718,66 +777,68 @@ for each step, as visualized in
 
 
 The path selection subproblem is a combinatorial optimization problem over a 
-layered weighted directed graph, where each layer corresponds to a 
-time step in the prediction horizon, and each node in a layer represents a 
-point on the corresponding Pareto front. The objective is to find a path 
+layered, dynamic-weighted directed graph. Each layer corresponds to a time 
+step in the prediction horizon, and each node within a layer represents a point 
+on the corresponding Pareto front. The objective is to find a path 
 \(\mathbf{p} = (p_1, p_2, \ldots, p_{n_{\text{steps}}})\), where \(p_i\) is the 
-selected node at time step \(i\), that minimizes the total cumulative cost 
-along the path (\(J\)). The problem can be formulated as:
+selected node at time step \(i\), that minimizes the total cumulative cost \(J\) 
+along the path. The weight\sidenote{\ie the water cost component} on each layer is 
+dynamic---depending on the trajectory taken to reach that layer. The problem can 
+be formulated as:
 
-\begin{equation*}
-    \min_{\mathbf{p}} \quad J = \sum_{i=1}^{n_{\text{steps}} - 1} 
-    C_{\text{transition}}(p_i, p_{i+1})
-\end{equation*}
+\begin{equation}
+    \min_{\mathbf{p}, \mathbf{e}} \quad J = \sum_{i=1}^{n_{{steps}}} 
+    J_i \left(p_i, V_{avail,i-1} \right)
+\end{equation}
 
-Each transition cost \(C_{\text{transition}}(p_i, p_{i+1})\) depends on both
-consumptions (\ie electricity and water consumption) of the nodes \(p_i\) and
-\(p_{i+1}\), as well as a dynamic price function that depends on the path
-history. Specifically, the transition cost is correlated to the current
-resource availability ($V_{avail,i}$)\sidenote{See
-Equations~\eqref{eq:cc:optimization:wa1}--\eqref{eq:cc:optimization:wa3}} and
-will depend on the current state of the system, which is a function of the
-previous decisions. This is a very simple calculation that can be computed
-almost instantly, and it is the only information needed to compute the
-transition costs between two points in the Pareto front:
+The step cost contribution to the cumulative cost \(J_{i}\) depends on both the
+consumptions (\ie electricity and water) of the node \(p_i\), as well as on a
+dynamic cost function determined by the path history. In particular, the water
+cost is correlated with the water resource availability
+(\(J_{w,i}=f(V_{avail,i-1})\))\sidenote{See
+Equations~\ref{eq:cc:optimization:wa1}--\ref{eq:cc:optimization:wa3}}, which is
+itself a function of the previous decisions. This calculation is straightforward
+and can be performed almost instantly, making it the only information required
+to compute the step associated cooling cost:
 
-\begin{equation*}
-    C_{\text{transition}}(p_i, p_{i+1}) = P_e(i) \cdot C_e(p_{i+1}) + 
-    P_w(i) \cdot C_w(p_{i+1})
-\end{equation*}
+\begin{equation}
+    J_{{i}} = P_{e,i} \cdot C_e(p_{i}) + P_{w,s1,i} \cdot C_{w,s1}(p_{i}, V_{avail,i-1}) + P_{w,s2,i} \cdot C_{w,s2}(p_{i}, V_{avail,i-1})
+\end{equation}
 
 where:
 \begin{itemize}
-    \item \(C_{e}(p_{i+1})\), \(C_{w}(p_{i+1})\): electricity and water consumption at 
-    node \(p_{i+1}\)
-    \item \(P_e(i)\), \(P_{w}(i)\): price coefficients for 
-    electricity and water at step \(i\), which may be dependent on the 
-    previously selected nodes (\ie, the path so far)
+    \item \(C_{e}(p_{i})\), \(C_{w,sx}(p_{i},V_{avail,i-1})\): electricity and water consumption
+    (from $s_1$ and $s_2$) at node \(p_{i}\).
+    \item \(P_{e,i}\), \(P_{w,sx,i}\): prices for electricity and water (from
+    $s_1$ and $s_2$) at step \(i\).
 \end{itemize}
 
-Prices \(P_e(i), P_{w}(i)\) depend on prior path decisions, 
-this introduces path-dependency into the cost function, and makes the 
-problem non-trivial to solve via simple shortest path algorithms.
-The problem could be handled via dynamic programming, graph search
-(like Dijkstra or A*), or metaheuristics such as genetic algorithms.
+As mentioned, costs (\(J_{w,i}\)) depend on prior path decisions,
+this introduces path-dependency into the cost function, and makes the problem
+non-trivial to solve via simple shortest path algorithms. The problem can be
+handled via dynamic programming, graph search (like Dijkstra or A*), or
+metaheuristics such as genetic algorithms.
 
 The subproblem is illustrated in
-\reffig{cc:optimization:horizon-methodology}--2. Each node represents a point
-in the Pareto front of a step, and edges represent the transition costs between
-these points, that is, the cumulative cost so far ($J_{0..i}$). Three paths are illustrated in
-\reffig{cc:optimization:horizon-methodology}--2. The
+\reffig{cc:optimization:horizon-methodology}--2. Each layer corresponds with the
+Pareto front of a step in the horizon and each node,
+\textcolor[HTML]{6C8EBF}{blue-dot ($\bullet$)}, represents a point in the
+particular step Pareto and is associated with a dynamic cost ($J_i$).
+Sequentially traversing the layers selecting one point per layer up to a certain
+layer, yields the cumulative cost up to that step ($J^{(i)}$). Three paths are
+illustrated in \reffig{cc:optimization:horizon-methodology}--2. The
 \textcolor[HTML]{9673A6}{dash-purple (- -) path} 
 is a path that chooses nodes with a high water use\sidenote{In
 \reffig{cc:optimization:horizon-methodology}, nodes are ordered with increasing
 values of \(C_w\) from bottom to top.}, so in the first split it can be seen it
-achieves the lowest cost of operation, but also leaves the least water
-available for the next steps, resulting in a higher total cost of operation. On
-the other hand, the \textcolor[HTML]{82B366}{green-dotted path (\texttt{..})}
-chooses the nodes with the lowest water use, this translates in a consistently
-higher cost of operation and leaving some water available at the end of the
-horizon. Because of the formulation of the problem, this is sub-optimal since
-this unused water is considered lost. Finally, the
-\textcolor[HTML]{FFCE9F}{solid-\textit{orangey} path (\texttt{--})} is a
-compromise between the two, it uses water more efficiently, leaving no water
-available at the end of the horizon and minimizing the overall cost of
-operation.
+achieves the lowest cost of cooling ($J^{(2)}$), but also leaves the least
+water available for the next steps ($V_{avail}^{(2)}$), resulting in a higher
+total cost of cooling at the end of the horizon ($J==J^{(n)}$). On the other
+hand, the \textcolor[HTML]{82B366}{green-dotted path (\texttt{..})} selects the
+nodes with the lowest water use, this translates in a consistently higher cost
+of operation and leaving some water available at the end of the horizon. Because
+of the formulation of the problem, this is sub-optimal since this unused water
+is considered lost. Finally, the \textcolor[HTML]{FFCE9F}{solid-\textit{orangey}
+path (\texttt{--})} is a compromise between the two, it uses water
+efficiently, leaving no water available at the end of the horizon and minimizing
+the overall cost of cooling.

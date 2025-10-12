@@ -1,253 +1,161 @@
 \setchapterpreamble[u]{\margintoc}
 \chapter{Modelling of a combined cooling system}
-\labch{solhycool:modelling}
+\labch{cc:modelling}
 
-\tldrbox{
-    This chapter describes the steady-state modelling of the different
+\tldrbox{ This chapter describes the steady-state modelling of the different
     components of a combined cooling system, mainly a \gls{wctLabel} and a
-    \gls{dcLabel}. Different alternatives are presented: from physical models
-    to data-driven approaches, including the generation of samples for
-    data-driven models trained using data from a physical model. Models are
-    also developed for the other components of the system and finally it is
-    shown how they are integrated into a complete system model. The complete
-    system model interface is defined at \refmod{mod:cc} and a block diagram is
-    presented in \reffig{cc:modelling:complete-model-diagram} including all
-    relevant variables.
+    \gls{dcLabel}. Different alternatives are presented: from physical models to
+    data-driven approaches, including the generation of surrogate data-driven
+    models trained using synthetic data from a physical model. Models are also
+    developed for the other components of the system and finally it is shown how
+    they are integrated into a complete system model. The complete system model
+    interface is defined at \refmod{cc}. \\[1ex]
+
+    \begin{minipage}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/cc-modelling-complete-model-diagram-with-bg.png}\\
+        \small \textit{System block diagram including all relevant variables.}
+    \end{minipage}    
 }
 
 \section*{Introduction}
 
-% Estructura a seguir:
+In order to study the potential advantages of making use of a combined cooling
+system, it is first necessary to develop the modelling of its components. Since
+the objective is performance prediction, this chapter focuses on the steady
+state modelling of the combined cooler main components, \ie the \gls{wctLabel}
+and the \gls{dcLabel}. More specifically, the aim is to develop two modelling
+strategies: that based on physical equations and that based on black box
+data-driven models. 
 
-% Estado del arte + Contribución del capítulo + Estructura del capítulo
-
-% Introducción de artículo: Wet cooling tower performance prediction in CSP
-% plants: A comparison between artificial neural networks and Poppe’s model
-In order to study the potential advantages of making use of a combined
-cooling\todo{ Ahora mismo esta introducción es demasiado parecida al TL;DR, hay
-que distinguirla } system, it is first necessary to develop the modelling of
-its components. Since the objective is performance prediction, this chapter
-focuses on the steady state modelling of the combined cooler main components,
-\ie the \gls{wctLabel} and the \gls{dcLabel}. More specifically, the aim is to
-compare two modelling strategies: that based on physical equations
-(\refsec{intro:modelling:first-principle}) and that based on black box models
-(\refsec{intro:modelling:data-driven}) such as \glspl[format=long]{annLabel},
-in order to see which one is more suitable for its integration in the
-optimization of the complete process. 
-
-This chapter presents a comparison between the two modelling approaches, at
-steady state and with a focus on optimization applications, in terms of
-predictive capabilities, experimental and instrumentation requirements,
-execution time, implementation and scalability. A sensitivity analysis is
-performed to further analyze and compare each case study. It also presents and
-evaluates all relevant aspects of interest in the development of such models,
-specifically for \gls{annLabel}s, model configuration, architecture and
-topology are discussed. Other system components are also described in
-\nrefsec{cc:modelling:other-components} and finally their integration is
-discussed in \nrefsec{cc:modelling:complete-model}.
-
+First, in \refsec{cc:modelling:wct} a physical
+model for the \gls{wctLabel} is described followed by a methodology to generate
+a synthetic dataset for surrogate data-driven models. In
+\refsec{cc:modelling:dc} the same structure is followed for the
+\gls{dcLabel}-type \gls{acheLabel}. Other first-principles model components are
+presented in \refsec{cc:modeling:other-components}: the surface condenser,
+mixers, and the electrical consumption. Finally, all components are integrated
+in \refsec{cc:modelling:complete-model} to form the complete model of the
+combined cooling system. Each component and the complete model sections is
+completed with a model interface block. 
 
 %===================================
 %===================================
 \section{Wet cooler}
 \labsec{cc:modelling:wct}
 
-% Estado del arte en modelado \gls{wctLabel}
-%================================
-% \subsection{Wet cooling tower modelling}
-
-In the case of the models based on physical equations, the analysis of wet
-cooling towers has its origin in~\sidecite{merkel_verdunstungskuhlung_1925}, in
-which the theory for their performance evaluation was developed. Merkel
-proposed a model based on several assumptions to simplify the heat and mass
-transfer equations to a simple hand calculation. However, these assumptions
-mean that Merkel's method does not reliably represent the physics of the heat
-and mass transfer process in a cooling tower. This was already stated by
-Bourillot~\sidecite{bourillot_hypotheses_1983} who concluded that the Merkel
-method is simple to use and can correctly predict cold water temperature when
-an appropriate value of the coefficient of evaporation is used. However, it is
-insufficient for the estimation of the characteristics of the warm air leaving
-the fill and for the calculation of changes in the water flow rate due to
-evaporation. Jaber and Webb~\sidecite{jaber_design_1989} developed the
-equations necessary to apply the effectiveness-NTU\sidenote{The
-effectiveness-NTU method estimates how well a heat exchanger transfers heat by
-comparing the actual heat transfer to the maximum possible, using a parameter,
-\gls{ntuLabel}, that reflects its size and flow characteristics.} method
-directly to counterflow or crossflow cooling towers. This approach is
-particularly useful in the latter case and simpler compared to a more
-conventional numerical procedure. Notice that the effectiveness-\gls{ntuLabel}
-method is based on the same simplifying assumptions as the Merkel method. On
-the other hand, Poppe and Rögener~\sidecite{poppe_berechnung_1991} developed
-the Poppe method. They derived the governing equations for heat and mass
-transfer in a wet cooling tower and did not make any simplifying assumptions as
-in the Merkel theory, which makes it a very precise model. As a matter of fact,
-predictions from the Poppe formulation have resulted in values of evaporated
-water flow rate that are in good agreement with full scale cooling tower test
-results~\sidecite{kloppers_critical_2005}. This model has already been used for
-the evaluation of the thermal performance of solar power plants using different
-condensation systems (wet, dry and hybrid system), as can be found in Cutillas
-et al.~\sidecite{cutillas_energetic_2021}. 
-
-In the case of black box models, numerous authors in the literature have
-designed \gls{annLabel} models for \gls{wctLabel} with different objectives,
-such as performance prediction, simulation and optimization. One of the first
-works in this area is the one described in~\sidecite{hosoz_performance_2007}
-where an \gls{annLabel} model was developed to predict the performance of a
-forced-counter flow cooling tower at lab scale. In this case, the input
-variables were the dry bulb temperature, the relative humidity of the air
-stream entering the tower, the temperature of the water entering the tower, the
-air volume flow rate and the cooling water mass flow rate. The outputs of this
-model were the heat rejection rate at the tower, the mass flow rate of water
-evaporated, the temperature of the cooling water at the tower outlet, the dry
-bulb temperature and the relative humidity of the air at the outlet of the
-tower. The results obtained with a 5-5-5\sidenote{The notation $n_1$-...-$n_l$
-represents the architecture of the \gls{annLabel} model, where $l$ is the
-number of layers and $n_i$ are the nodes in each one of the layers.}
-\gls{annLabel} demonstrated that wet cooling towers at lab-scale can be
-modelled using \gls{annLabel}s with a high degree of accuracy. There are also
-\gls{annLabel} models for Natural Draft Counter-flow Wet Cooling Towers
-(ND\gls{wctLabel}) at lab-scale, such as the one proposed by
-\sidecite{gao_artificial_2013}. In this case, the authors used a 4-8-6
-\gls{annLabel} structure and considered some additional variables, such as air
-gravity, wind velocity, heat transfer coefficients and efficiency as outputs.
-All these works can be useful to validate the model development methodology but
-may fail predicting the performance of \gls{wctLabel} at larger scale. In this
-sense, special attention deserves the study carried out by
-\sidecite{song_novel_2021} where an 8-14-2 \gls{annLabel} model was proposed to
-predict the performance (the cooling number and the evaporative loss
-proportion) of ND\gls{wctLabel}s at commercial scale. The model is based on 638
-sets of field experimental data collected from 36 diverse ND\gls{wctLabel}s
-used in power plants. It is a very challenging work since it covers samples
-from a wide range of tower sizes and capacities being the \gls{mreLabel} below
-5~\%. 
-
-From the literature review, it can be stated that there are works based on
-Poppe and \gls{annLabel} models that evaluate the main output variables of
-\gls{wctLabel}s. Nevertheless, to the author knowledge, there are no studies
-focused on the comparison between both modelling strategies. Also lacking is a
-comprehensive analysis of the different aspects that affect the models
-development and performance.
-
-
 The static models presented in this section have been developed to predict two
 main outputs, the water temperature at the outlet of the \gls{wctLabel},
-$T_{w,o}$, and the water consumed due to evaporation losses,
-$\dot{m}_{w,lost}$. The inputs variables required by both modelling approaches,
-Poppe model and \gls{annLabel} models, are: the cooling water flow rate
-($\dot{m}_w$), the water temperature at the inlet of the \gls{wctLabel}
-($T_{w,i}$), the ambient temperature ($T_{\infty}$), the ambient relative
-humidity ($\phi_{\infty}$) and the frequency percentage of the fan ($f_{fan}$)
-(or its equivalence in air mass flow rate\sidenote{\gls{annLabel} uses as input
-$f_{fan}$ whereas Poppe's model uses $\dot{m}_a$.}, $\dot{m}_a$).
+$T_{wct,out}$, and the water consumed due to evaporation losses,
+$C_{w,wct}$. The inputs variables required are: the cooling water flow
+rate ($q_{wct}$)\sidenote{$\dot{m}_{wct}$ in terms of mass flow rate}, the water
+temperature at the inlet of the \gls{wctLabel} ($T_{wct,in}$), the ambient
+temperature ($T_{amb}$), the ambient relative humidity ($HR$) and the cooler fan
+speed ($\omega_{wct}$)\sidenote{In the case of the physical model, internally
+the fan speed is converted into the air mass flow rate ($\dot{m}_{wct,air}$)
+with an empirical correlation.}
 
 %====================================
-\subsection{Poppe model} 
-\labsec{cc:modelling:wct:poppe}
+\subsection{Physical model} 
+\labsec{cc:modelling:wct:physical}
 
-The well-known Merkel number is accepted as the performance coefficient of a
-wet cooling tower \sidecite{navarro_critical_2022}. This dimensionless number is
-defined in \refeq{Me}, and it measures the degree of difficulty of the
-mass transfer processes occurring in the exchange area of a wet cooling
-tower.
+The Poppe theory is used for the thermal performance evaluation of the
+\gls{wctLabel}. This approach is preferred for applications in which an accurate
+determination of the outlet air state is required. As the water consumption is
+of paramount importance in \gls{cspLabel} plants, it is suitable for integration
+into analysis/optimization frameworks for \gls{cspLabel} plant cooling
+strategies.
 
-\begin{equation} 
-    Me = \frac{h_D a_v V}{\dot{m}_w}, 
-    \labeq{Me}
-\end{equation}
+In the case of cooling towers, the Merkel number is a dimensionless parameter
+widely recognized as a performance key indicator. It is commonly employed in
+experimental characterization, numerical simulations, and optimization studies.
+This parameter can be evaluated through several theoretical approaches,
+including the original Merkel
+formulation~\sidecite{merkel_verdunstungskuhlung_1925}, the
+effectiveness-\gls{ntuLabel} method~\sidecite{jaber_design_1989}, and the more
+comprehensive Poppe model~\sidecite{poppe_berechnung_1991}.
 
-where $h_D$ is the mass transfer coefficient, $a_V$ is the surface area of
-exchange per unit of volume and $V$ is the volume of the transfer region.
+Several investigations have compared the previously mentioned theories for
+thermal performance evaluation of wet cooling towers. Some examples include the
+works of~\sidecite{kloppers_critical_2005,navarro_critical_2022}. These
+investigations generally conclude that the Poppe method offers a more accurate
+representation of the physics of the problem, as it enables the prediction of
+moist air properties and the quantification of evaporative water losses.
+Consequently, the Poppe method is recommended for applications in which an
+accurate determination of the outlet air state is required.
 
-The Merkel number can be calculated using the Merkel and Poppe theories for
-the performance evaluation of cooling towers. On the one hand, the Merkel
-theory \sidecite{merkel_verdunstungskuhlung_1925} relies on several critical assumptions, such as the
-Lewis factor (Le) being equal to 1, the air exiting the tower being saturated
-with water vapour and it neglects the reduction of water flow rate by
-evaporation in the energy balance. On the other hand, the Poppe theory
-\sidecite{poppe_berechnung_1991}, which is the one used in this work, do not consider
-simplifying assumptions, thus being the one most usually preferred. In this
-theory, the authors derived the governing equations for heat and mass
-transfer in the transfer region of the wet cooling tower (control volume
-shown in \reffig{cc:modelling:poppe-transfer-area}) assuming a one dimensional problem. In
-this figure, the red and green dashed lines indicate the fill and air-side
-control volumes, respectively.
+According to the Poppe theory~\cite{poppe_berechnung_1991}, the governing
+equations for heat and mass transfer in the transfer region of the wet cooling
+tower assuming a one dimensional problem. This is illustrated in the control volume
+shown in \reffig{cc:modelling:poppe-transfer-area} where the red and
+green dashed lines indicate the fill and air-side control volumes, respectively.
 
 \vspace{1.5cm} 
 \begin{figure}[htbp] 
-    \begin{overpic}[width=10cm]{figures/poppe_control_volume.pdf} 
+    \begin{overpic}[width=.7\textwidth]{figures/poppe_control_volume.pdf} 
         \put(-3.3,26){$dz$}
-        \put(13,65){$\dot{m}_w+d\dot{m}_w$} \put(14,57){$h_w+dh_w$}
-        \put(15,-7){$\dot{m}_w$, $h_w$}
-        \put(60.5,65){$\dot{m}_a\left(1+\omega+d\omega\right)$} \put(65,57){$h+dh$}
-        \put(55,-7){$\dot{m}_a\left(1+\omega\right)$, $ h $}
-        \put(44,30){$d\dot{m}_w=h_D\left(\omega_{s,w}-\omega\right)dA$}
+        \put(13,65){$\dot{m}_{wct}+d\dot{m}_{wct}$} \put(14,57){$h_w+dh_w$}
+        \put(15,-7){$\dot{m}_{wct}$, $h_w$}
+        \put(60.5,65){$\dot{m}_{wct,air}\left(1+\omega+d\omega\right)$} \put(65,57){$h+dh$}
+        \put(55,-7){$\dot{m}_{wct,air}\left(1+\omega\right)$, $ h $}
+        \put(44,30){$d\dot{m}_{wct}=h_D\left(\omega_{s,w}-\omega\right)dA$}
         \put(44,22){$h_C\left(T_{w}-T\right)dA$}        
     \end{overpic} 
     \vspace{1cm} 
-    \caption {Control volume in the exchange area of a wet cooling tower arrangement.}
+    \caption{Control volume in the exchange area of a wet cooling tower arrangement. Source:~\cite{serrano_wet_2024}.}
     \labfig{cc:modelling:poppe-transfer-area}
 \end{figure}
 
-Following the detailed derivation process and simplification of the
-previously-mentioned governing equations described in
-\cite{navarro_critical_2022}, the major following equations for the heat and mass
-transfer obtained, according to the Poppe theory, are: 
+The major following equations for the heat and mass transfer obtained
+are~\cite{kloppers_critical_2005,navarro_critical_2022}: 
 
-\begin{eqnarray}
-    & & 
-    \frac{d\omega}{dT_w} = \frac{c_{p_w}
-    \frac{\dot{m}_w}{\dot{m}_a}\left(\omega_{s,w} - \omega \right)
-    }{\left(h_{s,w}-h\right)+\left(\lew-1
-    \right)\left[\left(h_{s,w}-h\right)-\left(\omega_{s,w} - \omega
-    \right)h_v\right] -\left(\omega_{s,w} - \omega \right)h_w } \\
-    & & 
-    \frac{dh}{dT_w} = c_{p_w}\frac{\dot{m}_w}{\dot{m}_a}
-    \left[1+\frac{\left(\omega_{s,w} - \omega  \right)c_{p_w}
-    T_w}{\left(h_{s,w}-h\right)+\left(\lew-1
-    \right)\left[\left(h_{s,w}-h\right)-\left(\omega_{s,w} - \omega
-    \right)h_v\right] -\left(\omega_{s,w} - \omega \right)h_w}\right] \\
-    & & 
-    \frac{d\Me}{dT_w} = \frac{c_{p_w}  }{\left(h_{s,w}-h\right)+\left(\lew-1
-    \right)\left[\left(h_{s,w}-h\right)-\left(\omega_{s,w} - \omega
-    \right)h_v\right] -\left(\omega_{s,w} - \omega \right)h_w }, \label{eq:Me1}
-\end{eqnarray}
+{\small
+\begin{align}
+& \frac{d\omega}{dT_w} = \frac{c_{p_w}\,\frac{\dot{m}_{wct}}{\dot{m}_{wct,air}}\,
+(\omega_{s_w} - \omega)}
+{(h_{s_w}-h)+(\lew-1)\big[(h_{s_w}-h)-(\omega_{s_w} - \omega)h_v\big]
+-(\omega_{s_w} - \omega) h_w}, 
+\labeq{cc:poppe_omega}\\[6pt]
+& \frac{dh}{dT_w} = c_{p_w}\frac{\dot{m}_{wct}}{\dot{m}_{wct,air}}\left[1+
+\frac{(\omega_{s_w} - \omega)c_{p_w}T_w}
+{(h_{s_w}-h)+(\lew-1)\big[(h_{s_w}-h)-(\omega_{s_w} - \omega)h_v\big]
+-(\omega_{s_w} - \omega) h_w}\right], 
+\labeq{cc:poppe_h}\\[6pt]
+& \frac{d\Me}{dT_w} = \frac{c_{p_w}}
+{(h_{s_w}-h)+(\lew-1)\big[(h_{s_w}-h)-(\omega_{s_w} - \omega)h_v\big]
+-(\omega_{s_w} - \omega) h_w},
+\labeq{cc:poppe_Me}
+\end{align}
+}
 
-where the quantity referred to as $\Me $ in Eq. \ref{eq:Me1}, is the Merkel
-number calculated according to the Poppe theory. The above described
-governing equations can be solved by the fourth order Runge-Kutta method to
-provide the evolution of the air humidity ratio, air enthalpy and Merkel
-number inside the transfer area of the cooling tower (fill). Once these
-profiles are known, the amount of water lost due evaporation can be
-calculated as per Eq. \refeq{mwlost}. Refer to \sidecite{navarro_critical_2022}
-for additional information concerning the calculation procedure.
-
-\begin{equation} 
-    Me = \frac{h_D a_v V}{\dot{m}_w}, % \label{eq:Me} %
-\end{equation}
-
-\begin{equation}
-    \dot{m}_{w,lost}=\dot{m}_a (\omega_{a,o}-\omega_{a,i})
-    \labeq{mwlost} 
-\end{equation}
-
-
-It is important to mention that the Merkel number varies with the operation
-conditions and its value can be obtained using a correlation with the
-water-to-air mass flow ratio as an independent variable. One of the proposed
-correlations in ASHRAE~\sidecite[*-2]{ashrae_hvac_2004} is:
+where the evolution of key variables such as the air enthalpy
+(\refeq{cc:poppe_h}), humidity ratio (\refeq{cc:poppe_omega}), and the Merkel
+number (\refeq{cc:poppe_Me}) along the fill height is obtained by numerically
+solving the set of differential equations using a fourth-order Runge-Kutta
+algorithm\sidenote{$Le$ is the Lewis number, $\omega$ is the humidity ratio
+(kg/kg), $h$ is the enthalpy and $c_p$ the specific heat.}. Secondly, the Merkel
+number of a wet cooling tower is not a constant value but varies with the
+operating conditions. When plotted against the water-to-air mass flow ratio
+(defined as the ratio between the water and air mass flow rates within the
+tower) it typically follows a straight, decreasing trend in logarithmic
+coordinates. As suggested by ASHRAE~\cite{ashrae_hvac_2004a}, this behavior is
+often expressed through a single correlation that depends on the water-to-air
+mass flow ratio:
 
 \begin{equation}
-    \Me = c\left({\dot{m}_w}/{\dot{m}_a}\right)^{-n}
-    \labeq{cc:Me-corr}
+    \Me = c\cdot \left(\frac{\dot{m}_{wct}}{\dot{m}_{wct,air}}\right)^{-n}
+\labeq{cc:me-correlation}
 \end{equation}
 
-where the constants $c$ and $n$ can be obtained from the fitting of
- experimental data\sidenote[][*-1]{See \nrefsec{cc:validation:wct}}. 
+Here, \(c\) and \(n\) are empirical coefficients that depend on the specific
+design of the cooling tower. These coefficients can be determined through
+experimental data fitting.
+
 
 %=====================================
-\subsection{Samples generation for first-principles to data-driven models}
+\subsection{Surrogate model synthetic dataset generation}[Surrogate model]
 
-The first pair of input variables for the \gls{wctLabel} sample generation are
+The first pair of input variables for the \gls{wctLabel} synthetic dataset generation are
 the wet bulb temperature ($T_{wb}$) and the difference between this temperature
 and the system inlet temperature ($\Delta T_{wb-in}$). The wet bulb temperature
 is used instead of the ambient temperature or the relative humidity, because as
@@ -258,7 +166,7 @@ necessary input space with many duplicate samples, as the wet bulb
 temperature is a function of both variables. The second pair of input
 variables are the cooling water flow rate ($q_{wct}$) and, following the
 reasoning from the physical model, the air to water mass flow ratio
-($\dot{m}_{a}/\dot{m}_{wct}$), since it is a key parameter in defining the
+($\dot{m}_{wct,air}/\dot{m}_{wct}$), since it is a key parameter in defining the
 operating conditions of the tower. From the resulting 2D grid, valid combinations
 are obtained by calculating the air mass flow rate and finding if a valid fan
 speed can be obtained using an air mass flow rate to fan speed empirical
@@ -266,49 +174,126 @@ correlation.
 
 Finally, all valid thermodynamic and operational combinations are merged into a
 comprehensive sample set, enabling detailed system evaluations across a
-realistic and constrained input space.
+realistic and constrained input space\sidenote{See
+\refsec{intro:modelling:sample-generation}}.
 
 \subsection{Model interface}
 
 \begin{modelcounter}{Wet cooling tower}
-    \begin{equation*}
-        T_{wct,out},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in})
-    \end{equation*}
+    \begin{align*}
+        T_{wct,out},\,&C_{e,wct},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in};\,\theta_{wct}) \\
+        & C_{e,wct} = \text{electrical\:consumption}(\omega_{wct}) \\
+    \end{align*}
     \labmod{wct}
 \end{modelcounter}
 
-\begin{modelcounter}{Wet cooling system model}
-    \begin{align*}
-        T_{wct,out},&\,C_{e},C_{w},\,T_{c,in},\,T_{c,out} = \text{wcs\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in}) \\
-        % condenser model
-        & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
-        % wet cooler model
-        & T_{wct,out},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{c,out}) \\
-        % electrical consumptions
-        & C_{e,c} = \text{electrical\:consumption}(q_c) \\
-        & C_{e,wct} = \text{electrical\:consumption}(\omega_{wct}) \\
-        % totals
-        & C_{e} = C_{e,wct} + C_{e,c} \\
-        & C_{w} = C_{w,wct}
-    \end{align*}
-    \labmod{wet-system}
-\end{modelcounter}
-
+% \begin{modelcounter}{Wet cooling system model}
+%     \begin{align*}
+%         T_{wct,out},&\,C_{e},C_{w},\,T_{c,in},\,T_{c,out} = \text{wcs\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in}) \\
+%         % condenser model
+%         & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
+%         % wet cooler model
+%         & T_{wct,out},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{c,out}) \\
+%         % electrical consumptions
+%         & C_{e,c} = \text{electrical\:consumption}(q_c) \\
+%         & C_{e,wct} = \text{electrical\:consumption}(\omega_{wct}) \\
+%         % totals
+%         & C_{e} = C_{e,wct} + C_{e,c} \\
+%         & C_{w} = C_{w,wct}
+%     \end{align*}
+%     \labmod{wet-system}
+% \end{modelcounter}
 
 %=====================================
 %=====================================
 \section{Dry cooler}
+\labsec{cc:modelling:dc}
 
-
+Similar to the \gls{wctLabel} model, static models are used to predict, this
+time, one output: the water temperature at the outlet of the \gls{dcLabel},
+$T_{dc,out}$. The inputs variables required are similar to the \gls{wctLabel}:
+the cooling water flow rate ($q_{dc}$)\sidenote{$\dot{m}_{dc}$ in terms of mass
+flow rate}, the water temperature at the inlet of the \gls{dcLabel}
+($T_{dc,in}$), the ambient temperature ($T_{amb}$) and the cooler fan speed
+($\omega_{dc}$)\sidenote{In the case of the physical model, internally the fan
+speed is converted into the air mass flow rate ($\dot{m}_{dc,air}$) with an
+empirical correlation.}.
 
 %================================
 \subsection{Physical model}
+\labsec{cc:modelling:dc:physical}
 
-a\todo{Pendiente de basarse en el artículo del modelo físico del DC con Elxe}
+The modelling of air-cooled heat exchangers can involve different levels of
+complexity. A common simplification is to assume a constant effectiveness or
+overall heat transfer coefficient. However, such models cannot capture the
+influence of relevant operating conditions, such as water or air flow rates,
+which significantly affect both the transferred heat and the power consumption.
+For preliminary designs, it is common to rely on empirical models based on
+experimental correlations available in the open
+literature~\sidecite{zhang_preliminary_2024}. While this approach accounts for
+operating conditions, it must be applied with caution when used outside the
+range of the original correlations. Furthermore, it can be challenging to find
+correlations for relatively complex geometries. To partially address these
+limitations, other models adjust certain parameters through component tests
+while still preserving the main physics of the problem, primarily by obtaining a
+Nusselt number ($\Nus$) correlation for a specific configuration as a function
+of the Reynolds ($\Rey$) and Prandtl ($\Pra$) numbers. 
 
+The \gls{dcLabel} (\gls{acheLabel}-type) in the pilot-plant is
+modelled using the standard heat exchanger equations~\sidecite{yunusa.cengel_heat_2014}:
+heat transferred from the hot fluid (water), heat transferred to the cold fluid
+(air), and the heat transfer expressed through the overall heat transfer
+coefficient and the logarithmic mean temperature difference.
+
+ \begin{align}  
+    & \dot{Q}_{dc, released}= \dot{m}_{dc} \cdot c_{p,c} \cdot(T_{dc,in}-T_{dc,out}), \label{eq:cc:dc_released} \\ 
+    & \dot{Q}_{dc, absorbed} = \dot{m}_{dc,air} \cdot c_{p,a}\cdot(T_{dc,air,out}-T_{amb}), \label{eq:cc:dc_absorbed}\\ 
+    & \dot{Q}_{dc, transferred} = U_{dc}\cdot A_{dc} \cdot F \cdot LMTD, \label{eq:cc:dc_transferred} \\
+    & \dot{Q}_{dc, released} = \dot{Q}_{dc, absorbed} = \dot{Q}_{dc, transferred}
+\end{align} 
+
+where \(\dot{Q}\) represents the heat transfer rate \ie, the thermal
+power, \textit{F} is the correction factor for the \gls{lmtdLabel}, which is
+calculated for a cross flow heat exchanger with three tube rows and three tube
+passes~\sidecite{kroger2004}, and the product of the overall heat transfer
+coefficient and the heat exchange area is calculated from:
+
+\begin{equation}
+    U_{dc}\cdot A_{dc} = \left( \frac{1}{A_{dc,i}\cdot h_i}+ \frac{\ln(D_{dc,tb,o}/D_{dc,tb,i})}{2 \cdot \pi \cdot k_{dc,tb} \cdot L_{dc,tb} \cdot n_{dc,tb}}+\frac{1}{A_{dc,o}\cdot h_o} \right)^{-1}, \\
+    \labeq{cc:dc_UA}
+\end{equation}
+
+being $h_{o}$ the convective heat transfer coefficient for the external surface
+of a single horizontal tube, $D_{tb,o}$ the outer tube diameter, $D_{tb,i}$ the
+inner tube diameter, $k_{dc,tb}$ the thermal conductivity of the tube wall
+material, and $h_{i}$  the convective heat transfer coefficient for the water
+inside the tube\sidenote{See their values in \reftab{cc:facility:dc}}.
+
+The convective heat transfer coefficient on the internal side (cooling water),
+$h_i$, is calculated using Gnielinski's
+correlation~\sidecite{volkergnielinski_new_1976}, assuming uniform flow
+distribution in the tubes and negligible roughness. The convective heat transfer
+coefficient on the external surface (air), $h_o$, cannot be easily calculated
+from correlations in the open literature due to the geometry involved (tube
+arrays with transversal plate fins). It can be determined experimentally with a
+campaign covering a wide range of operating conditions to then fit the
+experimental data to an equation that relates the air side Nusselt number and
+the air side Reynolds number, as follows:
+
+\begin{equation}\labeq{cc:Nu_corr}
+    \Nus_a = G \cdot \Rey_a^{m} \cdot \Pra_a^{0.36}, \\
+\end{equation}
+
+where $\Nus_a=h_o\cdot L_{dc,tb}/k_{dc,tb}$, and \textit{G} and \textit{m} are
+parameters to be determined by fitting to experimental data, and the exponent
+for the Prandtl number, $\Pra$, is assumed to be the same value as that proposed
+by Zukauskas for staggered tube banks~\sidecite{kakac}\sidenote{
+The system design characteristics needed for applying this methodology for the
+pilot plant are listed in \reftab{cc:facility:dc}.
+}.
 
 %=====================================
-\subsection{Samples generation for first-principles to data-driven models}
+\subsection{Surrogate model synthetic dataset generation}[Surrogate model]
 \labsec{cc:modelling:dc:samples}
 % de muestreos seguida y mostrar la gráfica de resultados
 
@@ -317,9 +302,9 @@ inlet temperature and the environment temperature will lead to many unfeasible
 combinations ($T_{dc,in} \le T_{db}$). So instead, values are generated for the
 temperature difference, therefore, a 2D grid is constructed using combinations
 of ambient/dry-bulb temperature ($T_{amb}$) and the difference between inlet
-and ambient temperature (($\Delta T_{amb-in}$)). For each valid temperature
+and ambient temperature ($\Delta T_{amb-in}$). For each valid temperature
 pair ($T_{amb}$, $T_{dc,in}$), additional independent variables ($q_{dc}$,
-$\omega_{dc}$) are combined via a Cartesian product, resulting in a full
+$\omega_{dc}$) are combined via a cartesian product, resulting in a full
 multidimensional grid of plausible operating points. This systematic procedure
 ensures a dense and uniform sampling across all relevant input dimensions.
 Finally, infeasible combinations are filtered based on physical constraints.
@@ -331,35 +316,75 @@ Finally, infeasible combinations are filtered based on physical constraints.
 \subsection{Model interface}
 
 \begin{modelcounter}{Dry cooler}
-    \begin{equation*}
-        T_{dc,out} = \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in})
-    \end{equation*}
+    \begin{align*}
+        T_{dc,out} &= \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in};\,\theta_{dc}) \\
+        & C_{e,dc} = \text{electrical\:consumption}(\omega_{dc}) \\
+    \end{align*}
     \labmod{dc}
 \end{modelcounter}
 % \marginnote[*-2]{The condenser area ($A$) is a constant parameter}
 
-\begin{modelcounter}{Dry cooling system model}
-    \begin{align*}
-        T_{dc,out},&\,C_{e},\,T_{c,in},\,T_{c,out} = \text{dcs\:model}(q_{dc},\, \omega_{dc},\, T_{amb},\, T_{dc,in}) \\
-        % condenser model
-        & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
-        % dc model
-        & T_{dc,out} = \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{c,out}) \\
-        % electrical consumptions
-        & C_{e,c} = \text{electrical\:consumption}(q_c) \\
-        & C_{e,dc} = \text{electrical\:consumption}(\omega_{dc}) \\
-        % totals
-        & C_{e} = C_{e,dc} + C_{e,c} \\
-    \end{align*}
-    \labmod{dc-system}
-\end{modelcounter}
+% \begin{modelcounter}{Dry cooling system model}
+%     \begin{align*}
+%         T_{dc,out},&\,C_{e},\,T_{c,in},\,T_{c,out} = \text{dcs\:model}(q_{dc},\, \omega_{dc},\, T_{amb},\, T_{dc,in}) \\
+%         % condenser model
+%         & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
+%         % dc model
+%         & T_{dc,out} = \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{c,out}) \\
+%         % electrical consumptions
+%         & C_{e,c} = \text{electrical\:consumption}(q_c) \\
+%         & C_{e,dc} = \text{electrical\:consumption}(\omega_{dc}) \\
+%         % totals
+%         & C_{e} = C_{e,dc} + C_{e,c} \\
+%     \end{align*}
+%     \labmod{dc-system}
+% \end{modelcounter}
 
 
 %=====================================
 %=====================================
-\section{Other components}
+\section{Other components and outputs}
 \labsec{cc:modelling:other-components}
 
+%================================
+\subsection{Surface condenser}
+\labsec{cc:modelling:condenser}
+
+The surface condenser is a heat exchanger that condenses steam into water,
+assuming that all the vapor that enters the condenser (at saturated conditions),
+leaves it as saturated liquid, it can be modelled similar to the dry cooler by
+applying the first law of thermodynamics, which states that the heat lost by the
+steam (\textit{released}) is equal to the heat gained by the cooling water
+(\textit{absorbed}), and equal to the heat transferred by the condenser heat
+transfer surfaces (\textit{transferred}).
+
+\begin{modelcounter}{Surface condenser}
+    \begin{align*}
+        T_{c,in},\,T_{c,out}& = \text{condenser model}(\dot{m}_{c}, T_{v},\dot{m}_{v};\,\theta_c) \\
+        & \dot{Q_{c}} = \dot{m}_v \cdot (h_{sat.vap}-h_{sat.liq}) \\ 
+        & \dot{Q}_{c} = \dot{m}_c \cdot c_p  \cdot(T_{c,out}-T_{c,in}) \\ 
+        & \dot{Q}_{c} = U_c\cdot A_c \cdot LMTD \\
+        & LMTD = \frac{T_{c,out}-T_{c,in}}{\ln\left(\frac{T_{v}-T_{c,in}}{T_{v}-T_{c,out}}\right)} \\
+    \end{align*}
+    \labmod{sc}
+\end{modelcounter}
+
+being $U_c$ the overall heat transfer coefficient. Which can be determined in a
+variety of ways. One of them is given by:
+\begin{equation}
+    U_{c}\cdot A_c = \left( \frac{1}{A_{c,i}\cdot h_i}+ \frac{R_{c,if}}{A_{c,i}} + \frac{\ln(D_{c,tb,o}/D_{c,tb,i})}{2 \cdot \pi \cdot k_{c,tb} \cdot L_{c,tb} \cdot n_{c,tb}}+\frac{1}{A_{c,o}\cdot h_o} + \frac{R_{c,of}}{A_{c,o}} \right)^{-1}, \\
+    \labeq{cc:sc_UA}
+\end{equation}
+
+where $R_{c,if}$ and $R_{c,of}$ are the fouling resistances (inside and outside,
+respectively). The shell-side heat transfer coefficient $h_{o}$ is estimated
+once again using the Nusselt method~\cite{Serth2007} for laminar-flow condensation over a
+horizontal tube bundle ($0 < \Rey < 30 \times 10^{6}$) including the Kern
+correction for condensate inundation, while the tube-side convective heat
+transfer coefficient for the water flow inside the tube bundle, $h_{i}$, is
+approximated using the Petukhov-Kirillov-Popov correlation for fully-developed
+turbulent flow through smooth circular tubes~\sidecite{rohsenow_handbook_1998}, valid within
+$0.5 < \Pra < 10^{6}$ and $4000 < \Rey < 5 \times 10^{6}$.
 
 %================================
 \subsection{Electrical consumption}
@@ -369,7 +394,7 @@ experimental data:
 
 \begin{modelcounter}{Electrical consumption}
     \begin{align*}
-        C_{e} &= \mathrm{electrical\:consumption\:model}(x) \\
+        C_{e} &= \text{electrical consumption model}(x;\, \theta) \\
         & C_{e} = p_1 \cdot x^3 + p_2 \cdot x^2 + p_3 \cdot x + p_4
     \end{align*}
     \labmod{electrical-consumption}
@@ -380,57 +405,6 @@ variable (e.g., the recirculated cooling water flow rate, particular cooler fan
 speed, etc.). The coefficients \(p_i\) correspond to a polynomial regression
 and must be calibrated individually for each component.
 
-
-%================================
-\subsection{Surface condenser}
-\labsec{cc:modelling:condenser}
-
-The surface condenser is a heat exchanger that condenses steam into water,
-assuming that all the vapor that enters the condenser (at saturated
-conditions), leaves it as saturated liquid, it can be modelled by applying the
-first law of thermodynamics, which states that the heat lost by the steam
-(\textit{released}) is equal to the heat gained by the cooling water
-(\textit{absorbed}), and equal to the heat transferred by the condenser heat
-transfer surfaces (\textit{transferred}).
-
-\begin{modelcounter}{Surface condenser}
-    \begin{align*}
-        T_{c,in},\,T_{c,out}& = \mathrm{condenser\:model}(\dot{m}_{c}, T_{v},\dot{m}_{v}) \\
-        & LMTD = \frac{T_{c,out}-T_{c,in}}{\ln\left(\frac{T_{v}-T_{c,in}}{T_{v}-T_{c,out}}\right)} \\
-        & \dot{Q}_{released} = \dot{m}_v \cdot (h_{sat.vap}-h_{sat.liq}) \\
-        & \dot{Q}_{absorbed} = \dot{m}_c \cdot c_p(T_{c,out}-T_{c,in}) \\
-        & \dot{Q}_{transferred} = U\cdot A \cdot LMTD \\
-        & U = \ldots
-    \end{align*}
-    \labmod{sc}
-\end{modelcounter}
-\marginnote[*-2]{The condenser area ($A$) is a constant parameter}
-
-
-where \(T_{c,in}\) and \(T_{c,out}\) are the cooling water inlet and outlet
-temperatures, respectively, \(\dot{m}_c\) the cooling water mass flow rate,
-\(T_v\) vapour temperature and \(\dot{m}_v\) its mass flow rate and
-\(h_{sat,vap}\) and \(h_{sat,liq}\) are the specific enthalpies of the steam at
-the inlet and outlet of the condenser, respectively. \(\dot{Q}\) represents the
-heat transfer rate \ie the thermal power.
-
-
-
-% TODO: Añadir unidades al lado como una notación al margen de cada bloque de modelo
-% \begin{modelcounter}{Condenser}
-%     \begin{align*}
-%         C_{e,c} &= \text{recirculation\:consumption}(q_c) \\
-%         & C_{e,c} = p_1 \cdot q_c^3 + p_2 \cdot q_c^2 + p_3 \cdot q_c + p_4
-%     \end{align*}
-% \end{modelcounter}
-    % q (m³/h) -> P_pump (kW)
-    % f(x) = p1*x^3 + p2*x^2 + p3*x + p4
-    %        p1 =    0.1461;
-    %        p2 =    5.763;
-    %        p3 =    -38.32;
-    %        p4 =    227.8;
-    % Ce_c =max((p1.*qc.^3 + p2.*qc.^2 + p3.*qc + p4)*1e-3, 0); %kW
-
 \subsection{Mixers}
 
 The mixers outlet flow ($q_{mix,out,i}$) and temperature ($T_{mix,out,i}$) can
@@ -440,11 +414,11 @@ be determined with a simple mass and energy balances from its inlets streams
 
 % \modeldefinitionbox{Mixer model}{
 \begin{modelcounter}{Mixer model}
-    \begin{align}
-        q_{mix,out},\,&T_{mix,out} = \text{mixer\:model}(q_{mix,in,1},\,T_{mix,in,1},\,q_{mix,in,2},\,T_{mix,in,2}) \\
+    \begin{align*}
+        q_{mix,out},\,&T_{mix,out} = \text{mixer model}(q_{mix,in,1},\,T_{mix,in,1},\,q_{mix,in,2},\,T_{mix,in,2}) \\
         & q_{mix,out} = q_{mix,in,1} + q_{mix,in,2} \\
-        & T_{mix,out} = T_{mix,in,1} \cdot \frac{c_p(T_{mix,in,1})}{c_p(T_{out,i})}\frac{q_{mix,in,1}}{q_{mix,out,i}} + \nonumber \\ &\qquad T_{mix,in,2} \cdot \frac{c_p(T_{mix,in,2})}{c_p(T_{out,i})}\frac{q_{mix,in,2}}{q_{mix,out,i}}
-    \end{align}
+        & T_{mix,out} = T_{mix,in,1} \cdot \frac{c_p(T_{mix,in,1})}{c_p(T_{out,i})}\frac{q_{mix,in,1}}{q_{mix,out,i}} + \nonumber \\ &\qquad\qquad T_{mix,in,2} \cdot \frac{c_p(T_{mix,in,2})}{c_p(T_{out,i})}\frac{q_{mix,in,2}}{q_{mix,out,i}}
+    \end{align*}
     \labmod{mixer}
 \end{modelcounter}
 % }
@@ -452,27 +426,88 @@ be determined with a simple mass and energy balances from its inlets streams
 where $c_p(\cdot)$ is the specific heat, which can be assumed to be the same for the
 mixing temperature differences of this type of system.
 
+\subsection{Valves}
+
+The two divergent three-way valves are modeled using the distribution ratio $R$
+as inputs, so the mass flow rate at the outlets of each valve can be easily
+estimated as $q_{out,1}=R\cdot q_{in}$ and conversely $q_{out,2}=(1-R)\cdot
+q_{in}$. Where $R$ is a value in the range [0,1], which implicitly includes the
+non-linearities of the valve.
+
 %=====================================
 %=====================================
 \section{Complete system}
 \labsec{cc:modelling:complete-model}
 
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/cc-modelling-complete-model-diagram.png}
+    \caption{Complete model diagram of the combined cooling system}
+    \labfig{cc:modelling:complete-model-diagram}
+\end{figure}
+
 The complete model of the combined cooling system integrates the models of the
 \gls{wctLabel} and \gls{dcLabel}, along with the surface condenser and the
-mixers, as defined in \nrefmod{cc}\sidenote{Although the electrical consumption
-for cooling water recirculation is attributed to the condenser in this model,
-other components—particularly the hydraulic circuit and the dry cooler—also
-contribute significantly to circulation resistance}. The full diagram,
-including all variables, is shown in
+mixers, as defined in \nrefmod{cc}, where $\theta$ represents the parameters of
+the different components (condenser area, heat transfer coefficients, number of
+tubes in the \gls{acheLabel}, etc.)\sidenote{The electrical consumption for the
+cooling water recirculation depends on the hydraulic circuit configuration,
+since the dry cooler and the wet cooler offer different circulation
+resistances}. The full diagram, including all variables, is shown in
 \reffig{cc:modelling:complete-model-diagram}.
 
-To solve the system, the condenser model is evaluated first, providing the
-inlet temperature for the dry cooler. Once the dry cooler is solved, the
-resulting temperatures allow for solving the wet cooling tower. Finally, the
-mixers are evaluated to determine the final outlet temperature of the combined
-cooler, which should match the condenser’s inlet temperature.
+The system can be solved with the provided inputs ($q_{c}$, $R_{p}$, $R_{s}$,
+$\omega_{dc}$, $\omega_{wct}$, $T_{amb}$, $HR$, $T_{v}$, $\dot{m}_{v}$) in the
+following way: First, flows across the different paths can be determined
+provided the recirculation flow rate ($q_{c}$) and the valve positions ($R_{p},
+R_{s}$). It follows the evaluation of the condenser model, providing the only
+remaining input to fully determine the dry cooler, its inlet temperature
+($T_{dc,in}==T_{c,out}$). Then, the temperature inlet and outlet conditions for
+the wet cooler can be obtained by evaluating the mixers with the now known dry
+cooler outlet conditions ($T_{dc,out}$), together with the combined cooler
+outlet temperature, which equals the condenser inlet temperature
+($T_{cc,out}=T_{c,in}$). It only remains to evaluate the wet cooling tower,
+where given its inlet temperature ($T_{wct,in}$, obtained from the first mixer),
+and its fan speed ($\omega_{wct}$), the outlet temperature ($T_{wct,out}$) and
+the water consumption ($C_{w,wct}$) can be determined. With the outlet
+temperature requires matching the obtained value from the second mixer.
 
-\begin{marginfigure}[]
+If no convergence is achieved, the process can either be repeated iteratively
+changing the condenser vapor temperature ($T_v$) until the system converges to a
+valid equilibrium steady-state. Or alternatively, a flag can be set to indicate
+that the current input combination is not feasible.
+
+\begin{modelcounter}{Combined cooling system}
+    \begin{align*}
+        T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,in},\,T_{c,out} = \text{ccs\:\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_{v};\,\theta) \\
+        & T_{cc,in}=T_{c,out} \\
+        & T_{dc,in}=T_{cc,in} \\
+        % three-way valves
+        & q_{dc} = q_{c} \cdot (1-R_{p}) \\
+        & q_{wct,p} = q_{c} \cdot R_{p} \\
+        & q_{wct,s} = q_{dc} \cdot R_{s} \\
+        % condenser model
+        & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
+        % dc model
+        & T_{dc,out},\,C_{e,dc} = \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in};\,\theta_{dc}) \\
+        % first mixer
+        & q_{wct},\,T_{wct,in} = \text{mixer\:model}(q_{wct,p},\,T_{T{cc,in}},\, q_{wct,s},\, T_{dc,out}) \\
+        % final mixer
+        & q_{cc},\,T_{cc,out} = \text{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
+        % wct model
+        & T_{wct,out},\,C_{e,wct},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in};\,\theta_{wct}) \\
+        % electrical consumptions
+        & C_{e,c} = \text{electrical\:consumption}(q_c) \\
+        & C_{e,dc} = \text{electrical\:consumption}(\omega_{dc}) \\
+        & C_{e,wct} = \text{electrical\:consumption}(\omega_{wct}) \\
+        % totals
+        & C_{e} = C_{e,dc} + C_{e,wct} + C_{e,c} \\
+        & C_{w} = C_{w,wct}
+    \end{align*}
+    \labmod{cc}
+\end{modelcounter}
+
+\begin{marginfigure}[*-20]
+    \centering
     \includegraphics[]{figures/cc-modelling-wct-io-diagram.png}
     % {\footnotesize \textbf{(a)} \gls{mimoLabel} configuration\\}
     
@@ -489,41 +524,3 @@ cooler, which should match the condenser’s inlet temperature.
     \caption{Inputs-outputs block diagram of the main model components}
     \labfig{intro:modelling:ann-model-configuration}
 \end{marginfigure}
-
-
-\begin{modelcounter}{Combined cooling system}
-    \begin{align*}
-        T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,in},\,T_{c,out} = \text{ccs\:\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR_i,T_{v},\dot{m}_{v}) \\
-        & T_{cc,in}=T_{c,out} \\
-        & T_{dc,in}=T_{cc,in} \\
-        % three-way valves
-        & q_{dc} = q_{c} \cdot (1-R_{p}) \\
-        & q_{wct,p} = q_{c} \cdot R_{p} \\
-        & q_{wct,s} = q_{dc} \cdot R_{s} \\
-        % dc model
-        & T_{dc,out},\,C_{e,dc} = \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in}) \\
-        % first mixer
-        & q_{wct},\,T_{wct,in} = \text{mixer\:model}(q_{wct,p},\,T_{T{cc,in}},\, q_{wct,s},\, T_{dc,out}) \\
-        % wct model
-        & T_{wct,out},\,C_{e,wct},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in}) \\
-        % condenser model
-        & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
-        % final mixer
-        & q_{cc},\,T_{cc,out} = \text{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
-        % electrical consumptions
-        & C_{e,c} = \text{electrical\:consumption}(q_c) \\
-        & C_{e,dc} = \text{electrical\:consumption}(\omega_{dc}) \\
-        & C_{e,wct} = \text{electrical\:consumption}(\omega_{wct}) \\
-        % totals
-        & C_{e} = C_{e,dc} + C_{e,wct} + C_{e,c} \\
-        & C_{w} = C_{w,wct}
-    \end{align*}
-    \labmod{cc}
-\end{modelcounter}
-% }
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{figures/cc-modelling-complete-model-diagram.png}
-    \caption{Complete model diagram of the combined cooling system}
-    \labfig{cc:modelling:complete-model-diagram}
-\end{figure}

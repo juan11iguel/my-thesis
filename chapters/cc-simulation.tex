@@ -1,22 +1,31 @@
 \setchapterpreamble[u]{\margintoc}
-\chapter{Annual analysis: ANDASOL-II CSP plant}%CSP and inland-MED}
+\chapter{Annual analysis: Andasol-II CSP plant}%CSP and inland-MED}
 \labch{cc:simulation}
 
-\tldrbox{
-    This chapter presents the annual simulation results for different cooling
-    systems: a \gls{wctLabel}, a \gls{dcLabel} and the presented \gls{ccLabel}
-    optimized with static optimization and with horizon optimization. They
-    provide cooling to the power block of the XX hours storage--\gls{cspLabel}
-    plant ANDASOL-II with an off-peak operation strategy. Results for the case
-    study report a specific cooling cost of XX, XX and XX for the
-    \gls{wctLabel}, \gls{dcLabel} and \gls{ccLabel}, respectively, compared to
-    the 5~L/kWh figure provided by the developer.
+\tldrbox{ This chapter presents an analysis of the annual performance of
+    different cooling alternatives applied to a commercial 50~MW$_e$
+    \gls{cspLabel} plant, Andasol-II, located in southern Spain. Three cooling
+    systems are compared: the actual cooling system of the plant, a
+    \gls{wctLabel}, the proposed combined cooling system (\gls{ccLabel}) with
+    two different capacities for the dry cooler, 75\% and 100\% of the nominal
+    thermal load of the \gls{wctLabel} system. For each alternative the
+    operation is optimized in a water-scarce scenario using the proposed
+    multi-stage optimization framework, adapted to the particular case study. 
+
+    Results show that integrating the \gls{ccLabel} can reduce specific cooling
+    costs by up to 80\% and annual water consumption by about 48\%, with 38\%
+    savings during the driest months. These benefits arise from reduced dependence
+    on costly alternative water sources. The \gls{ccLabel} alternatives also
+    provide more stable, cost-effective operation across the year compared to the
+    \gls{wctLabel}, which is highly sensitive to water scarcity. Overall, the study
+    demonstrates that optimized combined cooling can significantly enhance both
+    economic and water-use efficiency in \gls{cspLabel} plants.
 }
 
 \section*{Introduction}
 \addcontentsline{margintoc}{section}{Introduction}
 
-\begin{marginfigure}[] % -5.5cm
+\begin{marginfigure}[*-6] % -5.5cm
     \includegraphics[]{figures/andasol.jpg}
     \caption[Andasol I, II and III]{Andasol I, II and III aerial view.
     Andasol-II is the one at .\\ 
@@ -29,34 +38,32 @@ A modeling framework has been developed to simulate and optimize the operation
 of various cooling systems, with a particular focus on the proposed combined
 cooling system. This methodology has been validated using data from a pilot
 plant. In this chapter, the objective is to apply the framework to a specific
-case study: a \fullgls{cspLabel} plant.
+case study: a commercial 50~MW$_e$ \fullgls{cspLabel} plant.
 
 As previously mentioned, CSP plants are among the most water-intensive power
-generation technologies~\sidecite[*2]{meldrum_life_2013}, a concern that is
-especially relevant in the arid regions where they are typically located. To
-assess the performance-water use and operational costs- of different cooling
-systems, the proposed methodology is applied to a real-world case study through
-an annual simulation. The case study examined is the Andasol-II \gls{cspLabel}
-plant.
+generation technologies, a concern that is especially relevant in the arid
+regions where they are typically located. To assess the performance-water use
+and operational costs- of different cooling systems, the proposed methodology is
+applied to a real-world case study through an annual simulation. The case study
+examined is the Andasol-II \gls{cspLabel} plant.
 
 % Descripción ANDASOL
 In the south-east of Spain, near Guadix and next to the Sierra Nevada mountain
 range (see \reffig{cc:simulation:andasol}), thanks to the region high altitude
 (1100~m) and the semi-arid climate, the site has exceptionally high annual
 direct insolation (2260~W/m$^2$) and thus is ideal for solar projects. This is
-why the first parabolic trough power plant in Europe, Andasol-I, was
-built there in 2008. One year later Andasol-II followed, located in the immediate
+why the first parabolic trough power plant in Europe, Andasol-I, was built there
+in 2008. One year later Andasol-II followed, located in the immediate
 neighbourhood and with almost identical construction. It has a rated output of
-50~MW with 7.5~hours\sidenote[][]{This means that if fully charged, it can
+50~MW with 7.5~hours\sidenote[][*-14]{This means that if fully charged, it can
 produce the nominal rated power of the turbine for that duration} of thermal
-storage, providing electricity for up to 200,000 people. More specifications
-are available in \reftab{cc:simulation:andasol}.
+storage, providing electricity for up to 200,000 people. According to the
+developer, Andasol-II vaporizes 870 000~m$^3$/year, or in specific units
+\textbf{5~l/kWh}. More specifications are available in
+\reftab{cc:simulation:andasol}.
 
-According to the developer, Andasol-II vaporizes 870 000 m$^3$/year, or in
-specific units \textbf{5 l/kWh}.
-
-\begin{margintable}[*-3]
-    \caption{ANDASOL-II plant main characteristics}
+\begin{margintable}[*-15]
+    \caption{Andasol-II plant main characteristics}
     \labtab{cc:simulation:andasol}
     \resizebox{\linewidth}{!}{
     \begin{tabular}{|l|l|}
@@ -88,22 +95,6 @@ specific units \textbf{5 l/kWh}.
 
 % Estructura del capítulo
 
-%===================================
-%===================================
-\section{Limitations}
-\labsec{cc:simulation:limitations}\todo{Considerar mover esto al apartado de
-trabajos futuros}
-
-\begin{enumerate}
-    \item The combined cooler analyzed has a 50\% split in nominal cooling
-    power of the \gls{wctLabel} and \gls{dcLabel} components compared to the
-    standalone cooling systems. Different ratios could be analyzed and one
-    would probably be a better fit for the particular case study. This in
-    itself is a design optimization problem that is not addressed in this
-    thesis.
-    \item An \fullgls{acheLabel} is used for the \gls{dcLabel}, but other
-    options could be considered, such as an \fullgls{accLabel}.
-\end{enumerate}
 
 %===================================
 %===================================
@@ -122,20 +113,20 @@ standardized; they vary from region to region, and even within the same region,
 depending on the source and the specific agreements in place.
 
 For the simulation scenario, two sources of water are considered\sidenote{See
-\nrefsec{cc:fig:cc:optimization:environment}}. The first source is rainwater or
-water from a dam, which is assumed to be available at a constant price of
-XX~\sidecite{}. To create a representative dataset, water availability is
-modeled as a function of precipitation data, which can be obtained from hourly
-\gls{tpyLabel} data~\sidecite{meteonorm_}. A linear model is fitted to relate
+\nrefsec{cc:fig:cc:optimization:environment}}. The first source is rainwater
+collected in a reservoir, which is assumed to be available at a constant price. To
+create a representative dataset, water availability is modeled as a function of
+precipitation data, which can be obtained from hourly \gls{tpyLabel}
+data~\sidecite{meteotestag_meteonorm_}. A linear model is fitted to relate
 maximum precipitation to maximum available water, and when there is no
 precipitation, water availability is set to zero. The data is then resampled
-every 15 days, and the daily volume of available water is calculated by
-dividing the resampled fortnightly volume by 15. This approach accounts for the
-presence of water reservoirs and some degree of management capacity.
+every 15 days, and the daily volume of available water is calculated by dividing
+the resampled fortnightly volume by 15. This approach accounts for the presence
+of water reservoirs and some degree of management capacity.
 
-The alternative source is regenerated water\sidenote{This is not an exogenous
+The alternative regenerated water source\sidenote{This is not an exogenous
 idea; the Villena CSP plant, for example, uses wastewater from a nearby prison
-to partially meet its water needs~\cite{}} is not limited in volume.
+to partially meet its water needs} is not limited in volume.
 
 %================================
 \subsection{Thermal load}
@@ -160,24 +151,24 @@ already observable in Spain during the summer months; see
 \reffig{cc:simulation:mix}}.
 
 % Poner figura de presentación con datos de REE
-\begin{figure}
-    \includegraphics[width=\textwidth]{figures/spanish-electric-mix-20240712.png}
-    \caption{Spanish electricity mix on July 12, 2024. The peak in
-    photovoltaic generation is clearly visible at midday, while thermosolar
-    generation is more evenly distributed throughout the day. Peak production
-    is majorly from CSP plants with no storage.\\
-    {\scriptsize \textcolor{black!50!gray}{Data source: Figure elaborated using data
-    extracted from \url{https://www.ree.es/es/datos}}}}
-    \labfig{cc:simulation:mix}
-\end{figure}
+% \begin{figure}
+%     \includegraphics[width=\textwidth]{figures/spanish-electric-mix-20240712.png}
+%     \caption{Spanish electricity mix on July 12, 2024. The peak in
+%     photovoltaic generation is clearly visible at midday, while thermosolar
+%     generation is more evenly distributed throughout the day. Peak production
+%     is majorly from CSP plants with no storage.\\
+%     {\scriptsize \textcolor{black!50!gray}{Data source: Figure elaborated using data
+%     extracted from \url{https://www.ree.es/es/datos}}}}
+%     \labfig{cc:simulation:mix}
+% \end{figure}
 
 
 In this work, a different operational strategy is adopted: the plant is
 configured to generate electricity during off-peak solar hours, typically in
 the evening when electricity demand is at its highest. This is achieved by
-shifting the plant’s production to align with these peak demand periods.
+shifting the plant's production to align with these peak demand periods.
 
-A model of the Andasol-II plant, developed by Bartolomé et al.~\sidecite{}, was
+A model of the Andasol-II plant, developed by Bartolomé et al.~\sidecite{ortegadelgado_theoretical_2016}, was
 configured to follow this production strategy and simulated over an entire
 year. The resulting thermal load profile represents the demand to be met by the
 cooling system. The simulation used the same weather dataset as that employed
@@ -185,186 +176,117 @@ for modeling the cooling system.
 
 
 %================================
-\subsection{Costs context}
+\subsection{Prices context}
 \labsec{cc:simulation:environment:costs}
 
-\textbf{Electricity}. The spanish grid operator \gls{reeLabel} provides an API\sidenote{
-    \qrcode[hyperlink,height=0.5in]{https://api.esios.ree.es}\\ \href{https://api.esios.ree.es}{https://api.esios.ree.es}
-} to access the electricity market prices. A python script was developed to
-systematically download monthly data\sidenote{Longer periods would result in
-silent errors in the API} for each month in the desired year. The data is
-fetched in hourly intervals and saved in JSON format, then every file is
-read and joined into a single dataset resulting in prices for the whole year. 
+% \qrcode[hyperlink,height=0.5in]{https://api.esios.ree.es}\\ \href{https://api.esios.ree.es}{https://api.esios.ree.es}
 
-\textbf{Water}. Rainwater has a constant lower price of XX. This price was
-obtained considering that the plan has access to the same water than the
-irrigation community of the area\sidecite{}. The alternative source, \ie
-regenerated water, is considerably more expensive, and its price is linked to
-the electricity price, specifically by a factor of XX\sidenote{This value
-includes a scaling factor to normalize the values}.
+\textbf{Electricity}. The spanish grid operator \gls{reeLabel} provides an
+API~\sidecite{REE_website} to access the electricity market prices. A python
+script was developed to systematically download monthly data\sidenote{Longer
+periods would result in silent errors in the API} for each month in the desired
+year. The data is fetched in hourly intervals and saved in JSON format, then
+every file is read and joined into a single dataset resulting in prices for the
+whole year. 
+
+\textbf{Water}. Rainwater has a constant lower price of
+$P_{w,s1}=0.03$~\euro/m$^3$. This price was obtained considering that the
+plan has access to the same water than the irrigation community of the area. The
+alternative source, \ie regenerated water, is considerably more expensive, and
+its price is linked to the electricity price, specifically by a factor of 80:
+$P_{w,s2}=80\times P_{e} = 8\pm 5$~\euro/m$^3$.%\sidenote{This value includes
+% a scaling factor}.
 
 \begin{kaobox}[title=Simulation data and parameters information] 
     \begin{itemize}
-        \item[Weather data] Hourly weather data from \gls{tpyLabel} of
-        Guadix (Spain) for the year. Data was obtained from ...
-        \item[Thermal load] Hourly thermal load data from the power block
-        of ANDASOL-II CSP plant from a simulation model.
-        \item[Electricity price] Spanish electricity market from 2022.
-        \item[Maximum available water] The maximum available water for ...
-        \item[Alternative water source factor] ...
+        \item \textbf{Weather data}. Hourly weather data from \gls{tpyLabel} of
+        Guadix (Spain) for the year. Data from~\cite{meteotestag_meteonorm_}.
+        \item \textbf{Thermal load}. Hourly thermal load data from the power block
+        of Andasol-II CSP plant from a simulation model~\cite{ortegadelgado_theoretical_2016}.
+        \item \textbf{Electricity price}. Spanish electricity pool market for
+        2022~\cite{REE_website}.
+        \item \textbf{Maximum available water}. 2~m$^3$/day, modeled as a
+        function of precipitation data.
+        \item \textbf{Alternative water source factor}. $P_{w,s2}=80\times P_{e}$ 
     \end{itemize}
     
-    \begin{tabular}{p{0.3\textwidth} c} 
-        The full environment dataset is available at  &
-        \qrcode[hyperlink,height=0.5in]{\solhycoolRepositoryBaseUrl/data/datasets/environment_data_andasol_20220101_20241231.csv}
-    \end{tabular}
+    % \raggedright
+    % \begin{tabular}{m{0.3\textwidth} c} 
+    %     The full environment dataset is available at  &
+    %     \qrcode[hyperlink,height=0.5in]{\solhycoolRepositoryBaseUrl/data/datasets/environment_data_andasol_20220101_20241231.csv}
+    % \end{tabular}
 \end{kaobox}
 
-% \section{WCT results}
-% Anual muestreado cada 15 días. Versión interactiva sin muestrar
-% \begin{figure}
-%     \includegraphics[width=1.2\textwidth]{figures/cc-simulation-wct-year_viz_resampled.png}
-%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-wct-year_viz.html}}
-%     \caption{Annual simulation results for the \gls{ccLabel} system optimized
-%     with static optimization. Results are resampled every 15 days using their
-%     mean values. The original frequency results can be found in the interactive
-%     version:\\[1ex] \usebox\captionqr}
-%     \labfig{cc:simulation:wct-year}
-% \end{figure}
-
-% \section{DC results}
-% \begin{figure}
-%     \includegraphics[width=1.2\textwidth]{figures/cc-simulation-dc-year_viz_resampled.png}
-%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-dc-year_viz.html}}
-%     \caption{Annual simulation results for the \gls{ccLabel} system optimized
-%     with static optimization. Results are resampled every 15 days using their
-%     mean values. The original frequency results can be found in the interactive
-%     version:\\[1ex] \usebox\captionqr}
-%     \labfig{cc:simulation:dc-year}
-% \end{figure}
-
-
-% \section{CC results}
-% \subsection{Static optimization}
-
-% \begin{figure}
-%     \includegraphics[width=1.2\textwidth]{figures/cc-simulation-cc_static-year_viz_resampled.png}
-%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-cc_static-year_viz.html}}
-%     \caption{Annual simulation results for the \gls{ccLabel} system optimized
-%     with static optimization. Results are resampled every 15 days using their
-%     mean values. The original frequency results can be found in the interactive
-%     version:\\[1ex] \usebox\captionqr}
-%     \labfig{cc:simulation:cc-static-year}
-% \end{figure}
-
-
-
-
-% \subsection{Horizon optimization}
-
-
-% 1 day en detalle (incluya frente de pareto, compare distribución hidráulica y
-% tenga el coste acumulado comparado)
-
-% Annual results
-% \begin{figure}
-%     \includegraphics[width=1.2\textwidth]{figures/cc-simulation-cc_static-year_viz_resampled.png}
-%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-cc_static-year_viz.html}}
-%     \caption{Annual simulation results for the \gls{ccLabel} system optimized
-%     with static optimization. Results are resampled every 15 days using their
-%     mean values. The original frequency results can be found in the interactive
-%     version:\\[1ex] \usebox\captionqr}
-%     \labfig{cc:simulation:cc-static-year}
-% \end{figure}
-
-
-%================================
-\section{Optimization strategies comparison}[Comparison]
-\labsec{cc:simulation:optimization-comparison}
-
-% 3 in 1 cc-static
-% {\newgeometry{margin=0.5cm}  % Remove margins completely
-
-% \begin{sidewaysfigure*}
-%     \centering
-%     \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
-%     \caption{A rotated figure}
-% \end{sidewaysfigure*}
-
-% \restoregeometry}
-
-
-% % 3 in 1 cc-horizon
-% % TODO: añadir cumulative costs comparison
-% {\newgeometry{margin=0.5cm}  % Remove margins completely
-
-% \begin{sidewaysfigure*}
-%     \centering
-%     \includegraphics[width=.9\paperheight, keepaspectratio]{figures/test.png}
-%     \caption{A rotated figure}
-% \end{sidewaysfigure*}
-
-% \restoregeometry}
-
-% 3 in 1 cc-static
-{%
-\newgeometry{margin=0.5cm}
-\begin{figure}
-    \savebox\captionqr{\qrcode[hyperlink,height=1cm]{\repositoryBaseUrl/figures/test.html}}
-    \caption{\gls{ccLabel} static optimization simulation results in three
-    different periods of time \hspace{1ex}\usebox\captionqr}
-    \makebox[\textwidth][c]{\includegraphics[angle=90,width=0.9\paperwidth]{temp/test.png}}%
-\end{figure}%
-\restoregeometry
-}
-
-% 3 in 1 cc-horizon
-{%
-\newgeometry{margin=0.5cm}
-\begin{figure}
-    \savebox\captionqr{\qrcode[hyperlink,height=1cm]{\repositoryBaseUrl/figures/test.html}}
-    \caption{A rotated figure \hspace{1ex}\usebox\captionqr}
-    \makebox[\textwidth][c]{\includegraphics[angle=90,width=0.9\paperwidth]{temp/test.png}}%
-\end{figure}%
-\restoregeometry
-}
-
-
-\section{Cooling alternatives comparison}
+\section{Cooling alternatives comparison}[Alternatives comparison]
 \labsec{cc:simulation:alternatives-comparison}
 
-% \begin{figure*}[h!]
-%     \includegraphics[]{figures/.png}
-%     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/.html}}
-%     \caption[Figure caption]{Figure caption.\hspace{1ex}\usebox\captionqr}
-%     \labfig{::}
-%         \end{figure*}
-Fusionar las gŕacias de resultados anuales remuestreados para que incluyan
-todas las alternativas. Cambiar fondo para cada sistema
+
+The results presented in \reffig{cc:simulation:year-specific-analysis} highlight the
+potential benefits of integrating the proposed combined cooler into the
+Andasol-II power plant, particularly under water-scarcity conditions. The
+comparison between the \gls{wctLabel} baseline and the \gls{ccLabel}
+alternatives shows a remarkable reduction in the specific cooling cost: the
+\gls{ccLabel} achieves reductions of around 80\% compared to the \gls{wctLabel}
+reference case.  
+
+This cost improvement is mainly explained by the reduced reliance on the
+alternative water source, which dominates the cooling cost in the \gls{wctLabel}
+configuration. By introducing the combined cooler, annual water consumption is
+reduced by 48\% on average, and by 38\% during the most critical driest and
+hottest months (see \reffig{cc:simulation:year-comparison}). This demonstrates
+the ability of the \gls{ccLabel} to alleviate water stress without compromising
+cooling performance.  
+
+\begin{marginfigure}[*-12]
+    \includegraphics[]{figures/cc_year_analysis_composite_cooling_costs.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.4in]{\repositoryBaseUrl/figures/cc_year_analysis_composite_cooling_costs.html}}
+    \caption[Specific cooling costs comparison]{Composite specific cooling costs comparison.\\[1ex]\usebox\captionqr}
+    \labfig{cc:simulation:year-specific-analysis}
+\end{marginfigure}
+
+The figure also emphasizes the importance of comparing cooling system
+alternatives under representative annual operating conditions and not just
+analyzing annual averages. The \gls{wctLabel} option exhibits much higher
+sensitivity to water availability, with sustained high associated costs through
+most of the year and negligible on periods of water abundance. The \gls{ccLabel}
+options (both at 75\% and 100\% DC capacity) provide stable and cost-effective
+operation across most of the year, only penalized in the most challenging (June
+- September) period and to a much lower degree compared to the \gls{wctLabel}.  
+
+
+These findings confirm the need for optimization strategies in hybrid or
+combined cooling systems, where the optimized operation schedule can further
+improve both cost efficiency and water savings. The proposed multi-stage
+optimization framework can be adapted to other plant configurations and extended
+to different boundary conditions and resource availability scenarios, enabling
+informed decision-making for sustainable power plant operation.  
+
+One caveat that no optimization strategy can fully overcome is the natural
+mismatch between water availability and cooling needs: in most locations,
+ambient temperatures are lowest (favoring dry cooling) when water is most
+available, whereas in the hot-dry summer season, water scarcity coincides with
+the highest cooling demand (see \reffig{cc:simulation:year-comparison}).
+Nevertheless, as shown, there remains significant margin for improved water
+management through system optimization with integrated dry and wet cooling.
+Moreover, \gls{cspLabel} systems could consider not operating during the hottest
+hours of summer days—when water is scarce and other renewable generation is
+plentiful—and instead prioritize production during off-peak hours, when cooling
+is more efficient and renewable supply is lower.  
+
+Finally, it is clear from the results that water can be the dominant cost
+driver, and thus the most limiting resource depending on the location and chosen
+cooling solution. For the analyzed case study this is true even when assuming a
+conservative alternative water source cost of $\approx$0.08~\euro/l. Much higher
+values could be expected: in discussions with the Villena \gls{cspLabel} plant
+O\&M team, they indicated figures above 1~\euro/l for such alternative
+sources can be expected, which would further strengthen the case for
+water-efficient cooling strategies.
+
 \begin{figure*}[h!]
-    \includegraphics[width=1\linewidth]{figures/year_viz_comp_SME-15.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/year_viz_comp_SME-15.html}}
-    \caption{Annual simulation results for the \gls{ccLabel} system optimized
-    with static optimization. Results are resampled every 15 days using their
-    mean values. The original frequency results can be found in the interactive
-    version:\\[1ex] \usebox\captionqr}
+    \includegraphics[width=1\linewidth]{figures/cc-simulation-annual-comparison.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-simulation-annual-comparison.html}}
+    \caption[Annual simulation results for the different studied alternatives optimized]{Annual simulation results for the different studied alternatives optimized
+    with the proposed horizon optimization. Results are resampled every 15 days using their
+    mean values.\\ \usebox\captionqr}
     \labfig{cc:simulation:year-comparison}
 \end{figure*}
-
-
-\todo{Añadir gráfica de barras comparando coste por kWh refrigerado}
-\todo{Añadir gráfica de barras comparando distribución de potencia térmica por componente
-y distribución hidráulica por componente para cc-static y cc-horizon}
-% Apoyarse también en las trazas de comparación que se añaden en las gráficas
-% de la versión con horizonte
-
-One caveat that no optimization strategy will ever be able to overcome is that
-in most locations, ambient temperatures are lowest (favoring the dry system) at
-times with the most annual water availability (favoring the wet one). The
-inverse is true in the hot-dry summer season where water will inherently be a
-scarce resource. Still as shown, there is a lot of margin for improved water management
-via system optimization with integrated dry and wet systems. Additionally, \gls{cspLabel}
-systems should consider not operating in the hottest hours of the summer days
-- when water is scarce and enough power generation from other
-renewables is available - and produce during off-peak hours when the cooling is
-more efficient and other renewables are not producing.

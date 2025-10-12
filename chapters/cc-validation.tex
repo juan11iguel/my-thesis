@@ -2,27 +2,43 @@
 \chapter{Validation in the combined cooling pilot plant} % Optimization strategy experimental validation
 \labch{cc:validation}
 
-\begin{kaobox}[title=To Do]
-After the chapter is complete, find and replace all mentions to RBF, ANN, RMSE
-and all other acronyms with the acronym with \Command{gls}.
-\end{kaobox}
+\tldrbox{ This chapter presents the modelling and optimization results for the
+combined cooling pilot plant. First calibration and training results of various
+modelling approaches, followed by validation of the complete integrated model.
+The best performing data-driven model, the \gls{gprLabel} is calibrated using
+synthetic data from the first-principle models. This surrogate and on-demand
+model that can be adapted to the particular case study, while still being fast
+and efficient in terms of computational resources achieves a \gls{maeLabel}
+below 0.97~$^\circ$C for temperatures and 19.4~l/h for water consumption. In the
+second part of the chapter, the proposed optimization strategies are compared.
+The horizon optimization alternative, which is also validated experimentally,
+shows superior performance.}
 
 % ====================================
 % ====================================
 \section{Modelling}
 
-The two main components of the system (\gls{wctLabel} and \gls{dcLabel}) are
-modelled with different approaches and compared in detail. Afterward, the
-integration of the selected modelling approach with the rest of the system
-components (\refsec{cc:modelling:other-components}) is validated in
-\nrefsec{cc:validation:complete-system}.
+The system consists of two main components, the \gls{wctLabel} and 
+the \gls{dcLabel}, which are modelled using different approaches and compared. 
+The alternatives considered are:
 
-% \begin{enumerate}
-% 	\item FP model
-% 	\item DB from experimental campaign
-% 	\item DB from FP
-% 	\item Comparison
-% \end{enumerate}
+\begin{enumerate}
+    \item A first-principles approach, described in 
+    \refsec{cc:modelling:wct:physical} and \refsec{cc:modelling:dc:physical} 
+    for the \gls{wctLabel} and \gls{dcLabel}, respectively.
+    \item \fullgls{annLabel}, as introduced in \refsec{intro:modelling:ann}, 
+    with different network architectures: Feedforward, Cascade-forward, 
+    and Radial Basis.
+    \item Random Forest, described in \refsec{intro:modelling:other-ml}.
+    \item Gradient Boosting, described in \refsec{intro:modelling:other-ml}.
+    \item Gaussian Process Regression, described in 
+    \refsec{intro:modelling:gpr}.
+\end{enumerate}
+
+In addition, the physical model of the surface condenser is validated. 
+Finally, the selected modelling alternative is integrated with the 
+remaining system components (\refsec{cc:modelling:other-components}) 
+and validated at the system level in \nrefsec{cc:validation:complete-system}.
 
 
 % ================================
@@ -31,57 +47,44 @@ components (\refsec{cc:modelling:other-components}) is validated in
 
 \subsubsection{Physical model}
 
-As previously mentioned\sidenote{See \nrefsec{cc:facility:exp-wct}}, three
-experimental campaigns have been performed, shown in
-\reffig{cc:validation:modelling:method} as \hyperref[sec:cc:facility:exp:1]{Exp
-1}, \hyperref[sec:cc:facility:exp:2]{\hyperref[sec:cc:facility:exp:2]{Exp 2}},
-and \hyperref[sec:cc:facility:exp:3]{\hyperref[sec:cc:facility:exp:3]{Exp 3}}.
-\hyperref[sec:cc:facility:exp:1]{Exp 1} corresponds to the Poppe model
-calibration campaign and it was designed for the calibration of the first
-principles model. The aims of such campaign was to fit a function (mapping)
-that relates the air mass flow rate at the outlet of the tower, $\dot{m}_a$,
-with the frequency of the fan, $f_{fan}$:\todo{Lidia, aquí la correlación no
-usa la temperatura ambiente}
-
-\begin{figure}
-  \includegraphics[]{figures/wascop-wct-exp-campaigns-diagram.png}
-  \caption{Calibration, tuning, validation and comparison procedure}
-  \labfig{cc:validation:modelling:method} 
-\end{figure}
-
-\begin{equation} 
-    \dot{m}_a=-0.0014 f_{fan}^2+0.1743f_{fan}-0.7251.
-    \labeq{cc:maffan} 
-\end{equation}
-
-and to calibrate a WCT performance coefficient: the Merkel number, $\Me$.
-\reffig{cc:validation:Me_LG}\todo{Make text in figure larger} shows the
-variation of the Merkel number as a function of the water-to-air mass flow
-ratio ($\dot{m}_w/\dot{m}_a$) using data from
-\hyperref[sec:cc:facility:exp:1]{Exp1}. As can be seen, the $\Me$ decreases
-with $\dot{m}_w/\dot{m}_a$ values following a linear trend on log-log scale.   
-
-% TODO: Make text in this figure larger
-\begin{marginfigure}
+\begin{marginfigure}[*-5]
     \includegraphics[width=1.1\linewidth]{figures/cc-poppe-Me_vs_mwma.png}
-    \caption{Experimental results for the $\Me$ number as a function of $\dot{m}_w/\dot{m}_a$.}
+    \caption{Experimental results for the $\Me$ number as a function of $\dot{m}_{wct}/\dot{m}_{wct,air}$.}
     \labfig{cc:validation:Me_LG} 
 \end{marginfigure}
 
-Following the correlation for the Merkel number of a wet cooling tower
-described in \refsec{cc:modelling:wct:poppe}, the parameters $c$ and $n$ obtained
-from the data fitting are 1.516 and 0.693, respectively.
+As explained in \refsec{cc:facility:exp}, three experimental campaigns have been
+performed. Using data from the fan calibration tests
+(\reftab{cc:exp-campaigns} -- \textit{\gls{wctLabel}-fan}),
+a function (mapping) is fitted that relates the air mass flow rate at the outlet
+of the tower, $\dot{m}_{wct,air}$, with the fan speed, $\omega_{wct}$:
+
+\begin{equation} 
+    \dot{m}_{wct,air}=-0.0014 \omega_{wct}^2+0.1743\omega_{wct}-0.7251.
+    \labeq{cc:maffan} 
+\end{equation}
+
+And with data from the calibration campaign (\reftab{cc:exp-campaigns} --
+\textit{\gls{wctLabel}-cal}), the Merkel performance number, $\Me$.
+\reffig{cc:validation:Me_LG} shows the variation of the Merkel number as a
+function of the water-to-air mass flow ratio
+($\dot{m}_{wct}/\dot{m}_{wct,air}$). As can be seen, the $\Me$ decreases with
+$\dot{m}_{wct}/\dot{m}_{wct,air}$ values following a linear trend on log-log
+scale. Following the correlation for the Merkel number of a wet cooling tower
+described in \refsec{cc:modelling:wct:physical}, the parameters $c$ and $n$
+obtained from the data fitting are 1.52 and 0.69, respectively.
 
 \subsubsection{Data-driven}
 
-In order to generate the data-driven from first-principles alternative, the
-most relevant input variables identified in \refsec{cc:modelling:wct:samples}
-are discretized using a fixed number of resolution steps for each variable,
-within ranges based on expected operating conditions, as
-defined in \reftab{cc:validation:wct:samples-params}.
+In order to generate the data-driven from first-principles alternative, the most
+relevant input variables identified in \refsec{cc:modelling:wct:samples} are
+discretized using a fixed number of resolution steps (\textit{n} in
+\reftab{cc:validation:wct:samples-params}) for each variable, within ranges
+based on expected operating conditions, as defined in
+\reftab{cc:validation:wct:samples-params}.
 
 \begin{margintable}[]
-    \caption{Bounds and discretization of the model input variables.}
+    \caption{Bounds and discretization of the model \gls{wctLabel} input variables.}
     \labtab{cc:validation:wct:samples-params}
     \resizebox{\linewidth}{!}{%
     \begin{tabular}{lcccc}
@@ -98,41 +101,12 @@ defined in \reftab{cc:validation:wct:samples-params}.
     }
 \end{margintable}
 
-\begin{figure*}
-    \includegraphics[width=\linewidth]{figures/cc-validation-samples_wct.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.3in]{\repositoryBaseUrl/figures/cc-validation-samples_wct.html}}
-    \caption[\gls{wctLabel} samples distribution visualization]{Data-driven
-    from first-principles. Samples distribution visualization.\hspace{1ex}
-    \usebox\captionqr}
-    \labfig{cc:validation:wct:samples-distribution}
-\end{figure*}
-
-\reffig{cc:validation:wct:samples-distribution} shows the generated input space
+\reffig{cc:validation:samples-distribution} (a) shows the generated input space
 distribution. The upper plot shows the frequency distribution of the samples
 while the lower one the actual values per input, where the x-axis represents
 the samples and the y-axis the values for each of the input variables.
 
-\subsubsection{Prediction capabilities}
-Tabla tocha añadiendo casos (GPR, DD from FP, RF, GB)
-
-The results of each modelling alternative and its comparison can be visualized
-in \reffig{cc:validation:wct:prediction-comparison} and
-\reftab{cc:validation:wct:results}. The results of each modelling alternative
-and its comparison can be visualized
-\reffig{cc:validation:wct:prediction-comparison} shows the results obtained
-with the models using \hyperref[sec:cc:facility:exp:3]{Exp 3}. It shows the
-perfect fit together with the results obtained with Poppe's model, MIMO FF,
-cascade CF, and MIMO RBF. In \reftab{cc:validation:wct:results}, the
-performance of the studied modelling approaches are included for the different
-performance metrics\sidenote{Described in \refsec{intro:modelling:metrics}}.
-\texttt{T} represents the performance metric value  for the training /
-calibration dataset (\hyperref[sec:cc:facility:exp:1]{Exp 1} or
-\hyperref[sec:cc:facility:exp:2]{Exp 2} depending on the case), and \texttt{V}
-for the validation and comparison one (\hyperref[sec:cc:facility:exp:3]{Exp
-3}). In all cases the model representing each alternative is in the best case
-scenario, \ie maximum number of points available. On the other hand,
-\texttt{s.u.} indicates that the units of the column are the same as from the
-source variable.
+\subsubsection{Validation}
 
 \begin{figure}
     \includegraphics[width=.9\textwidth]{figures/cc-validation-wct-regression.png}
@@ -140,23 +114,6 @@ source variable.
     \caption[\gls{wctLabel} Models performance regression]{\gls{wctLabel} models performance comparison between the different modelling approaches.\\[1ex] \usebox\captionqr}
     \labfig{cc:validation:wct:regression}
 \end{figure}
-
-
-Comparing both modelling approaches (see
-\reffig{cc:validation:wct:prediction-comparison}), it can be outlined that both
-models provide a good prediction of the output variables, falling most of the
-discrepancies (errors) within the uncertainty range. Poppe's model provides a
-better prediction of the outlet temperature, obtaining an RMSE of 0.33
-$^\circ$C and an R$^2$ of 0.98. In comparison, the best ANN alternative (RBF
-MIMO) has a slight worse performance with an RMSE of 0.51 $^\circ$C and
-R$^2=0.95$. In terms of water consumption, the physical model has a better
-prediction accuracy in terms of RMSE and  R$^2$ (8.5 l/h and 0.97) compared to
-11.24 l/h and 0.95 for the best ANN model (cascade CF). It can be stated that,
-although the results are better for the physical model (specially in the case
-of the outlet temperature prediction), both approaches produce valid results
-with high accuracy levels.\todo{Incluir gráfica comparativa de evolución de
-RMSE (incluyendo GPR) para argumentar por qué GPR es mejor no solo en términos
-de error, si no también en requerimiento de datos.}
 
 \begin{table*}[]
 \caption{Summary table of the prediction results obtained with the different modelling approaches studied.}
@@ -191,159 +148,110 @@ de error, si no también en requerimiento de datos.}
 \multirow{11}{*}{C$_{w}$ (l/h)}
     % Include Poppe manually
     & & \textbf{Physical model} & & - & & - & & - & &  \textbf{0.97} & & - & & \textbf{8.47} & & - & & \textbf{6.74} & & - & & \textbf{3.74} & & 6.288 & \\
-     & & Feedforward ANN & & MIMO & & 20-2 & & 0.92 & & 0.83 & & 14.77 & & 21.58 & & 11.98 & & 18.64 & & 9.91 & & 10.75 & & 0.004 & \\ & & Cascade-forward ANN & & MIMO & & 10-10-2 & & 0.92 & & 0.84 & & 15.47 & & 20.90 & & 12.51 & & 17.84 & & 10.48 & & 10.22 & & 0.005 & \\ & & Radial basis ANN & & MIMO & & 34-2 & & 0.99 & & 0.97 & & 5.58 & & 9.34 & & 3.81 & & 7.47 & & 3.23 & & 4.68 & & 0.007 & \\ & & Feedforward ANN & & Cascade & &  20-1 & & 0.92 & & 0.88 & & 15.00 & & 18.45 & & 11.97 & & 15.77 & & 10.20 & & 8.92 & & 0.011 & \\ & & Cascade-forward ANN & & Cascade & &  10-10-1 & & 0.92 & & 0.85 & & 15.01 & & 20.34 & & 12.11 & & 17.66 & & 10.00 & & 10.18 & & 0.010 & \\ & & Radial basis ANN & & Cascade & &  33-1 & & 0.99 & & 0.93 & & 4.99 & & 14.28 & & 3.45 & & 10.14 & & 2.68 & & 6.22 & & 0.009 & \\ & & \textbf{Gaussian PR} & & Cascade & & N/A & & 0.99 & & \textbf{0.95} & & 4.74 & & \textbf{12.00} & & 3.61 & & \textbf{9.96} & & 3.09 & & \textbf{6.32} & & 0.001 & \\ & & Random forest & & Cascade & & N/A & & 0.89 & & 0.80 & & 17.35 & & 23.23 & & 10.51 & & 18.51 & & 7.58 & & 9.73 & & 0.078 & \\ & & Gradient boosting & & Cascade & & N/A & & 1.00 & & 0.77 & & 0.24 & & 25.07 & & 0.07 & & 17.21 & & 0.05 & & 9.55 & & 0.015 & \\ & & \textbf{Gaussian PR (FP)} & & Cascade & & N/A & & 0.98 & & \textbf{0.95} & & 10.85 & & \textbf{11.63} & & 4.81 & & \textbf{8.14} & & 3.74 & & \textbf{4.52} & & 0.105 & \\ \hline
+     & & Feedforward ANN & & MIMO & & 20-2 & & 0.92 & & 0.83 & & 14.77 & & 21.58
+     & & 11.98 & & 18.64 & & 9.91 & & 10.75 & & 0.004 & \\ & & Cascade-forward
+     ANN & & MIMO & & 10-10-2 & & 0.92 & & 0.84 & & 15.47 & & 20.90 & & 12.51 &
+     & 17.84 & & 10.48 & & 10.22 & & 0.005 & \\ & & Radial basis ANN & & MIMO &
+     & 34-2 & & 0.99 & & 0.97 & & 5.58 & & 9.34 & & 3.81 & & 7.47 & & 3.23 & &
+     4.68 & & 0.007 & \\ & & Feedforward ANN & & Cascade & &  20-1 & & 0.92 & &
+     0.88 & & 15.00 & & 18.45 & & 11.97 & & 15.77 & & 10.20 & & 8.92 & & 0.011 &
+     \\ & & Cascade-forward ANN & & Cascade & &  10-10-1 & & 0.92 & & 0.85 & &
+     15.01 & & 20.34 & & 12.11 & & 17.66 & & 10.00 & & 10.18 & & 0.010 & \\ & &
+     Radial basis ANN & & Cascade & &  33-1 & & 0.99 & & 0.93 & & 4.99 & & 14.28
+     & & 3.45 & & 10.14 & & 2.68 & & 6.22 & & 0.009 & \\ & & \textbf{Gaussian
+     PR} & & Cascade & & N/A & & 0.99 & & \textbf{0.95} & & 4.74 & &
+     \textbf{12.00} & & 3.61 & & \textbf{9.96} & & 3.09 & & \textbf{6.32} & &
+     0.001 & \\ & & Random forest & & Cascade & & N/A & & 0.89 & & 0.80 & &
+     17.35 & & 23.23 & & 10.51 & & 18.51 & & 7.58 & & 9.73 & & 0.078 & \\ & &
+     Gradient boosting & & Cascade & & N/A & & 1.00 & & 0.77 & & 0.24 & & 25.07
+     & & 0.07 & & 17.21 & & 0.05 & & 9.55 & & 0.015 & \\ & & \textbf{Gaussian PR
+     (FP)} & & Cascade & & N/A & & 0.98 & & \textbf{0.95} & & 10.85 & &
+     \textbf{11.63} & & 4.81 & & \textbf{8.14} & & 3.74 & & \textbf{4.52} & &
+     0.105 & \\ \hline
 \end{tabular}%
 }
+\raggedright
+\textcolor{darkgray}{\footnotesize\textit{s.u.} stands for \textit{same units} as the predicted variable}
 \end{table*}
 
 
-% \subsubsection{Experimental data requirements}
+The results of each modelling alternative and its comparison can be visualized
+in \reffig{cc:validation:wct:regression}. It shows the results obtained with the
+models using the validation dataset (\reftab{cc:exp-campaigns} --
+\textit{\gls{wctLabel}-val}). In \reftab{cc:validation:wct:results}, the performance
+of the studied modelling approaches are included for the different performance
+metrics\sidenote{Described in \refsec{intro:modelling:metrics}} where \texttt{T}
+represents the performance metric value  for the training / calibration dataset
+and \texttt{V} for the validation one. 
 
-% In order to estimate the minimum number of tests required to obtain
-% satisfactory results with both modelling strategies, an analysis was performed
-% in which each modelling alternative was calibrated/tuned for different case
-% studies with different amounts of available data, and then the performance
-% metrics were  evaluated. In this way, trends in the predictive accuracy of the
-% models as a function of the available data can be identified. When the
-% variation becomes small, it can be stated that the model has converged and
-% adding more information provides diminishing returns. 
+In both the figure and the table, there are two Gaussian PR models: one trained
+using the experimental data (labeled as \textit{Gaussian PR}) and the second is
+the surrogate model trained using the synthetic data from the physical model
+(labeled as \textit{Gaussian PR (FP)}).
 
-% For the physical model, the number of tests from Exp 1, used to calibrate $\Me$
-% correlation, was varied from 2 up to 16 data points added sequentially. In the
-% case of the ANN models, the available tuning data (Exp 2) was increased in
-% steps of 10 \%, starting from the availability of 10 \% up to the entire data
-% set (\mbox{100 \%}).
-
-% In both cases, the criteria for selecting the data was not random, but it was
-% done by applying physical knowledge. The water-to-air mass flow ratio,
-% $\dot{m}_w/\dot{m}_a $, is a good indicator for selecting the operation points
-% to be fed to the model. The trend observed in \reffig{cc:validation:Me_LG} (decreasing
-% Me for increasing $\dot{m}_w/\dot{m}_a $) has been extensively reported in the
-% literature. This behavior is explained by the increase in the amount of water
-% per unit of air that lead to a less effective cooling \sidecite{ruiz_thermal_2022}.
-% The situation corresponding to the minimum $\dot{m}_w/\dot{m}_a $ can be
-% interpreted as the maximum air flow rate for a given water flow rate to be
-% cooled. This results in the maximum driving force and, therefore, maximum
-% Merkel number. As $\dot{m}_a $ decreases progressively, the driving force
-% decreases for a given $\dot{m}_w $, and Me decreases accordingly. Based on this
-% knowledge, the selection starts by choosing extreme points for the water-to-air
-% mass flow ratio in the Me-$\dot{m}_a/\dot{m}_w$ relationship from the available
-% data, which gives information of the system operating in its limits.
-% Subsequently intermediate points are added, covering this way the whole
-% operating range of the cooling system.
-
-% \begin{figure}
-%     \includegraphics[width=\textwidth]{figures/wct-rmse-evolution.png}
-%     \caption{\gls{rmseLabel} evolution as a function of the number of points used for calibration/training of the Poppe's and data-driven approaches}
-%     \labfig{cc:wct:rmse-evolution}
-% \end{figure}
-
-% The results of this study are presented in \reffig{cc:wct:rmse-evolution}, where
-% the x-axis represents the number of available data points and the y-axis a
-% model performance metric (RMSE) obtained when the model outputs are compared to
-% data from Exp 3. From the results obtained, it can be clearly seen the
-% advantage of the physical model in terms of data requirements, since with the
-% minimal amount of points, good results are obtained, and by enlarging the
-% available data points to 8-10, low variation in the RMSE evolution can be
-% observed for both predicted variables. In the case of the ANN-based approaches,
-% the results differ depending on the ANN alternative. 
-
-% In terms of the outlet temperature, very good results (low error and variation)
-% are obtained with the minimal dataset (10 \% of available data, 12 data points)
-% for feedforward and cascade-forward in any configuration (MIMO and cascade). If
-% more data is added, RMSE is reduced from 1.1 up to 0.7 $^\circ$C. Although the
-% MIMO RBF outperforms the results of the other ANN alternatives, it does so only
-% from 90 points onwards. For this case, the downward trend is much more
-% noticeable but constant, which can not be stated for the cascade RBF,
-% displaying an erratic evolution up to 70 points. 
-
-% Similar conclusions can be drawn for the water consumption, except that in this
-% case the two RBF configurations achieve satisfactory results much earlier,
-% starting from 23 points.
-
-% Summarizing, both modelling approaches, Poppe's model and ANNs, produce
-% satisfactory results since their predictions fall well within the range of
-% uncertainty for all the case studies, although the obtained results, in terms
-% of RMSE, favor the physical model. Therefore, while the ANN model benefits from
-% as much data as possible, the Poppe model is already able to produce
-% satisfactory results with just two properly selected points. These two points
-% are easy to identify in advance because they are related to the maximum and
-% minimum $\dot{m}_w/\dot{m}_a$ ratio of the wet cooling tower. In practice, to
-% minimize the error prediction, around 5 points are often used. Out of the ANN
-% alternatives, considering both output variables, if less than 70 data points
-% are available, cascade-forward and feedforward alternatives with any
-% configuration are the best option, producing satisfactory results with as low
-% as 10 points. On the other hand, if enough data is available, MIMO RBF should
-% be considered as a strong candidate, but not in the cascade configuration
-% alternative.
-
-
-% \subsubsection{Sensitivity analysis}
-
-
-% In \reffig{cc:validation:wct:sa}, only total-order sensitivity
-% indices\marginreminder{
-%     How to interpret \gls{saLabel} results}{ 
-%     The results are different sensitivity indices such as total sensitivity
-%     indices (total-order), first-order sensitivity indices (first-order), and
-%     interaction sensitivity indices (second-order). First-order measures the
-%     direct effect of an input variable on the output, excluding interaction
-%     effects with other variables, while the second-order measures specifically
-%     these interaction effects. Finally, total-order indices account for the
-%     total effect of an input variable, including both direct and interaction
-%     effects.\footnote{More in \nrefch{intro:sa}} 
-% } are represented in the y-axis for the two output variables (outlet
-% temperature on the top and water consumption on the bottom). Its value ranges
-% from 0 to 1, where 0 means the variable has no effect, and 1 means it has a
-% significant effect on the output\sidenote[][*10]{values can go slightly above 1 due to
-% computing errors. This is due to the Sobol' sequence sample generator producing
-% some unfeasible test samples that need to be discarded}. The x-axis represents
-% the system's inputs and includes a bar for some of the obtained models with
-% different calibration or training data points. 
-
-% Comparing the results obtained for the different modelling approaches in
-% \reffig{cc:validation:wct:sa}, it can be seen that very homogeneous results are
-% obtained in all cases, except for the Cascade RBF case, which was the worst
-% performing of all the alternatives. These results serve to confirm that, at
-% least from a sensitivity analysis point of view, all valid approaches are
-% similarly sensitive to variations in the same inputs, which is desirable since
-% they are trying to predict the same physical system. In the case of Cascade
-% RBF,  a discrepancy can be observed; less relevant input variables ($T_{amb}$
-% and $\phi_{\infty}$) are overestimated and overall higher uncertainties in
-% sensitivity are observed.
-
-% It is also important to highlight that the observed results are in agreement
-% with the underlying physics of the heat and mass transfer processes occurring
-% in the exchange area of the tower. The frequency of the fan and the volumetric
-% flow rate are directly related to $\dot{m}_a$ and $\dot{m}_w$, respectively,
-% and they have a high influence on the heat transfer coefficients. These
-% coefficients govern the evaporation processes, which impact the evaporation
-% rate (water lost due evaporation) and the outlet water temperature. On the
-% other hand, the ambient conditions and the inlet water temperature also affect
-% the outputs, but less significantly, since the driving force for the
-% evaporation is the difference between the inlet air enthalpy and the enthalpy
-% of saturated air evaluated at water temperature.
-
-% \begin{figure}
-%     \includegraphics[width=\textwidth]{figures/wct-sensitivity_analysis.png}
-%     \caption{Sobol's sensitivity analysis result for different case studies}
-%     \labfig{cc:validation:wct:sa}
-% \end{figure}
-
+Comparing the physical model to the data-driven ones, it can be seen that there
+are three groups: gradient boosting and random forest alternatives underperform
+with R$^2$ values around 0.8 and some clear outliers in
+\reffig{cc:validation:wct:regression}. \gls{annLabel} alternatives in general
+provide good results, specially the radial-basis architecture. Finally, the
+Gaussian Process Regression approach provides the best results among the
+data-driven alternatives, with R$^2$ values above 0.95 for both output
+variables. This advantage is mantained even in the case of the surrogate model with
+R$^2$ values of 0.94 and 0.95 for the outlet temperature and water consumption,
+respectively. The physical model provides superior performance for both output
+variables: obtaining an \gls{rmseLabel} of 0.33 $^\circ$C and an R$^2$ of 0.98
+for the temperature and in terms of water consumption, \gls{rmseLabel} and R$^2$
+(8.5~l/h and 0.97). This explains how the surrogate model is able to outperform
+many of the data-driven alternatives, as it provides a good approximation of the
+superior physical model. It achieves this with a fraction of the computational cost,
+vectorization support, limited need for experimental data (same as the physical
+model) and covering a wide input space.
 
 % =================================
 \subsection{Dry cooler model alternatives comparison and validation}
 
 \subsubsection{Physical model}
 
+\begin{marginfigure}[]
+    \includegraphics[]{figures/cc-dc_nusselt_regression.png}
+    \caption{Air side Nusselt number vs air side Reynolds number for the air cooled heat exchanger}
+    \labfig{cc:modelling:dc:nusselt}
+\end{marginfigure}
+
+The following $\dot{m}_{dc,air}$-$w_{dc}$ relation was obtained with the
+\reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-fan} dataset
+\begin{equation}
+    \dot{m}_{dc,air} =0.30195\cdot w_{dc}-1.02179. 
+    \labeq{cc:dc:ma}
+\end{equation}
+The \gls{dcLabel} model uses this linear function to estimate the air mass flow rate, with
+the $\omega_{dc}$ input applied in the pilot plant.
+
+Once the air mass flow rate is established, the set of 27 experimental points
+(see \reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-cal}) is used to fit the
+experimental data to \refeq{cc:Nu_corr}. To do so, Equations
+\ref{eq:cc:dc_released}--\ref{eq:cc:dc_UA} were used to determine the air side heat
+transfer coefficient using the inlet and outlet water temperatures, the air
+inlet temperature, and the mass flow rates for both fluids as known values. 
+
+\reffig{cc:modelling:dc:nusselt} shows the measured air side Nusselt number as a
+function of the air side Reynolds number and the fitted equation as a straight
+line. The correlation (using \refeq{dc:Nu}) fits 82~\% of the data points
+with a deviation lower than 20~\%. 
+
+\begin{equation}
+    \Nus_a = 0.006411 \cdot \Rey_a^{0.9143} \cdot \Pra_a^{0.36}. 
+    \labeq{dc:Nu}
+\end{equation}
+
 \subsubsection{Data-driven}
 
-In order to generate the data-driven from first-principles alternative, the
-most relevant input variables identified in \refsec{cc:modelling:dc:samples}
-are discretized using a fixed number of resolution steps for each variable,
-within ranges based on expected operating conditions, as defined in
-\reftab{cc:validation:dc:samples-params}. and
-\nrefsec{cc:validation:dc:samples-distribution} visualizes the generated input
+In order to generate the data-driven from first-principles alternative, the most
+relevant input variables identified in \refsec{cc:modelling:dc:samples} are
+discretized using a fixed number of resolution steps for each variable, within
+ranges based on expected operating conditions, as defined in
+\reftab{cc:validation:dc:samples-params}.
+\reffig{cc:validation:samples-distribution} (b) visualizes the generated input
 space distribution where it can be appreciated that the samples are well
 distributed across the entire input space.
 
@@ -365,28 +273,12 @@ distributed across the entire input space.
     }
 \end{margintable}
 
-\begin{figure}
-    \includegraphics[width=\textwidth]{figures/cc-validation-samples_dc.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-samples_dc.html}}
-    \caption[\gls{dcLabel} samples distribution visualization]{Data-driven from first-principles. Samples distribution visualization.\\[1ex] \usebox\captionqr}
-    \labfig{cc:validation:dc:samples-distribution}
-\end{figure}
 
-
-\subsubsection{Prediction capabilities}
-Tabla tocha añadiendo casos (GPR, DD from FP, RF, GB)\todo{completar esta
-sección antes del domingo}
-
-\begin{figure}
-    \includegraphics[width=.9\textwidth]{figures/cc-validation-dc-regression.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-dc-regression.html}}
-    \caption[\gls{dcLabel} Models performance regression]{\gls{dcLabel} models performance comparison between the different modelling approaches.\\[1ex] \usebox\captionqr}
-    \labfig{cc:validation:dc:regression}
-\end{figure}
+\subsubsection{Validation}
 
 \begin{table*}[]
 \caption{Summary table of the prediction results obtained with the different modelling approaches studied.}
-\labtab{cc:validation:wct:results}
+\labtab{cc:validation:dc:results}
 \resizebox{\linewidth}{!}{%
     
 \begin{tabular}{cclccccccccccccccccccccccc}
@@ -413,183 +305,292 @@ sección antes del domingo}
 \multirow{7}{*}{T$_{dc,out}$ ($^\circ$C)}
     % Include physical model results manually
      & & \textbf{Physical model} & & - & & - & & - & & \textbf{0.98} & & - & & \textbf{0.50} & & - & & \textbf{0.42} & & - & & \textbf{1.28} & & 0.035 & \\
-     & & Feedforward ANN & & - & & 20-1 & & 0.77 & & 0.78 & & 1.42 & & 1.62 & & 1.13 & & 1.18 & & 3.29 & & 3.85 & & 0.005 & \\ & & Cascade-forward ANN & & - & & 10-10-1 & & 0.78 & & 0.85 & & 1.39 & & 1.37 & & 1.12 & & 1.02 & & 3.23 & & 3.24 & & 0.007 & \\ & & \textbf{Gaussian PR} & & - & & N/A & & 0.99 & & \textbf{0.99} & & 0.24 & & \textbf{0.32} & & 0.19 & & \textbf{0.25} & & 0.56 & & \textbf{0.77} & & 0.005 & \\ & & Random forest & & - & & N/A & & 0.84 & & 0.61 & & 1.19 & & 2.17 & & 0.72 & & 1.36 & & 2.05 & & 4.69 & & 0.022 & \\ & & Gradient boosting & & - & & N/A & & 1.00 & & 0.86 & & 0.00 & & 1.31 & & 0.00 & & 0.86 & & 0.00 & & 2.92 & & 0.035 & \\ & & \textbf{Gaussian PR (FP)} & & - & & N/A & & 1.00 & & \textbf{0.98} & & 0.03 & & \textbf{0.53} & & 0.02 & & \textbf{0.44} & & 0.07 & & \textbf{1.35} & & 0.002 & \\ \hline
+     & & Feedforward ANN & & - & & 20-1 & & 0.77 & & 0.78 & & 1.42 & & 1.62 & &
+     1.13 & & 1.18 & & 3.29 & & 3.85 & & 0.005 & \\ & & Cascade-forward ANN & &
+     - & & 10-10-1 & & 0.78 & & 0.85 & & 1.39 & & 1.37 & & 1.12 & & 1.02 & &
+     3.23 & & 3.24 & & 0.007 & \\ & & \textbf{Gaussian PR} & & - & & N/A & &
+     0.99 & & \textbf{0.99} & & 0.24 & & \textbf{0.32} & & 0.19 & &
+     \textbf{0.25} & & 0.56 & & \textbf{0.77} & & 0.005 & \\ & & Random forest &
+     & - & & N/A & & 0.84 & & 0.61 & & 1.19 & & 2.17 & & 0.72 & & 1.36 & & 2.05
+     & & 4.69 & & 0.022 & \\ & & Gradient boosting & & - & & N/A & & 1.00 & &
+     0.86 & & 0.00 & & 1.31 & & 0.00 & & 0.86 & & 0.00 & & 2.92 & & 0.035 & \\ &
+     & \textbf{Gaussian PR (FP)} & & - & & N/A & & 1.00 & & \textbf{0.98} & &
+     0.03 & & \textbf{0.53} & & 0.02 & & \textbf{0.44} & & 0.07 & &
+     \textbf{1.35} & & 0.002 & \\ \hline \\
 \end{tabular}%
 }
+\raggedright
+\textcolor{darkgray}{\footnotesize\textit{s.u.} stands for \textit{same units} as the predicted variable}
 \end{table*}
 
-\subsubsection{Experimental data requirements}
-% \subsubsection{Sensitivity analysis}
-
-
-
-%================================
-\subsection{Main components modelling conclusions}
-
-This section presents a comparison between two modelling alternatives:
-data-driven and first-principles. It applies to wet cooling towers and dry
-coolers, specifically to \fullgls{acheLabel}. The main conclusions obtained
-during the investigation and final recommendations can be summarized as
-follows:
-
-\subsubsection{Wet cooling tower}
-
-Regarding\todo{Pendiente de actualizar estas conclusiones con resultados
-actualizados} the prediction of the output variables, in the case of the outlet
-water temperature, both models reported good results, with low errors falling
-within the uncertainty range of the experimental equipment. Nonetheless, the
-physical model performs better than the best data-driven alternative (MIMO
-RBF): $R^2=0.98$ and RMSE$=0.33 \: ^\circ$C compared to $R^2=0.95$ and
-RMSE$=0.51 \: ^\circ$C, respectively.
-
-For the predictions of water consumption, it was shown that the Poppe model
-accurately predicts this variable, with results of $R^2=0.97$ and RMSE$=8.47$
-l/h. The best ANN alternative (cascade CF) achieves close results with an
-$R^2=0.95$ and RMSE$=11.24$ l/h.
-
-However, the Poppe model reached such reliable prediction levels with a much
-lower number of tests, needing only 2. In comparison, the ANN alternatives need
-more data, at least 10 (with a good distribution over the operating range) for
-the FF and CF ANN models.
-
-
-\subsubsection{Air-cooled heat exchanger}
-
-
-
-\subsubsection{Conclusions and recommendations}
-
-For the proposed optimization strategy in \nrefsec{cc:optimization}, a fast,
-reliable model that can be scaled to different system sizes is required.
-
-On the one hand, the first-principle models execution time is much higher than
-the data-driven alternatives, which is a significant drawback when it comes to
-the optimization strategy, where the model is evaluated many times in a short
-period of time. On the other hand, the data-driven counterparts are only
-applicable to the conditions and the particular system with which they are
-developed.
-
-Conversely, one of the main strengths of both physical models presented in this
-chapter, is their ability to predict the operation of the coolers regardless of
-the conditions tested; while the data-driven execution time is faster by orders
-of magnitude, it can be vectorized and its execution time is more constant
-regardless of the input conditions.
-
-Therefore, as combining a wet cooler and a dry cooler into a combined cooler
-offers potential advantages compared to the individual systems, combining both
-modelling approaches is the chosen solution to model the system. The best
-performing data-driven model, the \gls{gprLabel} is calibrated using data from
-the first-principle models, where physical models are adapted dynamically to
-the required scale and finally the data-driven model can be generated. This
-approach provides a way of having on-demand models that can be adapted to the
-particular case study, while still being fast and efficient in terms of
-computational resources.
-
-
-%================================
-\subsection{Condenser model validation}
-\labsec{cc:validation:condenser}
-
-For the surface condenser\sidenote{See
-\nrefsec{cc:modelling:surface-condenser}} a physical model is used, with
-the heat transfer coefficient as the only parameter to calibrate. Seven
-different alternative estimations of the heat transfer coefficient were
-calculated, using the data from the experimental campaign described in
-\nrefsec{cc:facility:exp-condenser}. They are as follows:
-
-\begin{enumerate}
-    \item Empirical correlation using the condenser flow rate ($q_c$) and the
-    vapor temperature (\(T_{v}\)) as inputs.
-    \item Empirical correlation using the cooling water inlet temperature
-    (\(T_{c,in}\)) and \(T_{v}\) as inputs.
-    \item Empirical correlation using the flow rate per condenser tube
-    (\(q_{c,tube}=q_c/n_{tubes}=q_c/24\)) and the cooling water inlet temperature.
-    \item Nominal value from the manufacturer, which equals 1.838
-    W/m$^2\,^\circ$C
-    \item Calibra\_Uexp\_original\todo{Estos qué son? Generar una nueva versión
-    de la figura una vez se seleccionen los métodos finales}
-    \item Calibra\_Uexp\_recortado
-\end{enumerate}
+The results of the different modelling alternatives for predicting the
+outlet temperature can be seen in \reftab{cc:validation:dc:results} (with the
+validation dataset, \reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-val}). The table
+presents the performance of the physical and data-driven approaches in terms of
+the selected performance metrics\sidenote{Described in
+\refsec{intro:modelling:metrics}}.
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{figures/cc-validation-condenser-U.png}
-    \caption{Heat transfer coefficient calibration results}
-    \labfig{cc:validation:condenser-U}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-dc-regression.html}}
+    \includegraphics[width=\textwidth]{figures/cc-validation-dc-regression.png}
+    \caption[\gls{dcLabel} Models performance regression]{\gls{dcLabel} models performance comparison between the different modelling approaches.\\[1ex] \usebox\captionqr}
+    \labfig{cc:validation:dc:regression}
 \end{figure}
 
-The results of the calibration are shown in \reffig{cc:validation:condenser-U},
-where the y-axis shows the thermal
-power obtained and the x-axis holds different bars for the different heat transfer
-coefficient estimation methods, with bars also for the experimental heat
-released by the vapor and absorbed by the coolant. As can be seen in the
-figure. The shown results are for steady-state conditions with the condenser in
-an equilibrium state (\(Q_{\text{released}} \approx Q_{\text{absorbed}}\)), and with a
-large variation in the condenser conditions (120 to 200~kW, the whole operating
-range of the condenser). The results show that the heat transfer coefficient
-obtained with the method 3 is the one that best fits the experimental data,
-with a \gls{maeLabel} of 17.6~kW and a maximum error of 33.41~kW (15\%).
+Once again, two Gaussian Process Regression models are included: one trained directly with
+the experimental data (\textit{Gaussian PR}) and the other acting as a surrogate
+trained with the synthetic data from the physical model (\textit{Gaussian PR
+(FP)}).
+
+The physical model itself provides robust performance, with R$^2$ = 0.98 on the
+validation set and the lowest error metrics among the deterministic approaches
+(\gls{rmseLabel} = 0.50 $^\circ$C, \gls{maeLabel} = 0.42 $^\circ$C, and \gls{mapeLabel} =
+1.28~\%). Nevertheless, the Gaussian PR trained with experimental data surpasses
+this performance in all metrics: it achieves R$^2$ values of 0.99 for both
+training and validation, and substantially lower error indicators
+(\gls{rmseLabel} = 0.24–0.32 $^\circ$C, \gls{maeLabel} = 0.19–0.25 $^\circ$C). The surrogate
+version, Gaussian PR (FP), also delivers excellent results, nearly matching the
+experimental Gaussian PR model with R$^2$ values close to 1.00 and very low
+errors (\gls{rmseLabel} = 0.03–0.53 $^\circ$C, \gls{maeLabel} = 0.02–0.44 $^\circ$C).
+Importantly, this surrogate achieves such accuracy at an extremely low
+evaluation time (0.002~s), which is one order of magnitude faster than the
+physical model.
+
+Among the machine learning alternatives, the feedforward and cascade-forward
+\gls{annLabel} architectures yield reasonable results, with validation R$^2$
+values between 0.78 and 0.85. However, their errors (\gls{rmseLabel} ≈ 1.37–1.62
+$^\circ$C and \gls{mapeLabel} ≈ 3–4~\%) are significantly higher than those of the
+Gaussian PR. Tree-based methods show mixed outcomes: random forest underperforms
+with validation R$^2$ = 0.61 and high prediction errors (\gls{rmseLabel} = 2.17
+$^\circ$C, \gls{mapeLabel} = 4.69~\%), while gradient boosting achieves nearly perfect
+training performance but suffers from overfitting, with validation R$^2$ = 0.86
+and errors similar to the ANN alternatives.
+
+In summary, the Gaussian Process Regression models clearly outperform all other
+data-driven methods, consistently reaching R$^2$ values above 0.98 and very low
+error levels. The surrogate version (\textit{Gaussian PR (FP)}) combines this
+predictive accuracy with extremely low computational cost, explaining its
+advantage over more complex architectures. The physical model, although slightly
+less accurate than Gaussian PR, still offers solid results and remains a
+valuable benchmark for validating the data-driven approaches.
+
+%================================
+%================================
+\subsection{Surface condenser model}
+\labsec{cc:validation:condenser}
+
+% For the surface condenser\sidenote{See
+% \nrefsec{cc:modelling:surface-condenser}} a physical model is used, with
+% the heat transfer coefficient as the only parameter to calibrate. Seven
+% different alternative estimations of the heat transfer coefficient were
+% calculated, using the data from the experimental campaign described in
+% \nrefsec{cc:facility:exp-condenser}. They are as follows:
+
+% \begin{enumerate}
+%     \item Empirical correlation using the condenser flow rate ($q_c$) and the
+%     vapor temperature (\(T_{v}\)) as inputs.
+%     \item Empirical correlation using the cooling water inlet temperature
+%     (\(T_{c,in}\)) and \(T_{v}\) as inputs.
+%     \item Empirical correlation using the flow rate per condenser tube
+%     (\(q_{c,tube}=q_c/n_{tubes}=q_c/24\)) and the cooling water inlet temperature.
+%     \item Nominal value from the manufacturer, which equals 1.838
+%     W/m$^2\,^\circ$C
+%     \item Calibra\_Uexp\_original\todo{Estos qué son? Generar una nueva versión
+%     de la figura una vez se seleccionen los métodos finales}
+%     \item Calibra\_Uexp\_recortado
+% \end{enumerate}
+
+% \begin{figure}
+%     \includegraphics[width=\textwidth]{figures/cc-validation-condenser-U.png}
+%     \caption{Heat transfer coefficient calibration results}
+%     \labfig{cc:validation:condenser-U}
+% \end{figure}
+
+% The results of the calibration are shown in \reffig{cc:validation:condenser-U},
+% where the y-axis shows the thermal
+% power obtained and the x-axis holds different bars for the different heat transfer
+% coefficient estimation methods, with bars also for the experimental heat
+% released by the vapor and absorbed by the coolant. As can be seen in the
+% figure. The shown results are for steady-state conditions with the condenser in
+% an equilibrium state (\(Q_{\text{released}} \approx Q_{\text{absorbed}}\)), and with a
+% large variation in the condenser conditions (120 to 200~kW, the whole operating
+% range of the condenser). The results show that the heat transfer coefficient
+% obtained with the method 3 is the one that best fits the experimental data,
+% with a \gls{maeLabel} of 17.6~kW and a maximum error of 33.41~kW (15~\%).
+
+Following the same methodology as in the previous case, data from the model
+calibration campaign (see \reftab{cc:exp-campaigns} -- \textit{\gls{scLabel}-cal}) was used to calculate the global heat
+transfer coefficient, $U_{c}$, with \refeq{cc:sc_UA} together with the surface
+condenser manufacturer's specifications from \reftab{cc:facility:sc}. $U_{c}$ is
+in this case calibrated as a function of the input variables $T_{c,in}$ and
+$q_{c}$, obtaining the following relation\sidenote{$p_1$=12.71, $p_2$=2.91,
+$p_3$=9.5$\cdot$10$^{-3}$, $p_4$=343.29, $p_5$=-1$\cdot$10$^{-3}$ and
+$p_6$=-4.83$\cdot$10$^{-2}$, where each parameter, $p_i$ has units consistent
+with the variables involved.}:
+\begin{equation}
+   U_c= p_1\cdot T_{c,in}+p_2\cdot \dot{m}_{c,tb}+p_3\cdot \dot{m}_{c,tb}\cdot T_{c,in}+p_4+p_5\cdot \dot{m}_{c,tb}^2+p_6\cdot T_{c,in}^2,
+\end{equation}
+where $\dot{m}_{c,tb}$ is the water mass flow rate inside each condenser tube.
+
+
+Using the previous relation and equations from \refmod{sc} and assuming that the
+water leaving the shell side of the condenser is saturated at temperature $T_v$,
+the surface condenser model can be solved to estimate $T_{c,out}$ and $T_v$.
+Otherwise if $T_v$ is provided $T_{c,out}$ and $T_{c,in}$ can be
+estimated.% In this case the inputs of the model are $T_{c,in}$,
+% $\dot{m}_c$ and $\dot{m}_v$.
+
+\subsubsection{Validation}
+
+To validate this model, a different data set of 15 steady state tests
+(\reftab{cc:exp-campaigns} -- \textit{\gls{scLabel}-val}) has been used with the
+results depicted in \reffig{cc:validation:dc:regression}. The predicted outlet water
+temperature in the tubes shows good agreement with the experimental
+measurements, with a low \gls{maeLabel}. In contrast, the prediction error is larger for
+the condensate water temperature at the shell-side outlet (\gls{maeLabel} =
+1.86~$^\circ$C). This discrepancy may arise because the experimental outlet
+temperature does not exactly match the vapor saturation temperature ($T_v$), but
+is instead 0.1 to 1.7~$^\circ$C subcooled.
+
+\begin{marginfigure}[*-5]
+    \centering    
+    \includegraphics[width=\linewidth]{cc-condenser_model_regression.png} % .85\textwidth
+    \caption{Surface condenser validation}
+    \labfig{cc:validation:condenser}
+\end{marginfigure}
 
 
 % =================================
 \subsection{Complete system model validation}
 \labsec{cc:validation:complete-system}
 
-Esto\todo{a completar una vez se tengan resultados experimentales, hay que
-implementar la función para generar la visualización}, o bien se hace
-comparando puntos en estático cuando todo el sistema está en estacionario, o en
-la gráfica de validación de la estrategia de optimización se muestra también
-una línea con las predicciones del modelo. Y después una tabla con cada una de
-las salidas del sistema, mostrando el error entre cada una de las predicciones
-del modelo (cada vez que se evalúa la optimización), en comparación al valor
-real obtenido en la planta. 
+For the proposed optimization strategy in \nrefch{cc:optimization}, a model is
+required that is fast, reliable, and easily scalable to different system sizes.
 
-Cuando haya un cambio en la planificación, las predicciones de predicciones
-antes a conocerse el cambio, cambiar su color a un gris para mostrar que esas
-predicciones ya no son válidas pues han cambiado las condiciones.
+First-principle models, while accurate and broadly applicable, have a much
+longer execution time compared to data-driven alternatives. This becomes a
+critical drawback for optimization, where the model must be evaluated many
+times within short time spans. In contrast, data-driven models can be executed
+orders of magnitude faster and their runtime remains nearly constant
+independently of the input conditions. However, they are limited to the specific
+system and operating conditions on which they were trained, and achieving robust
+performance typically demands significantly larger datasets.
 
-\begin{figure*}[h!]
-    \includegraphics[]{figures/cc-validation-complete-model.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-complete-model.html}}
-    \caption[Figure caption]{Figure caption.\hspace{1ex}\usebox\captionqr}
+The main strength of the physical models presented in this chapter lies in their
+generality: they can predict cooler operation under a wide range of conditions
+without retraining. Data-driven models, while faster and more suitable for
+vectorized evaluation, trade this generality for speed, restricting their use to
+the contexts for which they were developed and requiering significant data to
+achieve satisfactory results.
+
+Therefore, as combining a wet cooler and a dry cooler into a combined cooler
+offers potential advantages compared to the individual systems, combining both
+modelling approaches is the chosen solution to model the system. The best
+performing data-driven model, the \gls{gprLabel} is calibrated using synthetic
+data from the first-principle models, where physical models can be adapted to
+different scales and finally the surrogate data-driven model can be generated.
+This approach provides a way of having on-demand models that can be adapted to
+the particular case study, while still being fast and efficient in terms of
+computational resources.
+
+The complete model of the combined cooler has been validated with a different
+dataset composed of 24 tests (see \reftab{cc:exp-campaigns} --
+\textit{\gls{ccLabel}-val}). The obtained outputs regression is shown in
+\reffig{cc:validation:complete-model}. This figure compares the experimental
+results with the predicted values. To visualize the operational characteristics
+of each test, the data points are represented with the following information:
+\begin{itemize}
+    \item The dashed circle represents the nominal cooling power (200~kW$_\mathrm{th}$).
+    \item The filled circle represents the cooling power measured in the test
+    relative to the nominal value. The closer it is to the dashed circle, the
+    closer the cooling power is to the nominal one.
+    \item The measured cooling power is achieved using a certain percentage of
+    \gls{dcLabel} and \gls{wctLabel}. These contributions are distinguished by
+    green and purple, respectively. For example, if the ring is mostly green, it
+    reflects that the cooling contribution from \gls{dcLabel} is predominantly
+    larger than that from \gls{wctLabel}.
+    \item The filling color inside the circle represents the ambient
+    temperature. From low temperature (no filling) to high ambient temperature
+    (dark yellow).
+\end{itemize}
+
+With this representation, it can be observed that the model provides
+satisfactory results over a wide range of operating and ambient conditions. The
+outlet temperatures show a \gls{maeLabel} lower than 0.97~$^\circ$C, with the
+largest error occurring in $T_{wct,out}$, when the cooling power was far from
+the nominal value. This may be due to the need to improve the relation
+$\dot{m}_{air}-w_{wct}$ relationship at low flow rates. In the case of the water
+consumption, the tendency (R$^2$=0.82) of the predicted values follows the
+experimental ones, being the \gls{maeLabel} 19.4~l/h.
+
+A summary of the models' results is shown in \reftab{cc:validation:results}.
+This table includes the performance metrics of each component simulated
+individually (\textit{Cnt} column) and those obtained with the complete model
+(\textit{CC} column).
+
+\begin{table}[]
+\centering
+\caption{Performance metrics obtained with the complete (CC) and component (Cnt) models}
+\labtab{cc:validation:results}
+\resizebox{.8\textwidth}{!}{%
+\begin{tabular}{ccccccccccccc}
+\hline
+\multirow{3}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Predicted\\ variable\end{tabular}}} &  & \multicolumn{11}{c}{\textbf{Performance metric}}
+\\\cline{3-13}
+    &  & \multicolumn{3}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}R$^2$\\ (-)\end{tabular}}} &  & \multicolumn{3}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}MAE\\ (s.u.)\end{tabular}}} &  & \multicolumn{3}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}MAPE\\ (\%)\end{tabular}}}
+    \\\cline{3-5}\cline{7-9}\cline{11-13}
+    &  & Cnt &  & CC &  & Cnt &  & CC &  & Cnt &  & CC
+    \\\cline{1-1}\cline{3-3}\cline{5-5}\cline{7-7}\cline{9-9}\cline{11-11}\cline{13-13}
+T$_{dc,out}$ ($^\circ$C) &  & 0.99 &  & 0.98 &  & 0.29 &  & 0.46 &  & 0.90 &  & 1.17 \\
+T$_{wct,out}$ ($^\circ$C) &  & 0.92 &  & 0.94 &  & 1.01 &  & 0.97 &  & 3.01 &  & 2.72 \\
+C$_{w}$ (l/h) &  & 0.87 &  & 0.82 &  & 16.55 &  & 19.40 &  & 10.42 &  & 11.03 \\
+T$_{c,out}$ ($^\circ$C) &  & 0.98 &  & 0.99 &  & 0.23 &  & 0.41 &  & 1.51 &  & 1.00 \\
+T$_{c,in}$ ($^\circ$C) &  & - &  & 0.99 &  & - &  & 0.53 &  & - &  & 1.52 \\ \hline
+\end{tabular}%
+}
+% \raggedright
+% \textcolor{darkgray}{\footnotesize\textit{s.u.} stands for \textit{same units} as the predicted variable}
+\end{table}
+
+\begin{marginfigure}[-12cm]
+    \includegraphics[width=\linewidth]{figures/cc_model_regression.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc_model_regression.html}}
+    \caption[Combined cooler model validation]{Complete combined cooler model validation.\\[1ex]\usebox\captionqr}
     \labfig{cc:validation:complete-model}
+\end{marginfigure}
+
+\begin{figure*}
+    \centering
+    \subfloat[\centering \gls{wctLabel}]{
+        \includegraphics[width=0.9\linewidth]{figures/cc-validation-samples_wct.png}
+    }
+    \\[1ex] % line break between subfigures, adjust spacing
+    \subfloat[\centering \gls{dcLabel}]{
+        \includegraphics[width=0.75\linewidth]{figures/cc-validation-samples_dc.png}
+    }
+    \caption{Samples distribution visualization for synthetic dataset generation.}
+    \labfig{cc:validation:samples-distribution}
 \end{figure*}
 
-% Figure description
-\reffig{cc:validation:complete-model} shows the model validation results for
-the complete system model. Different plots are shown for the main output
-variables\sidenote{$C_w$, $T_{dc,out}$, etc}. Solid lines represent the
-measured variables in the real facility, while the different markers represent
-the predictions generated at different times. The plots also include a
-right-axis to display a metric error, specifically the \gls{mapeLabel} of the
-predictions with respect to the measured values. The error is shown with a bar
-for each prediction.
 
-% Results assessment
-The results show that the model is able to predict the main output variables
-of the system with a good accuracy. As expected the errors compound over time,
-specially after the change in the operation schedule at XX:XX. Nonetheless, the
-model is able to adapt after a new evaluation including the change and overall
-predictions below XX\% of error are achieved.
-
-% A mi me gustaría que esta sección sea su propio capítulo
 % Optimization validation
 %================================
 %================================
 \section{Control and optimization results}
 \labsec{cc:validation:optimization}
 
-Once the models of the main components of the system have been validated,
-the next step is to validate the optimization strategy proposed in
-\nrefsec{cc:modelling:optimization}.
-First, an optimization algorithm is chosen by comparing different alternatives
-in \nrefsec{cc:validation:algorithm}. Then, the two proposed variants for the
-combined cooler are compared in simulation for one operation day in the
-simulated pilot plant in order to see which one performs better in
-\nrefsec{cc:validation:optimization:static-vs-horizon}. Finally, two validation
-scenarios are tested in the real facility, one where a regular operation
-schedule is followed throughout the operation, and a second one where planned
-changes are introduced in the operation schedule, in order to validate how the
-optimization strategy adapts to changing conditions.
+Once the models of the main components of the system have been validated, the
+next step is to validate the optimization strategies proposed in
+\nrefsec{cc:modelling:optimization}. First, an optimization algorithm is chosen
+by comparing different alternatives in \nrefsec{cc:validation:algorithm} for
+each optimization alternative (\ie static and horizon). Then, the two proposed
+variants for the combined cooler are compared in simulation for one
+representative operation period in the simulated pilot plant in order to see
+which one performs better in
+\nrefsec{cc:validation:optimization:static-vs-horizon}. Finally, the proposed
+horizon methodology is tested in the real facility, where planned changes are
+introduced in the operation schedule, in order to validate how the optimization
+strategy adapts to changing conditions.
 
 %================================
 \subsection{Choosing an optimization algorithm}
@@ -597,10 +598,11 @@ optimization strategy adapts to changing conditions.
 
 \subsubsection{Static problems}
 
-For every static optimization problem (referencias a problemas) three different
-algorithms are tested: \gls{seacstrLabel}, \gls{ihsLabel} and \gls{decstrLabel}.
-For each alternative the same number of objective function evaluations are
-given (800) but they are distributed differently depending on the algorithm:
+For every static optimization problem (\refprob{cc:dc}, \refprob{cc:wct},
+\refprob{cc:static}) three different algorithms are tested: \gls{seacstrLabel},
+\gls{ihsLabel} and \gls{decstrLabel}. For each alternative the same number of
+objective function evaluations are given (800) but they are distributed
+differently depending on the algorithm:
 \begin{itemize}
     \item \gls{seacstrLabel} and \gls{decstrLabel} make use of the
     \gls{cstrLabel} wrapper algorithm, which allows them to the constrained
@@ -612,13 +614,12 @@ given (800) but they are distributed differently depending on the algorithm:
     population fitness evaluation is not counted for the budget of
     objective function evaluations}. 
     
-    \item Depending on the algorithm only one individual is evolved (
-    \gls{ihsLabel} and \gls{seaLabel}) or the whole population (
-    \gls{deLabel}). This means that 800 generations are available for
-    \gls{ihsLabel}, 80 generations for \gls{seacstrLabel} and for
-    \gls{decstrLabel}, 1 generation is available for the population of 50
-    individuals, while only the initial generation is for the population of 100
-    and 400 individuals.
+    \item Depending on the algorithm only one individual is evolved
+    (\gls{ihsLabel} and \gls{seaLabel}) or the whole population (\gls{deLabel}).
+    This means that 800 generations are available for \gls{ihsLabel}, 80
+    generations for \gls{seacstrLabel} and for \gls{decstrLabel}, 1 generation
+    is available for the population of 50 individuals, while only the initial
+    generation is for the population of 100 and 400 individuals.
 \end{itemize}
 
 \begin{table}[]
@@ -634,10 +635,10 @@ given (800) but they are distributed differently depending on the algorithm:
 \multirow{9}{*}{\textbf{\protect\gls{dcLabel}}}       &  & \multirow{3}{*}{\protect\gls{ihsLabel}}                              &  & 50                                       &  & 800 &  & N/A                                                    &  & $1.28\pm0.82$             &           & $1.05\pm0.29$              &           & $0.80\pm0.10$               &           & $0.77\pm0.09$               \\
                                  &  &                                                         &  & 100                                       &  & 800 &  & N/A                                                    &  & $0.92\pm0.18$             &           & $0.87\pm0.14$              &           & $0.81\pm0.11$               &           & $0.77\pm0.10$               \\
                                  &  &                                                         &  & 400                                       &  & 800 &  & N/A                                                    &  & $0.81\pm0.11$             &           & $0.80\pm0.11$              &           & $0.79\pm0.10$               &           & $0.77\pm0.10$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
-                                 &  & \multirow{3}{*}{\protect\gls{seaLabel}}                              &  & 50                                       &  & 80 &  & 10                                                    &  & $1.19\pm0.28$             &           & $0.95\pm0.11$              &           & $0.79\pm0.10$               &           & $0.77\pm0.09$               \\ 
+                                 &  & \multirow{3}{*}{\protect\gls{seacstrLabel}}                              &  & 50                                       &  & 80 &  & 10                                                    &  & $1.19\pm0.28$             &           & $0.95\pm0.11$              &           & $0.79\pm0.10$               &           & $0.77\pm0.09$               \\ 
                                  &  &                                                         &  & 100                                       &  & 80 &  & 10                                                    &  & $0.92\pm0.13$             &           & $0.86\pm0.10$              &           & $0.80\pm0.10$               &           & $0.77\pm0.09$               \\
                                  &  &                                                         &  & 400                                       &  & 80 &  & 10                                                    &  & $0.82\pm0.10$             &           & $0.80\pm0.10$              &           & $0.78\pm0.10$               &           & $0.77\pm0.09$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
-                                 &  & \multirow{3}{*}{\protect\gls{seaLabel}}                              &  & 50                                       &  & 1 &  & 10                                                    &  & $1.06\pm0.40$             &           & $0.97\pm0.18$              &           & $0.83\pm0.10$               &           & $1.04\pm1.04$               \\ 
+                                 &  & \multirow{3}{*}{\protect\gls{decstrLabel}}                              &  & 50                                       &  & 1 &  & 10                                                    &  & $1.06\pm0.40$             &           & $0.97\pm0.18$              &           & $0.83\pm0.10$               &           & $1.04\pm1.04$               \\ 
                                  &  &                                                         &  & 100                                       &  & 0 &  & 10                                                    &  & $0.95\pm0.16$             &           & $0.95\pm0.16$              &           & $0.95\pm0.95$               &           & $0.95\pm0.95$               \\
                                  &  &                                                         &  & 400                                       &  & 0 &  & 10                                                    &  & $0.83\pm0.10$             &           & $0.83\pm0.10$              &           & $0.83\pm0.10$               &           & $0.83\pm0.83$               \\ \hline
 
@@ -645,10 +646,10 @@ given (800) but they are distributed differently depending on the algorithm:
 \multirow{9}{*}{\textbf{\protect\gls{wctLabel}}}       &  & \multirow{3}{*}{\protect\gls{ihsLabel}}                              &  & 50                                       &  & 800 &  & N/A                                                    &  & $0.24\pm0.08$             &           & $0.18\pm0.04$              &           & $0.10\pm0.00$               &           & $0.07\pm0.00$               \\
                                  &  &                                                         &  & 100                                       &  & 800 &  & N/A                                                    &  & $0.12\pm0.02$             &           & $0.11\pm0.01$              &           & $0.08\pm0.00$               &           & $0.07\pm0.00$               \\
                                  &  &                                                         &  & 400                                       &  & 800 &  & N/A                                                    &  & $0.07\pm0.00$             &           & $0.07\pm0.00$              &           & $0.07\pm0.00$               &           & $0.07\pm0.00$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
-                                 &  & \multirow{3}{*}{\protect\gls{seaLabel}}                              &  & 50                                       &  & 80 &  & 10                                                    &  & $0.25\pm0.04$             &           & $0.16\pm0.01$              &           & $0.07\pm0.00$               &           & $0.06\pm0.00$               \\ 
+                                 &  & \multirow{3}{*}{\protect\gls{seacstrLabel}}                              &  & 50                                       &  & 80 &  & 10                                                    &  & $0.25\pm0.04$             &           & $0.16\pm0.01$              &           & $0.07\pm0.00$               &           & $0.06\pm0.00$               \\ 
                                  &  &                                                         &  & 100                                       &  & 80 &  & 10                                                    &  & $0.17\pm0.03$             &           & $0.11\pm0.00$              &           & $0.07\pm0.00$               &           & $0.06\pm0.00$               \\
                                  &  &                                                         &  & 400                                       &  & 80 &  & 10                                                    &  & $0.07\pm0.00$             &           & $0.07\pm0.00$              &           & $0.07\pm0.00$               &           & $0.06\pm0.00$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
-                                 &  & \multirow{3}{*}{\protect\gls{seaLabel}}                              &  & 50                                       &  & 1 &  & 10                                                    &  & $0.29\pm0.07$             &           & $0.17\pm0.02$              &           & $0.09\pm0.00$               &           & $0.07\pm0.07$               \\ 
+                                 &  & \multirow{3}{*}{\protect\gls{decstrLabel}}                              &  & 50                                       &  & 1 &  & 10                                                    &  & $0.29\pm0.07$             &           & $0.17\pm0.02$              &           & $0.09\pm0.00$               &           & $0.07\pm0.07$               \\ 
                                  &  &                                                         &  & 100                                       &  & 0 &  & 10                                                    &  & $0.11\pm0.00$             &           & $0.11\pm0.00$              &           & $0.11\pm0.11$               &           & $0.11\pm0.11$               \\
                                  &  &                                                         &  & 400                                       &  & 0 &  & 10                                                    &  & $0.07\pm0.00$             &           & $0.07\pm0.00$              &           & $0.07\pm0.00$               &           & $0.07\pm0.07$               \\ \hline
 
@@ -656,10 +657,10 @@ given (800) but they are distributed differently depending on the algorithm:
 \multirow{9}{*}{\textbf{\protect\gls{ccLabel}}}       &  & \multirow{3}{*}{\protect\gls{ihsLabel}}                              &  & 50                                       &  & 1000 &  & N/A                                                    &  & $0.77\pm0.12$             &           & $0.80\pm0.11$              &           & $0.77\pm0.11$               &           & $0.59\pm0.11$               \\
                                  &  &                                                         &  & 100                                       &  & 1000 &  & N/A                                                    &  & $0.70\pm0.12$             &           & $0.78\pm0.10$              &           & $0.82\pm0.15$               &           & $0.61\pm0.13$               \\
                                  &  &                                                         &  & 400                                       &  & 1000 &  & N/A                                                    &  & $0.79\pm0.19$             &           & $0.82\pm0.21$              &           & $0.80\pm0.22$               &           & $0.65\pm0.16$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
-                                 &  & \multirow{3}{*}{\protect\gls{seaLabel}}                              &  & 50                                       &  & 100 &  & 10                                                    &  & $0.92\pm0.13$             &           & $0.86\pm0.14$              &           & $0.74\pm0.16$               &           & $0.51\pm0.10$               \\ 
+                                 &  & \multirow{3}{*}{\protect\gls{seacstrLabel}}                              &  & 50                                       &  & 100 &  & 10                                                    &  & $0.92\pm0.13$             &           & $0.86\pm0.14$              &           & $0.74\pm0.16$               &           & $0.51\pm0.10$               \\ 
                                  &  &                                                         &  & 100                                       &  & 100 &  & 10                                                    &  & $0.88\pm0.16$             &           & $0.82\pm0.16$              &           & $0.75\pm0.21$               &           & $0.62\pm0.16$               \\
                                  &  &                                                         &  & 400                                       &  & 100 &  & 10                                                    &  & $0.84\pm0.21$             &           & $0.80\pm0.18$              &           & $0.74\pm0.21$               &           & $0.69\pm0.19$               \\ \cline{3-3} \cline{5-9} \cline{11-17} 
-                                 &  & \multirow{3}{*}{\protect\gls{seaLabel}}                              &  & 50                                       &  & 2 &  & 10                                                    &  & $0.83\pm0.16$             &           & $0.79\pm0.13$              &           & $0.73\pm0.14$               &           & $0.56\pm0.13$               \\ 
+                                 &  & \multirow{3}{*}{\protect\gls{decstrLabel}}                              &  & 50                                       &  & 2 &  & 10                                                    &  & $0.83\pm0.16$             &           & $0.79\pm0.13$              &           & $0.73\pm0.14$               &           & $0.56\pm0.13$               \\ 
                                  &  &                                                         &  & 100                                       &  & 1 &  & 10                                                    &  & $0.82\pm0.17$             &           & $0.80\pm0.13$              &           & $0.77\pm0.10$               &           & $0.64\pm0.13$               \\
                                  &  &                                                         &  & 400                                       &  & 0 &  & 10                                                    &  & $0.73\pm0.16$             &           & $0.73\pm0.16$              &           & $0.73\pm0.16$               &           & $0.73\pm0.73$               \\ \hline
 
@@ -668,14 +669,24 @@ given (800) but they are distributed differently depending on the algorithm:
 }
 \end{table}
 
-Table X shows the results obtained, in terms of fitness at
-different stages in the evolution. From the results it can be seen that for all
-alternatives the best performing and most consistent algorithm is ...
+\reftab{cc:validation:static-algo-comparison} shows the results obtained, in
+terms of fitness at different stages in the evolution. From the results it can
+be seen that for all alternatives the best performing and most consistent
+algorithm is \textbf{\gls{ihsLabel}}. It converges quickly, provides stable
+results across different population sizes, and consistently reaches the best
+fitness values within the evaluation budget. The \gls{seacstrLabel} also shows
+competitive results, especially for small populations, but tends to converge
+more slowly. In contrast, the \gls{decstrLabel} is limited by the small number
+of generations available when larger populations are considered, leading to
+poorer performance and higher variability. Overall, the results indicate that
+the incremental evolution of a single individual, as in \gls{ihsLabel}, is
+better suited to the limited evaluation budget imposed in these static
+optimization problems.
 
 \subsubsection{Horizon optimization. Path selection}
 
 A methodology similar to the static comparison is used. This time the
-algorithms evaluated are:  \gls{gacoLabel}, \gls{ihsLabel}, \gls{sgaLabel} and
+algorithms evaluated are: \gls{gacoLabel}, \fullgls{ihsLabel}, \gls{sgaLabel} and
 \gls{psoLabel}. Three different population sizes are tested (80, 150 and 1000)
 if the particular algorithm evolves more than one individual; the number of
 generations is calculated accordingly so that all alternatives have the same
@@ -693,47 +704,158 @@ size configuration.
     \includegraphics[]{figures/cc-validation-path_explorer_algo_comp.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-path_explorer_algo_comp.html}}
     \caption[Horizon optimization -- path selection subproblem. Fitness
-    evolution comparison for four different dates.]{Horizon optimization --
+    evolution comparison]{Horizon optimization --
     path selection subproblem. Fitness evolution comparison for different
     algorithms in four different
     dates.\hspace{1ex}\usebox\captionqr}
     \labfig{cc:validation:path_explorer_algo_comp}
 \end{figure*}
+.
 
+%================================
+\section{Implementation results}[Results]
+\labsec{cc:simulation:optimization-results}
 
-\subsection{Comparing the static and horizon optimization strategies}[Comparing the strategies]
+\reffig{cc:simulation:results-multiple-days} shows the optimization
+results\sidenote{in simulation and at pilot-scale} for the horizon optimization
+strategy\sidenote{This results figure structure is going to be repeated several
+times in the next sections.}. This is for the same three days in different
+months: 15-February, 15-June, 15-September, that is, different periods of the
+year. This means that three different environments are available, respectively:
+cold\sidenote{\reffig{cc:simulation:results-multiple-days} - \textit{Weather
+conditions}} and wet\sidenote{\ie plenty of water resource available,
+\reffig{cc:simulation:results-multiple-days} - \textit{Resources context}},
+moderate temperature and water availability; and finally hot and dry.
+
+The cooling costs obtained in each scenario are displayed in
+\reffig{cc:simulation:results-multiple-days} - \textit{Operational costs}. In
+yellow costs associated with electricity use while green for water associated
+costs. 
+
+In terms of hydraulic distribution, it can be observed that when the water
+resource is abundant (\ie 15-February) the system relies mostly in the wet
+cooler and when combined with the dry cooler, is the only scenario where the
+parallel configuration is used. Both in the moderate (15-June) and hot-dry
+(15-September) scenarios, the system operates mostly in series, or using
+exclusively the dry cooler. 
+
+At the bottom of the figure, in the \textit{Components} section, the cooling
+power provided by each cooler ($\dot{Q}_{wct}$ / $\dot{Q}_{dc}$) is shown with
+respect to the total ($\dot{Q}_{c}$). It can be observed that in the cold and wet
+season the system relies mostly on the wet cooler with some assist from the dry
+cooler also boosted by the low ambient temperatures. In the moderate scenario
+the roles reverse, with the dry cooler providing most of the cooling power
+while the wet cooler is used only occasionally, at the central hours of the day
+where the ambient temperature is higher and the dry cooler is not able to cope with
+the full load. Finally, in the hot and dry scenario, the system tries to rely
+exclusively on the dry cooler. However, at the peak hours of the day, the dry
+cooler is not able to provide the full cooling load, and the wet cooler is
+used to supplement the cooling power (11:00 -- 16:00).
+
+Comparing the costs, in the cold and wet season (15-Feb) not zero but orders of magnitude
+cheaper cooling is obtained compared to the other two scenarios since the
+thermal load is lower and the wet system can be broadly used. In the moderately
+hot and dry season significant higher costs can be observed due to the extended
+use of the more expensive dry cooler. This is still cheaper than the hot and dry
+season, where on top of the already more expensive dry cooler cooling, the
+sparse wet cooler use and the lack of water resource significantly increase the
+cooling costs by 50~\% compared to the moderate scenario.
+
+% {%
+% \newgeometry{margin=0.5cm}
+% \begin{figure}
+%     \savebox\captionqr{\qrcode[hyperlink,height=1cm]{\repositoryBaseUrl/figures/cc-horizon-optimization-results-multiple-days.zip}}
+%     \caption{\rotatebox{90}{A rotated figure \hspace{1ex}\usebox\captionqr}}
+%     \makebox[\textwidth][c]{\includegraphics[angle=90,width=0.65\paperwidth]{figures/cc-horizon-optimization-results-multiple-days.png}}%
+% \end{figure}%
+% \restoregeometry
+% }
+
+% \newgeometry{margin=0.5cm}
+% \begin{sidewaysfigure}
+%     \centering
+%     \includegraphics[width=0.85\paperheight]{cc-horizon-optimization-results-multiple-days.png}
+%     \\[3ex]
+
+%     \caption[Horizon optimization results]{Horizon optimization results in three different seasons}
+
+%     \captionlistentry{Extra caption text} % does not interfere
+%     \par\smallskip
+%     \begin{minipage}{\textwidth}
+%       \centering
+%       \begin{tabular}{m{0.3\textwidth} c}
+%         Degrading water availability from left (cold weather and abundant water) to right (hot and water scarcity) &
+%         \usebox\captionqr
+%       \end{tabular}
+%     \end{minipage}
+% \end{sidewaysfigure}
+% \restoregeometry
+
+\newgeometry{margin=0.5cm}
+\begin{figure}
+    \centering
+    \savebox\captionqr{\qrcode[hyperlink,height=1cm]{\repositoryBaseUrl/figures/cc-horizon-optimization-results-multiple-days.zip}}
+
+    \makebox[\textwidth][c]{%
+      \includegraphics[angle=90,height=0.9\paperheight]{cc-horizon-optimization-results-multiple-days.png}%
+    }
+
+    \captionof{figure}{Horizon optimization results in three different seasons
+    \hspace{1ex}\usebox\captionqr}
+    \labfig{cc:simulation:results-multiple-days}
+\end{figure}
+\restoregeometry
+\pagelayout{margin} % Restore margins to class's default
+
+\subsubsection{Comparing the static and horizon optimization strategies}
 \labsec{cc:validation:optimization:static-vs-horizon}
-
-\begin{kaobox}[title=TODO]
-    Poner la figura de resultados del horizonte para SOLO un día detallado aquí
-    (más días hace que no se distingan bien las barras, tampoco se puede poner el
-    pareto). Debe incluir la distribución hidráulica en barras comparando estático
-    con horizonte, el frente de pareto del horizonte, y la comparativa de coste
-    acumulado.
-\end{kaobox}
 
 
 \begin{figure*}[h!]
     \includegraphics[]{figures/cc-validation-comp_static_horizon.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-comp_static_horizon.html}}
-    \caption[Detailed timeseries simulation results. \gls{ccLabel}--horizon]{Detailed simulation results for the horizon
-    optimization compared to the static alternative.\hspace{1ex}\usebox\captionqr}
+    \caption[Detailed simulation results comparison: horizon vs static.
+    \gls{ccLabel}--horizon]{Simulation results for the horizon optimization
+    compared to the static alternative. The horizon-based strategy is shown with
+    solid lines (and filled areas where relevant), while the static strategy is
+    represented with dotted lines in the same colors as the corresponding
+    variables\\[1ex]\usebox\captionqr}
     \labfig{cc:validation:static-vs-horizon}
 \end{figure*}
 
-Comentar la figura\todo{La figura es provisional. Actualizar la figura con cambios mencionados}, sobre el frente de pareto que se muestra, cómo la estática
-al principio abusa del agua y para el final del día aumenta muchos sus costes, etc.
+
+\reffig{cc:validation:static-vs-horizon} shows the results obtained for a range
+of days (May 3 to May 21) with the two optimization alternatives: static and
+horizon, presented in Sections \ref{sec:cc:optimization:static:cc} and
+\ref{sec:cc:optimization:horizon}, respectively. Both are evaluated given the same
+environment, which is shown at the top of the figure. The horizon strategy is
+depicted with solid lines and/or filled areas. In comparison, the static results
+are included using dotted lines with the same color for the compared variable.
+The results show that the horizon strategy consistently outperforms the static
+one in terms of cost (\reffig{cc:validation:static-vs-horizon} --
+\textit{Cumulative cost}), with a cost advantage of more than 20~\% and often
+above 50~\%. This can be explained by how each strategy manages the water
+resource\sidenote{See \reffig{cc:validation:static-vs-horizon} -
+\textit{Resources context -- }$V_{available}$}: the static strategy tends to use
+a lot of water at the beginning of the day, when the ambient temperature is low,
+and then as the day progresses and the ambient temperature rises, it has less
+water available and is forced to use the alternative, more expensive water
+source. In contrast, the horizon strategy manages the water resource more
+efficiently, using it when it is most needed and preserving it for the times
+when it will be most beneficial.
+
 
 %================================
 \subsection{Validation at pilot plant}
 
-A hierarchical control strategy has been implemented in order to validate the
-optimization strategy in the real facility.
-\reffig{cc:validation:optimization:diagram} shows a diagram of the methodology,
-where the left side represents the upper layer with the proposed
-shrinking horizon optimization\sidenote{See \nrefsec{optimization:horizon}} and
-the right side shows the low-level regulatory control layer, which directly
-interfaces with the actuators and sensors of the facility. 
+A hierarchical control\sidenote{See \refsec{intro:hierarchical-control}}
+strategy has been implemented in order to validate the optimization strategy in
+the real facility. \reffig{cc:validation:optimization:diagram} shows a diagram
+of the methodology, where the left side represents the upper layer with the
+proposed shrinking horizon optimization\sidenote{See
+\nrefsec{optimization:horizon}} and the right side shows the low-level
+regulatory control layer, which directly interfaces with the actuators and
+sensors of the facility. 
 
 \begin{figure*}
     \includegraphics[]{figures/cc-validation-diagram.png}
@@ -742,7 +864,7 @@ interfaces with the actuators and sensors of the facility.
     \labfig{cc:validation:implementation:diagram}
 \end{figure*}
 
-\begin{margintable}[*-6]
+\begin{margintable}[]
     \caption{Box-bounds for the decision variables.}
     \labtab{cc:validation:optimization-bounds}
     \begin{tabular}{lccc}
@@ -758,33 +880,93 @@ interfaces with the actuators and sensors of the facility.
     \end{tabular}
 \end{margintable}
 
-\textbf{Environment}. To generate the environment for the optimization, weather
-forecasts using the \href{https://openweathermap.org/api}{OpenWeather API}
-\sidecite{openweater_api} were used, for the electricity costs data from the
-2022 spanish grid was used, updating the year to the one in which the experiment
-was performed, and the water cost was set to $C_{w,s1}=X$ and $C_{w,s2}=Y$. For
-the thermal load a profile was generated by setting a constant vapor temperature
-of $T_v=45\,^\circ$C while an arbitrary cooling power was generated considering
-the heat availability from the flat-plate collector field, which is the heat
-source of the system, for the particular day. Finally, an initial value for the
-water availability was set to $V_{avail,0}=0.5\,m^3$, and from there it is
-updated by reading the actual system consumption online.
+\textbf{Environment}. The optimization environment was generated using weather
+forecasts obtained from the \href{https://openweathermap.org/api}{OpenWeather
+API}~\sidecite{openweather_current_2025}. Electricity cost data were taken from
+the 2022 Spanish market pool~\sidecite{REE_website}. The water cost was defined
+as $P_{w,s1}=0.03$~\euro/m$^3$ for source~1, and $P_{w,s2}=80\times P_{e} =
+8\pm5$~\euro/m$^3$ for source~2.
 
-\textbf{Optimization layer}. The optimization
-algorithm is run every 30 minutes, and generates a new set of results for the
-remaining operation time. The results of the optimization are then passed to
-the regulatory control layer by setting them as setpoints for the low-level
-control. The box-bounds for the decision variables are shown in
+The thermal load profile was created by fixing the vapor temperature at
+$T_v=45,^\circ$C and generating an arbitrary cooling power based on the heat
+available from the flat-plate collector field—the system's heat source for the
+selected day. Finally, the initial available water volume was set to
+$V_{avail,0}=0.4$~m$^3$, after which it was updated dynamically according to the
+system's real-time consumption data.
+
+\textbf{Optimization layer}. The optimization algorithm is run every 30 minutes,
+and generates a new set of results for the remaining operation time. The results
+of the optimization are then passed to the regulatory control layer by setting
+them as setpoints for the low-level control. The box-bounds for the decision
+variables are shown in \reftab{cc:validation:optimization-bounds}. Since the
+low-level control layer actuates over the coolers fan speeds, instead of using
+$\omega_{dc}$ and $\omega_{wct}$ directly as setpoints, the would be obtained
+outlet temperatures values ($T_{dc,out}$ and $T_{wct,out}$) are used instead.
+This makes the strategy more robust, since as long as the outlet temperatures
+from the coolers are kept, and they will be since the fan speed is continuously
+regulated to achieve that, the correct condenser operation can be guaranteed,
+despite possible deviations. 
+
+The optimization algorithm is executed every 30~minutes and generates a new set
+of results for the remaining operation period. These results are then passed to
+the regulatory control layer, where they serve as setpoints for the low-level
+control. The box constraints for the decision variables are provided in
 \reftab{cc:validation:optimization-bounds}.
 
-\textbf{Control layer}. Four controllers are implemented in this
-layer...\todo{aiuda Lidia!}
+\begin{table}
+\caption{Low-level control loops}
+\centering
+\labtab{cc:validation:control}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{cccccccc}
+\hline
+\multirow{2}{*}{\textbf{Controller}} & \multicolumn{2}{c}{\textbf{Control signal}} & \multicolumn{2}{c}{\textbf{Controlled signal}} & \multicolumn{2}{c}{\textbf{Controller parameters}} \\
+\cline{2-7}
+& Variable & P\&ID & Variable & P\&ID & $K_p$ & $T_i$ (s)\\
+\hline
+TC-01 & $\omega_{dc}$ & SC-02, SC-03 & $T_{dc,out}$ & TT-03 & [-16.8, -3] \%/$^\circ$C  & [30.2, 155.7]\\
+TC-02 & $\omega_{wct}$ & SC-01  & $T_{wct,out}$ & TT-06 & -5.9 \%/$^\circ$C & 78.0\\ 
+FC-01 & $\omega_c$ & SC-04  & $q_{c}$ & FT-06 & 0.9 \%$\cdot (h\cdot$m$^{3})$ & 1.3\\ 
+FC-02 & V$_p$ & ZC-02  & $q_{dc}$ & FT-02 & -1.18 \%$\cdot h\cdot$m$^{-3}$ & 4.3\\ 
+FC-03 & V$_s$ & ZC-01  & $q_{dc-wct}$ & \textit{f}(FT-01,FT-02, FT-03) & 0.7 \%$\cdot h\cdot$m$^{-3}$ & 4.0\\ \hline
+\end{tabular}
+}
+\end{table}
 
+\textbf{Control layer}. It is a regulatory layer with five control loops (see
+\reftab{cc:validation:control}). The purpose of this layer is to track the
+setpoints calculated by the upper layer for the five controlled variables and
+maintain them near steady-state conditions around these references, even in the
+presence of disturbances such as variations in temperature or flow rate.
+Classical feedback loops with \gls{piLabel} controllers have been used in this
+regulatory layer, which were tuned using the improved SIMC technique~
+\sidecite{skogestad_simc_2012}. \reftab{cc:validation:control} shows the
+proportional gain, $K_p$, and the integral time, $K_i$, for each control loop.
+The ideal configuration of the \gls{piLabel} controller has been
+implemented\sidenote{\ie $C(s) = K_p(1 + 1/(T_i·s))$}, including anti-windup
+mechanism and a sample time of one second. In the special case of the
+\gls{acheLabel}, due to its strong nonlinear dynamics, a Gain Scheduling
+scheme~\sidecite{hagglund_advanced_2006} has been implemented. For this purpose,
+a 3$\times$3 matrix of regions has been defined to account for three levels: low,
+medium and high values in the three main variables involved
+($q_{dc}$,$\omega_{dc}$ and $\Delta T_{in-amb}$). 
 
-In order to validate the optimization strategy, several tests were performed
-over different days. In particular \reffig{} visualizes one test carried out in
-the 1st August to analyze in this section. The objective of the test was
-twofold. For the first part of the test a set operation plan was established: 
+The optimization does not provide $\omega_{dc}$ and $\omega_{wct}$ as setpoints.
+Instead, it provides the expected corresponding outlet temperature values. This
+way the low-level control layer directly adjusts the fan speeds of the coolers
+in order to regulate the outlet temperatures ($T_{dc,out}$ and $T_{wct,out}$) to
+the setpoints provided. This approach increases the robustness of the control
+strategy: as long as the outlet temperatures of the coolers are maintained—and
+they are, since fan speeds are continuously regulated to achieve them—the proper
+operation of the condenser can be ensured, even in the presence of potential
+deviations due to modelling inaccuracies, external disturbances or uncertainty
+in the forecasted weather conditions.
+
+\textbf{Experimental results}. In order to validate the optimization strategy,
+several tests were performed over different days. In particular
+\reffig{cc:validation:exp-results} visualizes one test carried out in the 1st
+August to analyze in this section. The objective of the test was twofold. For
+the first part of the test a set operation plan was established: 
 
 \begin{itemize}
     \item $\dot{Q}$ = Ramp up from 150 to 200 kW from 08:40 until 10:00, and
@@ -805,29 +987,46 @@ conditions and is the second objective of the test.
 The operation strategy was as follows:
 
 \begin{itemize}
-    \item Before the test and while the system starts up by generating vacuum in the surface condenser, the optimization layer was evaluated to have an initial perspective on the day operation and expected consumptions. If the operator was satisfied the provided values were used as reference and manually set to bring the system into stable operation after gradually increasing the thermal load.
-    \item The optimization sample time was 20 minutes, it takes around that time to compute and is evaluated every 40 minutes.
-    \item The thermal load was designed to change every 40 minutes, this means that for each optimization evaluation, two setpoint changes are provided to the regulatory control layer per optimization evaluation and thus predictions must be valid for those at least 40 minutes.
-    \item For every optimization layer evaluation, first the environment is updated and then is provided as input to the optimization evaluation (see \reffig{cc:validation:implementation:diagram}.
-    \item The low-level control layer has available the operation strategy for the whole horizon provided by the upper layer and following its schedule updates its setpoints.
+    \item Before the test and while the system starts up by generating vacuum in
+    the surface condenser, the optimization layer was evaluated to have an
+    initial perspective on the day operation and expected consumptions. If the
+    operator was satisfied the provided values were used as reference and
+    manually set to bring the system into stable operation after gradually
+    increasing the thermal load.
+    
+    \item The optimization sample time was 20 minutes, it takes around that time
+    to compute and is evaluated every 40 minutes.
+    
+    \item The thermal load was designed to change every 40 minutes, this means
+    that for each optimization evaluation, two setpoint changes are provided to
+    the regulatory control layer per optimization evaluation and thus
+    predictions must be valid for those at least 40 minutes.
+    
+    \item For every optimization layer evaluation, first the environment is
+    updated and then is provided as input to the optimization evaluation (see
+    \reffig{cc:validation:implementation:diagram}).
+    
+    \item The low-level control layer has available the operation strategy for
+    the whole horizon provided by the upper layer and following its schedule
+    updates its setpoints.
 \end{itemize}
 
 
 %% Descripción de la figura %%
-\reffig{} is divided in several sections. In general solid lines represent
-measured (experimental) values, while the thin-dashed equivalent (same color) is
-the predicted value by the upper-optimization layer. This predicted value is
-provided by the latest evaluated optimization. The upper section of the figure
-displays the environment evolution (weather conditions, load conditions and
-resources context). They are followed by a comparison between predicted and
-actual results for: (a) distribution between cooling systems, in terms of flows
-(\textit{hydraulic distribution}) and in terms of the assigned cooling power
-(\textit{cooling power distribution}) and (b) individual cooler outputs in terms
-of temperature profile and water consumption in the wet cooler case. Finally,
-the bottom of the plot shows the low-level control layer performance for each
-control loop: coolers outlet temperature and flows.
+\reffig{cc:validation:exp-results} is divided in several sections. In general
+solid lines represent measured (experimental) values, while the thin-dashed
+equivalent (same color) is the predicted value by the upper-optimization layer.
+This predicted value is provided by the latest evaluated optimization. The upper
+section of the figure displays the environment evolution (weather conditions,
+load conditions and resources context). They are followed by a comparison
+between predicted and actual results for: (a) distribution between cooling
+systems, in terms of flows (\textit{hydraulic distribution}) and in terms of the
+assigned cooling power (\textit{cooling power distribution}) and (b) individual
+cooler outputs in terms of temperature profile and water consumption in the wet
+cooler case. Finally, the right group of plots shows the low-level control layer
+performance for each control loop: coolers outlet temperature and flows.
 
-In \reffig{} -- \textit{Hydraulic Distribution}, several sequentially added bars
+In \reffig{cc:validation:exp-results} -- \textit{Hydraulic Distribution}, several sequentially added bars
 are shown. The first bar corresponds to the experimental value, while the
 remaining bars represent the predicted hydraulic distributions from successive
 optimization evaluations: the second bar comes from the first evaluation, the
@@ -836,40 +1035,70 @@ third from the second, and so on.
 From the results, a few observations can be made:
 
 \begin{itemize}
-    \item Overall a very good agreement between the optimization layer predicted operation and the experimental values can be observed. It can be seen than as long as the environment, specifically the thermal load, does not change, the generated operation strategy is valid for hours. Particularly, the initial evaluation at XX:XX. In another test (not shown) where the thermal load does not change throughout the day the initial optimization held valid until the end of operation.
-    \item The dry system is very sensitive to the ambient temperature when operating in its limits. Less than half-degree prediction error in the ambient temperature (0.4 $^\circ$C between 09:04 and 09:17) translates in a 15\% difference between the expected and the actual fan speed.
-    \item When both systems are operating, if the dry cooler falls short in its cooling allocation, the wet cooler can compensate for the dry cooler shortcoming on its cooling allocation. However, as can be seen at the beginning of the test (09:04 -- 09:17), when only the dry cooler is used and does so in its limits (\reffig{} - DC outlet temperature loop - Control signal) it can happen that the load is undercooled resulting in a higher condenser pressure (in terms of temperature, +1-2 $^\circ$C can be observed, which would translate in a penalty in the power produced by the turbine). A low-level supervisory controller should be set in place to prevent this.
-    \item To avoid using the alternative more expensive alternative water source, the optimization prioritized the use of the dry cooling (as far as being dry-only as long as the ambient temperature and demanded thermal load allowed it ~ 09:20) to conserve water until the end of operation. After the operation plan change, the lower expected load gives more room for adjustment and the optimization increases the load through the wet system from 0-40\% to about 50\% (\reffig{} - Hydraulic distribution and Cooling power distribution).
-    \item The restricted availability of the water resource, means that the optimizations strategy always prioritizes water savings either by dry-only operation, or combined operation using a series configuration, at no point the parallel configuration is used despite progressively increased electricity cost (\textit{Resources context} -- $P_e$).
-    \item The good agreement between upper and lower layer, means that the upper layer predicted controlled variables values could be used by the low-level control, for example, in a static feed-forward action.
-    \item From the initial optimization evaluation, the low-level control layer has available an operation strategy for the whole horizon. This makes the strategy robust in the case the optimization is not evaluated again, or not evaluated on time.
+    \item Overall a very good agreement between the optimization layer predicted
+    operation and the experimental values can be observed. It can be seen than
+    as long as the environment does not change, the generated operation strategy
+    is valid for hours. Particularly, the initial evaluation at XX:XX. In
+    another test (not shown) where the thermal load does not change throughout
+    the day the initial optimization held valid until the end of operation. But
+    as mentioned, in this particular test a planned change in the thermal load
+    profile is introduced at 10:30, which is then taken into account in the
+    optimization layer re-evaluation at 10:40, and thus a new adapted operation
+    strategy to the new scenario is generated and successfully applied.
+    
+    \item The dry system is very sensitive to the ambient temperature when
+    operating in its limits. Less than half-degree prediction error in the
+    ambient temperature (0.4 $^\circ$C between 09:04 and 09:17) translates in a
+    15\% difference between the expected and the actual fan speed.
+    
+    \item When both systems are operating, if the dry cooler falls short in its
+    cooling allocation, the wet cooler can compensate for the dry cooler
+    shortcoming on its cooling allocation. However, as can be seen at the
+    beginning of the test (09:04 -- 09:17), when only the dry cooler is used and
+    does so in its limits (\reffig{cc:validation:exp-results} - \textit{\gls{dcLabel} outlet temperature loop - Control
+    signal}) it can happen that the load is undercooled resulting in a higher
+    condenser pressure (in terms of temperature, +1-2 $^\circ$C can be observed,
+    which would translate in a penalty in the power produced by the turbine). A
+    low-level supervisory controller should be set in place to prevent this.
+    
+    \item To avoid using the alternative more expensive alternative water
+    source, the optimization prioritized the use of the dry cooling (as far as
+    being dry-only as long as the ambient temperature and demanded thermal load
+    allowed it, up until 09:20) to conserve water until the end of operation. After the
+    operation plan change, the lower expected load gives more room for
+    adjustment and the optimization increases the load through the wet system
+    from 0-40\% to about 50\% (\reffig{cc:validation:exp-results} - \textit{Hydraulic distribution and Cooling
+    power distribution}).
+    
+    \item The restricted availability of the water resource, means that the
+    optimization strategy always prioritizes water savings either by dry-only
+    operation, or combined operation using a series configuration, at no point
+    the parallel configuration is used despite progressively increased
+    electricity cost (\textit{Resources context} -- $P_e$).
+    
+    \item The good agreement between upper and lower layer, means that the upper
+    layer predicted controlled variables values could be used by the low-level
+    control, for example, in a static feed-forward action.
+    
+    \item From the initial optimization evaluation, the low-level control layer
+    has available an operation strategy for the whole horizon. This makes the
+    strategy robust in the case the optimization is not evaluated again, or not
+    evaluated on time.
 \end{itemize}
 
+\newgeometry{margin=0.5cm}
+\begin{figure}
+    \centering
+    \savebox\captionqr{\qrcode[hyperlink,height=1cm]{\repositoryBaseUrl/figures/cc_experimental_results_20250801.zip}}
 
-% \begin{kaobox}[title=Consulta]
-%     Y si en lugar de mostrar varios escenarios mostramos un único día donde
-%     haya una primera parte donde se hacen varias evaluaciones siguiendo un
-%     plan, y a mitad de día se introduce un cambio en el plan de operación. Así
-%     nos ahorramos describir varios ensayos, y tener que estar mostrando varias
-%     gráficas. Mejor mostrar solo una en grande y dedicarse a comentar lo que
-%     suceda en ella.
-% \end{kaobox}
+    \makebox[\textwidth][c]{%
+      \includegraphics[angle=90,height=0.9\paperheight]{cc_experimental_results_20250801.png}%
+    }
 
-% \subsubsection{Regular operation validation}
-% \labsec{cc:validation:regular-operation}
-
-% As mentioned, the first validation scenario consists of a regular operation
-% schedule, where the optimization strategy is applied to the system without
-% introducing any changes in the scheduled operation. 
-
-% %================================
-% \subsection{Planned changes in operation validation}[Planned changes]
-% \labsec{cc:validation:planned-operation}
-% a\todo{al menos redactar lo que se pretende sin resultados antes del domingo}
-
-% %================================
-% \subsection{Unanticipated operational changes validation}[Unanticipated changes]
-% \labsec{cc:validation:unanticipated-operation}
-
-% A\todo{Quitar esta sección? Esto es más de control que de validar la
-% estrategia de optimización y no creo que sea necesario incluirlo}
+    \captionof{figure}{Horizon optimization strategy results. Experimental validation
+    results at pilot plant.
+    \hspace{1ex}\usebox\captionqr}
+    \labfig{cc:validation:exp-results}
+\end{figure}
+\restoregeometry
+\pagelayout{margin} % Restore margins to class's default
