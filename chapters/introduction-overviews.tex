@@ -6,19 +6,20 @@
 \labch{intro:automation}
 
 Automation, and particularly process automation, is a multidisciplinary
-technology that by integrating various fields of knowledge, aims to develop
-autonomous systems, capable of operating with minimal human intervention, using
+technology that, by integrating various fields of knowledge, aims to develop
+autonomous systems capable of operating with minimal human intervention, using
 resources efficiently, adapting to changing conditions, and ensuring safety
 and reliability. 
 
 This chapter provides an overview of the main aspects of automation, focusing on
-modelling, optimization and control. These three pillars are essential for the
+modelling, optimization and control which are particularly relevant to the
+development of this research work. These three pillars are essential for the
 development of advanced automation systems and are widely used in the industry.
 The chapter is structured as follows: first, an overview of modelling techniques
 is presented, including first-principles and data-driven approaches. Then,
 optimization methods are discussed, covering both single-objective and
 multi-objective optimization. Finally, control strategies are reviewed, with a
-focus on PID control and hierarchical control.
+focus on \gls{pidLabel} and hierarchical control.
 
 \begin{kaobox}[title=Dealing with complexity]
     Real systems are complex, with many elements interconnected. We first need
@@ -53,32 +54,30 @@ focus on PID control and hierarchical control.
 \labsec{intro:modelling}
 
 %% Explicación del concepto de modelado %%
-Models are  useful  approximations for the real-world
-~\sidecite{sokolowski_principles_2011}, more precisely a mathematical
-representation of real-world systems. A model can depict a system at different
-levels of abstraction depending on the intended use. Models are useful in many
-applications: 
+Models are  useful  approximations for the real-world, more precisely a
+mathematical representation of real-world systems. A model can depict a system
+at different levels of abstraction depending on the intended use. Models are
+useful in many applications~\sidecite{sokolowski_principles_2011}: 
 
 \begin{itemize}
     \item Forecasting. They are used to predict the value of a variable at some
     time in the future. 
     \item Simulation. Oftentimes experimentally evaluating real-world systems is
-    impractical or infeasible, either because it is costly it may require a lot of
-    time, or deteriorate the system among other factors. Simulating a model enables
-    the repeated observation of a system with just an associated computational
-    cost. 
-    \item Control and optimization. in order to compute the optimal input to
+    impractical or infeasible, either because it is costly, time-consuming, or
+    deteriorate the system, among other factors. Simulating a model enables the
+    repeated observation of a system with just an associated computational cost. 
+    \item Control and optimization. In order to compute the optimal input to
     give to a real system, many control strategies are model-based, that is, they
     assess how inputs given to the real system will affect it by first evaluating
     them in a model. 
-    \item Analysis of models enables to draw conclusions, verify and validate
+    \item Via analysis, they enable to draw conclusions, verify and validate
     the research, and make recommendations in order to support decision-making.
 \end{itemize}
 
 \begin{kaobox}[title=Sensitivity analysis]
     Sensitivity analysis is one of the possible analysis tools. It involves
   systematically assessing how variations in input parameters impact the model
-  outputs. > One of the methods used in this research work is the Sobol
+  outputs. One of the methods used in this research work is the Sobol
   method~\cite{nossent_sobolsensitivity_2011}, which is a variance-based
   approach. This method decomposes the total variance of the model output into
   contributions from individual input parameters and their interactions.
@@ -93,7 +92,7 @@ most physical systems, and can be described using differential equations. An
 alternative discrete representation can be achieved by performing a
 transformation from the continuous space to a discrete space sampling data at
 discrete time intervals and is described by difference equations. For an
-infinitesimal small time interval they are equivalent. In practice, discrete
+infinitesimal small time interval they are equivalent. In practice, the discrete
 representation is a simplification of continuous systems.
 
 An example of the position ($y$) of an object free-falling by gravity could be
@@ -103,41 +102,42 @@ represented:
     \item or with a discrete representation (sample time $\Delta t$ and velocity $v$): $y_{k+1} = y_k + v_k \, \Delta t - \tfrac{1}{2} g (\Delta t)^2$
 \end{itemize}
 
+When a dynamic system is left unchanged for a sufficiently long period and an
+equilibrium is established between its inputs and outputs, it eventually reaches
+a stable or steady state. As long as the inputs remain constant, the outputs
+will also remain constant (visualized in
+\reffig{intro:modelling:dynamic-response}). Thermodynamic processes are often
+analyzed under these equilibrium conditions, since the main interest is
+typically the stable relationship between a given set of inputs and the
+resulting outputs, rather than the detailed trajectory of how the system evolves
+from one state to another. This approach makes it possible to evaluate the
+long-term performance of the system.
+
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/steady-state-transient-concept-plot.png}
     \caption{Dynamic response (reaction curve) of a process output to changes in its inputs'}
     \labfig{intro:modelling:dynamic-response}
 \end{figure}
 
-When a dynamic system is left unchanged for a sufficiently long period and an
-equilibrium is established between its inputs and outputs, it eventually reaches
-a stable or steady state. As long as the inputs remain constant, the outputs
-will also remain constant. Thermodynamic processes are often analyzed under
-these equilibrium conditions, since the main interest is typically the stable
-relationship between a given set of inputs and the resulting outputs, rather
-than the detailed trajectory of how the system evolves from one state to
-another. This approach makes it possible to evaluate the long-term performance
-of the system.
-
 In many cases, a dynamic system can be approximated as a steady-state system if
 the transitions between equilibrium states are either negligible or irrelevant
 to the problem at hand. Such simplifications are appropriate when the system is
 expected to operate mostly under stable conditions, and the transient dynamics
 do not significantly affect performance. For example, in thermodynamic analyses,
-transient behavior is often treated as noise when evaluating efficiency or
-energy balances. This is especially valid for systems with fast dynamics—where
-transients settle within seconds—and that are only occasionally disturbed,
+transient behavior is frequently treated as noise when evaluating efficiency or
+energy balances. This is especially valid for systems with fast dynamics ---where
+transients settle within seconds--- and that are only occasionally disturbed,
 meaning the system spends most of its time operating near steady state.
 
 %% Limitations of modelling %%
 A model can be an incomplete and possibly incorrect representation of the
 phenomenon under study. This typically occurs when information about the
-phenomenon is lacking or when very complex processes are being modeled—such as
+phenomenon is lacking or when very complex processes are being modeled ---such as
 biological systems that change their dynamics over time, or large-scale
 stochastic processes like climate, where small errors can propagate
 exponentially. All these factors contribute to uncertainty in modeling.
 Uncertainty is generally classified as aleatory or
-epistemic~\cite{sokolowski_principles_2011}. Aleatory uncertainty arises from
+epistemic~\sidecite{sokolowski_principles_2011}. Aleatory uncertainty arises from
 inherent randomness in the system and is typically addressed through
 probabilistic or stochastic methods, though in some cases it may be simplified
 or ignored. Epistemic uncertainty, on the other hand, stems from incomplete
@@ -158,7 +158,7 @@ exist: first-principle and data-driven, explained in the following.
 
 First-principle modelling\sidenote{also called white-box modelling or
 physics-based modelling} is an approach to representing a system by starting
-from the fundamental laws of nature—such as conservation of mass, energy, and
+from the fundamental laws of nature ---such as conservation of mass, energy, and
 momentum; Newton's laws of motion; thermodynamics; or chemical kinetics. In this
 framework, the model equations are derived from established physical, chemical,
 or biological principles that govern the system's behavior.
@@ -189,13 +189,13 @@ A large class of data-driven techniques can be framed within supervised
 learning, where the model learns a mapping from inputs to outputs based on
 labeled training data. Supervised learning methods are commonly divided into
 regression and classification problems: classification predicts discrete
-categories, while regression focuses on continuous quantities. In this context,
-we are interested mainly in regression approaches, since most engineering
+categories, while regression focuses on continuous quantities. In this research
+work the focus in mainly on regression approaches, since most engineering
 systems require the prediction of continuous variables such as temperatures,
 pressures, flows, or performance indices.
 
 Data-driven regression models can range from simple, interpretable
-structures—such as polynomial regressions—to highly flexible nonlinear machine
+structures ---such as polynomial regressions--- to highly flexible nonlinear machine
 learning models such as Gaussian process regression or artificial neural
 networks. Each comes with its own trade-offs between accuracy, interpretability,
 data requirements, and computational cost. In the following, we discuss some
@@ -215,11 +215,11 @@ relationships: lower-order polynomials give simple trends, while higher-order
 ones can represent more complex patterns but risk overfitting and poor
 extrapolation outside the training range.
 
-Polynomial regression is one of the most widely used empirical modeling
-techniques because it is easy to implement, computationally efficient, and
-provides closed-form solutions for the estimated coefficients. Despite its
-simplicity, it often delivers sufficiently accurate approximations for
-engineering applications.
+Polynomial regression is one of the most widely used empirical
+parametric-modeling techniques because it is easy to implement, computationally
+efficient, and provides closed-form solutions for the estimated coefficients.
+Despite its simplicity, it often delivers sufficiently accurate approximations
+for engineering applications.
 
 Use cases include curve fitting, surrogate models for optimization problems,
 quick approximations in control design, and empirical correlations. 
@@ -228,7 +228,59 @@ quick approximations in control design, and empirical correlations.
 \subsubsection{Gaussian Process Regression}
 \labsec{intro:modelling:gpr}
 
-\todo{Esta sección está por hacer}
+
+A \gls{gpLabel} is a powerful and flexible non-parametric model that defines a
+distribution over functions instead of assuming a specific functional form (such
+as a straight line in linear regression). In this framework, any possible
+function could explain the data, but functions that are \textit{smoother} or
+\textit{closer} together in input space are more likely. It consists of a
+collection of random variables, any finite number of which have a joint Gaussian
+(normal) distribution~\sidecite{rasmussen_gaussian_2006}.
+
+\gls{gprLabel} provides a flexible and probabilistic approach to modeling
+unknown functions. Consider a simple one-dimensional regression problem, mapping
+an input variable $x$ to an output $f(x)$. In \reffig{intro:modelling:gpr}~(a),
+several sample functions are drawn from a \textit{prior} Gaussian Process, which
+expresses the assumed characteristics of functions before any data are observed.
+This prior favors smooth functions with an average (mean) value of zero across
+the input space\sidenote{Although the individual functions shown may not have a
+zero mean, the average of many such samples at any fixed $x$ would approach
+zero}. The shaded region represents the variability of these functions,
+corresponding to twice the pointwise standard deviation, which in this case is
+constant across $x$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/intro-modelling-gpr.png}
+    \caption{Illustration of Gaussian Process Regression. 
+    (a) Prior samples drawn from a Gaussian Process with zero mean and smooth covariance, 
+    representing the prior belief before observing any data. 
+    (b) Posterior samples and mean after conditioning on two observations, 
+    showing reduced uncertainty near the observed points.
+    \newline Source: Rasmussen \textit{et al.}~\cite{rasmussen_gaussian_2006}}
+    \labfig{intro:modelling:gpr}
+\end{figure}
+
+When a small dataset $\mathscr{D} = \{(x_1, y_1), (x_2, y_2)\}$ is observed, the
+process is updated to consider only functions consistent with these
+observations. This is illustrated in \reffig{intro:modelling:gpr}~(b). The
+dashed lines represent sample functions that agree with the data, and the solid
+line indicates their mean. The uncertainty, represented by the shaded area,
+decreases near the observed points and remains higher where data are
+unavailable. This updated distribution is the \textit{posterior} Gaussian
+Process, obtained by combining the prior assumptions with the observed data
+through Bayesian inference~\sidecite{gelman_bayesian_2013}.
+
+The choice of the prior, and particularly of the covariance (or kernel) function
+determines the characteristics of the functions the \gls{gpLabel} can represent,
+such as smoothness, amplitude, or characteristic length-scale (\ie its
+shape)\sidenote{Options such as the Squared Exponential (RBF) kernel produce
+smooth functions, while linear or periodic relationships can be captured using
+other kernels.}. Adjusting the kernel parameters controls how quickly the
+functions vary with $x$, thereby tailoring the model to the data properties. In
+practice, learning with Gaussian Processes involves identifying the kernel and
+parameter values that best describe the observed data.
+
 
 %================================
 \subsubsection{Artificial Neural networks}
@@ -238,7 +290,8 @@ quick approximations in control design, and empirical correlations.
 biological neurons. Their structure is formed by a succession of layers, each
 one composed by nodes (or neurons) and they receive as input the output of the
 previous layer. This process is subsequently repeated until the final layer
-which has a number of neurons equal to the number of outputs.
+which has a number of neurons equal to the number of
+outputs~\sidecite{hagan_neural_2014}.
 
 There are important aspects to be considered in the \gls{annLabel} model
 design, such as the model configuration, the network architecture and the
@@ -260,33 +313,20 @@ repeated as many times as desired. A potential advantage of this configuration
 is that it may reduce the experimental data requirements to obtain satisfactory
 results. A third option is the combination of both configurations, where some
 networks may predict several outputs, while others are fed some of these
-outputs as subsequently use them as inputs. 
-
-\begin{marginfigure}[-7cm]
-    \includegraphics[]{figures/ann_model_configuration_mimo_with_legend.eps}
-    {\footnotesize \textbf{(a)} \gls{mimoLabel} configuration\\}
-    
-    \vspace{1ex}
-    
-    \includegraphics[]{figures/ann_model_configuration_cascade.eps}
-    {\footnotesize \textbf{(b)} Cascade configuration}
-    
-    \caption{\acrshort{annLabel} model configurations}
-    \labfig{intro:modelling:ann-model-configuration}
-\end{marginfigure}
+outputs and subsequently use them as inputs. 
 
 %As a result, this approach holds the promise of enhanced efficiency in model
 %training, potentially requiring fewer data points for accurate predictions. 
 
 % Tipos de red Feedforward Cascade-forward Radial-basis
 \textbf{Network architectures}. Three network architectures have been
-implemented and tested:
+explored in this research work:
 \begin{enumerate}
     \item \gls{ffLabel} network - \reffig{intro:modelling:ann-architectures}
     (a). This is the base network architecture, where different layers are
     added sequentially and the flow of information is unidirectional. The
     transfer function adopted in the hidden layers is the differentiable
-    \textit{Log-Sigmoid}\sidenote{Defined as $logsig(x) = 1/(1 + e^{-x})$, mapping any real input to a value between 0 and
+    \textit{Log-Sigmoid}\sidenote[][*-3]{Defined as $logsig(x) = 1/(1 + e^{-x})$, mapping any real input to a value between 0 and
     1.}, whereas the one employed in the output layer is a linear one with no saturations.
 
     \item \gls{cfLabel} network - \reffig{intro:modelling:ann-architectures}
@@ -295,10 +335,10 @@ implemented and tested:
 
     \item \gls{rbfLabel} network - \reffig{intro:modelling:ann-architectures}
     (c). The transfer functions used in the first layer of the \gls{rbfLabel}
-    network are different, they are local Gaussian like functions. Also,
-    instead of multiplying by the weights, the distance between inputs and
-    weights is computed and the bias is multiplied instead of added
-    \sidecite{hagan_neural_2014}.
+    network are different, they are local Gaussian like functions. Also, instead
+    of multiplying by the weights, the distance between inputs and weights is
+    computed and the bias is multiplied instead of
+    added~\cite{hagan_neural_2014}.
 \end{enumerate}
 
 % \begin{marginfigure}[]
@@ -315,24 +355,6 @@ implemented and tested:
 %     \labfig{intro:modelling:ann-architectures}
 % \end{marginfigure}
 
-\begin{figure*}[h!]
-    \centering
-    \subfloat[\centering
-    Feedforward]{{\includegraphics[width=0.32\textwidth]{figures/ann_neuron_type_simple_with_partial_legend.eps}
-    }}%
-    \qquad
-    \subfloat[\centering
-    Cascade-forward]{{\includegraphics[width=0.32\textwidth]{figures/ann_neuron_type_cascade_with_partial_legend.eps}
-    }}%
-    \qquad
-    \subfloat[\centering
-    Radial-basis]{{\includegraphics[width=0.32\textwidth]{figures/ann_neuron_type_radial_with_partial_legend.eps}
-    }}%
-    
-    \caption{Considered \acrshort{annLabel} architectures}
-    \labfig{intro:modelling:ann-architectures}
-\end{figure*}
-
 % topologías de red N de capas N de neuronas por capa
 
 \textbf{Network topology}. Two-layer networks (one hidden and one output layer)
@@ -340,61 +362,99 @@ can learn almost any input-output relationship, including non-linear ones.
 Adding more layers can improve the learning for more complex problems. However,
 increasing the number of layers or neurons per layer increases the training
 computational requirements, requires more data for a satisfactory model and can
-lead to overfitting. Therefore, the process is usually started with two layers
+lead to overfitting. Therefore, the process usually starts with two layers
 and then the number of layers is increased if they do not perform
-satisfactorily~\cite{hagan_neural_2014}. In this study, for the feedforward and
-cascade-forward architectures, one and two hidden layers have been tested with
-the following configurations: 5, 10, 20, 5-5, 5-10, 10-5, 10-10. For the case
-of the \gls{rbfLabel}, it only has one hidden layer and neurons are added
-sequentially during the training process up to a maximum which is set to 120
-neurons.
+satisfactorily~\cite{hagan_neural_2014}. 
+% In this study, for the feedforward and
+% cascade-forward architectures, one and two hidden layers have been tested with
+% the following configurations: 5, 10, 20, 5-5, 5-10, 10-5, 10-10. For the case
+% of the \gls{rbfLabel}, it only has one hidden layer and neurons are added
+% sequentially during the training process up to a maximum which is set to 120
+% neurons.
+
+\begin{marginfigure}[-7cm]
+    \includegraphics[]{figures/ann_model_configuration_mimo_with_legend.eps}
+    {\footnotesize \textbf{(a)} \gls{mimoLabel} configuration\\}
+    
+    \vspace{1ex}
+    
+    \includegraphics[]{figures/ann_model_configuration_cascade.eps}
+    {\footnotesize \textbf{(b)} Cascade configuration}
+    
+    \caption{\acrshort{annLabel} model configurations}
+    \labfig{intro:modelling:ann-model-configuration}
+\end{marginfigure}
 
 % Procedimiento entrenamiento Justificar mejor elección de algoritmo de
 % entrenamiento
-\textbf{Training process}. The next important aspect to consider is the
-training process. For the \gls{ffLabel} and \gls{cfLabel} networks many
-Gradient- or Jacobian-based algorithms can be utilized. In this case, the
-Levenberg-Marquardt backpropagation algorithm \sidecite{beale_neural_2010} has
-been used. It is a fast algorithm, ideal for multilayer networks with up to a
-few hundred weights and biases enabling efficient training. The training in
-this case is done in batches since sequential training is slower and does not
-produce better results. All data have been normalized applying the z-score
-normalization method. 
+\textbf{Training process}. The next important aspect to consider is the training
+process. For the \gls{ffLabel} and \gls{cfLabel} networks many Gradient- or
+Jacobian-based algorithms can be utilized like the Levenberg-Marquardt
+backpropagation algorithm~\sidecite[*4]{beale_neural_2010}. It is a fast
+algorithm, ideal for multilayer networks with up to a few hundred weights and
+biases enabling efficient training. The training in this case is done in batches
+since sequential training is slower and does not produce better results. All
+data needs to be standardized applying methods like the \textit{Z-score}
+normalization method\sidenote{The \textit{Z-score} method rescales data so that
+each feature has a mean of 0 and a standard deviation of 1. It is computed as $z
+= \frac{x - \mu}{\sigma}$, where $\mu$ and $\sigma$ are the feature's mean and
+standard deviation, respectively.}. 
 % Early stop, paciencia For most applications of neural networks, the training
 % error never converges to exactly zero. The error can reach zero for the
 % perceptron network (radial basis network), but it is unlikely to happen for
 % multilayer networks. For this reason, a criteria for deciding when to stop
 % the training needs to be set in place, and this criteria needs provide a
 % mechanism to avoid overfitting. 
-The criteria established for deciding when to stop the training is the
-following one:  when the performance on the validation set increases (worsens)
-or when the  gradient is below a minimum ($1\times10^{-7}$) for a number of
-iterations or epochs, or when a maximum number of 1000 epochs is reached. The
-number of iterations to wait, often refereed as patience, is set to 6. Finally,
-the selected network parameters will be those of the best epoch.
+The criteria established for deciding when to stop the training is the following
+one:  when the performance on the validation set increases (worsens) for a
+number of iterations (also known as patience) or when the gradient is below a
+minimum (\eg $1\times10^{-7}$) for a number of iterations or epochs\sidenote{it
+refers to one complete pass of the entire training dataset through a learning
+algorithm during the training process of a model}, or when a maximum number of
+epochs is reached (\eg 1000). Finally, the selected network parameters are
+those of the best epoch.
 
-For each network architecture, the training process was repeated a total of ten
-times (this is the recommended practice if the computational requirements allow
-it, since it guarantees reaching a global optimum with a high degree of
+\begin{figure*}
+    \centering
+    \subfloat[\centering
+    Feedforward]{{\includegraphics[width=0.24\linewidth]{figures/ann_neuron_type_simple_with_partial_legend.eps}
+    }}%
+    \qquad
+    \subfloat[\centering
+    Cascade-forward]{{\includegraphics[width=0.24\linewidth]{figures/ann_neuron_type_cascade_with_partial_legend.eps}
+    }}%
+    \qquad
+    \subfloat[\centering
+    Radial-basis]{{\includegraphics[width=0.24\linewidth]{figures/ann_neuron_type_radial_with_partial_legend.eps}
+    }}%
+    
+    \caption{Considered \acrshort{annLabel} architectures}
+    \labfig{intro:modelling:ann-architectures}
+\end{figure*}
+
+For each network architecture, the training process is repeated a number of
+times (ten times is the recommended practice if the computational requirements
+allow it, since it guarantees reaching a global optimum with a high degree of
 confidence \sidecite{hamm_comparison_2007}). The optimal architecture and
-training was selected according to a performance function, which in this case
-has been the \gls{mseLabel} with the values normalized.
+training is then selected according to a performance function evaluated with
+normalized values (\eg \gls{mseLabel} explained in a later section).
 
-In the case of the \gls{rbfLabel} network, the chosen training method consists
-in two stages which treats the two layers of the \gls{rbfLabel} network
-separately. The first layer weights and biases are tuned based on the
-orthogonal least squares method \sidecite{hagan_neural_2014}, while for the
-second layer are computed in one step using a linear least-squares algorithm.
-During training, neurons are added to the first layer (in increments of 20)
-trying to minimize the \gls{mseLabel} to some goal, which in this case is set
-depending on the case study: 10 for the \gls{mimoLabel} configuration and 0
-($^\circ$C$^2$) and 20 (l$^2$/h$^2$) for temperature and water lost networks,
-respectively, for the cascade configuration. Finally, a parameter called spread
-is used to set the first layer biases. Larger values of this parameter promote
-a smoother approximation of the training data (more generalization),
-conversely, lower values provide a more exact fit to the training data. Values
-from 0.1 to 30 have been tested for this parameter.
-
+In the case of the \gls{rbfLabel} network, the training method consists in two
+stages which treats the two layers of the \gls{rbfLabel} network separately. The
+first layer weights and biases are tuned based on the orthogonal least squares
+method~\cite{hagan_neural_2014}, while for the second layer are computed in one
+step using a linear least-squares algorithm. During training, neurons are added
+to the first layer (\eg in increments of 20) trying to minimize a performance
+metric (\eg \gls{mseLabel}) to some goal.
+% , which in this case is set depending on
+% the case study: 10 for the \gls{mimoLabel} configuration and 0 ($^\circ$C$^2$)
+% and 20 (l$^2$/h$^2$) for temperature and water lost networks, respectively, for
+% the cascade configuration. 
+Finally, a parameter called spread is used to set the
+first layer biases. Larger values of this parameter promote a smoother
+approximation of the training data (more generalization), conversely, lower
+values provide a more exact fit to the training data. 
+%Values from 0.1 to 30 have been tested for this parameter.
 
 %================================
 \subsubsection{Other machine learning methods}
@@ -432,15 +492,15 @@ from 0.1 to 30 have been tested for this parameter.
 % combinatoria sin detallar la combinatoria particular seguida para el modelo
 % del CC.
 One important advantage that first-principles models have over data-driven is
-their scalability, that is, the ability to adapt a model developed and
-validated in a pilot-scale system, to a large scale one. This is true for many
-systems as long as the system configuration remains the same. This allows to
-study and analyze pilot scale plants and extrapolate the results to industrial
-sized plants. In addition, these type of model are also capable of predicting
-the behaviour of the modelled systems in conditions that have not been tested
-(\eg different operating or environmental conditions), although the
-reliability of the model could be lower if these conditions move away from
-those experimentally used for some parameter calibration.
+their scalability, that is, the ability to adapt a model developed and validated
+in a pilot-scale system, to a large scale one. This is true for many systems as
+long as the system configuration remains the same. This allows to study and
+analyze pilot scale plants and extrapolate the results to industrial-sized
+plants. In addition, these type of models are also capable of predicting the
+behavior of the modelled systems in conditions that have not been tested (\eg
+different operating or environmental conditions), although the reliability of
+the model could be lowered if these conditions move away from those experimentally
+used for some parameter calibration.
 
 On the contrary, data-driven models are very specific to the system and
 operating ranges they are trained for. That is why training/calibrating a
@@ -460,12 +520,14 @@ done by selecting the most relevant parameters for the system and determining
 their ranges based on the system's operating conditions. The next step is to
 generate a set of input parameters, which can be done using different methods
 such as Latin Hypercube Sampling, Monte Carlo Sampling, Sobol Sampling, or
-simply grid sampling. These methods allow to generate a set of input parameters
-that cover the entire range of the input parameters and ensure that the
-generated samples are representative of the system's behaviour. Once the input
-parameters are defined, the first-principles model is run for each set of input
-parameters, and the outputs of the model are recorded. Finally, the recorded
-outputs are used to train the surrogate data-driven model.
+simply grid
+sampling~\sidecite{mckay_comparison_1979,saltelli_sensitivity_2000,nossent_sobolsensitivity_2011}.
+These methods allow generating a set of input parameters that cover the entire
+range of the input parameters and ensure that the generated samples are
+representative of the system's behavior. Once the input parameters are defined,
+the first-principles model is run for each set of input parameters, and the
+outputs of the model are recorded. Finally, the recorded outputs are used to
+train the surrogate data-driven model.
 
 
 %===================================
@@ -473,10 +535,11 @@ outputs are used to train the surrogate data-driven model.
 \subsection{Discrete modelling by means of \glspl{fsmLabel}}
 \labsec{intro:modelling:discrete}
 
-So far we have discussed modelling of continuous systems, where changes evolve
-smoothly over time, often described by differential equations. Discrete or
-event-driven modelling, on the other hand, focuses on systems where the state
-changes only at specific points in time in response to events.
+Up to this point, the discussion has focused on the modeling of continuous
+systems, in which changes evolve smoothly over time and are typically described
+by differential equations. In contrast, discrete or event-driven modeling deals
+with systems whose states change only at distinct moments, triggered by the
+occurrence of specific events
 
 There are many ways of modeling the behavior of these systems, and the use of
 state machines is one of the oldest and best known. State machines allow us to
@@ -484,13 +547,14 @@ think about the ``state'' of a system at a particular point in time and
 characterize the behavior of the system based on that state\sidenote[][*-3]{On each
 different state, a process can be governed by different dynamics}.
 
-For example, a traffic light can be described as a finite state machine with
-three primary states: \textit{green}, \textit{yellow}, and \textit{red}. In each
-state, the traffic light has a well-defined behavior (allowing vehicles to pass,
-warning them to slow down, or stopping them completely). The transitions between
-states are also clearly defined: green changes to yellow, yellow to red, and red
-back to green. Some transitions are possible, while others are not (\eg, green
-cannot jump directly to red without first passing through yellow).
+For example, a traffic light (see \reffig{intro:modelling:fsm-traffic-light})
+can be described as a finite state machine with three primary states:
+\textit{green}, \textit{yellow}, and \textit{red}. In each state, the traffic
+light has a well-defined behavior (allowing vehicles to pass, warning them to
+slow down, or stopping them completely). The transitions between states are also
+clearly defined: green changes to yellow, yellow to red, and red back to green.
+Some transitions are possible, while others are not (\eg, green cannot jump
+directly to red without first passing through yellow).
 
 \begin{marginfigure}[-3.5cm]
     \centering
@@ -500,16 +564,16 @@ cannot jump directly to red without first passing through yellow).
 \end{marginfigure}
 
 
-So, a state machine is a model of behavior composed of a finite number of
-\textit{states} and \textit{transitions} between those states. Within each state and
-transition some \textit{action} can be performed. A state machine needs to start at
-some \textit{initial state}. Finite refers to a machine that has a limited number of
-possible states and at any given time it will be in one of those states. Its
-core components are described in the following:
+So, a finite state machine is a model of behavior composed of a finite number of
+\textit{states} and \textit{transitions} between those states. Within each state
+and transition some \textit{action} can be performed. A state machine needs to
+start at some \textit{initial state}. Finite refers to a machine that has a
+limited number of possible states and at any given time it will be in one of
+those states. Its core components are described hereinafter:
 
 \begin{itemize}
     \item \textbf{State}. A state represents a particular condition or stage in
-    the state machine. It's a distinct mode of behavior or phase in a process.
+    the machine. It represents a distinct mode of behavior or phase in a process.
     
     \item \textbf{Transition}. This is the process or event that causes the
     state machine to change from one state to another.
@@ -530,18 +594,18 @@ core components are described in the following:
 \subsection{Forecasting and combinatory nature of \glspl{fsmLabel}}
 
 A traffic light is a simple example of a deterministic state machine, because
-its transitions are triggered by a single predictable input — the timer — and
+its transitions are triggered by a single predictable input ---the timer--- and
 therefore its future trajectory is entirely fixed. From any given state, there
 is only one possible next step, so the entire cycle can be anticipated with
 certainty (see \reffig{intro:modelling:fsms-evolution} (a)). Many real systems,
-however, are not this simple. When the set of inputs that can trigger
+however, are not that simple. When the set of inputs that can trigger
 transitions is larger and each input leads to different successor states, the
 system no longer has just one linear trajectory but many possible ones. In such
 cases, the behavior of the machine can be represented as a branching tree, where
 each node corresponds to a state and each branch corresponds to a possible input
 event. This can be illustrated for the traffic light example if a push-button is
-added (see \reffig{intro:modelling:fsms-evolution} (b)). The state will be green
-light unless the push-button is triggered. Starting from an initial state,
+added (see \reffig{intro:modelling:fsms-evolution} (b)). The state will be
+green-light unless the push-button is triggered. Starting from an initial state,
 evaluating now the possible paths that yield in an arbitrary final state given a
 number of steps becomes a combinatory problem. 
 
@@ -565,11 +629,10 @@ transitions, the tree of possible futures can expand exponentially.
 \labsec{intro:modelling:metrics}
 
 For models to be useful they need to accurately represent the real process. In
-order to quantitatively assess how good a model represents a real system we use
-different performance metrics. Four performance metrics are described hereinafter:
-coefficient of determination (R$^2$), \gls[format=long]{rmseLabel},
-\gls[format=long]{maeLabel} and \gls[format=long]{mapeLabel}. These metrics are
-described below.
+order to quantitatively assess how good a model represents a real
+system different performance metrics are used. Four performance metrics are
+described: coefficient of determination (R$^2$), \gls[format=long]{rmseLabel},
+\gls[format=long]{maeLabel} and \gls[format=long]{mapeLabel}.
 
 \textbf{Coefficient of determination}. Regression estimates the relationship
 between input variables\sidenote{also known as features} and a continuous output
@@ -592,7 +655,7 @@ of the experimental values.
 \textbf{Root Mean Square Error}. \gls{rmseLabel} is a statistical measure of
 the difference between the values predicted by a model and the observed values.
 It is calculated as the square root of the mean of the squared differences
-between the predicted and observed values and it has its units. 
+between the predicted and observed values, and it has its units. 
 
 % \marginnote{
 \begin{equation*}
@@ -601,7 +664,7 @@ between the predicted and observed values and it has its units.
 % }
 
 \textbf{Mean Absolute Error}. It represents the average absolute difference
-between predicted and actual values.
+between predicted and measured values.
 
 \begin{equation*}
     \mbox{MAE} = \frac{1}{n} \sum\limits_{i=1}^n \left|y_i - \hat{y}_i\right|
@@ -614,18 +677,6 @@ does so in relative terms:
 \begin{equation*}
     \mbox{MAPE} = \frac{1}{n} \sum\limits_{i=1}^n \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100\%
 \end{equation*}
-
-
-%================================
-\subsection{Implementation software tools}
-\labsec{intro:modelling:tools}
-
-\begin{itemize}
-    \item Gaussian Progress Regression de MATLAB~\sidecite{}
-    \item Gaussian Progress Regression framework written in Python, from the Sheffield machine learning group~\sidecite{gpy2014}
-    \item ANNs: ...~\sidecite{}
-    \item Finite state machine modelling: transitions~\sidecite{}
-\end{itemize}
 
 
 %===================================
@@ -704,44 +755,49 @@ A general expression to define an optimization problem is:
     \labeq{intro:optimization:general-expression}
 \end{equation}
 
-where $\mathbf{x}$ is the vector of decision variables, $f(\mathbf{x})$ is the
-objective function to be minimized, and $g_i(\mathbf{x})$ are the constraints
-of the problem. The objective function is a scalar function that maps the
-decision variables to a real number, representing the cost or performance of the
-system. The constraints are functions that restrict the feasible region of the
-problem, defining the set of values that the decision variables can take. The
-optimization problem is to find the values of the decision variables that minimize
-the objective function while satisfying the constraints. 
+where $\mathbf{x}$ is the vector of decision variables, $\mathbf{e}$ the vector
+of environment variables, $\boldsymbol{\theta}$ the list of parameters,
+$f(\mathbf{x})$ is the objective function to be minimized, and $g_i(\mathbf{x})$
+are the constraints of the problem. The objective function is a scalar function
+that maps the decision variables to a real number, representing the cost or
+performance of the system. The constraints are functions that restrict the
+feasible region of the problem, defining the set of values that the decision
+variables can take. The optimization problem is to find the values of the
+decision variables that minimize the objective function while satisfying the
+constraints. 
 
 
-\begin{marginfigure}[-3.5cm]
+\begin{marginfigure}[-1cm]
     \includegraphics[]{figures/contrained-optimization-vertical.jpg}
     \caption{Constrained optimization problem. The goal is to minimize $y=f(x)$
     with the two continuous  decision variables $x_1$ and $x_2$ constrained to
-    $g(x)$. The problem is \gls{nlpLabel} with a convex solution-space.\\Source: Wang et
-    al.~\cite{wang_structural_2020}}
+    $g(x)$. The problem is \gls{nlpLabel} with a convex solution-space.\\Source: Wang \textit{et
+    al.}~\cite{wang_structural_2020}}
     \labfig{intro:optimization}
 \end{marginfigure}
 
 Regarding the constraints, they can be categorized in two types depending
-whether they can be evaluated before evaluating the objective function or not.:
+whether they can be evaluated before evaluating the objective function or not:
 \begin{itemize}
     \item \textbf{Bounds} or box-bounds. These are constraints that limit the range of the decision variables, such as
     \begin{equation*}
         x_i \in [l_i, u_i], \quad i = 1, \ldots, n
     \end{equation*}
     where $l_i$ and $u_i$ are the lower and upper bounds of the decision
-    variable $x_i$, respectively.
-    \item \textbf{Constraints}. These are constraints that restrict the
-    feasible region of the problem, such as
+    variable $x_i$, respectively. They can be evaluated before evaluating the
+    objective function.
+    \item \textbf{Constraints}. These are constraints that restrict the feasible
+    region (also known as domain) of the problem, such as
     \begin{equation*}
         g_i(\mathbf{x}) \leq 0, \quad i = 1, \ldots, m
     \end{equation*}
     where $g_i(\mathbf{x})$ are the constraint functions that depend on the
-    decision variables $\mathbf{x}$, and $m$ is the number of constraints. They
-    can only be known after evaluating the objective function.
+    decision variables $\mathbf{x}$, and $m$ is the number of constraints. Its
+    value can only be known after evaluating the problem.
 \end{itemize}
 
+These described components of an optimization problem are visualized in
+\reffig{intro:optimization}.
 
 %===================================
 %===================================
@@ -757,41 +813,48 @@ techniques for NLP include gradient-based methods, sequential quadratic
 programming, interior-point methods, and heuristic approaches when derivatives
 are unavailable or the problem is highly non-convex.
 
-As an example, consider the following NLP problem:
-\begin{equation}
-    \begin{aligned}
-        \min_{x_1, x_2} \quad & (x_1 - 2)^2 + (x_2 - 1)^2 \\
-        \text{s.t.} \quad & x_1^2 + x_2^2 \leq 1, \\
-                          & x_1, x_2 \in \mathbb{R}.
-    \end{aligned}
-    \labeq{intro:optimization:example_nlp}
-\end{equation}
-Here, the quadratic objective function is nonlinear as well as the circular constraint
-$x_1^2 + x_2^2 \leq 1$. Both define convex regions so the problem is a convex \gls{nlpLabel}.
+% As an example, consider the following NLP problem:
+% \begin{equation}
+%     \begin{aligned}
+%         \min_{x_1, x_2} \quad & (x_1 - 2)^2 + (x_2 - 1)^2 \\
+%         \text{s.t.} \quad & x_1^2 + x_2^2 \leq 1, \\
+%                           & x_1, x_2 \in \mathbb{R}.
+%     \end{aligned}
+%     \labeq{intro:optimization:example_nlp}
+% \end{equation}
+% Here, the quadratic objective function is nonlinear as well as the circular constraint
+% $x_1^2 + x_2^2 \leq 1$. Both define convex regions so the problem is a convex \gls{nlpLabel}.
 
 \begin{kaobox}[title=Optimization concepts]
     \begin{itemize}
-        \item \textbf{Decision variables}. These are the variables that can be
-        controlled or adjusted in order to optimize the objective function.
+        \item \textbf{Decision variables} ($\mathbf{x}$). These are the variables
+        that can be controlled or adjusted in order to optimize the objective
+        function.
+
+        \item \textbf{Environment variables} ($\mathbf{e}$). These are the variables
+        that cannot be controlled or adjusted, but they can affect the objective
+        function and the constraints.
         
-        \item \textbf{Objective function}. This is the function that needs to be
-        minimized or maximized. It represents the goal of the optimization
-        problem.
+        \item \textbf{Objective function} ($f(\mathbf{x})$). This is the
+        function that needs to be minimized or maximized. It represents the goal
+        of the optimization problem.
 
-        \item \textbf{Constraints}. These are the restrictions or limitations
-        that need to be satisfied in order to find a feasible solution. They can
-        be equality or inequality constraints.
+        \item \textbf{Constraints} ($g(\mathbf{x})$). These are the restrictions
+        or limitations that need to be satisfied in order to find a feasible
+        solution. They can be equality or inequality constraints.
 
-        \item \textbf{Search-space}. This is the set of all possible values
-        of the decision variables that satisfy the bounds.
+        \item \textbf{Search-space} ($\mathscr{X} \subseteq \mathbb{R}^n$). This
+        is the set of all possible values of the decision variables that satisfy
+        the bounds.
 
-        \item \textbf{Feasible region}. This is the set of all possible values
-        of the decision variables that satisfy the constraints. The optimal
-        solution must lie within this region.
+        \item \textbf{Feasible region} ($\mathscr{F} \subseteq \mathscr{X}$).
+        This is the set of all possible values of the decision variables that
+        satisfy the constraints. The optimal solution must lie within this
+        region.
 
-        \item \textbf{Optimal solution}. This is the set of values of the
-        decision variables that minimize or maximize the objective function
-        while satisfying all the constraints.
+        \item \textbf{Optimal solution} ($\mathbf{x}^* \in \mathscr{F}$). This
+        is the set of values of the decision variables that minimize or maximize
+        the objective function while satisfying all the constraints.
 
         \item \textbf{Convexity}. A problem is convex if both the objective
         function and the feasible region are convex. Convex problems have a
@@ -806,15 +869,14 @@ $x_1^2 + x_2^2 \leq 1$. Both define convex regions so the problem is a convex \g
 \subsection{\gls{minlpLabel} problems}
 \labsec{intro:optimization:minlp_problems}
 
-A \gls{minlpLabel} problem, or \emph{mixed-integer nonlinear programming},
-extends the \gls{nlpLabel} formulation by introducing integer (often binary)
-decision variables alongside continuous ones. The presence of discrete variables
-significantly increases the complexity of the problem, as the feasible set
-becomes combinatorial in nature, often leading to an exponential growth in the
-search space. \gls{minlpLabel} problems naturally arise in many engineering
-problems where decisions such as on/off states, integer quantities, or logical
-relations must be combined with nonlinear models. Typical
-solution strategies include branch-and-bound, branch-and-cut, outer
+A \fullgls{minlpLabel} problem, extends the \gls{nlpLabel} formulation by
+introducing integer (often binary) decision variables alongside continuous ones.
+The presence of discrete variables significantly increases the complexity of the
+problem, as the feasible set becomes combinatorial in nature, often leading to
+an exponential growth in the search space. \gls{minlpLabel} problems naturally
+arise in many engineering problems where decisions such as on/off states,
+integer quantities, or logical relations must be combined with nonlinear models.
+Typical solution strategies include branch-and-bound, branch-and-cut, outer
 approximation, and decomposition methods.
 
 As an example, consider the following \gls{minlpLabel} problem:
@@ -872,15 +934,17 @@ There are two main approaches to handle constraints in optimization problems:
 \end{itemize}
 
 By using inequality constraints, the optimization algorithm is forced to find
-the \textit{best} solution that satisfies the constraints, however, in a
-problem with a horizon window, this would require returning a value of the
-constraint for each step in the horizon window. Thus, producing a large vector
-of inequality constraints and increasing the dimension of the problem (\ie its
-complexity). On the other hand returning a single value for the whole episode
-gives little information to the algorithm on how to adapt its decision values
-to satisfy the constraint and thus might be unable\sidenote{By unable we are
-referring to requiring an unfeasible amount of objective function evaluations,
-too much time.} to converge to a solution.
+the \textit{best} solution that satisfies these constraints. However, in
+problems with a horizon window, this would require returning a value of the
+constraint for each step within the horizon, thereby producing a large vector of
+inequality constraints and increasing the problem's dimension (\ie its
+complexity). On the other hand, returning a single aggregated value for the
+entire episode provides much less information to the algorithm about which
+decisions violate the constraints and when. As a result, the optimizer may
+struggle to adapt its decision variables effectively and could fail to
+converge, or require an unfeasibly large number of objective function
+evaluations\sidenote{Here, ``unable'' refers to requiring an unfeasible number of
+objective function evaluations, \ie, too much time.}.
 
 Finally, non constraint-handling capable algorithms can be wrapped with
 constraint handling methods to solve problems with
@@ -919,8 +983,8 @@ Two main approaches are commonly used to address multi-objective problems~\cite{
     solution, so multiple runs with different scalarizations are required to
     approximate the Pareto set.
     \item Population-based methods, such as evolutionary
-    algorithms\sidenote{Described in the following}, which evolve a set of
-    solutions in parallel. Because they operate on a population rather than a
+    algorithms\sidenote{Described in the following section}, which evolve a set
+    of solutions in parallel. Because they operate on a population rather than a
     single solution, these methods naturally approximate the entire Pareto front
     within a single run, capturing multiple trade-offs between conflicting
     objectives.
@@ -944,13 +1008,13 @@ information to guide the search efficiently.
 \begin{itemize}
     \item \textbf{Interior Point OPTimizer
     (IPOPT)}~\sidecite{wachter_implementation_2006} is a numerical optimization
-    algorithm for large-scale nonlinear programming (NLP) problems. It uses a
+    algorithm for large-scale \gls{nlpLabel} problems. It uses a
     primal-dual interior-point method, solving a sequence of barrier subproblems
     to handle inequality constraints while maintaining feasibility. At each
     iteration, IPOPT computes a Newton-type step by solving the sparse
     Karush-Kuhn-Tucker system, simultaneously updating primal and dual
     variables. Line search and barrier parameter updates ensure convergence,
-    even for non-convex problems. Its highly efficient with sparse derivative
+    even for non-convex problems. It is highly efficient with sparse derivative
     matrices.
     
     \item \textbf{Compass search}~\sidecite{kolda_optimization_2003} is a
@@ -961,13 +1025,17 @@ information to guide the search efficiently.
     point. If a trial move in any direction improves the objective, the
     algorithm accepts the move and continues from the new point; otherwise, the
     step size is reduced, and the process repeats. It is a slow but sure local
-    optimization algorithm.
+    optimization algorithm. \\
+    This algorithm is illustrated in
+    \reffig{intro:optimization:cmaes_and_compass}~(b) .
 \end{itemize}
 
 
 \subsubsection{Gradient-free global optimization}
 
-\epigraph{Global optimization: The holy grail! 60\% of the time it works every time.}{\small Johan Löfberg \\ Creator of YALMIP}
+\marginnote{
+    \wideepigraph{Global optimization: The holy grail! 60\% of the time it works every time.}{Johan Löfberg \\Creator of YALMIP}
+}
 
 Global gradient-free optimization refers to a family of optimization methods
 that aim to find the best solution to a problem without relying on gradient
@@ -997,15 +1065,18 @@ dynamics\sidenote{Crossover does exist in \gls{esLabel} but plays a secondary ro
 compared to \glspl{gaLabel}}.
 
 \begin{kaobox}[title=Genetic Algorithms versus Evolutionary Strategies]
-    An interesting reflection from Francesco Biscani and Dario Izzo~\cite{biscani_parallel_2020}:
-    Approximately during the same decades as Evolutionary Strategies were
-    studied, a different group led by John Holland, and later by his student
-    David Goldberg, introduced and studied an algorithmic framework called
-    “genetic algorithms” that were, essentially, leveraging on the same idea but
-    introducing also crossover as a genetic operator. This led to a few decades
-    of confusion and discussions on what was an evolutionary strategy and what a
-    genetic algorithm and on whether the crossover was a useful operator or
-    mutation only algorithms were to be preferred.
+    An interesting reflection from Francesco Biscani and Dario
+    Izzo~\cite{biscani_parallel_2020}:\\
+    \begin{quote}
+        Approximately during the same decades as Evolutionary Strategies were
+        studied, a different group led by John Holland, and later by his student
+        David Goldberg, introduced and studied an algorithmic framework called
+        “genetic algorithms” that were, essentially, leveraging on the same idea but
+        introducing also crossover as a genetic operator. This led to a few decades
+        of confusion and discussions on what was an evolutionary strategy and what a
+        genetic algorithm and on whether the crossover was a useful operator or
+        mutation only algorithms were to be preferred.
+    \end{quote}
 \end{kaobox}
 
 \begin{kaobox}[title=Local versus gradient-free global optimization]
@@ -1025,12 +1096,13 @@ compared to \glspl{gaLabel}}.
     will usually exceed the time required for a complete search of the solution
     space. \\
 
-    The objective is to the best alternative for a particular problem that can
-    consistently find good solutions given some computational budget.    
+    The focus is to try different algorithms and find the best alternative that,
+    given a particular problem, can consistently find good solutions given some
+    computational budget.
 \end{kaobox}
 
 The following global optimization algorithms have been used in this research
-work:\todo{Añadir figuras para visualizar algunos de los algoritmos}
+work:
 
 \begin{marginfigure}[-8.5cm]
     \includegraphics[]{figures/simmulated_annealing.png}
@@ -1050,9 +1122,9 @@ work:\todo{Añadir figuras para visualizar algunos de los algoritmos}
     \item \textbf{(N+1)-ES Simple Evolutionary Algorithm (SEA)}~
     \sidecite{rechenberg_evolution_1989,schwefel_numerical_1981,biscani_parallel_2020}.
     Basic evolutionary strategy algorithm, where a population of individuals at
-    each generation produces one offspring by mutating its best individual
-    uniformly at random within the bounds. Should the offspring be better than
-    the worst individual in the population it will substitute it.
+    each generation produces one offspring by randomly and uniformly mutating
+    its best individual within the given bounds. Should the offspring be better
+    than the worst individual in the population it will substitute it.
 
     \item \textbf{Simple Genetic Algorithm
     (SGA)}~\sidecite{holland_adaptation_1992},~\cite{biscani_parallel_2020}.
@@ -1076,7 +1148,8 @@ work:\todo{Añadir figuras para visualizar algunos de los algoritmos}
     dynamic adaptation of both the covariance structure and step size allows
     CMA-ES to balance exploration and exploitation effectively, prevent
     premature convergence, and achieve fast progress toward optima even in
-    high-dimensional, ill-conditioned, or nonconvex landscapes.
+    high-dimensional, ill-conditioned, or nonconvex landscapes. The algorithm is
+    illustrated in \reffig{intro:optimization:cmaes_and_compass}~(a).
 
     \item \textbf{Extended Ant Colony Optimization
     (GACO)}~\sidecite{schluter_extended_2009},~\cite{ biscani_parallel_2020}.
@@ -1100,7 +1173,8 @@ work:\todo{Añadir figuras para visualizar algunos de los algoritmos}
     through the search space with a velocity influenced by its personal best
     position and the global or neighborhood best positions. Through iterative
     updates of positions and velocities, the swarm balances exploration and
-    exploitation to converge toward optimal solutions.
+    exploitation to converge toward optimal solutions. The algorithm is
+    illustrated in \reffig{intro:optimization:pso}.
     
     \item \textbf{Self-adaptive Differential Evolution}
     (SADE)~\sidecite{storn_differential_1997, brest_selfadapting_2006,
@@ -1134,13 +1208,13 @@ work:\todo{Añadir figuras para visualizar algunos de los algoritmos}
     step size is adjusted based on the success rate of previous moves. This
     allows the algorithm to adaptively balance exploration and exploitation for
     each dimension, improving convergence on high-dimensional or rugged
-    landscapes.
+    landscapes. The algorithm is illustrated in \reffig{intro:optimization:sa}.
     
     \item \textbf{(Improved) Harmony Search}
     (IHS)~\sidecite{geem_new_2001},~\cite{biscani_parallel_2020} inspired by the
     improvisation process of musicians, each musician represents a decision
     variable where each note corresponds to a value, and the aim is to achieve
-    the best possible harmony—analogous to finding the global optimum.  In
+    the best possible harmony ---analogous to finding the global optimum.  In
     practice, every member of the population contributes to the search. At each
     iteration, a new solution is generated and, if it performs better than the
     worst individual in the population, it replaces it. The number of fitness
@@ -1149,15 +1223,15 @@ work:\todo{Añadir figuras para visualizar algunos de los algoritmos}
     introduces dynamic parameters: the probability of reusing values from the
     decision vector is adjusted linearly, while the mutation rate decreases
     exponentially over time. These refinements are designed to balance
-    exploration and exploitation more effectively\sidenote[][*-2]{While HS has
+    exploration and exploitation more effectively\sidenote[][*4]{While HS has
     demonstrated competitive results, it has also been criticized for its
     metaphor: the musical analogy adds little explanatory value and may obscure
     the algorithm's mechanics, which in essence resemble those of
     \glspl{esLabel} or \glspl{gaLabel}, relying on concepts such as mutation and
-    crossover.}
+    crossover.}.
 \end{itemize}
 
-\begin{marginfigure}[-8.5cm]
+\begin{marginfigure}[-4cm]
     \includegraphics[]{figures/particle-swarm-optimization.png}
     \caption{Particle Swarm Optimization concept. Each particle adjusts its
     velocity based on its own experience and that of neighboring particles to
@@ -1174,16 +1248,14 @@ work:\todo{Añadir figuras para visualizar algunos de los algoritmos}
     \hspace{0.01\linewidth}
     \subfloat[\centering Compass-search \\ Source: \href{https://esa.github.io/pagmo2/docs/cpp/algorithms/compass_search.html}{Pagmo 2.19.1 documentation}]{{\includegraphics[width=0.44\linewidth]{figures/compass-search.png}}}%
     \caption[Illustration of optimization runs for two algorithms]{Illustration of optimization runs for two algorithms. In CMA-ES (a) it shows the covariance matrix adaptation on a simple two-dimensional problem. The spherical optimization landscape is depicted with solid lines of equal f-values. It  shows how the distribution (dotted line) of the population (dots) changes during the optimization. On this simple problem, the population concentrates over the global optimum within a few generations.}
-    \labfig{label:context:descriptor}
+    \labfig{intro:optimization:cmaes_and_compass}
 \end{figure*}
-
-
 
 In this research work the two problems that are going to be presented on each
 part are non linear and non-convex. One of them also includes constraints.
-Meta-algorithms enable adapting algorithms that would otherwise be limited for
-some types of problem to be used by wrapping the optimization algorithm with the
-so-called meta-algorithm, two are used:
+Meta-algorithms enable adapting algorithms that would otherwise be limited to
+certain types of problems. This is achieved by wrapping them with the so-called
+meta-algorithm. In this study two meta-algorithms are used:
 
 \begin{itemize}
     \item \textbf{Monotonic Basin Hopping} (MBH)~\cite{biscani_parallel_2020} is
@@ -1205,15 +1277,6 @@ so-called meta-algorithm, two are used:
     individuals are reinserted immediately, influencing the next generation,
     making this approach compatible with non-generational evolutionary
     algorithms.
-\end{itemize}
-
-
-%================================
-\subsection{Implementation software tools}
-\labsec{intro:modelling:tools}
-
-\begin{itemize}
-    \item PyGMO~\sidecite{biscani_esa_2021} is a scientific Python library for massively parallel optimization. It is built around the idea of providing a unified interface to optimization algorithms and to optimization problems and to make their deployment in massively parallel environments easy.
 \end{itemize}
 
 
@@ -1270,7 +1333,7 @@ Feedback control, in particular, offers several fundamental advantages over open
 
 \begin{itemize}
     \item Robustness to uncertainty: Real systems are never perfectly
-    known—models are approximations, and parameters may vary. Feedback allows
+    known ---models are approximations, and parameters may vary. Feedback allows
     the controller to adapt its actions on the fly, reducing the impact of
     modeling errors.
     \item Rejection of disturbances: External disturbances, whether measurable
@@ -1281,28 +1344,28 @@ Feedback control, in particular, offers several fundamental advantages over open
     ensuring safe and predictable behavior.
 \end{itemize}
 
-Summarizing, control theory provides a framework that transforms dynamical
+In short, control theory provides a framework that transforms dynamical
 systems from passive entities into actively regulated, autonomous ones. Through
 feedback, controllers achieve robustness, disturbance rejection, and stability.
 
-\begin{kaobox}[title=A practical example: a washing machine]
-    In a washing machine our objective is to have clean clothes after the
-    washing is done, this would be the desired output. The control actions are
-    mainly water, soup and temperature. The open-loop control of a washing
-    machine consists on a predefined set of programs. Once the operator chooses
-    one program, the washing machine control system will go through the cycle
-    regardless of the load: how many clothes were added, how dirty they are, how
-    powerful the soap used is, etc. \\
+% \begin{kaobox}[title=A practical example: a washing machine]
+%     In a washing machine our objective is to have clean clothes after the
+%     washing is done, this would be the desired output. The control actions are
+%     mainly water, soup and temperature. The open-loop control of a washing
+%     machine consists on a predefined set of programs. Once the operator chooses
+%     one program, the washing machine control system will go through the cycle
+%     regardless of the load: how many clothes were added, how dirty they are, how
+%     powerful the soap used is, etc. \\
     
-    While this is often enough there is a risk
-    of overusing resources (cleaning too much) or failing to properly clean
-    them. A washing machine that could measure for example how dirty the outlet
-    water is (\ie having cleanliness feedback), it could continue cleaning just
-    enough until a satisfactory cleanliness level, potentially using fewer total
-    resources (more efficient use of water and soup) or it would continue
-    cleaning for longer if specially dirty clothes were to be clean, reaching
-    the desired \textit{clean clothes} output. 
-\end{kaobox}
+%     While this is often enough there is a risk
+%     of overusing resources (cleaning too much) or failing to properly clean
+%     them. A washing machine that could measure for example how dirty the outlet
+%     water is (\ie having cleanliness feedback), it could continue cleaning just
+%     enough until a satisfactory cleanliness level, potentially using fewer total
+%     resources (more efficient use of water and soup) or it would continue
+%     cleaning for longer if specially dirty clothes were to be clean, reaching
+%     the desired \textit{clean clothes} output. 
+% \end{kaobox}
  
 
 %===================================
@@ -1311,7 +1374,7 @@ feedback, controllers achieve robustness, disturbance rejection, and stability.
 \labsec{intro:control:pid}
 
 A \gls{pidLabel} controller is one of the most widely used feedback control
-strategies in engineering~\sidenote{Honorable mention here to \gls{mpcLabel}
+strategies in engineering\sidenote{Honorable mention here to \gls{mpcLabel}
 control, not used in this research work but widely used in the industry for
 complex and effective process control, it shares many similarities to the
 optimization just described above and the reader is referred to Camacho et
@@ -1332,38 +1395,43 @@ behavior by considering the rate of change of the error, effectively damping
 oscillations and improving stability by anticipating trends before they cause
 large deviations. Together, these three terms balance immediate reaction,
 long-term correction, and predictive adjustment, resulting in the general
-\gls{pidLabel} control law:
+\gls{pidLabel} control law\sidenote{In ideal form, other representations exist
+like the parallel representation}:
 
 \begin{equation}
-u(t) = K \left( e(t) + \frac{1}{T_i} \int_{0}^{t} e(\tau)\, d\tau + T_d \frac{de(t)}{dt} \right).
+u(t) = K \left( e(t) + \frac{1}{T_i} \int_{0}^{t} e(t)\, dt + T_d \frac{de(t)}{dt} \right),
 \end{equation}
 
-where K is the proportional gain, Ti the integral time, and Td​ the derivative
-time. By tuning these parameters appropriately, the \gls{pidLabel} controller can be
-adapted to a wide variety of dynamic systems, offering both robustness and
-simplicity, which explains its success and popularity in industrial and
-scientific applications. PI controllers, are sufficient for many control
+where $K$ is the proportional gain, $T_i$ the integral time, and $T_d$ the derivative
+time. By tuning these parameters appropriately, the \gls{pidLabel} controller
+can be adapted to a wide variety of dynamic systems, offering both robustness
+and simplicity, which explains its success and popularity in industrial and
+scientific applications. PI controllers are sufficient for many control
 problems, particularly when process dynamics are benign and the performance
-requirements are modest. This is the case in the processes of this research
-work, however, some enhancements\sidenote{This is not an extensive list,
-there are many others advanced extensions that can be applied to the
-architecture, tuning of the controller, process identification, dead-time
-compensators, etc. that are out of the scope of this research work. \\The reader
-is referred to Hägglund and Åström~\cite{hagglundtore_advanced_2006} and Normey-Rico~\cite{normey-rico_control_2007}} can be
-applied to extend the basic \gls{pidLabel} scheme:
+requirements are modest. This is the case of the processes of this research
+work. However, some enhancements can be applied to extend the basic
+\gls{pidLabel} scheme:
+%\sidenote{This is not an extensive list, there
+% are many others advanced extensions that can be applied to the architecture,
+% tuning of the controller, process identification, dead-time compensators, etc.
+% that are out of the scope of this research work. \\The reader is referred to
+% Hägglund and Åström~\cite{hagglundtore_advanced_2006} and
+% Normey-Rico~\cite{normey-rico_control_2007}}
 
 \begin{itemize}
-    \item Anti-windup on the integral action\todo{}
-    \item Feedforward\todo{}
-\end{itemize}
-
-
-%================================
-\subsection{Implementation software tools}
-\labsec{intro:modelling:tools}
-
-\begin{itemize}
-    \item simple-pid
+    \item \textbf{Anti-windup on the integral action:} prevents the integrator
+    from accumulating error when the actuator saturates, avoiding overshoot and
+    slow recovery once the control signal returns within bounds.
+    
+    \item \textbf{Feedforward:} improves disturbance rejection and setpoint
+    tracking by adding a direct control action based on measurable inputs or
+    known process dynamics, reducing the burden on the feedback loop.
+    
+    \item \textbf{Gain scheduling:} adapts controller parameters to changing
+    operating conditions, maintaining performance and stability across a wide
+    range of process regimes. It compensates for nonlinearities and varying
+    dynamics by switching or interpolating between different sets of controller
+    gains based on the current operating point or system state.
 \end{itemize}
 
 
@@ -1381,12 +1449,18 @@ computationally expensive, so it is typically addressed using simplified process
 models with long sampling periods, and the computation of new decisions is
 performed only occasionally.
 
+\begin{marginfigure}[-3.5cm]
+    \includegraphics[]{figures/hierarchical-architecture-diagram.png}
+    \caption{Hierarchical control architecture}
+    \labfig{intro:hierarchical-control}
+\end{marginfigure}
+
 In contrast, low-level process control requires frequent updates of control
 actions that must be computed quickly. A single centralized system attempting to
 address both high- and low-level problems would therefore face major challenges.
 Moreover, in large-scale systems, any failure of this centralized solution could
-compromise many—often critical—processes. For these reasons, decentralized and
-distributed approaches are often preferred.
+compromise many ---often critical--- processes. For these reasons, decentralized
+and distributed approaches are often preferred.
 
 In such approaches, complexity is divided among different agents (or layers).
 Each agent has a limited, problem-specific set of responsibilities. Various
@@ -1405,32 +1479,18 @@ are~\sidecite{scattolini_architectures_2009}:
     \item Decoupling between optimization and critical process control
 \end{itemize}
 
-In this research, a hierarchical two-layer control architecture is adopted as
-visualized in \reffig{intro:hierarchical-control}. At the upper layer, a \gls{rtoLabel} determines the
-optimal operating conditions with respect to an economic performance index,
-using a detailed but static nonlinear physical model of the system. The lower
-layer relies on a simpler linear dynamic model—often derived through
-identification experiments—to design regulators such as \gls{mpcLabel} or
-\gls{pidLabel} controllers that ensure the \gls{rtoLabel} targets are met, while
-also providing bottom-up feedback on constraints and performance. Despite its
-static nature, the \gls{rtoLabel} model should be periodically updated through
-reconciliation procedures to adapt to slow disturbances, consistency must be
-maintained between the models used at the upper and lower layers, and
-steady-state optimization must guarantee that the computed input and output
-references are both feasible and as close as possible to the desired
+In this research work, a hierarchical two-layer control architecture is adopted
+as visualized in \reffig{intro:hierarchical-control}. At the upper layer, a
+\gls{rtoLabel} determines the optimal operating conditions with respect to an
+economic performance metric, using a detailed but pseudo-dynamic nonlinear
+physical model of the system. The lower layer relies on a simpler linear dynamic
+model, often derived through identification experiments, to design regulators
+such as \gls{mpcLabel} or \gls{pidLabel} controllers that ensure the
+\gls{rtoLabel} targets are met, while also providing bottom-up feedback on
+constraints and performance. Although the \gls{rtoLabel} model is inherently
+static, it should be periodically updated through reconciliation procedures to
+account for slow disturbances. Consistency must be maintained between the models
+used in the upper and lower control layers, and the steady-state optimization
+should ensure that the computed input and output references are both feasible
+and as close as possible to the desired
 setpoints~\cite{scattolini_architectures_2009}.
-
-\begin{marginfigure}[-5.5cm]
-    \includegraphics[]{figures/hierarchical-architecture-diagram.png}
-    \caption{Hierarchical control architecture}
-    \labfig{intro:hierarchical-control}
-\end{marginfigure}
-
-%================================
-\subsection{Implementation software tools}
-\labsec{intro:hierarchical:tools}
-
-\begin{itemize}
-    \item Airflow during the implementation. For the management and launching of
-    the upper layer optimization scripts.
-\end{itemize}

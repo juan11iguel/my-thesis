@@ -90,6 +90,23 @@ a complete picture and can be misleading, as it may mask poor performance during
 critical periods. Reducing water use during times of abundance, while failing to
 achieve significant savings during water-scarce periods, does not represent an
 optimal solution—even if total annual water consumption appears lower.
+
+\begin{kaobox}[title=The Increasing Variability of Rainfall] 
+    Water scarcity, stress, and climate change are typically portrayed through a
+    lens of averages and trends. But this is seldom an adequate representation
+    of water availability throughout much of the world, where deviations from
+    trends are widespread and are growing more frequent, as witnessed by the
+    increased frequency of floods and droughts. Adapting to rainfall variability
+    is often much more challenging than accommodating long-term trends because
+    of the unpredictable duration of a deviation, its uncertain magnitude, and
+    its unknown frequency. With climate change, deviations from trends are
+    projected to become more pronounced and more frequent. Inter-annual
+    variability in particular is expected to pose a large threat in some of the
+    world's driest regions.\\
+
+    Source: Uncharted Waters: The New Economics of Water Scarcity and Variability~\cite{damania_uncharted_2017}
+\end{kaobox}
+
 Significant cost savings can be achieved with increasing water availability,
 either from  the specification of a smaller condenser or by lowering operating
 turbine exhaust pressures (increasing the wet ratio).
@@ -111,7 +128,7 @@ explicitly considered in the decision-making process:
     the cost of operation.
 \end{itemize}
 
-\begin{marginfigure}[] % +5.5cm
+\begin{marginfigure}[*-10] % +5.5cm
     \includegraphics[]{figures/cc-optimization-environment.png}
     \caption{Block diagram of the optimization scheme including environment components}
     \labfig{cc:optimization:environment}
@@ -595,11 +612,6 @@ the current optimization step ($i$) until the end of the prediction horizon
 \end{problemcounter}
 
 
-\begin{marginfigure}[*-10]
-    \includegraphics[]{figures/optimization-diagrams-search-space.png}
-    \caption{Visualization of a constrained search space for two decision variables}
-    \labfig{cc:optimization:search-space}
-\end{marginfigure}
 
 Although the formulation in principle allows for an arbitrarily long prediction 
 horizon, in practice it is limited to the number of steps for which reliable 
@@ -614,6 +626,11 @@ the end of the operation day.
     time series with non-uniform time steps.
 \end{remark}
 
+\begin{marginfigure}[*-3]
+    \includegraphics[]{figures/optimization-diagrams-search-space.png}
+    \caption{Visualization of a constrained search space for two decision variables}
+    \labfig{cc:optimization:search-space}
+\end{marginfigure}
 
 % \begin{enumerate} 
 %     \item An operation plan of the thermal load (power block or MED operating
