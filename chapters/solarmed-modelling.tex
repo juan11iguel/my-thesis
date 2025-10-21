@@ -43,8 +43,8 @@ system. However, some models described in the following sections are
 steady-state approximations. While this can introduce discrepancies during
 transient events, the impact is minor. The model is intended primarily for
 optimization, with sampling times on the order of minutes. Moreover, inputs to
-slower components are adjusted infrequently—typically at intervals of 30 minutes
-or more—allowing sufficient time for the system to reach steady
+slower components are adjusted infrequently (typically at intervals of 30 minutes
+or more) allowing sufficient time for the system to reach steady
 state\sidenote{Further discussed in \nrefsec{intro:modelling}}.
 
 %===================================
@@ -95,13 +95,13 @@ constant parameters can be found in
         & L_{pipe,eq} = \frac{T_s}{A_{pipe,eq}} \sum_{k=0}^{n} q_{sf}[k] \tag*{{\small\textit{Equivalent pipe length [m]}}} \\
         & L_{eq} = n_{c,s} \cdot L_t \tag*{{\small\textit{Eq. collector tube length [m]}}} \\
         & c_f = n_{c-loop} \cdot n_{tub-c} \tag*{{\small\textit{Conversion factor [-]}}} \\
-        & K_{1} = \beta / (\rho \cdot c_p \cdot A_{cs}) \tag*{{\small\textit{Solar contribution [K·m$^2$/J]}}} \\
-        & K_{2} = H / (L_{pipe,eq} \cdot A_{cs} \cdot \rho \cdot c_p) \tag*{{\small\textit{Environment losses [1/s]}}} \\
-        & K_{3} = 1 / (L_{pipe,eq} \cdot A_{cs} \cdot c_f) \cdot (1/3600) \tag*{{\small\textit{Heat absorbed [h/(3600·m$^3$·s)]}}} \\
+        & K_{1} = \beta / (\rho \cdot c_p \cdot A_{cs}) \\
+        & K_{2} = H / (L_{pipe,eq} \cdot A_{cs} \cdot \rho \cdot c_p) \\
+        & K_{3} = 1 / (L_{pipe,eq} \cdot A_{cs} \cdot c_f) \cdot (1/3600) \\
         & T_{\text{out}}(k) = T_{\text{out}}(k-1) + \Big( \\
-        & \qquad + K_1 \cdot I \\
-        & \qquad - K_2\cdot (\overline{T}-T_{amb}) \\ 
-        & \qquad - K_3 \cdot \boldmath{q}_{k-n_d} \left( T_{\text{out},k-1} - T_{\text{in},k-n_{d}} \right) \\
+        & \qquad + K_1 \cdot I \tag*{{\small\textit{Solar contribution [K·m$^2$/J]}}} \\
+        & \qquad - K_2\cdot (\overline{T}-T_{amb}) \tag*{{\small\textit{Environment losses [1/s]}}} \\ 
+        & \qquad - K_3 \cdot \boldmath{q}_{k-n_d} \left( T_{\text{out},k-1} - T_{\text{in},k-n_{d}} \right) \tag*{{\small\textit{Heat absorbed [h/(3600·m$^3$·s)]}}} \\
         & \Big) \cdot T_s 
     \end{align*}
     \labmod{solarmed:sf}
@@ -238,7 +238,7 @@ with a coefficient of determination of $R^2 = 0.99$.
 \begin{modelcounter}{Solar field electrical consumption}
     \begin{align*}
         C_{e,sf}\,[kW_e] &= \text{sf electrical consumption}(q_{sf}\,[m^3/h]) \\
-        & C_{e,sf} = 1.3\cdot{10}^{-5} \cdot q_{sf}^3 + -8.72\cdot{10}^{-4} \cdot q_{sf}^2 + 2.29\cdot{10}^{-2} \cdot q_{sf} + -8.48\cdot{10}^{-2}
+        C_{e,sf} &= 1.3\cdot{10}^{-5} \cdot q_{sf}^3 + -8.72\cdot{10}^{-4} \cdot q_{sf}^2 + 2.29\cdot{10}^{-2} \cdot q_{sf} + -8.48\cdot{10}^{-2}
     \end{align*}
     \labmod{solarmed:sf:electrical_consumption}
 \end{modelcounter}
@@ -349,16 +349,7 @@ no heat is being delivered to the load.
 
 A first-principles model of a two-tank thermal storage system is developed to
 capture the key thermodynamic and fluid dynamic phenomena governing energy
-transfer and stratification. The system is based on the design principles
-outlined by Duffie and Beckman~\sidecite{duffie_energy_2013}, and consists of two
-thermally insulated tanks: a hot tank and a cold tank, each serving distinct
-roles in the thermal cycle. In normal operation, heat is extracted from the
-bottom of the cold tank, and after being heated, it is injected into the top of
-the hot tank. The load extracts heat from the top of the hot tank, and returns
-it to the bottom of the cold tank, completing the cycle. The tanks are
-connected from top of the cold tank to the bottom of the hot tank, allowing for
-recirculation of the fluid between the two tanks.\todo{Esto debería
-probablemente ir en la parte de la instalación}
+transfer and stratification~\sidecite{duffie_energy_2013}.
 
 The governing model equations and boundary conditions to simulate the transient
 thermal behavior of the storage system, including mass and energy balances,
@@ -835,19 +826,24 @@ below 8~\% \gls{mapeLabel}.
 %===================================
 %===================================
 \subsection{\gls{medLabel}}
+\labsec{solarmed:modelling:med}
 
 The \gls{medLabel} is modelled statically, considering changes in the system
 operating conditions happen at a slow enough rate that the dynamic behavior
 between stable states can be neglected, and thus, only those stable states are
-considered. The model is a data driven one, specifically a \gls{gprLabel} model
-calibrated using data from two experimental campaigns in the pilot plant: the
-first one is described in Palenzuela et
-al.~\sidecite{palenzuela_experimental_2016} and took place between 2009 and
-2012. The second experimental campaign took place between 2021 and 2024 and is
-the one described in \refch{solarmed:std}, not as extensive as the first one but
-extending the operation range of the heat source temperature. In total, the
-experimental data spans 6 years of operation and make available
-549 operation points with the range per variable shown in \reftab{solarmed:modelling:med-data-range}. 
+considered. Two models are developed for the \gls{medLabel}: a data-driven model
+based on experimental data from the pilot plant, and a first-principles model
+based on thermodynamic equations. The data-driven model is the one integranted
+in the overall plant model used in optimization applications (See
+\refch{solarmed:optimization}), while the first-principles model is used for
+comparison purposes and to gain insight into the operation of the \gls{medLabel}
+(See \refch{solarmed:std}).
+
+%================================
+\subsubsection{Data-driven model}
+
+A \gls{gprLabel} model calibrated using data from two experimental campaigns
+desbrined in \refsec{solarmed:facility:med}.
 
 % Bloque de modelo con interfaz y ecuaciones
 \begin{modelcounter}{\gls{medLabel} model}
@@ -869,7 +865,6 @@ experimental data spans 6 years of operation and make available
     \labfig{solarmed:diagrams:med}
 \end{marginfigure}
 
-
 As observed in \refmod{solarmed:med}, the model has five inputs: the heat source
 flow rate ($q_{med,s}$), the feedwater flow rate ($q_{med,f}$), the inlet
 temperature of the heat source ($T_{med,s,in}$), the inlet temperature of the
@@ -883,7 +878,12 @@ In \refmod{solarmed:med}, the functions $f_{bb,q}$ and $f_{bb,T}$ represent the
 black-box \gls{gprLabel} models for the model with the main outputs and the
 auxiliary output, respectively. 
 
+%================================
+\subsubsection{First-principles model}
 
+The first-principles model is based on thermodynamic equations and mass and
+energy balances. A detailed description of the model can be found in the
+Appendix, \nrefch{appendix:med-model}.
 
 %================================
 \subsubsection{Electrical consumption}
@@ -928,27 +928,6 @@ model is shown in \refmod{solarmed:modelling:med:electrical_consumption}.
     \end{align*}
     \labmod{solarmed:modelling:med:electrical_consumption}
 \end{modelcounter}
-
-\begin{margintable}[*-15]
-    \caption{\gls{medLabel} plant available experimental data range.}
-    \labtab{solarmed:modelling:med-data-range}
-    \resizebox{\linewidth}{!}{%
-    \begin{tabular}{rccl}
-    \toprule
-    \textbf{Variable} & $\mathbf{\underline{x}}$ & $\mathbf{\overline{x}}$ & \textbf{Unit} \\
-    \midrule
-    $q_{s}$      & 10.50 & 44.35 & m$^3$/h \\
-    $T_{s,in}$   & 52.01 & 80.98 & $^\circ$C \\
-    $q_{f}$      & 4.98  & 8.27  & m$^3$/h \\
-    $T_{c,in}$   & 12.14 & 33.64 & $^\circ$C \\
-    $T_{c,out}$  & 19.36 & 39.89 & $^\circ$C \\
-    $q_{d}$      & 1.61  & 3.08  & m$^3$/h \\
-    $T_{s,out}$  & 50.05 & 77.31 & $^\circ$C \\
-    $q_{c}$      & 8.03  & 23.13 & m$^3$/h \\
-    \bottomrule
-    \end{tabular}
-    }
-\end{margintable}
 
 %================================
 \subsubsection{Validation}
@@ -1270,8 +1249,8 @@ initialized the initial temperatures for the solar field and thermal storage.
     \begin{align*}
         q_{med,d},\,C_{e} &= f\bigl(
             q_{med,s}, q_{med,f}, T_{med,s,in}, T_{med,c,out}, \\
-            &\qquad q_{ts,src}, q_{sf}, \text{med}_{vac,st}, T_{med,c,in}, T_{amb}, I;\,
-            \theta_{sf}, \theta_{hx}, \theta_{med}, \theta^{fsm}_{sfts}, \theta^{fsm}_{med}, \theta_{\infty}
+            &\qquad q_{ts,src}, q_{sf}, med_{vac,st}, T_{med,c,in}, T_{amb}, I; \\
+            &\qquad \theta_{sf}, \theta_{hx}, \theta_{med}, \theta^{fsm}_{sfts}, \theta^{fsm}_{med}, \theta_{\infty}
         \bigr) \\ \\
         &\text{st}_{sfts}  = \text{sfts fsm model}(q_{sf}, q_{ts,src}; \theta^{fsm}_{sfts}) \\
         &\text{st}_{med}  = \text{med fsm model}(q_{med,s}, q_{med,f}, T_{med,c}; \theta^{fsm}_{med}) \\ \\
@@ -1283,24 +1262,26 @@ initialized the initial temperatures for the solar field and thermal storage.
             T_{\text{amb}};\,
             \theta_{sf}
         \right) \\
-        &\mathbf{T}_\text{ts,h},\; \mathbf{T}_\text{ts,c} = \text{ts model}\Bigl(
-            \mathbf{T}_\text{ts,h}(k-1),\;
-            \mathbf{T}_\text{ts,c}(k-1),\;
+        &\pmb{T}_\text{ts,h},\; \pmb{T}_\text{ts,c} = \text{ts model}\Bigl( \\
+            & \qquad \qquad \pmb{T}_\text{ts,h}(k-1),\;
+            \pmb{T}_\text{ts,c}(k-1),\;
             T_\text{hx,s,out}, \\
-            &\quad T_\text{med,s,out},\;
+            &\qquad \qquad T_\text{med,s,out},\;
             q_\text{ts,src},\;
             q_\text{ts,dis},\;
             T_\text{amb};\;
-            \boldsymbol{\theta}_\text{ts}
-        \Bigr) \\
-        &T_{sf,in},\,T_{hx,s,out} = \text{hx model}\!\left(
+            \boldsymbol{\theta}_\text{ts} \\
+        & \Bigr) \\
+        &T_{sf,in},\,T_{hx,s,out} = \text{hx model}(
             T_{sf,out}, T_{ts,c,b}, q_{sf}, q_{ts,src}, T_{amb}; \theta_{hx}
-        \right) \\
+        ) \\
         &q_{ts,dis}=\text{3wv model}(q_{med,s}, T_{med,s,in}, T_{med,s,out}) \\
-        &q_{med,d},\,T_{med,s,out},\,q_{med,c},\,T_{med,c,out} = \text{med model}\left( q_{med,s},q_{med,f}, T_{med,s,in}, T_{med,c,out}, T_{med,c,in} \right) \\ \\
+        &q_{med,d},\,T_{med,s,out},\,q_{med,c},\,T_{med,c,out} = \text{med model}\bigl(\\ 
+        &\qquad \qquad q_{med,s},q_{med,f}, T_{med,s,in}, T_{med,c,out}, T_{med,c,in} \\ 
+        & \bigr) \\ \\
         &C_{e,sf} = \text{sf electrical consumption}(q_{sf}) \\
-        &C_{e,ts} = \text{ts electrical consumption}\left(q_{ts,src}\right) \\
-        &C_{e,med} = \text{med electrical consumption}(q_{med,s}, q_{med,f}, q_{med,c}, q_{med,d}, q_{med,b}) \\
+        &C_{e,ts} = \text{ts electrical consumption}(q_{ts,src}) \\
+        &C_{e,med} = \text{med electrical cons.}(q_{med,s}, q_{med,f}, q_{med,c}, q_{med,d}, q_{med,b}) \\
         &C_e=C_{e,sf}+C_{e,ts}+C_{e,med}
     \end{align*}
     \labmod{solarmed:solarmed}
@@ -1320,13 +1301,14 @@ The supervisory logic (\ie, \glspl{fsmLabel}) first decides which subsystems are
 allowed to act (solar field circulating, storage charging/discharging,
 \gls{medLabel} producing). That logic turns setpoints into admissible operating
 points: a requested flow or temperature may be permitted as is, clipped to a
-limit, or forced to zero if a component is inactive, or to a predefined
+limit, or forced to zero if a component is inactive, or set to a predefined
 value\sidenote{For example, if the \gls{medLabel} subsystem is in the shutting
 down process, no thermal load is extracted from the thermal storage, and only
 the electrical consumption of the extraction pumps is considered (and of the
 vacuum if kept active)}. Once the discrete state of the system is fixed for the
 current step, the physics is evaluated in a sequence that mirrors causality and
-heat flow.
+heat flow. This set of dependencies between the different subsystems is
+visualized in \reffig{solarmed:modelling:complete_model}.
 
 The \gls{medLabel} is solved first because it defines the thermal demand that
 the rest of the system must support.  With the \gls{medLabel} demand known, the
@@ -1348,8 +1330,7 @@ field and storage are not simultaneously active (for example, idle storage or
 field, or storage discharging), the supply side decouples: the solar field is
 first evaluated alone, producing a primary-side outlet temperature ; then the
 tanks update their stratified temperatures by applying the computed inlet/outlet
-temperatures and the discharge flows. This set of dependencies between the
-different subsystems is visualized in \reffig{solarmed:modelling:complete_model}.
+temperatures and the discharge flows.
 
 \begin{marginfigure}[-3cm]
     \includegraphics[]{figures/solarmed-modelling-complete_model.png}

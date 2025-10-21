@@ -1,21 +1,47 @@
 \pagelayout{wide} % No margins
-\addpart{Energy management in MED processes driven by variable energy sources}
-\pagelayout{margin} % Restore margins
+\myepigraphhead[500]{Just some phrase, it may be longer, it might be shorter, but in the end, it's a phrase. Aren't we all phrases? Well, no}{Someone else answering someone}
+\part{Energy management in \gls{medLabel} processes driven by variable energy
+sources}
 
-\wipbox{}
+\todo{TL;DR}
 
-\tldrbox{
-    ...
+\tldrbox{ To enhance the applicability and sustainability of solar thermal
+technologies, this work investigates a novel cooling system for the power block
+of a \gls{cspLabel} plant, combining dry and wet cooling components. A model of
+the \gls{ccsLabel} was developed alongside a two-stage optimization strategy.
+The methodology was validated using an experimental pilot plant, achieving R$^2$
+values above 0.9 for the main output variables and successfully adapting the
+plant's operation to changing conditions.
+
+A case study is presented for a commercial 50~MWe \gls{cspLabel} plant with 8
+hours of storage, Andasol-II, using annual simulations under a water-scarcity
+scenario where the current wet-only cooling system is replaced with the proposed
+\gls{ccsLabel}. Results indicate a potential 80~\% reduction in cooling costs
+and a 48~\% reduction in mean annual water use, but more importantly, a 38~\%
+reduction during the driest and hottest months, demonstrating the significant
+potential of the system when operated optimally. \\
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cc-visual-abstract-with-results.png}\\
+    \small \textit{Visual abstract}
+\end{minipage}
 }
-
-% Visual abstract
-a\todo{Add visual abstract}
-
-\section*{Derived scientific contributions}
-\addcontentsline{toc}{section}{Derived scientific contributions}
 
 \section*{Part structure}
 
+This part is structured as follows: first in \nrefch{cc:intro} a context of
+concentrated solar thermal technologies is provided and their relationship with
+the water resource, specifically for the case of \gls{cspLabel}. Then, the
+experimental \gls{ccsLabel} pilot at \gls{psaLabel} is presented in
+\refch{cc:facility}. The methodology for modelling and optimizing the operation
+of the system are described in \refch{cc:modelling} and \refch{cc:optimization},
+respectively. Both are validated in the experimental plant as showcased in
+\refch{cc:validation}. Finally, \nrefch{cc:simulation}, describes and analyzes
+the results of the annual simulations performed for a commercial \gls{cspLabel}
+plant using the proposed cooling system.
+
+\pagelayout{margin} % Restore margins
 %===================================
 %===================================
 %===================================
@@ -23,20 +49,500 @@ a\todo{Add visual abstract}
 \chapter{Thermal desalination}
 \labch{intro:desalination}
 
-\wipbox{}
+\glsresetall
 
-Desalination is increasingly recognized as a key strategy to address global
-freshwater scarcity, driven by the combined pressures of climate change and
-population growth. Regions already facing drought and water stress, such as
-parts of Spain, are expected to see growing dependence on desalinated water to
-meet rising demand. While desalination technologies—particularly membrane-based
-systems like \gls[format=long]{roLabel}—have seen rapid expansion, the energy
-intensity of the process remains a major challenge. To mitigate this, efforts
-have focused on improving energy efficiency and integrating renewable energy
-sources such as solar or geothermal heat. In particular, thermal desalination
-technologies like \gls{medLabel} are gaining renewed interest due to their
-compatibility with low-exergy heat sources (\eg waste heat) and the ability to
-treat high-salinity brines. These thermal processes also align better with
-circular economy approaches, allowing the concentration of brine and the
-recovery of valuable minerals such as lithium or magnesium, an emerging field
-known as brine mining.
+\tldrbox{ Desalination is often seen as a solution to mitigate freshwater
+    scarcity in the face of climate change and population
+    growth~\cite{pltonykova_united_2020,jones_state_2019}. It already plays a
+    fundamental role in many regions~\cite{eke_global_2020}, but, as more
+    frequent droughts and water shortages are expected, the demand for
+    desalinated water is likely to increase.\\
+
+    However, desalination also faces several challenges, the most important
+    being the intense energy required to separate salts from seawater, which
+    makes it an expensive process compared to other methods to obtain fresh
+    water.\\
+
+    Low-temperature \gls{medLabel} systems constitute a mature, robust, and
+    technically sound solution for brine concentration and resource recovery,
+    especially when paired with waste or renewable heat sources. Rather than
+    being seen as outdated compared to mechanical desalination, modern
+    \gls{medLabel} configurations play a complementary role in integrated
+    water-energy systems aimed at sustainability and near-zero discharge. }
+
+%===================================
+%===================================
+\section{Water crisis}
+\labsec{solarmed:intro:water-crisis}
+
+One of the many bad consequences of climate change is the rapid desertification
+of the planet. According to World Resources Institute
+projections~\sidecite{kuzma_aqueduct_2023} (See
+\reffig{solarmed:water-stress-map}), 51 countries will suffer from high water
+stress by 2050. Many regions, including the Arabian Peninsula, Iran, India, and
+North Africa, are expected to consume at least 80~\% of their water supply. The
+issue is not confined to emerging economies, as Southern European countries like
+Spain, Italy, and Portugal are also significantly affected with projections of
+extremely high water scarcity.
+
+\begin{figure}
+    \includegraphics[width=.7\textwidth]{figures/water-stress-map.jpeg}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{https://www.statista.com/chart/26140/water-stress-projections-global/}}
+    \caption{Global water stress map. \\[1ex]Source:
+    \href{https://www.statista.com/chart/26140/water-stress-projections-global/}{Statista}.\\[1ex]
+    \usebox\captionqr}
+    \labfig{solarmed:water-stress-map}
+\end{figure}
+
+
+Desalination is often seen as a solution to mitigate freshwater scarcity in the
+face of climate change and population
+growth~\sidecite{pltonykova_united_2020,jones_state_2019}. It already plays a
+fundamental role in many regions~\sidecite{eke_global_2020}, but, as more
+frequent droughts and water shortages are expected, the demand for desalinated
+water is likely to increase~\sidecite{mekonnen_four_2016}. However, desalination
+also faces several challenges, the most important being the intense energy
+required to separate salts from seawater, which makes it an expensive process
+compared to other methods to obtain fresh water.
+
+In a water scarcity scenario, the priority should always be to reduce the water
+demand in the first place~\sidecite{semiat_energy_2008}. Secondly, to recycle as
+much water as possible so that it can be reused~\sidecite{howe_principles_2012}.
+However, for many parts of the world, these are only palliative measures. Simply
+put, there will not be enough water available to satisfy its needs, and thus the
+energy intense process of desalination is the only viable alternative.
+
+Great efforts are being made to reduce the energy consumption of desalination
+and use renewable energies to increase its
+sustainability~\sidecite{shekarchi_comprehensive_2019,allouhi_green_2024,schar_optimization_2023}.
+Another path to follow is to generate added value from the separation process. 
+
+%===================================
+%===================================
+\section{Brine concentration and mining}
+\labsec{solarmed:intro:brine}
+
+A byproduct of the desalination process, brine typically exhibits salinities
+1.6-2.1 times higher than seawater, along with residual process chemicals such
+as coagulants, antiscalants, and
+disinfectants~\sidecite{panagopoulos_study_2022}. Its conventional disposal
+methods—such as marine discharge, deep-well injection, evaporation ponds, and
+land application—are often unsustainable, leading to marine ecosystem stress,
+soil salinization, and groundwater
+contamination~\sidecite{panagopoulos_environmental_2020}. High-salinity plumes
+can cause osmotic shock in marine organisms, disrupt seagrass and coral
+communities, and alter local biogeochemical conditions. These impacts are
+particularly pronounced in semi-enclosed basins such as the Mediterranean or Red
+Sea, where dilution capacity is limited.
+
+At the same time, desalination brine represents a largely untapped resource.
+Brines are rich in sodium, chloride, magnesium, calcium, and potassium, as well
+as trace valuable metals like lithium, rubidium, and cesium, which have high
+commercial value~\cite{panagopoulos_environmental_2020}. This recognition has
+led to growing interest in brine management and valorization, an approach that
+aligns with the principles of a circular water economy. Through \gls{mldLabel}
+and \gls{zldLabel} systems, it is possible to recover up to 95-100~\% of
+freshwater and extract valuable salts and minerals, turning waste into a
+secondary source of raw materials~\cite{panagopoulos_environmental_2020}. This
+strategy not only reduces environmental impacts but also offers potential
+economic benefits, offsetting part of the desalination cost.
+
+However, technical and economic barriers still limit large-scale implementation
+of brine mining. Challenges include high energy demand, low extraction
+efficiencies for trace elements, and the immaturity of integrated hybrid systems
+combining membrane, thermal, and chemical processes. Moreover, the dominance of
+sodium chloride—by far the most abundant constituent—means that saturation
+processes generate vast quantities of common salt, creating logistical and
+market challenges for its reuse. Recent studies are exploring new applications
+for desalination brines, such as using them as sources of chloride and nitrate
+ions in hydrometallurgical leaching or as inputs for industrial chemical
+production~\sidecite[*-4]{hernandez_use_2020}.
+
+%===================================
+%===================================
+\section{Overview of Desalination Technologies}
+\labsec{solarmed:intro:technologies}
+
+
+Desalination refers to the set of processes that remove dissolved salts and
+impurities from saline water to produce freshwater suitable for drinking,
+irrigation, or industrial use. These technologies can be broadly divided into
+thermal and mechanical-based processes, depending on the dominant physical
+mechanism of salt separation~\sidecite{el-dessouky_fundamentals_2002}.
+
+
+%================================
+\subsection{Mechanical Technologies}
+\labsec{solarmed:intro:technologies:mechanical}
+
+Membrane processes rely on selective transport through semipermeable membranes,
+driven by pressure, concentration, or electrical potential differences, without
+phase change. They have become dominant in global desalination capacity because
+of lower energy requirements and modular scalability. The main categories are:
+
+\begin{itemize}
+    \item \gls{roLabel}. The most widely adopted method, where high-pressure
+    pumps (50-80 bar for seawater) force water through semipermeable membranes,
+    rejecting dissolved salts. \gls{roLabel} systems achieve high recovery and
+    energy efficiency, particularly when coupled with modern energy recovery
+    devices, but require careful pretreatment to prevent fouling and scaling. 
+    \item \gls{nfLabel} and \gls{foLabel}. Emerging variants designed for
+    partial desalination, pretreatment, or hybrid systems that improve overall
+    process efficiency.
+\end{itemize}
+
+%================================
+\subsection{Thermal Technologies}
+\labsec{solarmed:intro:technologies:thermal}
+
+Thermal desalination processes are based on phase change, involving the
+evaporation of saline water and condensation of vapor as pure distillate. They
+were the first large-scale desalination methods to be commercialized and remain
+widely used, particularly in areas with access to low-cost fuel or waste heat.
+The main thermal processes are:
+
+\begin{itemize}
+    \item \gls{msfLabel}. In \gls{msfLabel}, seawater is heated and then flashed
+    into vapor in a series of chambers operating at successively lower
+    pressures. The vapor is condensed to produce distilled water, and the
+    released heat is recovered to preheat the feed. \gls{msfLabel} systems are
+    robust and well-proven for large capacities but have high thermal and
+    electrical energy requirements.
+    
+    \item \fullgls{medLabel}. \gls{medLabel} involves a sequence of
+    evaporation–condensation stages (or “effects”) at decreasing pressures.
+    Vapor produced in one effect serves as the heating medium for the next,
+    significantly improving thermal efficiency. \gls{medLabel} systems typically
+    operate at 60–70~$^\circ$C to minimize scaling but can reach up to 120
+    ~$^\circ$C when properly pretreated. They are highly reliable and
+    well-suited to integration with waste heat or solar thermal sources.
+    
+    \item \gls{vcLabel}. In Vapor Compression, the vapor generated from the feed
+    is compressed either mechanically (\glsentryshort{mvcLabel}) or thermally
+    (\glsentryshort{tvcLabel}) to raise its temperature and pressure so it can
+    serve as the heat source for further evaporation. \glsentryshort{mvcLabel}
+    systems are compact and efficient for small to medium capacities, while
+    \glsentryshort{tvcLabel} is often combined with \gls{medLabel} to improve
+    energy recovery.
+
+    \item \gls{mdLabel}. Membrane Distillation bridges the gap between thermal
+    and membrane technologies. It operates on the principle of vapor-phase
+    transport through a hydrophobic, microporous membrane. The driving force is
+    a vapor pressure difference generated by a temperature gradient across the
+    membrane, rather than hydraulic pressure. The hot saline feed partially
+    evaporates at the membrane surface, and the vapor diffuses through the
+    membrane pores to condense on the cooler permeate side. \gls{mdLabel} can
+    utilize low-grade or waste heat (<80~$^\circ$C), tolerate very high salinity
+    feeds (even near saturation), and achieve high rejection rates (>99.9~\%).
+    Common configurations include Direct Contact \gls{mdLabel}
+    (DC\gls{mdLabel}), Air-Gap \gls{mdLabel} (AG\gls{mdLabel}), Vacuum
+    \gls{mdLabel} (V\gls{mdLabel}), and Sweeping-Gas \gls{mdLabel}
+    (SG\gls{mdLabel}). Although still emerging at industrial scale,
+    \gls{mdLabel} is particularly promising for brine concentration,
+    \gls{zldLabel} systems, and solar-driven desalination.
+\end{itemize}
+
+
+\subsection{Thermal desalination timeline and comparison with \gls{roLabel}}
+
+Thermal desalination technologies, such as \gls{medLabel}, \gls{msfLabel}, and
+newer hybrid configurations, have evolved through several decades of incremental
+improvements focused primarily on maximizing thermal efficiency and reducing
+specific energy consumption. Early developments emphasized heat recovery,
+exemplified by the integration of
+\gls{tvcLabel}~\sidecite[*-5]{milow_advanced_1997} and absorption heat pumps
+(DEAHP)~\sidecite{alarcon-padilla_application_2007}, both designed to increase
+the gain output ratio~\sidenote{A metric that measures the heat provided to the
+system per unit of distillate produced. Also relates to the number of times
+latent heat is reused in the system. Further described in \refch{solarmed:std}}
+by reusing latent heat more effectively. Research throughout the 1980s and 1990s
+concentrated on optimizing heat exchanger design, corrosion resistance, and
+system modularity, leading to steady improvements in performance and
+reliability. However, despite these advances, the fundamental thermodynamic
+limits of phase-change separation and the high capital cost of metallic heat
+exchangers have constrained further cost reductions and scalability.
+
+By the late 1990s and early 2000s, it became increasingly clear that
+mechanically driven separation—particularly reverse osmosis
+(\gls{roLabel})—offered superior performance from both energetic and economic
+perspectives. \gls{roLabel}'s rise was enabled by major advances in polymer
+science, leading to thin-film composite membranes with high salt rejection and
+flux, as well as by the widespread deployment of energy recovery devices that
+dramatically lowered specific energy consumption.
+
+\begin{marginfigure}[-4.5cm]
+    \includegraphics[]{figures/desalination-plants-worldwide.png}
+    \caption{Desalination technologies used at plants worldwide in 2019\\[1ex]Source:
+    Panagopoulos \etal~\cite{panagopoulos_environmental_2020}}
+    \labfig{solarmed:intro:plants-worldwide}
+\end{marginfigure}
+
+A variety of metrics can be used to measure the energy efficiency of a
+desalination plant, each with different purposes and conveying different
+information. Primary energy consumption is the metric most closely tied to fuel
+consumption and, ultimately, to operating costs. This metric provides the
+fairest comparison between desalination technologies. Under any accurately
+defined metric in use today, \gls{roLabel} outperforms \gls{medLabel} on the
+basis of primary energy consumption. \gls{roLabel}'s efficiency advantage
+results from the cost and “conductivity” advantages of membranes over heat
+exchangers. Significant improvements in heat exchanger costs or heat transfer
+coefficients would be needed to make thermal desalination technologies such as
+\gls{medLabel} competitive in this respect~\sidecite{bouma_metrics_2020}. If we
+extend the comparison to primary energy consumption, which correlates directly
+with fuel usage. While \gls{medLabel} uses approximately three times the exergy
+of an \gls{roLabel} system at the desalination system inlet, it requires less
+than twice the primary energy (11.3~\% compared to 20.6~\%). The smaller gap
+arises because of the thermodynamic penalty associated with converting primary
+energy into electricity rather than into steam. Thus, while \gls{roLabel}
+remains more efficient overall, the difference narrows when considering primary
+energy or co-generation scenarios, where electricity and water are produced
+together. In such cases, overall second-law efficiencies can approach 70~\%,
+with only about a 1~\% difference between \gls{roLabel} and thermal
+technologies~\cite[*-8]{bouma_metrics_2020}. 
+
+\begin{marginfigure}[*-10]
+    \includegraphics{figures/desalination-technologies-with-renewable-worldwide.png}
+    \caption{Desalination technologies coupled with renewable energy sources at
+    plants worldwide. \\Source: Panagopoulos
+    \etal~\cite{panagopoulos_environmental_2020}}
+    \labfig{solarmed:intro:plants-renewable-worldwide}
+\end{marginfigure}
+
+In all thermodynamic comparisons, \gls{roLabel} has consistently outperformed
+\gls{medLabel}. However, economic factors are equally decisive. Desalination
+plants are designed to minimize the levelized cost of water (LCOW), which
+depends not only on energy consumption but also on capital costs, material
+properties, and maintenance requirements. For example, while the cost of energy
+is comparable in co-production systems, \gls{roLabel} benefits from the lower
+material and fabrication costs of polymer membranes compared to the metallic
+heat exchangers used in thermal systems. Furthermore, membranes exhibit much
+higher effective conductance than heat exchangers, contributing to their overall
+economic and energetic advantage. Within the thermal technologies, this primary
+energy analysis also reveals that lower temperature and simpler systems results
+in higher overall efficiencies\sidenote{In Bouma
+\etal~\cite{bouma_metrics_2020}, the standalone lower temperature \gls{medLabel}
+system outperforms the \gls{medLabel}-\gls{tvcLabel},
+\gls{nfLabel}-\gls{medLabel}, \gls{nfLabel}-\gls{medLabel}-\gls{tvcLabel}
+variants}.
+
+
+\gls{roLabel} technology is the most prevalent, with 74~\% of the world’s
+installed capacity using this technology in 2019, while another 21~\% and 3~\%
+remained in the use of thermal technologies (namely, \gls{medLabel} and
+\gls{msfLabel}) and ED~\cite{panagopoulos_environmental_2020}. However, There
+has been a renewed research focus on low-temperature, small-scale thermal
+desalination. This resurgence is driven by the increasing availability of
+low-grade or waste heat, the desire for robust, low-maintenance systems in
+off-grid or remote regions, and the need for brine concentration and zero-liquid
+discharge (ZLD) applications where \gls{roLabel} performance declines sharply.
+The development of membrane distillation (\gls{mdLabel})—a hybrid
+thermal–membrane process—is an example of this shift.
+
+\begin{marginfigure}[-5.5cm]
+    \includegraphics[]{figures/GHG-emissions-per-m3-freshwater.png}
+    \caption{\gls{ghgLabel}s emissions per cubic meter of freshwater
+    produced\\Source: Panagopoulos
+    \etal~\cite{panagopoulos_environmental_2020}.}
+    \labfig{solarmed:intro:emissions}
+\end{marginfigure}
+
+
+%===================================
+%===================================
+\subsubsection{The Case for \glsentrylong{medLabel}}
+\labsec{solarmed:conclusions}
+
+In light of the comparative analysis between thermal and membrane desalination
+technologies, \glsentrylong{medLabel} stands out as a resilient and adaptable
+option—particularly for brine concentration and \gls{zldLabel} applications.
+While \gls{roLabel} dominates conventional seawater desalination due to its
+lower specific energy consumption, thermal systems offer unique advantages in
+scenarios where high salinity, waste heat availability, or stringent water
+quality requirements become critical factors.
+
+Recent studies reinforce the viability of modern \gls{medLabel} configurations.
+Panagopoulos~\sidecite{panagopoulos_process_2020} developed a comprehensive
+techno-economic model for a \gls{medLabel}-thermal vapor compression
+(\gls{medLabel}-\gls{tvcLabel}) system designed to treat high-salinity brines.
+The analysis demonstrated that a four-effect \gls{medLabel}-\gls{tvcLabel} unit
+operating with 120~$^\circ$C steam achieved the lowest freshwater production
+cost ($\approx$3.0 USD$_{2020}\cdot$m$^{-3}$) under conventional heat supply.
+When integrated with industrial waste heat, the cost decreased substantially to
+$\approx$1.7 USD$_{2020}\cdot$m$^{-3}$, with a payback period below two years.
+These results confirm that waste-heat-driven \gls{medLabel} represents an
+economically viable pathway for sustainable brine management and resource
+recovery.
+
+From a thermodynamic perspective, \gls{medLabel} processes are capable of
+concentrating brines up to \gls{zldLabel} conditions, particularly when
+constructed with advanced corrosion-resistant alloys (e.g., super-duplex or
+hyper-duplex stainless steels) that withstand chloride concentrations above
+18,000 mg/L. Exergy analyses from Panagopoulos~\cite{panagopoulos_process_2020}
+show that the largest irreversibilities occur in the thermal vapor compressor
+and evaporation stages; nonetheless, the overall exergy efficiency remains
+competitive for low-temperature thermal systems. Moreover, the recovered
+freshwater consistently meets high-quality standards (< 50 mg/L TDS), offering
+added economic and environmental value.
+
+Consequently, low-temperature \gls{medLabel} systems can be regarded as a
+mature, robust, and technically sound solution for brine concentration and
+resource recovery, especially when coupled with renewable or waste heat sources.
+Far from being obsolete, modern thermal configurations complement mechanical
+desalination technologies in integrated water-energy systems aimed at achieving
+sustainability, resource circularity, and near-zero discharge.
+
+Overall, thermal desalination processes are characterized by high reliability,
+excellent product water quality, and strong compatibility with co-generation and
+heat-integration strategies. Although their specific energy consumption remains
+higher than that of \gls{roLabel}, this gap diminishes in high-salinity and
+brine concentration applications, where mechanically driven processes suffer
+sharp efficiency losses due to osmotic
+limitations~\sidecite{lienhard_thermodynamics_2017}.
+
+In conclusion, while \gls{roLabel} remains the benchmark technology for
+large-scale seawater desalination, thermal and hybrid systems—particularly
+\gls{medLabel} and \gls{medLabel}-\gls{tvcLabel}—play an indispensable
+complementary role. They enable the efficient use of low-grade heat, ensure
+superior product water quality, and provide a sustainable route for brine
+minimization and resource recovery.
+
+%===================================
+%===================================
+\section{(Variable) Energy sources for thermal separation processes}
+\labsec{solarmed:intro:energy-sources}
+
+Coupling desalination plants with renewable energy sources such as solar energy,
+geothermal energy, wind power, tidal power or other alternative energy sources
+such as waste heat from industrial processes. As compared to fossil fuels,
+renewable energy sources are abundant and more sustainable. Moreover,
+\reffig{solarmed:intro:emissions} (green bars) presents the \gls{ghgLabel}s
+emissions per m$^3$ of freshwater produced by the major desalination
+technologies when renewable energy sources or waste heat are used. As shown in
+\reffig{solarmed:intro:emissions}, \gls{ghgLabel}s emissions are significantly
+lower when using renewable sources of energy or waste heat. Fig. 6 shows the
+desalination plant types which are based on renewable energy
+sources~\sidecite{gude_emerging_2018}. Furthermore, some desalination technologies are
+self-sufficient and use excess energy from one stage of the cycle to lower
+pressure or boost temperature at another stage, such as in the thermal-based
+technologies (\gls{msfLabel} and \gls{medLabel}).
+
+
+%================================
+\subsection{Solar thermal}
+\labsec{solarmed:intro:energy-sources:solar-thermal}
+
+There are two ways in which solar thermal energy can be coupled with thermal
+desalination processes. Either a solar field can be purposely built to drive the
+desalination process (standalone or partially with other heat source), or using
+a co-generation scheme of energy and water in a \gls{cspdLabel} configuration.
+This integration offers significant advantages, including reduced costs for
+co-producing electricity and freshwater, improved cost-effectiveness through
+shared infrastructure and economies of scale, and additional savings in
+greenhouse gas emissions. The choice between \gls{cspLabel}+\gls{medLabel} and
+\gls{cspLabel}+\gls{roLabel} is highly dependent on regional
+conditions~\sidecite{palenzuela_concentrating_2015}:
+
+\begin{itemize}
+    \item In regions with low seawater salinity and lower ambient temperatures
+    (like the Mediterranean), \gls{cspLabel}+\gls{roLabel} is generally more
+    favorable. The penalty on power production from integrating \gls{medLabel}
+    is often higher than the electricity consumption of \gls{roLabel} in these
+    conditions.
+        
+    \item In regions with high seawater salinity and temperature (like the
+    Arabian Gulf), \gls{cspLabel}+\gls{medLabel} becomes more attractive. The
+    high salinity increases \gls{roLabel}'s electricity consumption, making the
+    thermal route more efficient and cost-effective, especially when dry cooling
+    is used for the power cycle.
+\end{itemize}
+    
+To mitigate the risks of fully replacing the power plant's condenser with a
+desalination unit (which makes power production dependent on the desalination
+plant), hybrid configurations like LT-\gls{medLabel}-TVC have been developed.
+This concept uses a combination of exhaust steam and extracted steam to drive
+the desalination, offering a good balance of efficiency and operational
+flexibility. In some cases, especially with dry cooling, it can outperform
+\gls{cspLabel}+\gls{roLabel}.
+
+Furthermore, hybrid desalination systems that combine both membrane
+(\gls{roLabel}) and thermal (\gls{medLabel}) processes with a \gls{cspLabel}
+plant are also seen as a promising path for combined desalination and brine
+concentration applications.
+
+One example of a \gls{cspdLabel} system is Sundrop Farms in Port Augusta, South
+Australia, representing the world's first commercial application using
+concentrated solar thermal power to co-generate electricity, freshwater, and
+heating for horticulture~\sidecite{palenzuela_concentrating_2019}. Its central
+solar tower, targeted by 23,000 mirrors, produces steam to generate electricity,
+heat and cool greenhouses, and power a desalination plant. The system annually
+yields 1,700~MWh of electricity, 250,000 m$^3$ of desalinated water from the
+saline Spencer Gulf, and 20,000~MWh of thermal energy. The freshwater is used in
+the greenhouses and then recycled, while the resulting brine is managed by
+sending it to existing power station outflows, with ongoing research into
+mineral recovery.
+
+%================================
+\subsection{Waste heat}
+\labsec{solarmed:intro:energy-sources:waste-heat}
+
+A significant portion of the world's primary energy
+consumption\sidenote{estimated between 20 and 50~\%} is ultimately released as
+waste heat from industrial processes and power generation
+facilities~\sidecite{elsaid_recent_2020a, bruckner_industrial_2015}. This
+thermal energy, often regarded as a byproduct or liability, represents an
+immense and largely untapped resource. Instead of being vented to the
+environment, it can be harnessed either directly or through conversion systems
+to supply energy for various desalination technologies, thereby lowering
+operational costs and reducing the environmental footprint of freshwater
+production.
+
+Waste heat has therefore emerged as one of the most promising sustainable heat
+sources for low-temperature thermal desalination systems. Its integration into
+desalination processes can take several forms. In hybrid configurations, waste
+heat can be combined with other renewable sources, such as solar thermal energy,
+to increase the overall temperature level or availability of heat supplied to
+the thermal separator~\sidecite{christ_boosted_2015}. Alternatively, depending
+on the quantity and temperature of the available waste stream, it can operate
+standalone, driving thermally based desalination units without external fuel
+input.
+
+The temperature grade of waste heat\sidenote{generally categorized into low
+(<100~$^\circ$C), medium (100–400~$^\circ$C), and high (>400~$^\circ$C)} plays a
+decisive role in determining its recovery potential and the appropriate
+desalination technology~\cite{bruckner_industrial_2015}. This classification is
+crucial because it dictates not only the technical feasibility but also the
+economic viability of energy recovery.
+
+Broadly speaking, two main recovery pathways exist. The first involves direct
+heat-to-heat recovery, typically implemented through heat exchangers or heat
+pumps. This route is highly efficient and is particularly well suited to
+thermally driven desalination processes, such \gls{medLabel}, \gls{msfLabel} and
+\gls{mdLabel}. The second approach converts waste heat into mechanical work or
+electricity, most commonly using an Organic Rankine cycle systems or other
+thermodynamic engines. The generated power can then drive electricity-based
+desalination units.
+
+In both cases, effective utilization of waste heat not only enhances overall
+energy efficiency but also contributes to decarbonization efforts in the water
+and energy sectors. However, challenges remain in terms of temporal
+availability, temperature matching, and economic competitiveness
+
+\annotation{Solar energy and waste heat are free — so why care about efficiency?}{
+Is it not solar energy free? Yes and no. This has been a recurring topic of debate
+in the literature. Although the fuel, the Sun, is indeed free and
+practically inexhaustible, converting that energy into a useful form (whether
+electrical, thermal, or otherwise) requires a transformation process that
+entails costs.
+
+In the case of solar fields, whether photovoltaic or solar-thermal, the more
+energy you need, the larger the field area must be, and consequently, the higher
+the investment cost. Therefore, renewable sources do not provide free energy. A
+similar argument applies to waste heat: to obtain usable heat for a thermal
+separator, a transformation process is often required, typically involving
+costly heat exchangers.
+
+In summary, generating electricity or heat solely to power a thermal separation
+process (renewable or not) is generally inefficient and capital-intensive. A
+separate question (explored in \nrefch{solarmed:std}) is what we actually mean
+by efficiency, and how it should be defined depending on the energy source.
+}
