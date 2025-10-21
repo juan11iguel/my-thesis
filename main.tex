@@ -102,11 +102,8 @@
 \usepackage[fixed]{fontawesome5} % Cool icons
 \usepackage{siunitx}
 \usepackage{epigraph}
-
-% This allows to place QR codes in the caption of figures
-\newsavebox{\captionqr}
-\newsavebox{\captionqrleft}
-\newsavebox{\captionqrright}
+\usepackage{mathrsfs} % calligraphic letters since mathcal does not work, problem with Fira font?
+\usepackage{placeins}  % For \FloatBarrier
 
 % Set custom font, from TheoWinterhalter-PhD
 \setmainfont[
@@ -126,143 +123,28 @@
 \color{Gray!90} \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\%
 }
 
-% Declare maths operators 
-\DeclareMathOperator{\lew}{Le}
-\DeclareMathOperator{\Me}{Me}
-\DeclareMathOperator{\Rey}{Re}
-\DeclareMathOperator{\Pra}{Pr}
-\DeclareMathOperator{\Nus}{Nu}
-\DeclareMathOperator{\LMTD}{LMTD}
+\include{macros}
+
+%----------------------------------------------------------------------------------------
+%	BOOK INFORMATION / VARIABLES
+%----------------------------------------------------------------------------------------
 
 % Define the base URL for the figures repository
 % Used for QR codes to link to the interactive version of some figures
+\newcommand{\doi}{10.1596/XXX}
+\newcommand{\doiHref}{\href{https://doi.org/{\doi}}{\doi}}
 \newcommand{\repositoryBaseUrl}{https://github.com/juan11iguel/my-thesis/blob/main}
+\newcommand{\repositoryMirrorUrl}{https://github.com/juan11iguel/my-thesis}
 \newcommand{\solhycoolRepositoryBaseUrl}{https://github.com/juan11iguel/solhycool/blob/main}
-
-
-% TODO: Move into macros.tex
-% Reminder box
-% \newcommand{\reminder}[3][0pt]{%
-%   \marginnote[#1]{%
-%     \begin{kaobox}[
-%     %   title=Reminder: #2,
-%     %   colback=YellowGreen!25!white,
-%     %   colbacktitle=YellowGreen!25!white,
-%     %   colframe=black,
-%     %   fonttitle=\bfseries,
-%     %   titlerule=0.4pt
-%     ]
-%       #3
-%     \end{kaobox}
-%   }%
-% }
-\newcommand{\marginreminder}[3][0pt]{%
-  \marginnote[#1]{%
-    \begingroup
-      \edef\tempTitle{Reminder: #2}%
-      \begin{kaobox}[title=\tempTitle,
-        colback=YellowGreen!25!white,
-        colbacktitle=YellowGreen!25!white,
-        colframe=black,
-        fonttitle=\bfseries,
-        titlerule=0.4pt
-      ]
-        #3
-      \end{kaobox}
-    \endgroup
-  }%
-}
-
-\newcommand{\reminder}[2]{%
-  \begingroup
-    \edef\tempTitle{Reminder: #1}%
-    \begin{kaobox}[title=\tempTitle,
-      colback=YellowGreen!25!white,
-      colbacktitle=YellowGreen!25!white,
-      colframe=black,
-      fonttitle=\bfseries,
-      titlerule=0.4pt
-    ]
-      #2
-    \end{kaobox}
-  \endgroup
-}
-
-\newcommand{\annotation}[2]{%
-  \begingroup
-     \def\tempTitle{#1}%
-      \begin{kaobox}[title=\tempTitle,
-        colback=TealBlue!25!white,
-        colbacktitle=TealBlue!25!white,
-        colframe=black,
-        fonttitle=\bfseries,
-        titlerule=0.4pt
-      ]
-        #2
-	\end{kaobox}
-  \endgroup
-}
-
-\newcommand{\marginannotation}[3][0pt]{%
-  \marginnote[#1]{%
-    \begingroup
-      \def\tempTitle{#2}%
-      \begin{kaobox}[title=\tempTitle,
-        colback=TealBlue!25!white,
-        colbacktitle=TealBlue!25!white,
-        colframe=black,
-        fonttitle=\bfseries,
-        titlerule=0.4pt
-      ]
-        #3
-      \end{kaobox}
-    \endgroup
-  }%
-}
-
-\newcommand{\tldrbox}[1]{%
-    \begin{kaobox}[title=TL;DR,
-      colback=Orchid!25!white,
-      colbacktitle=Orchid!25!white,
-    %   colframe=black,
-      fonttitle=\bfseries,
-      titlerule=0.05pt
-    ]
-	#1
-    \end{kaobox}
-}
-
-\newcommand{\wipbox}[1]{%
-  \begingroup
-      \def\tempTitle{\faIcon{wrench} \faIcon{snowplow} 
-      \faIcon{user-clock} W O R K       I N       P R O G R E S S
-      \faIcon{screwdriver} \faIcon[regular]{hourglass} 
-      \faIcon{truck-loading} \faIcon{space-shuttle}}
-      \begin{kaobox}[title=\tempTitle,colback=Dandelion!85!white,colbacktitle=Dandelion!85!white,]
-        Esta sección no está terminada. Si quieres puedes echarle un ojo para ver
-        la estructura y cómo encaja con el resto pero no merece la pena revisarla
-        en detalle en el estado actual.
-
-        #1
-      \end{kaobox}
-  \endgroup
-}
-
-% TODO: This should be a box with a counter so it can be referenced
-\newcommand{\problemdefinitionbox}[2]{%
-  \begingroup
-    \edef\tempTitle{Problem: #1}%
-    \begin{kaobox}[title=\tempTitle,
-      colback=Snow3!25!white,
-      colbacktitle=Snow3!25!white,
-    ]
-	#2
-    \end{kaobox}
-  \endgroup
-}
-
-% See glossary.tex for glossary entries and commands to add new entries
-\newcommand{\fullgls}[1]{\glsentryfull{#1}} % Alias to print full form of a glossary entry
+\newcommand{\solarmedRepositoryBaseUrl}{https://github.com/juan11iguel/solarmed/blob/main}
+\newcommand{\shortauthor}{Serrano J.M}
+\titlehead{Towards optimal resource management in solar thermal applications}
+\subject{PhD Thesis}
+\title[Towards optimal resource management in solar thermal applications]{Towards optimal resource management in solar thermal applications: CSP and desalination}
+% \subtitle{Customise this page according to your needs}
+\author[Serrano J.M]{Juan Miguel Serrano Rodríguez}
+\date{\today}
+\publishers{University of Almería}
 
 %----------------------------------------------------------------------------------------
 
@@ -276,8 +158,6 @@
 
 \clearpage
 \thispagestyle{empty}
-\null%
-\clearpage
 \includepdf{assets/cover-front.pdf}
 
 %----------------------------------------------------------------------------------------
@@ -434,64 +314,6 @@ of all the open subsets of $(X, d).$
 
 
 
-% \marginreminder{Pareto front}{
-% When dealing with multiple objectives where no single solution is optimal, but
-% improvements in one objective lead to trade-offs in others, we obtain a set of
-% points that represent the best trade-offs between the objectives, known as a
-% Pareto front\footnote{See \nrefsec{intro:optimization:multi-objective}}
-% }
-
-% \section*{Two-Level Pareto Path Optimization}
-
-% We consider a complex optimization problem over a prediction horizon of length $N$. At each stage $t = 1, \dots, N$, we define and solve a multi-objective optimization problem:
-
-% \[
-% \text{Find } \mathcal{P}_t = \text{ParetoFront}(f_t(x_t)), \quad x_t \in \mathcal{X}_t
-% \]
-
-% where $f_t : \mathcal{X}_t \rightarrow \mathbb{R}^k$ defines $k$ objectives at stage $t$. The result is a set of Pareto-optimal solutions $\mathcal{P}_t$.
-
-% The second-level problem seeks a sequence of decisions $(x_1^*, \dots, x_N^*)$ with $x_t^* \in \mathcal{P}_t$ that minimizes a cumulative cost function:
-
-% \[
-% \min_{x_1 \in \mathcal{P}_1, \dots, x_N \in \mathcal{P}_N} \sum_{t=1}^{N-1} c(x_t, x_{t+1}) + \sum_{t=1}^{N} g(x_t)
-% \]
-
-% where $c(x_t, x_{t+1})$ encodes transition costs and $g(x_t)$ may represent stage-specific penalties.
-
-% \bigskip
-
-% \begin{algorithm}[H]
-% \caption{Two-Level Pareto Path Optimization}
-% \begin{algorithmic}[1]
-% \State \textbf{Input:} Horizon length $N$
-% \For{$t = 1$ to $N$}
-%     \State Solve multi-objective optimization at stage $t$ to get Pareto set $\mathcal{P}_t$
-% \EndFor
-% \State Define graph $\mathcal{G}$ with layers $\mathcal{P}_1, \dots, \mathcal{P}_N$
-% \State Add edges between layers: connect each $x_t \in \mathcal{P}_t$ to all $x_{t+1} \in \mathcal{P}_{t+1}$ with weight $c(x_t, x_{t+1})$
-% \State Solve shortest path or path optimization on $\mathcal{G}$ to find optimal path $(x_1^*, \dots, x_N^*)$
-% \State \textbf{Return} path and corresponding objective values
-% \end{algorithmic}
-% \end{algorithm}
-
-% ----------------------------------------------------------------------------------------
-
-%----------------------------------------------------------------------------------------
-%	BOOK INFORMATION
-%----------------------------------------------------------------------------------------
-
-\titlehead{The \texttt{kaobook} class}
-\subject{PhD Thesis}
-
-\title[Towards optimal resource management in solar thermal applications]{Towards optimal resource management in solar thermal applications: CSP and desalination}
-% \subtitle{Customise this page according to your needs}
-
-\author[Juan Miguel Serrano]{Juan Miguel Serrano Rodríguez}
-\date{\today}
-
-\publishers{University of Almería}
-
 %----------------------------------------------------------------------------------------
 
 \frontmatter % Denotes the start of the pre-document content, uses roman numerals
@@ -589,26 +411,26 @@ of all the open subsets of $(X, d).$
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
 \input{chapters/introduction.tex}
-% \input{chapters/introduction-overviews.tex}
+\input{chapters/introduction-overviews.tex}
 
 %----------------------------------------------------------------------------------------
 %	COMBINED COOLING
 %----------------------------------------------------------------------------------------
-\input{chapters/cc.tex}
-\input{chapters/cc-facility.tex}
-\input{chapters/cc-modelling.tex}
-\input{chapters/cc-optimization.tex}
-\input{chapters/cc-validation.tex}
-\input{chapters/cc-simulation.tex}
+% \input{chapters/cc.tex}
+% \input{chapters/cc-facility.tex}
+% \input{chapters/cc-modelling.tex}
+% \input{chapters/cc-optimization.tex}
+% \input{chapters/cc-validation.tex}
+% \input{chapters/cc-simulation.tex}
 
 %----------------------------------------------------------------------------------------
 %	SOLARMED
 %----------------------------------------------------------------------------------------
 \input{chapters/solarmed.tex}
 \input{chapters/solarmed-facility.tex}
+\input{chapters/solarmed-modelling.tex}
 \input{chapters/solarmed-standardization.tex}
 % \input{chapters/solarmed-tbt.tex}
-\input{chapters/solarmed-modelling.tex}
 \input{chapters/solarmed-optimization.tex}
 \input{chapters/solarmed-results.tex}
 
@@ -659,13 +481,13 @@ of all the open subsets of $(X, d).$
 %	APPENDIX
 %----------------------------------------------------------------------------------------
 
-% \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
+\appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
-% \pagelayout{wide} % No margins
-% \addpart{Appendix}
-% \pagelayout{margin} % Restore margins
+\pagelayout{wide} % No margins
+\addpart{Appendix}
+\pagelayout{margin} % Restore margins
 
-% \input{chapters/appendix.tex}
+\input{chapters/appendix.tex}
 
 %----------------------------------------------------------------------------------------
 

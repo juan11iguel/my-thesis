@@ -280,3 +280,36 @@
 
 \counterwithin*{sidenote}{chapter} % Uncomment to reset the sidenote counter at each chapter
 %\counterwithout{sidenote}{chapter} % Uncomment to have one sidenote counter for the whole document
+
+%----------------------------------------------------------------------------------------
+%	CUSTOM PART PAGE STYLE
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{epigraph}
+
+% Define the epigraph pagestyle
+\makeatletter
+\newcommand{\ps@epigraph}{%
+  \renewcommand{\@oddfoot}{}%
+  \renewcommand{\@evenfoot}{}%
+  \renewcommand{\@oddhead}{}%
+  \renewcommand{\@evenhead}{}%
+}
+\makeatother
+
+% Make part pages use the epigraph pagestyle
+\makeatletter
+  \let\@epipart\@endpart
+  \renewcommand{\@endpart}{\thispagestyle{epigraph}\@epipart}
+\makeatother
+
+% Custom epigraph wrapper
+\newcommand{\myepigraphhead}[3][400]{%
+  \epigraphhead[#1]{%
+    \begin{flushright}
+      #2\\[1ex]
+      \rule[0.5ex]{0.4\linewidth}{0.4pt}\\[1ex]
+      \textit{#3}%
+    \end{flushright}
+  }%
+}

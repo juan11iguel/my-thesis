@@ -1,0 +1,132 @@
+% This allows to place QR codes in the caption of figures
+\newsavebox{\captionqr}
+\newsavebox{\captionqrleft}
+\newsavebox{\captionqrright}
+
+% Declare maths operators 
+\DeclareMathOperator{\lew}{Le}
+\DeclareMathOperator{\Me}{Me}
+\DeclareMathOperator{\Rey}{Re}
+\DeclareMathOperator{\Pra}{Pr}
+\DeclareMathOperator{\Nus}{Nu}
+\DeclareMathOperator{\LMTD}{LMTD}
+
+
+% See glossary.tex for glossary entries and commands to add new entries
+\newcommand{\fullgls}[1]{\glsentryfull{#1}} % Alias to print full form of a glossary entry
+
+%----------------------------------------------------------------------------------------
+%	BOXES
+%----------------------------------------------------------------------------------------
+
+\newcommand{\marginreminder}[3][0pt]{%
+  \marginnote[#1]{%
+    \begingroup
+      \edef\tempTitle{Reminder: #2}%
+      \begin{kaobox}[title=\tempTitle,
+        colback=YellowGreen!25!white,
+        colbacktitle=YellowGreen!25!white,
+        colframe=black,
+        fonttitle=\bfseries,
+        titlerule=0.4pt
+      ]
+        #3
+      \end{kaobox}
+    \endgroup
+  }%
+}
+
+\newcommand{\reminder}[2]{%
+  \begingroup
+    \edef\tempTitle{Reminder: #1}%
+    \begin{kaobox}[title=\tempTitle,
+      colback=YellowGreen!25!white,
+      colbacktitle=YellowGreen!25!white,
+      colframe=black,
+      fonttitle=\bfseries,
+      titlerule=0.4pt
+    ]
+      #2
+    \end{kaobox}
+  \endgroup
+}
+
+\newcommand{\annotation}[2]{%
+  \begingroup
+     \def\tempTitle{#1}%
+      \begin{kaobox}[title=\tempTitle,
+        colback=TealBlue!25!white,
+        colbacktitle=TealBlue!25!white,
+        colframe=black,
+        fonttitle=\bfseries,
+        titlerule=0.4pt
+      ]
+        #2
+	\end{kaobox}
+  \endgroup
+}
+
+\newcommand{\marginannotation}[3][0pt]{%
+  \marginnote[#1]{%
+    \begingroup
+      \def\tempTitle{#2}%
+      \begin{kaobox}[title=\tempTitle,
+        colback=TealBlue!25!white,
+        colbacktitle=TealBlue!25!white,
+        colframe=black,
+        fonttitle=\bfseries,
+        titlerule=0.4pt
+      ]
+        #3
+      \end{kaobox}
+    \endgroup
+  }%
+}
+
+\newcommand{\tldrbox}[1]{%
+    \begin{kaobox}[title=TL;DR,
+      colback=Orchid!25!white,
+      colbacktitle=Orchid!25!white,
+    %   colframe=black,
+      fonttitle=\bfseries,
+      titlerule=0.05pt
+    ]
+	#1
+    \end{kaobox}
+}
+
+\newcommand{\wipbox}[1]{%
+  \begingroup
+      \def\tempTitle{\faIcon{wrench} \faIcon{snowplow} 
+      \faIcon{user-clock} W O R K       I N       P R O G R E S S
+      \faIcon{screwdriver} \faIcon[regular]{hourglass} 
+      \faIcon{truck-loading} \faIcon{space-shuttle}}
+      \begin{kaobox}[title=\tempTitle,colback=Dandelion!85!white,colbacktitle=Dandelion!85!white,]
+        Esta sección no está terminada. Si quieres puedes echarle un ojo para ver
+        la estructura y cómo encaja con el resto pero no merece la pena revisarla
+        en detalle en el estado actual.
+
+        #1
+      \end{kaobox}
+  \endgroup
+}
+
+% TODO: This should be a box with a counter so it can be referenced
+\newcommand{\problemdefinitionbox}[2]{%
+  \begingroup
+    \edef\tempTitle{Problem: #1}%
+    \begin{kaobox}[title=\tempTitle,
+      colback=Snow3!25!white,
+      colbacktitle=Snow3!25!white,
+    ]
+	#2
+    \end{kaobox}
+  \endgroup
+}
+
+\newcommand{\wideepigraph}[2]{%
+  {%
+    \setlength{\epigraphwidth}{0.95\linewidth}%
+    \epigraph{#1}{#2}%
+  }%
+}
