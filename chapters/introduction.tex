@@ -1,6 +1,6 @@
 \pagelayout{wide} % No margins
 \myepigraphhead[500]{Just some phrase, it may be longer, it might be shorter, but in the end, it's a phrase. Aren't we all phrases? Well, no}{Someone else answering someone}
-\part{Introduction}
+\addpart{Introduction}
 \pagelayout{margin} % Restore margins
 
 \glsresetall % Reset glossary entries
@@ -12,12 +12,12 @@
 Technological development has undeniably improved material conditions for an
 important part of humanity. Over the past century, innovations in energy,
 medicine, transport, and communication have contributed to longer life
-expectancy, higher productivity, and broader access to goods and services. For a
-long time, it was possible to argue that the rise in CO$_2$ emissions was closely
-tied to an overall improvement in material well-being of some societies.
+expectancy, higher productivity, and broader access to goods and services. For
+some time, it was possible to argue that the rise in CO$_2$ emissions was
+closely tied to an overall improvement in material well-being of some societies.
 
 \begin{marginfigure}[-2.4cm]
-    \includegraphics[]{figures/shareholders-driven-apocalysis.png}
+    \includegraphics[]{shareholders-driven-apocalysis.png}
     \caption[Shareholders-driven apocalysis]{``Yes, the planet got destroyed.
     But for a beautiful moment in time, we created a lot of value for
     shareholders''\\Source:~\href{http://web.archive.org/web/20250808141700/https://www.newyorker.com/cartoon/a16995}{Tom
@@ -33,12 +33,12 @@ nearly half of the world's wealth ---46~\%--- is concentrated in the hands of ju
 We find ourselves in a paradoxical situation: as the planet becomes increasingly
 uninhabitable, social inequalities continue to deepen. The overall outlook is
 far from encouraging. Technological progress no longer serves to enhance
-collective well-being or to effectively build a sustainable
-future\sidenote[][*3]{not that it ever did for a significant amount of
-people~\cite{alcazar_rumbo_2023}}. Instead, the relentless pursuit of endless
-economic growth ---fueled by unchecked consumption, short-term profit seeking,
-and a shareholder-driven economy dominated by speculation--- is propelling us
-ever closer to catastrophic climate collapse.
+collective well-being\sidenote[][*3]{not that it ever did for a significant
+amount of people~\cite{alcazar_rumbo_2023}} or to effectively build a
+sustainable future. Instead, the relentless pursuit of endless economic growth
+---fueled by unchecked consumption, short-term profit seeking, and a
+shareholder-driven economy dominated by speculation--- is propelling us ever
+closer to catastrophic climate collapse.
 
 
 One of the main drivers in this direction, consequence of this unchecked growing
@@ -53,7 +53,7 @@ also states that preferably the limit of the increase should only be
 1.5~$^\circ$C.
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{figures/global-mean-temperature-1850-2024.png}
+    \includegraphics[width=\textwidth]{global-mean-temperature-1850-2024.png}
     \caption{Annual global mean temperature anomalies relative to a
     pre-industrial (1850--1900)
     baseline. Source:~\cite{worldmeteorologicalorganization_state_2025}}
@@ -147,7 +147,7 @@ management of two interconnected resources, energy and water, in two
 solar-driven processes.
 
 \begin{figure*}
-    \includegraphics[width=\linewidth]{figures/world-extreme-climate-events-map.png}
+    \includegraphics[width=\linewidth]{world-extreme-climate-events-map.png}
     \caption{Extreme weather-related events map. Source:~\cite{mcsweeney_mapped_2024}}
     \labfig{intro:world-extreme-climate-events-map}
 \end{figure*}
@@ -169,16 +169,18 @@ others to replicate, verify, and build upon
 it~\sidecite{hicks_bibliometrics_2015}.
 
 Accordingly, the complete implementations of both studies are made available in
-open repositories, alongside the code and supplementary material used to develop
-this manuscript. The developed work has an important experimentation component
-(see \reffig{intro:pilot-plants}). All experimental and simulated results follow
-the \gls{fairLabel} data principles~\sidecite{wilkinson_fair_2016}, ensuring
-transparency, accessibility, and reproducibility. Further details are provided
-in \nrefsec{conclusions:contributions}.
+open repositories, alongside most of the code and supplementary material used to
+develop this manuscript. The developed work has an important experimentation
+component (see \reffig{intro:pilot-plants}). Most experimental and simulated
+results follow the \gls{fairLabel} data principles\sidenote{And made public at
+time of publication of this manuscript. The rest may follow soon
+after}~\sidecite{wilkinson_fair_2016}, ensuring transparency, accessibility, and
+reproducibility. Further details are provided in
+\nrefsec{conclusions:contributions}.
 
 
 \begin{figure}[htbp]
-    \includegraphics[width=\textwidth]{figures/pilot-plants-aerial-view.png}
+    \includegraphics[width=\textwidth]{pilot-plants-aerial-view.png}
     \caption[Aerial view of the pilot plants at \gls{psaLabel}]{Aerial view
         of the pilot plants at \gls{psaLabel}, Spain.\\ 
         The developments presented in this thesis have
@@ -387,13 +389,13 @@ temporal shifting of heat usage and introduces additional operational
 decisions.
 
 Several studies have addressed this broader problem at varying levels of
-complexity. González \textit{et al.}~\sidecite{gonzalez_economic_2014a} proposed
+complexity. González~\etal~\sidecite{gonzalez_economic_2014a} proposed
 a receding-horizon optimal control strategy with economic objectives ---maximizing
 water production while minimizing electricity costs--- but relied on a simplified
 linear model that optimized only the solar field flow, keeping the
 \gls{medLabel} inlet temperature constant. The most advanced optimization
 efforts in the literature, however, have been developed for \gls{mdLabel}
-rather than \gls{medLabel}. Gil \textit{et al.}~\sidecite{gil_hybrid_2019}
+rather than \gls{medLabel}. Gil~\etal~\sidecite{gil_hybrid_2019}
 recognized that a solar \gls{mdLabel} plant operates through distinct modes
 (\eg, solar field heating, thermal storage charging, and \gls{mdLabel}
 operation), dictated by solar and thermal conditions. However, in their work,
@@ -453,7 +455,11 @@ relevant ones are presented below:
     \item \href{https://github.com/apache/airflow}{Apache Airflow} (Apache 2.0
     License). A platform to programmatically author, schedule, and monitor
     workflows.
-    
+
+    \item \href{https://github.com/pyequion/pyequion2}{PyEquIon} (BSD 3-Clause
+    License)~\sidecite{marcellos_pyequion_2021} is a Python package for
+    automatic speciation calculations of aqueous electrolyte solutions.
+
     \item Statistics and Machine Learning Toolbox (proprietary MATLAB license) 
     provides functions and apps to describe, analyze, and model data, including 
     tools for machine learning such as classification, regression, clustering, 

@@ -5,7 +5,7 @@
 \chapter{SolarMED pilot plant}
 \labch{solarmed:facility}
 
-\glsresetall
+\glsresetall % Reset glossary entries
 
 \tldrbox{The \gls{medLabel} pilot plant at \gls{psaLabel} is one of the first
 demonstration plants of solar-powered desalination in the world and one of the
@@ -42,7 +42,7 @@ high-temperature, oil-based systems. This realization guided subsequent efforts
 toward simpler and more robust configurations.
 
 A decade later, the AQUASOL
-I~\sidecite{alarcon-padilla_application_2007,blanco_aquasol_2011} built upon
+I~\sidecite{alarcon-padilla_application_2007,blanco_aquasol_2011} project built upon
 this experience by shifting to lower-temperature and more practical designs. The
 parabolic-trough field was replaced with a 500~m$^2$ stationary compound
 parabolic collector (CPC) field using liquid water as the heat transfer fluid
@@ -69,7 +69,7 @@ the thermal load, which in this case corresponds to the \gls{medLabel} plant
 performing the separation process (separation subsystem).
 
 \begin{figure*}[h!]
-	\includegraphics[]{figures/SolarMED-process-diagram.png}
+	\includegraphics[]{SolarMED-process-diagram.png}
 	\caption{\gls{solarmedLabel} process diagram}
 	\labfig{solarmed:process-diagram}
 \end{figure*}
@@ -145,9 +145,9 @@ couple different loads according to experimental requirements.
 % Imagen del campo solar
 \begin{figure*}
     \centering
-    \subfloat[\centering Solar field]{{\includegraphics[width=0.55\linewidth]{figures/solarmed-solar-field.jpg}}}%
+    \subfloat[\centering Solar field]{{\includegraphics[width=0.55\linewidth]{solarmed-solar-field.jpg}}}%
     \hspace{0.01\linewidth}
-    \subfloat[\centering Thermal storage]{{\includegraphics[width=0.413\linewidth]{figures/solarmed-thermal-storage.jpg}}}%
+    \subfloat[\centering Thermal storage]{{\includegraphics[width=0.413\linewidth]{solarmed-thermal-storage.jpg}}}%
     \caption[]{Heat generation and storage subsystem facilities}
     \labfig{solarmed:facility:sfts}
 \end{figure*}
@@ -192,7 +192,7 @@ tubes. This process yields two products: the distillate (condensed vapor) and
 the brine (concentrated saline water). 
 
 \begin{marginfigure}[-6.5cm]
-	\includegraphics[width=.8\textwidth]{figures/solarmed-facility-med.jpg}
+	\includegraphics[width=.8\textwidth]{solarmed-facility-med.jpg}
 	\caption{\gls{medLabel} plant at \gls{psaLabel} with open effects for maintenance}
 	\labfig{solarmed:facility:med}
 \end{marginfigure}
@@ -216,7 +216,7 @@ and, as mentioned, later replaced to use hot water. An image of the facility in
 its current state can be seen in \reffig{solarmed:facility:med}. It has been
 operated in different experimental campaigns and configurations robustly for
 more than three decades. A summary of its main specifications
-is shown at Table \reftab{solarmed:facility:specifications}.
+is shown at \reftab{solarmed:facility:specifications}.
 
 % \reffig{solarmed:tests-calendar} shows the operation history of the plant (starting from 2009)
 
@@ -230,7 +230,14 @@ experimentally characterize the behavior of the system at higher temperatures
 extends the operation range of the heat source temperature. In total, the
 experimental data spans 6 years of operation and make available 549 operation
 points with the range per variable shown in
-\reftab{solarmed:modelling:med-data-range}. 
+\reftab{solarmed:modelling:med-data-range}\sidenote[][*-5]{Each experimental campaign
+requires a significant number of test days due to the large number of target
+operating points. Achieving a valid steady state takes approximately 20--30
+minutes, not including the transition time between operating points. On a good
+day, 3--4 stable operating points can be reached; on a bad day, due to for
+example unfavorable environmental conditions, none may be achieved. This makes
+the experimental campaigns complex and extensive, making it highly suitable for
+extensive automation}.
 
 Some particularities of this system are explained hereinafter:
 
@@ -280,7 +287,7 @@ Some particularities of this system are explained hereinafter:
 \end{itemize}
 
 
-\begin{margintable}[*-30]
+\begin{margintable}[*-25]
     \caption{\gls{medLabel} plant at \gls{psaLabel} specifications and nominal operating conditions}
     \labtab{solarmed:facility:specifications}
     \resizebox{\linewidth}{!}{%
@@ -332,10 +339,11 @@ Some particularities of this system are explained hereinafter:
 \end{margintable}
 
 
-The facility's instrumentation is shown in
-\reftab{solarmed:facility:instrumentation} and the placement in the system can
-be seen in \reffig{solarmed:facility:pid}. \gls{pt100Label}
-sensors are used to measure all liquid temperatures
+The experimental facility is a complex system of considerable size for a pilot
+plant. It includes over 100 variables, between inputs and monitored outputs. Its
+instrumentation is shown in \reftab{solarmed:facility:instrumentation} and the
+placement in the system can be seen in \reffig{solarmed:facility:pid}.
+\gls{pt100Label} sensors are used to measure all liquid temperatures
 (\texttt{TT01}..\texttt{TT05}), while a PT1000 sensor is used to measure the
 ambient temperature (\texttt{TT06}). The pressure inside the first effect and
 condenser (\texttt{PT01} and \texttt{PT02}, respectively) is measured by two
@@ -376,7 +384,7 @@ distillate.
 
 \begin{figure}
     \raggedleft
-    \includegraphics[width=\textwidth]{figures/solarmed-std-pid.png}
+    \includegraphics[width=.9\textwidth]{solarmed-std-pid.png}
     \caption{\gls{pYidLabel} representative of the \gls{medLabel}-\gls{psaLabel}
     plant with the installed instrumentation, \glspl{kpvLabel}, and implemented
     control loops (\texttt{ANSI/ISA 5.1-2022}).}

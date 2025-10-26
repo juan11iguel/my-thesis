@@ -37,13 +37,13 @@ focus on \gls{pidLabel} and hierarchical control.
 
     \begin{minipage}{0.4\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/microprocessor-min.jpg}\\
+    \includegraphics[width=\linewidth]{microprocessor-min.jpg}\\
     \small Zoomed-in microprocessor. Source: \href{https://www.reddit.com/r/interestingasfuck/comments/ksz30z/oc_i_took_an_old_intel_d320_cpu_and_torn_it_apart/}{stylishpirate - Reddit}
     \end{minipage}
     \hfill
     \begin{minipage}{0.58\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/block-diagram.png}\\
+    \includegraphics[width=\linewidth]{block-diagram.png}\\
     \small Block diagram with input and outputs
     \end{minipage}
 \end{kaobox}
@@ -114,7 +114,7 @@ from one state to another. This approach makes it possible to evaluate the
 long-term performance of the system.
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{figures/steady-state-transient-concept-plot.png}
+    \includegraphics[width=\textwidth]{steady-state-transient-concept-plot.png}
     \caption{Dynamic response (reaction curve) of a process output to changes in its inputs'}
     \labfig{intro:modelling:dynamic-response}
 \end{figure}
@@ -251,13 +251,13 @@ constant across $x$.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{figures/intro-modelling-gpr.png}
+    \includegraphics[width=\textwidth]{intro-modelling-gpr.png}
     \caption{Illustration of Gaussian Process Regression. 
     (a) Prior samples drawn from a Gaussian Process with zero mean and smooth covariance, 
     representing the prior belief before observing any data. 
     (b) Posterior samples and mean after conditioning on two observations, 
     showing reduced uncertainty near the observed points.
-    \newline Source: Rasmussen \textit{et al.}~\cite{rasmussen_gaussian_2006}}
+    \newline Source: Rasmussen~\etal~\cite{rasmussen_gaussian_2006}}
     \labfig{intro:modelling:gpr}
 \end{figure}
 
@@ -342,13 +342,13 @@ explored in this research work:
 \end{enumerate}
 
 % \begin{marginfigure}[]
-%     \includegraphics[]{figures/ann_neuron_type_simple_with_partial_legend.eps}
+%     \includegraphics[]{ann_neuron_type_simple_with_partial_legend.eps}
 %     {\footnotesize \textbf{(a)} Feedforward\\} \vspace{2ex}
     
-%     \includegraphics[]{figures/ann_neuron_type_cascade_with_partial_legend.eps}
+%     \includegraphics[]{ann_neuron_type_cascade_with_partial_legend.eps}
 %     {\footnotesize \textbf{(b)} Cascade-forward\\} \vspace{2ex}
 
-%     \includegraphics[]{figures/ann_neuron_type_radial_with_partial_legend.eps}
+%     \includegraphics[]{ann_neuron_type_radial_with_partial_legend.eps}
 %     {\footnotesize \textbf{(c)} Radial-basis}
 
 %     \caption{Considered \acrshort{annLabel} architectures}
@@ -373,12 +373,12 @@ satisfactorily~\cite{hagan_neural_2014}.
 % neurons.
 
 \begin{marginfigure}[-7cm]
-    \includegraphics[]{figures/ann_model_configuration_mimo_with_legend.eps}
+    \includegraphics[]{ann_model_configuration_mimo_with_legend.eps}
     {\footnotesize \textbf{(a)} \gls{mimoLabel} configuration\\}
     
     \vspace{1ex}
     
-    \includegraphics[]{figures/ann_model_configuration_cascade.eps}
+    \includegraphics[]{ann_model_configuration_cascade.eps}
     {\footnotesize \textbf{(b)} Cascade configuration}
     
     \caption{\acrshort{annLabel} model configurations}
@@ -417,15 +417,15 @@ those of the best epoch.
 \begin{figure*}
     \centering
     \subfloat[\centering
-    Feedforward]{{\includegraphics[width=0.24\linewidth]{figures/ann_neuron_type_simple_with_partial_legend.eps}
+    Feedforward]{{\includegraphics[width=0.24\linewidth]{ann_neuron_type_simple_with_partial_legend.eps}
     }}%
     \qquad
     \subfloat[\centering
-    Cascade-forward]{{\includegraphics[width=0.24\linewidth]{figures/ann_neuron_type_cascade_with_partial_legend.eps}
+    Cascade-forward]{{\includegraphics[width=0.24\linewidth]{ann_neuron_type_cascade_with_partial_legend.eps}
     }}%
     \qquad
     \subfloat[\centering
-    Radial-basis]{{\includegraphics[width=0.24\linewidth]{figures/ann_neuron_type_radial_with_partial_legend.eps}
+    Radial-basis]{{\includegraphics[width=0.24\linewidth]{ann_neuron_type_radial_with_partial_legend.eps}
     }}%
     
     \caption{Considered \acrshort{annLabel} architectures}
@@ -558,7 +558,7 @@ directly to red without first passing through yellow).
 
 \begin{marginfigure}[-3.5cm]
     \centering
-    \includegraphics[width=.5\linewidth]{figures/fsm-traffic-light.png}
+    \includegraphics[width=.5\linewidth]{fsm-traffic-light.png}
     \caption{\gls{fsmLabel} representation of a traffic light}
     \labfig{intro:modelling:fsm-traffic-light}
 \end{marginfigure}
@@ -611,9 +611,9 @@ number of steps becomes a combinatory problem.
 
 \begin{figure}
     \centering
-    \subfloat[\centering Simple traffic light]{{\includegraphics[width=0.8\textwidth]{figures/fsm-evolution-simple-traffic-ligth.png}}}%
+    \subfloat[\centering Simple traffic light]{{\includegraphics[width=0.8\textwidth]{fsm-evolution-simple-traffic-ligth.png}}}%
     \vspace{0.1cm}
-    \subfloat[\centering Traffic light with push-button]{{\includegraphics[width=0.8\textwidth]{figures/fsm-evolution-traffic-ligth-with-pushbutton.png}}}%
+    \subfloat[\centering Traffic light with push-button]{{\includegraphics[width=0.8\textwidth]{fsm-evolution-traffic-ligth-with-pushbutton.png}}}%
     \caption[Evolution of different traffic-light \glspl{fsmLabel}]{Evolution of different traffic-light \glspl{fsmLabel} assuming the timer takes one step to complete.}
     \labfig{intro:modelling:fsms-evolution}
 \end{figure}
@@ -768,7 +768,7 @@ constraints.
 
 
 \begin{marginfigure}[-1cm]
-    \includegraphics[]{figures/contrained-optimization-vertical.jpg}
+    \includegraphics[]{contrained-optimization-vertical.jpg}
     \caption{Constrained optimization problem. The goal is to minimize $y=f(x)$
     with the two continuous  decision variables $x_1$ and $x_2$ constrained to
     $g(x)$. The problem is \gls{nlpLabel} with a convex solution-space.\\Source: Wang \textit{et
@@ -1105,7 +1105,7 @@ The following global optimization algorithms have been used in this research
 work:
 
 \begin{marginfigure}[-8.5cm]
-    \includegraphics[]{figures/simmulated_annealing.png}
+    \includegraphics[]{simmulated_annealing.png}
     \caption{Simulated Annealing. Example illustrating the effect of cooling
     schedule on the performance of simulated annealing. The problem is to
     rearrange the pixels of an image so as to minimize a certain potential
@@ -1219,7 +1219,7 @@ work:
     iteration, a new solution is generated and, if it performs better than the
     worst individual in the population, it replaces it. The number of fitness
     function evaluations is therefore equal to the number of iterations. An
-    improved version in Biscani et al.~\cite{biscani_parallel_2020} of HS
+    improved version in Biscani~\etal~\cite{biscani_parallel_2020} of HS
     introduces dynamic parameters: the probability of reusing values from the
     decision vector is adjusted linearly, while the mutation rate decreases
     exponentially over time. These refinements are designed to balance
@@ -1232,7 +1232,7 @@ work:
 \end{itemize}
 
 \begin{marginfigure}[-4cm]
-    \includegraphics[]{figures/particle-swarm-optimization.png}
+    \includegraphics[]{particle-swarm-optimization.png}
     \caption{Particle Swarm Optimization concept. Each particle adjusts its
     velocity based on its own experience and that of neighboring particles to
     explore the search space and converge towards optimal solutions.\\Source:
@@ -1244,9 +1244,9 @@ work:
 
 \begin{figure*}
     \centering
-    \subfloat[\centering CMA-ES \\ Source: \href{https://en.wikipedia.org/wiki/File:Concept_of_directional_optimization_in_CMA-ES_algorithm.png}{Wikipedia}]{{\includegraphics[width=0.48\linewidth]{figures/Concept_of_directional_optimization_in_CMA-ES_algorithm.png}}}%
+    \subfloat[\centering CMA-ES \\ Source: \href{https://en.wikipedia.org/wiki/File:Concept_of_directional_optimization_in_CMA-ES_algorithm.png}{Wikipedia}]{{\includegraphics[width=0.48\linewidth]{Concept_of_directional_optimization_in_CMA-ES_algorithm.png}}}%
     \hspace{0.01\linewidth}
-    \subfloat[\centering Compass-search \\ Source: \href{https://esa.github.io/pagmo2/docs/cpp/algorithms/compass_search.html}{Pagmo 2.19.1 documentation}]{{\includegraphics[width=0.44\linewidth]{figures/compass-search.png}}}%
+    \subfloat[\centering Compass-search \\ Source: \href{https://esa.github.io/pagmo2/docs/cpp/algorithms/compass_search.html}{Pagmo 2.19.1 documentation}]{{\includegraphics[width=0.44\linewidth]{compass-search.png}}}%
     \caption[Illustration of optimization runs for two algorithms]{Illustration of optimization runs for two algorithms. In CMA-ES (a) it shows the covariance matrix adaptation on a simple two-dimensional problem. The spherical optimization landscape is depicted with solid lines of equal f-values. It  shows how the distribution (dotted line) of the population (dots) changes during the optimization. On this simple problem, the population concentrates over the global optimum within a few generations.}
     \labfig{intro:optimization:cmaes_and_compass}
 \end{figure*}
@@ -1295,9 +1295,9 @@ autonomous system capable of regulating itself and achieving specific goals.
 
 \begin{figure*}
     \centering
-    \subfloat[\centering Open-loop]{{\includegraphics[width=0.52\linewidth]{figures/control-open-loop.png}}}%
+    \subfloat[\centering Open-loop]{{\includegraphics[width=0.52\linewidth]{control-open-loop.png}}}%
     \hspace{0.01\linewidth}
-    \subfloat[\centering Closed-loop]{{\includegraphics[width=0.44\linewidth]{figures/control-closed-loop.png}}}%
+    \subfloat[\centering Closed-loop]{{\includegraphics[width=0.44\linewidth]{control-closed-loop.png}}}%
     \caption{Control diagrams}
     \labfig{intro:control-diagrams}
 \end{figure*}
@@ -1450,7 +1450,7 @@ models with long sampling periods, and the computation of new decisions is
 performed only occasionally.
 
 \begin{marginfigure}[-3.5cm]
-    \includegraphics[]{figures/hierarchical-architecture-diagram.png}
+    \includegraphics[]{hierarchical-architecture-diagram.png}
     \caption{Hierarchical control architecture}
     \labfig{intro:hierarchical-control}
 \end{marginfigure}

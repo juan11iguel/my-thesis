@@ -95,13 +95,13 @@ constant parameters can be found in
         & L_{pipe,eq} = \frac{T_s}{A_{pipe,eq}} \sum_{k=0}^{n} q_{sf}[k] \tag*{{\small\textit{Equivalent pipe length [m]}}} \\
         & L_{eq} = n_{c,s} \cdot L_t \tag*{{\small\textit{Eq. collector tube length [m]}}} \\
         & c_f = n_{c-loop} \cdot n_{tub-c} \tag*{{\small\textit{Conversion factor [-]}}} \\
-        & K_{1} = \beta / (\rho \cdot c_p \cdot A_{cs}) \\
-        & K_{2} = H / (L_{pipe,eq} \cdot A_{cs} \cdot \rho \cdot c_p) \\
-        & K_{3} = 1 / (L_{pipe,eq} \cdot A_{cs} \cdot c_f) \cdot (1/3600) \\
+        & K_{1} = \beta / (\rho \cdot c_p \cdot A_{cs}) \tag*{{\small\textit{[K·m$^2$/J]}}} \\
+        & K_{2} = H / (L_{pipe,eq} \cdot A_{cs} \cdot \rho \cdot c_p) \tag*{{\small\textit{[1/s]}}} \\
+        & K_{3} = 1 / (L_{pipe,eq} \cdot A_{cs} \cdot c_f) \cdot (1/3600) \tag*{{\small\textit{[h/(3600·m$^3$·s)]}}} \\
         & T_{\text{out}}(k) = T_{\text{out}}(k-1) + \Big( \\
-        & \qquad + K_1 \cdot I \tag*{{\small\textit{Solar contribution [K·m$^2$/J]}}} \\
-        & \qquad - K_2\cdot (\overline{T}-T_{amb}) \tag*{{\small\textit{Environment losses [1/s]}}} \\ 
-        & \qquad - K_3 \cdot \boldmath{q}_{k-n_d} \left( T_{\text{out},k-1} - T_{\text{in},k-n_{d}} \right) \tag*{{\small\textit{Heat absorbed [h/(3600·m$^3$·s)]}}} \\
+        & \qquad + K_1 \cdot I \tag*{{\small\textit{Solar contribution [K/s]}}} \\
+        & \qquad - K_2\cdot (\overline{T}-T_{amb}) \tag*{{\small\textit{Environment losses [K/s]}}} \\ 
+        & \qquad - K_3 \cdot \boldmath{q}_{k-n_d} \left( T_{\text{out},k-1} - T_{\text{in},k-n_{d}} \right) \tag*{{\small\textit{Heat absorbed [K/s]}}} \\
         & \Big) \cdot T_s 
     \end{align*}
     \labmod{solarmed:sf}
@@ -109,7 +109,7 @@ constant parameters can be found in
 
 % Diagrama del componente con variables
 \begin{marginfigure}[-6.5cm]
-    \includegraphics[]{figures/solarmed-diagrams-solar_field_compact.png}
+    \includegraphics[]{solarmed-diagrams-solar_field_compact.png}
     \caption{Solar field process diagram.}
     \labfig{solarmed:diagrams:solar_field}
 \end{marginfigure}
@@ -124,7 +124,7 @@ takes for the water to flow through the solar field and reach the temperature
 sensors. The apparent delay is the result of adding up the individual -
 different delays of each collector cell}. In this implementation, the transport
 delay is simplified to a single steady state parameter based on the work
-presented in Normey-Rico et al.~\sidecite{normey-rico_robust_1998} since delays
+presented in Normey-Rico~\etal~\sidecite{normey-rico_robust_1998} since delays
 vary less than 30\% from this nominal value.
 
 The number of delay samples depends on the model sample time and a system
@@ -164,7 +164,7 @@ procedure was followed to estimate it:
 % Gráfica bonica para test 20240927 y 20240925 (unir ambos ensayos en el mismo
 % dataframe y romper el eje x para evitar la discontinuidad grande entre días)
 \begin{figure*}[]
-    \includegraphics[]{figures/solar_field_eletricity_caractherization_tests.png}
+    \includegraphics[]{solar_field_eletricity_caractherization_tests.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/sf_tests_viz.zip}}
     \caption{Solar field and thermal storage electrical
     characterization tests.\hspace{1ex}\usebox\captionqr}
@@ -206,7 +206,7 @@ to 08:20}.
 
 % Flow vs power consumption
 \begin{figure}
-    \includegraphics[width=\textwidth]{figures/sf_flow_vs_power_consumption.png}
+    \includegraphics[width=\textwidth]{sf_flow_vs_power_consumption.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/sf_flow_vs_power_consumption.html}}
     \caption{Solar field flow for different pump configurations and their associated power consumption.\\[1ex] \usebox\captionqr}
     \labfig{solarmed:modelling:sf:flow_vs_power_consumption}
@@ -255,7 +255,7 @@ individual loops depending on the working flow range.
 \subsubsection{Validation}
 
 \begin{figure*}[h!]
-    \includegraphics[width=\linewidth]{figures/solar_field_validation.png}
+    \includegraphics[width=\linewidth]{solar_field_validation.png}
     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solar_field_validation_20231106.html}}
     \savebox\captionqrright{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solar_field_validation_20230511.html}}
     \caption[]{Solar field model calibration and validation tests. \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
@@ -267,7 +267,7 @@ representative experimental test is used\sidenote{See
 \reffig{solarmed:modelling:validation:solar-field}-- left} where the parameters
 are fitted. %A collector conversion factor of $\beta_{sf}=4.36\cdot 10^{-2}\:
 %(m)$ and a thermal loss coefficient $H_{sf}=13.57 \, (W/m^2)$.
-Compared to the results presented in Ampuño et al.~\cite{ampuno_modeling_2018},
+Compared to the results presented in Ampuño~\etal~\cite{ampuno_modeling_2018},
 double the gain coefficient is obtained while higher losses are found. This
 could be explained by the fact that the calibration was performed including the
 warm-up and cooldown periods of the solar field. 
@@ -366,7 +366,7 @@ heat transfer mechanisms, and the stratification dynamics are shown in
             \dot{m}_\text{src}(k),\;
             \dot{m}_\text{dis}(k),\;
             T_\text{amb}(k);\;
-            \boldsymbol{\theta}_\text{h};\;
+            \boldsymbol{\theta}_\text{h},\;
             \boldsymbol{\theta}_\text{c}
         \Big)
     \end{align*}
@@ -490,7 +490,7 @@ heat transfer mechanisms, and the stratification dynamics are shown in
 
 % Diagrama del componente con variables
 \begin{marginfigure}[-7.5cm]
-    \includegraphics[]{figures/solarmed-diagrams-thermal_storage.png}
+    \includegraphics[]{solarmed-diagrams-thermal_storage.png}
     \caption{Thermal storage process diagram.}
     \labfig{solarmed:diagrams:thermal_storage}
 \end{marginfigure}
@@ -545,7 +545,7 @@ determination of $R^2 = 0.99$.
 \subsubsection{Validation}
 
 \begin{figure*}[h!]
-    \includegraphics[width=\linewidth]{figures/thermal_storage_validation.png}
+    \includegraphics[width=\linewidth]{thermal_storage_validation.png}
     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/thermal_storage_validation_20230707.html}}
     \savebox\captionqrright{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/thermal_storage_validation_20230505.html}}
     \caption[]{Thermal storage model calibration and validation tests. \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
@@ -711,7 +711,7 @@ following assumptions need to be considered~\cite{cengel_heat_2015}:
 
 % Diagrama del componente con variables
 \begin{marginfigure}[-5.5cm]
-    \includegraphics[]{figures/solarmed-diagrams-heat_exchanger.png}
+    \includegraphics[]{solarmed-diagrams-heat_exchanger.png}
     \caption{Heat exchanger process diagram.}
     \labfig{solarmed:diagrams:heat_exchanger}
 \end{marginfigure}
@@ -728,7 +728,7 @@ temperatures can be obtained.
 \subsubsection{Validation}
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{figures/heat_exchanger_validation_20231106.png}
+    \includegraphics[width=\textwidth]{heat_exchanger_validation_20231106.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/heat_exchanger_validation_20231106.html}}
     \caption[Heat exchanger model validation for a particular test.]{Heat exchanger model validation for a particular test. The effectiveness--NTU is limited to the model because it is an estimated parameter.\\[1ex] \usebox\captionqr}
     \labfig{solarmed:modelling:validation:heat-exchanger}
@@ -860,7 +860,7 @@ desbrined in \refsec{solarmed:facility:med}.
 \end{modelcounter}
 
 \begin{marginfigure}[-5.5cm]
-    \includegraphics[]{figures/solarmed-modelling-med-diagram.png}
+    \includegraphics[]{solarmed-modelling-med-diagram.png}
     \caption{\gls{medLabel} process diagram.}
     \labfig{solarmed:diagrams:med}
 \end{marginfigure}
@@ -944,7 +944,7 @@ GPy's~\sidecite{gpy2014} built-in L-BFGS local optimizer.
 
 
 \begin{figure*}[h!]
-    \includegraphics[]{figures/med_model_regression_plot.png}
+    \includegraphics[]{med_model_regression_plot.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/med_model_regression_plot.html}}
     \caption[\gls{medLabel} \gls{gprLabel} model regression for
     different outputs.]{\gls{medLabel} \gls{gprLabel} model regression for
@@ -954,7 +954,7 @@ GPy's~\sidecite{gpy2014} built-in L-BFGS local optimizer.
 \end{figure*}
 
 \begin{figure*}[h!]
-    \includegraphics[width=\linewidth]{figures/med_validation.png}
+    \includegraphics[width=\linewidth]{med_validation.png}
     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/med_validation_20230331.html}}
     \savebox\captionqrright{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/med_validation_20230418.html}}
     \caption[]{\gls{medLabel} model validation tests. \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
@@ -1106,9 +1106,9 @@ parameters\sidenote{In parentheses the value used}:
 
 \begin{figure*}
     \centering
-    \subfloat[\centering \gls{sftsLabel}]{{\includegraphics[width=0.3\linewidth]{figures/solarmed-sfts-fsm.png}}}%
+    \subfloat[\centering \gls{sftsLabel}]{{\includegraphics[width=0.3\linewidth]{solarmed-sfts-fsm.png}}}%
     \hspace{0.1\linewidth}
-    \subfloat[\centering \gls{medfsmLabel}]{{\includegraphics[width=0.58\linewidth]{figures/solarmed-med-fsm.png}}}%
+    \subfloat[\centering \gls{medfsmLabel}]{{\includegraphics[width=0.58\linewidth]{solarmed-med-fsm.png}}}%
     \caption[Finite-state machines for the different subsystems]{Finite-state machines for the different subsystems}
     \labfig{solarmed:modelling:fsm-diagrams}
 \end{figure*}
@@ -1218,7 +1218,7 @@ system then stays active producing separation until it is shut-off at sample 56
 for two samples, equivalent to over 10 minutes.
 
 \begin{figure*}[h!]
-    \includegraphics[]{figures/solarmed_fsm_evolution_20230703.png}
+    \includegraphics[]{solarmed_fsm_evolution_20230703.png}
     \caption[SolarMED \gls{fsmLabel} states evolution during a test on 20230703]{\gls{solarmedLabel} \gls{fsmLabel} states evolution during a test on 20230703.
     Purple represents the \gls{medfsmLabel} state and orange the
     \gls{sftsLabel}.\\ Note: \textit{med active} is equivalent to the condition $\forall q_{med,i} > \underline{q_{med,i}}$} 
@@ -1333,7 +1333,7 @@ tanks update their stratified temperatures by applying the computed inlet/outlet
 temperatures and the discharge flows.
 
 \begin{marginfigure}[-3cm]
-    \includegraphics[]{figures/solarmed-modelling-complete_model.png}
+    \includegraphics[]{solarmed-modelling-complete_model.png}
     \caption{Complete \gls{solarmedLabel} model architecture.}
     \labfig{solarmed:modelling:complete_model}
 \end{marginfigure}
@@ -1349,7 +1349,7 @@ initial condition for the next.
 
 % Gráfica tocha mostrado algún día y después una tabla para varios días
 \begin{figure*}[h!]
-    \includegraphics[width=\linewidth]{figures/solarmed_validation_20231106.png}
+    \includegraphics[width=\linewidth]{solarmed_validation_20231106.png}
     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solarmed_validation_20231106.html}}
     \caption[]{\gls{solarmedLabel} model validation \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
     \labfig{solarmed:modelling:validation:solarmed}

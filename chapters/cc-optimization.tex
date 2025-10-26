@@ -23,7 +23,7 @@ some operating parameters via a sensitivity analysis
 \sidecite{asfand_thermodynamic_2020,mdallal_modelling_2024,hu_thermodynamic_2018,tang_study_2013,asvapoositkul_comparative_2014,barigozzi_performance_2014}
 . Nonetheless, several have focused on improving cooling system performance
 through optimization of the individual component operation. Among them, the
-works from Martín et al. stand out. In \sidecite{martin_optimal_2013} they were
+works from Martín~\etal stand out. In \sidecite{martin_optimal_2013} they were
 the first to optimize the year-round operation of a \gls{cspLabel} system not only
 considering the cooling side but also integrating the power block. The problem
 was formulated as a multiperiod \gls{nlpLabel} problem with air flow rate and
@@ -57,8 +57,8 @@ the table.
 % made about its operation strategy: water-enhanced dry cooling and parallel configuration.
 % Rohani\todo{Realmente lo que proponen no es nada nuevo, exactamente esa
 % operación ya se propuso por ejemplo en wiles\_description\_1978 y zaloudek\_study\_1976}
-% et al. \sidecite{rohani_optimization_2021} and Golkar et al
-% \cite{golkar_determination_2019}. In the latter, Rohani et al. implement a
+%~\etal \sidecite{rohani_optimization_2021} and Golkar et al
+% \cite{golkar_determination_2019}. In the latter, Rohani~\etal implement a
 % thorough model of water streams in a \gls{cspLabel} plant that was
 % experimentally validated. Different scenarios and cooling alternatives were
 % analyzed and each of them was simulated for a year of operation. In the hybrid
@@ -68,7 +68,7 @@ the table.
 % the design and sizing of the hybrid cooler by application of a genetic
 % algorithm, it then applied a very similar operation strategy.
 
-In Maulbetsch et al.~\cite{maulbetsch_economic_2012}, a parallel combined system
+In Maulbetsch~\etal~\cite{maulbetsch_economic_2012}, a parallel combined system
 is analyzed, where the operation strategy is set as follows: At some
 temperature, the condensing pressure achieved will raise above a desired limit.
 For ambient temperatures above that level, both systems are operated at full
@@ -129,7 +129,7 @@ explicitly considered in the decision-making process:
 \end{itemize}
 
 \begin{marginfigure}[*-10] % +5.5cm
-    \includegraphics[]{figures/cc-optimization-environment.png}
+    \includegraphics[]{cc-optimization-environment.png}
     \caption{Block diagram of the optimization scheme including environment components}
     \labfig{cc:optimization:environment}
 \end{marginfigure}
@@ -309,7 +309,7 @@ dry cooler and \nrefsec{cc:modelling:condenser} for the condenser model.}
 \end{problemcounter}
 
 \begin{marginfigure}[*-20]
-    \includegraphics[]{figures/wascop-optimization-dc-diagram.png}
+    \includegraphics[]{wascop-optimization-dc-diagram.png}
     \caption{Diagram of the dry cooler only cooling problem}
     \labfig{cc:optimization:diagram-dc}
 \end{marginfigure}
@@ -393,7 +393,7 @@ condenser model.}
 \end{problemcounter}
 
 \begin{marginfigure}[*-20]
-    \includegraphics[]{figures/wascop-optimization-wct-diagram.png}
+    \includegraphics[]{wascop-optimization-wct-diagram.png}
     \caption{Diagram of the wet cooler only cooling problem}
     \labfig{cc:optimization:diagram-wct}
 \end{marginfigure}
@@ -471,7 +471,7 @@ problem is defined as follows:\sidenote{
 
 
 \begin{marginfigure}[*-20]
-    \includegraphics[]{figures/wascop-optimization-cc-diagram.png}
+    \includegraphics[]{wascop-optimization-cc-diagram.png}
     \caption{Diagram of the combined cooler and condenser problem}
     \labfig{cc:optimization:diagram-cc}
 \end{marginfigure}
@@ -484,7 +484,7 @@ distribution variables ($R_p$ and $R_s$). The environment remains unchanged from
 the wet cooler case, as it still includes water-related variables.
 
 \begin{figure}
-    \includegraphics[width=.7\textwidth]{figures/cc-pareto_fronts_for_different_scenarios_and_power_and_hydraulic_dist_for_different_scenarios.png}
+    \includegraphics[width=.7\textwidth]{cc-pareto_fronts_for_different_scenarios_and_power_and_hydraulic_dist_for_different_scenarios.png}
     \caption{Pareto fronts in different representative scenarios (top) and detailed power and hydraulic distribution for a specific scenario (bottom)}
     \labfig{cc:optimization:paretos}
 \end{figure}
@@ -627,7 +627,7 @@ the end of the operation day.
 \end{remark}
 
 \begin{marginfigure}[*-3]
-    \includegraphics[]{figures/optimization-diagrams-search-space.png}
+    \includegraphics[]{optimization-diagrams-search-space.png}
     \caption{Visualization of a constrained search space for two decision variables}
     \labfig{cc:optimization:search-space}
 \end{marginfigure}
@@ -711,7 +711,7 @@ and its components are described in the following sections.
     % independently for each step, to obtain a set of pareto fronts:}
     % \end{flushleft}
     % \vspace{0.5ex}
-    % \includegraphics[]{figures/optimization-diagrams-paretos.png}
+    % \includegraphics[]{optimization-diagrams-paretos.png}
     % \vspace{1ex}
 
     % \textdownarrow
@@ -722,9 +722,9 @@ and its components are described in the following sections.
     % cost of operation}
     % \end{flushleft}
     % \vspace{0.5ex}
-    % \includegraphics[]{figures/optimization-diagrams-path-selection.png}
+    % \includegraphics[]{optimization-diagrams-path-selection.png}
     % % \vspace{1ex}
-    \includegraphics[]{figures/cc-horizon-optimization-diagram.png}
+    \includegraphics[]{cc-horizon-optimization-diagram.png}
 
     \caption[Proposed methodology. Decomposition-based multi-objective
     optimization with trajectory planning]{Proposed methodology.

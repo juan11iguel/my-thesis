@@ -63,14 +63,14 @@ to assess, and achieving optimal \gls{medLabel} operation requires optimizing th
 coupled system.
 
 Several studies address this broader problem at different levels of complexity.
-González et al.~\cite{gonzalez_economic_2014a} proposed a receding-horizon
+González~\etal~\cite{gonzalez_economic_2014a} proposed a receding-horizon
 optimal control strategy with economic objectives—maximizing water production
 while minimizing electricity costs. Their work relied on a simplified linear
 model, optimizing only the solar field flow, while fixing the \gls{medLabel} inlet
 temperature at a constant value. The most advanced optimization efforts in the
 literature, however, have been developed not for \gls{medLabel} but for \fullgls{mdLabel}.
 
-In Porrazzo et al.~\sidecite{porrazzo_neural_2013}, the authors developed a
+In Porrazzo~\etal~\sidecite{porrazzo_neural_2013}, the authors developed a
 neural network-based optimizing control system for a solar-powered seawater \gls{mdLabel}
 unit. Because solar energy is intermittent and variable, efficient operation
 requires advanced control strategies. A neural network model, trained on
@@ -81,7 +81,7 @@ maximize distillate output under varying conditions. The proposed feedforward
 control strategy was validated through simulations and tested in a pilot plant,
 demonstrating improved efficiency.
 
-Gil et al.~\sidecite{gil_hybrid_2019} extended this approach by recognizing that
+Gil~\etal~\sidecite{gil_hybrid_2019} extended this approach by recognizing that
 a solar \gls{mdLabel} plant does not operate as a single continuous process but transitions
 through distinct operating modes (\eg, heating the solar field, charging
 the storage tank, or running the \gls{mdLabel} module) dictated by solar and thermal
@@ -406,7 +406,7 @@ consideration since otherwise the limited number of updates would be assigned
 to long inactive periods (between end of operation in day 1 and start on day
 2). 
 \begin{marginfigure}[-10cm]
-    \includegraphics[]{figures/solarmed-optimization-decision_tree.png}
+    \includegraphics[]{solarmed-optimization-decision_tree.png}
     \caption{Decision tree resulting from the combinatorial nature of the integer part of the optimization problem. Text in nodes represents system states.}
     \labfig{solarmed:optimization:decision_tree}
 \end{marginfigure}
@@ -437,7 +437,7 @@ continuous \textit{process variables} that are to be followed by the low-level
 regulatory control layer.
 
 \begin{marginfigure}[-3.5cm]
-    \includegraphics[]{figures/solarmed-optimization-architecture.png}
+    \includegraphics[]{solarmed-optimization-architecture.png}
     \caption{Proposed optimization strategy architecture}
     \labfig{solarmed:optimization:architecture}
 \end{marginfigure}
@@ -554,9 +554,9 @@ additional thresholds can be added.
 
 \begin{figure*}
     \centering
-    \subfloat[\centering Computation timeline]{{\includegraphics[width=0.48\linewidth]{figures/solarmed-optimization-timeline.png}}}%
+    \subfloat[\centering Computation timeline]{{\includegraphics[width=0.48\linewidth]{solarmed-optimization-timeline.png}}}%
     \hspace{0.01\linewidth}
-    \subfloat[\centering Operation mode updates time distribution]{{\includegraphics[width=0.48\linewidth]{figures/solarmed-optimization-updates_distribution.png}}}%
+    \subfloat[\centering Operation mode updates time distribution]{{\includegraphics[width=0.48\linewidth]{solarmed-optimization-updates_distribution.png}}}%
     \caption[Operation plan layer computation and updates distribution]{Operation plan layer computation and updates distribution. The yellow line represents the irradiance illustrating the solar day.}%
     \labfig{solarmed:optimization:operation_plan}
 \end{figure*}
