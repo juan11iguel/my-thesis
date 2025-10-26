@@ -1,6 +1,9 @@
 \setchapterstyle{lines}
 
-\section{Uncertainty estimation through first-order Taylor series approximation}\labsec{appendix:uncertainty}
+\chapter{\gls{medLabel} Performance Evaluation}
+
+\section{Uncertainty estimation through first-order Taylor series approximation}
+\labsec{appendix:uncertainty}
 
 In this appendix, expressions for the uncertainty estimation of energetic and separation metrics are shown. %In addition, in order to prove that the simpler approach (first-order Taylor expansion) is valid for these metrics, a comparison of the uncertainty propagation results using the first-order Taylor expansion with respect to the Monte Carlo alternative has been performed for the energetic metrics (see Fig.~\ref{fig:un_prop_comparison}). As can be observed, both follow a very similar normal distribution, so it can be stated that the use of the first-order Taylor expansion is valid for these metrics.
 
@@ -14,27 +17,34 @@ In this appendix, expressions for the uncertainty estimation of energetic and se
 
 \subsection{Specific Thermal Energy Consumption (STEC)}
 
-\begin{multicols}{2}
 \begin{align}
     \Delta STEC &= \Bigg(
-    \left(\left| \frac{\delta STEC}{\delta \dot{m_d}}\right| \Delta \dot{m_d}\right)^2 + \left(\left| \frac{\delta STEC}{\delta \dot{m}_{s}}\right| \Delta \dot{m}_{s} \right)^2 \\
-    &\qquad + \left(\left| \frac{\delta STEC}{\delta T_{s}}\right| \Delta T_{s} \right)^2 \Bigg)^{1/2}
+    \left( \left| \frac{\delta STEC}{\delta \dot{m}_{d}} \right| \Delta \dot{m}_{d} \right)^{2}
+    + \left( \left| \frac{\delta STEC}{\delta \dot{m}_{s}} \right| \Delta \dot{m}_{s} \right)^{2} \nonumber \\
+    &\qquad
+    + \left( \left| \frac{\delta STEC}{\delta T_{s}} \right| \Delta T_{s} \right)^{2}
+    \Bigg)^{1/2}
+    \labeq{STEC_uncertainty}
 \end{align}
-\end{multicols}
     
-where: $T_s=T_{s,in}-T_{s,out} \rightarrow \Delta T_s= \Delta (T_{s,in} - T_{s,out})$ \footnote{If they are the same sensor and were calibrated at the same time using the same calibration standard}
+\marginnote{where: $T_s=T_{s,in}-T_{s,out} \rightarrow \Delta T_s= \Delta
+(T_{s,in} - T_{s,out})$. If they are the same sensor and were calibrated at the
+same time using the same calibration standard}
 
 Calculating the partial derivatives, the expression is obtained:
 
-\begin{multicols}{2}
 \begin{align}
-STEC \pm \Delta STEC \: \left[ \mathrm{ \frac{kWh_{th}}{m^{3}} } \right] &= \frac{\dot{m}_{s}·c_p·T_{s}}{\dot{m_d}} \pm \frac{c_{p}}{\dot{m_d}} \nonumber \\ 
-&\qquad \bigl( (T_{s}\Delta \dot{m}_{s})^2
-+ (\dot{m}_{s}\Delta T_{s})^2 \nonumber \\ 
-&\qquad + (\dot{m}_{s}T_{s}\dot{m_d}^{-1}\Delta \dot{m_d})^2 \bigl)^{1/2}   
-\label{eq:STEC_complete}
+    STEC \pm \Delta STEC \: \left[ \mathrm{\frac{kWh_{th}}{m^{3}}} \right]
+    &= \frac{\dot{m}_{s} c_p T_{s}}{\dot{m}_{d}} 
+    \pm \frac{c_{p}}{\dot{m}_{d}} \nonumber \\ 
+    &\quad \times 
+    \Bigl[ 
+    (T_{s}\, \Delta \dot{m}_{s})^{2}
+    + (\dot{m}_{s}\, \Delta T_{s})^{2} 
+    + (\dot{m}_{s} T_{s} \dot{m}_{d}^{-1} \Delta \dot{m}_{d})^{2}
+    \Bigr]^{1/2}
+    \labeq{STEC_complete}
 \end{align}
-\end{multicols}
 
 
 % \begin{multicols}{2}
@@ -57,13 +67,17 @@ STEC \pm \Delta STEC \: \left[ \mathrm{ \frac{kWh_{th}}{m^{3}} } \right] &= \fra
 
 \subsection{Specific Electrical Energy Consumption (SEEC)}    
 
-\begin{multicols}{2}
 \begin{align}
-SEEC &\pm \Delta SEEC \: \left[ \mathrm{ \frac{kWh_{e}}{m^{3}} } \right] = \nonumber \\
-&\quad \frac{\sum\limits_{i=1}^{N}(E_{i})}{\dot{m_d}} \pm
-\Biggl( \Biggl(\frac{\sum\limits_{i=1}^{N}(\Delta E_{i})}{\dot{m_d}}\Biggl)^2 + \Biggl(\frac{\sum\limits_{i=1}^{N}(E_{i})}{\dot{m_d}^{2}}\Delta \dot{m_d}\Biggl)^2 \Biggl) ^{1/2}
+    SEEC &\pm \Delta SEEC \: \left[ \mathrm{\frac{kWh_{e}}{m^{3}}} \right] = \nonumber \\
+    &\quad \frac{\sum\limits_{i=1}^{N} E_{i}}{\dot{m}_{d}} 
+    \pm
+    \Biggl[
+    \Biggl( \frac{\sum\limits_{i=1}^{N} \Delta E_{i}}{\dot{m}_{d}} \Biggr)^{2}
+    +
+    \Biggl( \frac{\sum\limits_{i=1}^{N} E_{i}}{\dot{m}_{d}^{2}} \, \Delta \dot{m}_{d} \Biggr)^{2}
+    \Biggr]^{1/2}
+    \labeq{SEEC_complete}
 \end{align}
-\end{multicols}
 
 \subsection{Performance Ratio}
 % %%
@@ -81,22 +95,46 @@ SEEC &\pm \Delta SEEC \: \left[ \mathrm{ \frac{kWh_{e}}{m^{3}} } \right] = \nonu
 % \end{multicols}
 
 % Updated to use enthalpy insetad of specific heat
-\begin{multicols}{2}
 \begin{align}
-PR \pm \Delta PR &= \frac{\dot{m}_{d} · \Delta h_{ref}}{\dot{m}_{s}·\Delta h_s} \pm \nonumber \\
-& \frac{\Delta h_{ref}}{{\dot{m}_{s}·\Delta h_s}} \left( \Delta \dot{m}_{d}^2 + \dot{m}_d^2 \left(\left( \frac{\Delta \dot{m}_s}{\dot{m}_s} \right)^2 + \left( \frac{\Delta(\Delta h_s)}{\Delta h_s} \right)^2\right) \right)^{1/2}
+    PR \pm \Delta PR &= \frac{\dot{m}_{d} \, \Delta h_{ref}}{\dot{m}_{s} \, \Delta h_{s}} \pm \nonumber \\
+    &\quad
+    \frac{\Delta h_{ref}}{\dot{m}_{s} \, \Delta h_{s}}
+    \Biggl[
+    (\Delta \dot{m}_{d})^{2}
+    +
+    \dot{m}_{d}^{2}
+    \Biggl(
+    \left( \frac{\Delta \dot{m}_{s}}{\dot{m}_{s}} \right)^{2}
+    +
+    \left( \frac{\Delta (\Delta h_{s})}{\Delta h_{s}} \right)^{2}
+    \Biggr)
+    \Biggr]^{1/2}
+    \labeq{PR_complete}
 \end{align}
-\end{multicols}
+
 
 \subsection{Waste heat performance ratio}
 
-
-\begin{multicols}{2}
 \begin{align}
-PR_{WH} \pm \Delta PR_{WH} &= \frac{\dot{m}_{d}}{\dot{m}_{s}·T}·\frac{\Delta h_{ref}}{c_{p}} \pm \frac{\Delta h_{ref}}{c_{p}}\frac{1}{\dot{m}_{s}·T} \nonumber \\
-& \left( \Delta \dot{m}_{d}^2 + \dot{m}_d^2·\left(\frac{\Delta \dot{m}_s}{\dot{m}_s} + \frac{\Delta T}{T} \right)^2 \right)^{1/2}
+    PR_{WH} \pm \Delta PR_{WH} &= \frac{\dot{m}_{d}}{\dot{m}_{s} \, T} \, \frac{\Delta h_{ref}}{c_{p}} 
+    \pm 
+    \frac{\Delta h_{ref}}{c_{p}} \, \frac{1}{\dot{m}_{s} \, T} \nonumber \\
+    &\quad
+    \times
+    \Biggl[
+    (\Delta \dot{m}_{d})^{2}
+    +
+    \dot{m}_{d}^{2}
+    \Biggl(
+    \frac{\Delta \dot{m}_{s}}{\dot{m}_{s}}
+    +
+    \frac{\Delta T}{T}
+    \Biggr)^{2}
+    \Biggr]^{1/2}
+    \labeq{PR_WH_complete}
 \end{align}
-\end{multicols}
+\marginnote{where: $T=T_{s,in}-T_{c,in} \rightarrow \Delta T= \Delta T_{s,in} + \Delta T_{c,in}$}
+
 % \begin{multicols}{2}
 % \begin{align}
 % PR_{WH} \pm \Delta PR_{WH} &= \frac{\dot{m}_{d}}{\dot{m}_{s}·T}·\frac{\Delta h_{ref}}{c_{p}} \pm \frac{\Delta h_{ref}}{c_{p}}\frac{1}{\dot{m}_{s}·T} \nonumber \\
@@ -104,7 +142,6 @@ PR_{WH} \pm \Delta PR_{WH} &= \frac{\dot{m}_{d}}{\dot{m}_{s}·T}·\frac{\Delta h
 % \end{align}
 % \end{multicols}
 
-where: $T=T_{s,in}-T_{c,in} \rightarrow \Delta T= \Delta T_{s,in} + \Delta T_{c,in}$ \\
 
 \subsection{Recovery ratio}
 
@@ -117,21 +154,50 @@ RR \pm \Delta RR = \frac{\dot{m}_{d}}{\dot{m}_{f}} \pm \left( \left(\frac{1}{\do
 \begin{equation}
     CF \pm \Delta CF = \frac{\dot{m}_f}{\dot{m}_b} \pm \frac{1}{\dot{m}_b} \left( \left(1+\frac{\dot{m}_f}{\dot{m}_b}\right)^2·\Delta \dot{m}_f^2 + \left( \dot{m}_f·\Delta \dot{m}_b \right)^2 \right)^{1/2}
 \end{equation}
-where: $\dot{m}_b=\dot{m}_f-\dot{m}_d \rightarrow \Delta \dot{m}_b= \Delta \dot{m}_f+\Delta \dot{m}_d$
+
+\marginnote{where: $\dot{m}_b=\dot{m}_f-\dot{m}_d \rightarrow \Delta \dot{m}_b= \Delta \dot{m}_f+\Delta \dot{m}_d$}
 
 % \appendix
 
-\section{Exergy calculations}\labsec{appendix:exergy}
-Exergy consists on two components: thermomechanical exergy and chemical exergy. When performing an exergetic analysis, the balances of the exergy flows of interest are calculated given the control volume presented in Fig.~\ref{fig:control_volume}. Any external stream entering the control volume is considered an exergy input ($\dot{E}x_{in}$), while any stream leaving it is considered an exergy output ($\dot{E}x_{out}$). A general expression to determine the specific exergy flow ($\dot{e}_x$) of a stream is given in Eq.~\ref{eq:exergy}, where the first two summands represent the thermomechanical component and the last the chemical component.
+\section{Exergy calculations}
+\labsec{appendix:exergy} 
+
+Exergy consists on two components: thermomechanical exergy and chemical exergy.
+When performing an exergetic analysis, the balances of the exergy flows of
+interest are calculated given the control volume presented in
+Fig.~\ref{fig:control_volume}. Any external stream entering the control volume
+is considered an exergy input ($\dot{E}x_{in}$), while any stream leaving it is
+considered an exergy output ($\dot{E}x_{out}$). A general expression to
+determine the specific exergy flow ($\dot{e}_x$) of a stream is given in
+\refeq{exergy}, where the first two summands represent the thermomechanical
+component and the last the chemical component.
 
 % Expresión general de exergía
-\begin{equation}\label{eq:exergy}
-\dot{e}_x=(h-h^*)-T_0(s-s^*)+\sum\limits_{i=1}^{n}w_i(\mu_i^*-\mu_i^0).
+\begin{equation}
+    \dot{e}_x=(h-h^*)-T_0(s-s^*)+\sum\limits_{i=1}^{n}w_i(\mu_i^*-\mu_i^0).
+    \labeq{exergy}
 \end{equation}
 
-In Eq.~\ref{eq:exergy}, the variables $h$, $s$, $\mu$, and $w$ represent the specific enthalpy, specific entropy, chemical potential, and mass fraction, respectively. The properties denoted with an asterisk in the equation are calculated at the restricted dead state conditions (when the temperature and pressure of the system change to match the temperature and pressure of the environment). On the other hand, properties labeled with a superscript of ``0" are determined at the global dead state (when the concentration is also changed to match that of the environment). The subscript $i$ represents a species (NaCl, H$_2$O and others if considered). Notice that the chemical exergy component in this work has been calculated by two approaches: empirical correlations (i) and modelling seawater as an electrolyte for a solution of NaCl with the same concentration as the feedwater salinity (ii). In the latter case, the required activity coefficients have been determined by Pitzer equations \cite{pitzer_thermodynamics_1973}. 
+In \refeq{exergy}, the variables $h$, $s$, $\mu$, and $w$ represent the
+specific enthalpy, specific entropy, chemical potential, and mass fraction,
+respectively. The properties denoted with an asterisk in the equation are
+calculated at the restricted dead state conditions (when the temperature and
+pressure of the system change to match the temperature and pressure of the
+environment). On the other hand, properties labeled with a superscript of ``0"
+are determined at the global dead state (when the concentration is also changed
+to match that of the environment). The subscript $i$ represents a species (NaCl,
+H$_2$O and others if considered). Notice that the chemical exergy component in
+this work has been calculated by two approaches: empirical correlations (i) and
+modelling seawater as an electrolyte for a solution of NaCl with the same
+concentration as the feedwater salinity (ii). In the latter case, the required
+activity coefficients have been determined by Pitzer equations~\sidecite{pitzer_thermodynamics_1973}. 
 
-Finally, in order to calculate the specific exergy flows, libraries in MATLAB \cite{sharqawy_thermophysical_2010,nayar_thermophysical_2016} and Python \cite{romera_jjgomeraiapws_2021} are available. However, they are limited to 120 kg/kg of concentration. For higher values, the approach used is the modelling of seawater as an electrolyte and in this case the chemical exergy flows are determined by the activity coefficients using a free and open source tool \cite{marcellos_pyequion_2021}
+Finally, in order to calculate the specific exergy flows, libraries in MATLAB
+~\sidecite{sharqawy_thermophysical_2010,nayar_thermophysical_2016} and Python
+~\sidecite{romera_jjgomera_2021a} are available. However, they are limited to 120
+kg/kg of concentration. For higher values, the approach used is the modelling of
+seawater as an electrolyte and in this case the chemical exergy flows are
+determined by the activity coefficients using a free and open source tool~\sidecite{marcellos_pyequion_2021}.
 
 
 % Finally, in order to calculate the specific exergy flows, it should be mentioned that a library for the determination of the thermophysical properties of seawater is available at \href{http://web.mit.edu/seawater/}{MIT webpage}, which is based on the work shown in \cite{sharqawy_thermophysical_2010} and \cite{nayar_thermophysical_2016}. It includes functions to calculate the the specific exergy flows and it is available in MATLAB, Engineering Equation Solver and Excel. There is also an implementation of the IAPWS R13-08 seawater properties standard \cite{IAPWSR13-08_2008} in Python, which includes the calculation of the specific enthalpy, entropy and chemical potential of seawater \cite{romera_jjgomeraiapws_2021}. The chemical exergy calculations in the above mentioned libraries are limited to 120 kg/kg of concentration. For higher values of concentration, the approach used is the modelling of seawater as an electrolyte and the chemical exergy flows are determined using the activity coefficients \cite{fitzsimons_exergy_2015,thiel_energy_2015,chung_thermodynamic_2017}. A free and open source implementation for obtaining such coefficients is available in \cite{marcellos_pyequion_2021} for the Python programming language.
@@ -154,53 +220,101 @@ Finally, in order to calculate the specific exergy flows, libraries in MATLAB \c
 
 %In this work the chemical exergy component was calculated by two approaches: empirical correlations (ii) and modelling seawater as an electrolyte for a solution of NaCl with the same concentration as the feedwater salinity (iii). A comparison of both approaches is shown in Fig.~\ref{fig:exergy_chemical_comparison} when used to determine the Second Law efficiency, it can be seen that very similar results are obtained. \\
 
-\textbf{Least and minimum least work of separation}. To determine how efficient a desalination plant is at separating fresh water from seawater, it is compared to the thermodynamic minimum. This is the least work required to accomplish the separation and is only achievable with an ideal reversible separator (without entropy generation). It has been analyzed and presented in different ways in the literature \cite{spiegler_-sayed_2001,sharqawy_exergy_2011,thiel_energy_2015,lienhard_thermodynamics_2017}. A general expression is shown in Eq.~\ref{eq:Wleast} in terms of the Gibbs free energy ($g$).
+\textbf{Least and minimum least work of separation}. To determine how efficient
+a desalination plant is at separating fresh water from seawater, it is compared
+to the thermodynamic minimum. This is the least work required to accomplish the
+separation and is only achievable with an ideal reversible separator (without
+entropy generation). It has been analyzed and presented in different ways in the
+literature~\sidecite{spiegler_energetics_2001,sharqawy_exergy_2011,thiel_energy_2015,lienhard_thermodynamics_2017}.
+A general expression is shown in \refeq{Wleast} in terms of the Gibbs free
+energy ($g$).
 
-\begin{equation}\label{eq:Wleast}
+\begin{equation}
+    \labeq{Wleast}
     \dot{W}_{least} = \dot{m}_d · g_d + \dot{m}_b · g_b - \dot{m}_{f} · g_{f}.
 \end{equation}
 
-If it is normalized to the distillate production and the flows expressed in terms of the recovery ratio according to Eq.~\ref{eq:RR}, the expression becomes:
+If it is normalized to the distillate production and the flows expressed in
+terms of the recovery ratio according to \refeq{RR}, the expression
+becomes:
 
-\begin{equation}\label{eq:Wleast_rr}
+\begin{equation}
+    \labeq{Wleast_rr}
     \frac{\dot{W}_{least}}{\dot{m}_d} = g_d + \frac{1-RR}{RR} · g_b - \frac{1}{RR} · g_f.
 \end{equation}
 
-As can be seen in Eq.~\ref{eq:Wleast_rr}, the least work of separation depends on how much pure water is extracted per unit of feed (RR), and as proven in \cite{mistry_entropy_2011}, the higher the RR, the higher the least energy required to produce the separation. In this context, the minimum least work of separation ($W_{least}^{min}$) is determined when RR $\rightarrow$ 0. \\ %When the pure water is the desired product (traditional desalination), it is more appropriate to set the reference ideal system to  while  \cite{thielEnergyConsumptionDesalinating2015}:
-
-
+As can be seen in \refeq{Wleast_rr}, the least work of separation depends
+on how much pure water is extracted per unit of feed (RR), and as proven
+in~\sidecite{mistry_entropy_2011}, the higher the RR, the higher the least
+energy required to produce the separation. In this context, the minimum least
+work of separation ($W_{least}^{min}$) is determined when RR $\rightarrow$ 0. 
+% \\ When the pure water is the desired product (traditional desalination), it is more
+% appropriate to set the reference ideal system to  while~\cite{thielEnergyConsumptionDesalinating2015}:
 
 %In the particular case of this paper, the mentioned open source library \cite{marcellos_pyequion_2021} was used to obtain the activity coefficients for a solution of NaCl with the same concentration as the feedwater salinity
 
 \section{Separation metrics calculation}\labsec{appendix:rr_max}
 
-The molality of sodium chloride at saturation (see Eq.~\ref{eq:rr_max}) is determined using the following correlation that was established by \cite{pinho_solubility_2005} in terms of mass fraction and it is valid for a temperature range between 25 and 80 $^\circ$C:
+The molality of sodium chloride at saturation (see \refeq{rr_max}) is
+determined using the following correlation that was established
+by~\sidecite{pinho_solubility_2005} in terms of mass fraction and it is valid
+for a temperature range between 25 and 80~$^\circ$C:
 
 $$ w_{NaCl,sat}= a + b·T + c·T^2 + d·T^3 \: \left[ \mathrm{100g_{NaCl}/g_w} \right] $$
-where:
+\marginnote{where:
 \begin{itemize}
     \item $a=5.671·10^1$
     \item $b=-2.713·10^{-1}$
     \item $c=7.598·10^{-4}$
     \item $d=-6.373·10^{-7}$
 \end{itemize}
+}
 
-Likewise, the following conversion formula between mass fraction and molality can be used:
+Likewise, the following conversion formula between mass fraction and molality
+can be used:
 
 $$ b_{NaCl,sat} = \frac{ w_{NaCl,sat}/100 }{ M_{NaCl}\left(1-w_{NaCl,sat}/100\right) } \: \left[ \mathrm{ mol_{NaCl}/g_w} \right] $$
 
 Where $M_{NaCl}$ is the molecular weight of NaCl in g/mol. 
 
-
 \section{Control system and steady state identification parameters}\labsec{appendix:params}
 
-This appendix section provides reference tables outlining parameters used in the algorithms discussed in this document. Table \ref{tab:params_control} summarizes the parameter values for the PID-based process control, while Table \ref{tab:params_ssi} details those for steady-state detection. For the first, Kp, Ki, and Kd are the proportional, integral, and derivative gains, respectively. In both tables, Ts represents the sample time.
+This appendix section provides reference tables outlining parameters used in the
+algorithms discussed in this document. \reftab{solarmed:std:params_control}
+summarizes the parameter values for the \gls{pidLabel}-based process control,
+while \reftab{solarmed:std:params_ssi} details those for steady-state detection.
+For the first, $K_p$, $K_i$, and $K_d$ are the proportional, integral, and
+derivative gains, respectively (see \nrefsec{intro:control:pid}). In the latter,
+$\gamma_a$ represents the wavelet transform threshold, $\gamma_d$ the derivative
+threshold and finally $T_{ss}$ the time window duration. The algorithm they are
+used in is described in \nrefsec{solarmed:std:monitoring}. In both tables, $T_s$
+represents the sample time.
+
+% tables/table_params_ssi.tgn
+\begin{margintable}[*-10]
+\centering
+\caption{Parameters for the steady-state detection algorithm, where
+\textit{s.u.} represents that the parameter has the same units to the related
+variable}
+\labtab{solarmed:std:params_ssi}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}clccccccccc@{}}
+\toprule
+\multirow{2}{*}{\textbf{Parameter}} &  & \multicolumn{9}{c}{\textbf{Variable}} \\ \cmidrule(l){3-11} 
+ &  & $P_{v,c}$ &  & $P_{v,1}$ &  & $\dot{m}_d$ &  & $\dot{m}_s$ &  & $\dot{m}_f$ \\ \cmidrule(r){1-1} \cmidrule(lr){3-3} \cmidrule(lr){5-5} \cmidrule(lr){7-7} \cmidrule(lr){9-9} \cmidrule(l){11-11} 
+$\gamma_a$ [v.u.] &  & 0.05 &  & 0.05 &  & 0.1 &  & 0.3 &  & 0.2 \\
+$\gamma_d$ [v.u./s] &  & 0.002 &  & 0.03 &  & 0.001 &  & 0.02 &  & 0.001 \\
+Ts [s] &  & \multicolumn{9}{c}{1} \\
+Tss [s] &  & \multicolumn{9}{c}{600} \\ \bottomrule
+\end{tabular}%
+}
+\end{margintable}
 
 % tables/table_params_control.tgn
 \begin{table}[]
 \centering
-\caption{Parameters for the PID based process control, where i.u. represents the input variable units, and o.u. the output units.}
-\label{tab:params_control}
+\caption{Parameters for the \gls{pidLabel} based process control, where \textit{i.u.} represents the input variable units, and \textit{o.u.} the output units.}
+\labtab{solarmed:std:params_control}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}clccccccccclc@{}}
 \toprule
@@ -215,85 +329,285 @@ Configuration &  & \multicolumn{9}{c}{Parallel configuration} &  & \multicolumn{
 }
 \end{table}
 
-% tables/table_params_ssi.tgn
-\begin{table}[]
-\centering
-\caption{Parameters for the steady-state detection algorithm, where v.u. represents the related variable units.}
-\label{tab:params_ssi}
-\resizebox{.5\textwidth}{!}{%
-\begin{tabular}{@{}clccccccccc@{}}
-\toprule
-\multirow{2}{*}{\textbf{Parameter}} &  & \multicolumn{9}{c}{\textbf{Variable}} \\ \cmidrule(l){3-11} 
- &  & $P_{v,c}$ &  & $P_{v,1}$ &  & $\dot{m}_d$ &  & $\dot{m}_s$ &  & $\dot{m}_f$ \\ \cmidrule(r){1-1} \cmidrule(lr){3-3} \cmidrule(lr){5-5} \cmidrule(lr){7-7} \cmidrule(lr){9-9} \cmidrule(l){11-11} 
-$\gamma_a$ [v.u.] &  & 0.05 &  & 0.05 &  & 0.1 &  & 0.3 &  & 0.2 \\
-$\gamma_d$ [v.u./s] &  & 0.002 &  & 0.03 &  & 0.001 &  & 0.02 &  & 0.001 \\
-Ts [s] &  & \multicolumn{9}{c}{1} \\
-Tss [s] &  & \multicolumn{9}{c}{600} \\ \bottomrule
-\end{tabular}%
-}
-\end{table}
+
 
 
 %===================================
 %===================================
-\section{Multi-effect distillation first-principles model}
-\labsec{appendix:med-model}
+\chapter{\gls{medLabel} First-Principles Model}
+\labch{appendix:med-model}
 
-A first-principles model of a \gls{medLabel} plant is presented in this
-appendix. It can be used in two modes depending on the application and are
-visualized in \reffig{}:\todo{actualizar nomenclatura, en lugar de M, usar $\dot{m}$}
+% \section{Multi-effect distillation first-principles model}
+\tldrbox{ A first-principles model of a \gls{medLabel} plant is presented in
+    this appendix. It is based on thermodynamic equations and mass and energy
+    balances and can be used in two modes depending on the application. }
 
+This model simulates thermal and mass transfer processes in a
+\gls{medLabel} plant, such as the one at \gls{psaLabel}. The MED
+process consists of a series of effects (evaporators) and preheaters connected
+in sequence. In each effect, seawater partially evaporates under decreasing
+pressure and temperature conditions, while in the preheaters, the feed water is
+gradually warmed using the condensation heat from the vapor produced in the
+effects.
+
+The model is based on several assumptions to simplify the calculations:
 \begin{itemize}
-    \item \textbf{Virtual plant mode}: The model is used to obtain different
-    detailed outputs of interest that cannot be measured directly, such as the
-    heat transfer coefficients, the different heat transfer modes contribution (boiling,
-    flashing, etc), per effect brine concentration, etc. The generated heat
-    transfer coefficients generated in this mode can be used to calibrate a
-    model in a data-driven approach in order to obtain the simulation mode.
-    \item \textbf{Simulation mode}: The model is used to simulate the plant
-    behavior, given the same inputs as the virtual plant variant, and a
-    generator for the heat transfer coefficients of the different effects and preheaters.
+    \item Steady-state operation.
+    \item Negligible heat losses to the environment.
+    \item Isothermal physical properties have been considered for all cases.
 \end{itemize}
+    
+And is based on several works found in the
+literature~\sidecite{palenzuela_steady_2014,mistry_improved_2013,el-dessouky_steadystate_1998}
+but extends them by including more detailed calculations for the different heat
+transfer modes (boiling, flashing), considering not-constant \gls{neaLabel} and
+\gls{bpeLabel} effects, and considering the flashing process of the distillate.
+It works both at nominal and partial load conditions.
 
-To solve the model, an iterative approach is used.
+To solve the model, an iterative process is followed where the model proceeds
+effect by effect, starting from the first stage. For each effect, it uses
+nonlinear solvers to solve a system of non linear equations (see
+Figures~\ref{ap:med-model:effect}--\ref{ap:med-model:preheater}) ensuring
+consistent heat exchange and energy balances. The preheaters are solved in a
+similar manner. Throughout the process, mass and energy conservation are
+verified. After completing a cell, the model updates the inlet conditions for
+the next effect taking into consideration the distillate vapor lost in the
+preheater-effect distribution line, temperature losses and more importantly, the
+plant's condensate distribution layout (see \reffig{ap:med-model:distribution}).
+
+The model can be used in two modes depending on the application:
+\textit{calibration mode} and \textit{simulation mode}. Both modes share the
+same equations and structure, but differ in the inputs required and the
+parameters used.
+
+\section{Nomenclature}
+
+\annotation{Nomenclature inconsistency}{Flows (either mass or volumetric) are
+represented with a capital $M$, different to the rest of the manuscript where
+lowercase $\dot{m}$ is used for mass flows or $q$ for volumetric flows.}
+
 
 % Nomenclatura general
-\begin{figure*}[h!]
-    \includegraphics[]{figures/med-modelling-general.png}
-    \caption{}
+\begin{figure}[h!]
+    \includegraphics[]{med-modelling-general.png}
+    \caption{Overall schematic of the \gls{medLabel} model with inputs, outputs,
+    main variables and components}
     \labfig{ap:med-model:general}
-\end{figure*}
+\end{figure}
+
+\textbf{Model parameters:}
+\begin{itemize}
+    \item Effect heat transfer coefficients ($U_{ef}$)
+    \item Preheater heat transfer coefficients ($U_{ph}$)
+    \item Preheater-effect distribution line vapor losses ($\Delta M_v$) ...
+\end{itemize}
+
+\textbf{Plant parameters:}
+\begin{itemize}
+    \item Mixer valve positions ($Y$)
+    \item Effect and preheater areas ($A_{ef,i}$, $A_{ph,i}$)
+    \item Condenser area ($A_c$)
+    \item Number of effects and preheaters ($N_{ef}$)
+\end{itemize}
+
+\textbf{Model inputs:}
+\begin{itemize}
+    \item Heat source flow rate and inlet temperature ($M_s$, $T_{s,in}$)
+    \item Cooling water flow rate and inlet temperature ($M_c$, $T_{c,in}$)
+    \item Feedwater flow rate and inlet temperature ($M_f$, $T_{f,in}$)
+    \item Operating pressures per effect and preheater ($P_{ef,i}$, $P_{ph,i}$)
+    \item Number of effects and preheaters ($N$)
+    \item Feedwater salinity ($S_f$)
+\end{itemize}
+
+\textbf{Effects:}
+
+\textbf{Preheaters:}
+
+%================================
+\subsection{Calibration mode}
+
+In the \textit{calibration mode} (see
+\reffig{appendix:med-model:calibration-interface}), the model is used to obtain
+different detailed parameters/outputs of interest that cannot be measured
+directly, such as the heat transfer coefficients, the different heat transfer
+modes contribution (boiling, flashing, etc), per effect brine concentration, per
+effect distillate production, \etc. The computed parameters in this mode can
+then be used to generate models for these parameters. For this purpose, the
+model requires an extended set of inputs, including measured temperatures or
+pressures per effect and preheater\sidenote[][*-10]{Or a limited set of them, which the
+rest being estimated by interpolation or other methods}.
+
+To solve it, an initial guess of $\Delta M_{v}$ is provided, and then the model
+iteratively solves for the heat transfer coefficients ($U_{ef}$ and $U_{ph}$)
+and outlet conditions until the final condenser. The total distillate produced
+is compared with the measured value, and $\Delta M_{v}$ is adjusted accordingly.
+This process continues until the calculated distillate matches the measured
+value within a specified tolerance.
+
+This mode can be used to identify loss of performance, fouling and other issues.
+Evaluated over time, it can provide trends and be integrated into predictive
+maintenance strategies. It can also be used to generate data-driven models for the
+different parameters, which can then be used in the \textit{simulation mode}.
+Also, it provides more detailed outputs that can be used for further analysis
+by the O\&M team.
+
+\begin{marginfigure}[-8.5cm]
+    \includegraphics[]{med-modelling-calibration-interface.png}
+    \caption{\gls{medLabel} model \textit{calibration mode} diagram with inputs and outputs}
+    \labfig{appendix:med-model:calibration-interface}
+\end{marginfigure}
+
+\textbf{Inputs}
+% \begin{itemize}
+% \end{itemize}
+
+\textbf{Outputs}
+\begin{itemize}
+    \item Model parameters ($U_{ef}$, $U_{ph}$, $\Delta M_v$)
+    \item Detailed per effect and preheater outputs (temperatures, pressures,
+    flows: condensate, flashed condensate, vapor produced by boiling, flashing,
+    etc; concentration, heat transfer rates and more)
+    \item Global outputs: Total distillate produced, brine concentration, heat
+    source outlet temperature, etc.
+\end{itemize}
+
+%================================
+\subsection{Simulation mode}
+
+In this variant, the model is used to simulate the plant behavior, but given
+fewer inputs compared to the previous variant. It uses pre-trained models for
+the different parameters (\ie heat transfer coefficients of the different
+effects and preheaters, vapor loss). Either empirical correlations from the
+literature or a data-driven model trained using the outputs from the
+\textit{calibration mode} evaluated for a long enough experimental campaign can
+be used.
+
+The model uses models (either pre-trained data-driven models,
+empirical correlations or physical models) for $U_{ef}$, $U_{ph}$, and $\Delta
+M_v$. Thus, the iterative process to estimate $\Delta M_v$ is skipped. Also,
+during the sequential calculation of cell, the pre-trained models are given the
+current operating conditions and return the required parameters to solve each
+effect and preheater.
+
+This mode provices a detailed operation steady state model of an \gls{medLabel}
+plant with minimum assumptions and that does not require outputs of the plant as
+inputs.
+
+\begin{marginfigure}[-6.5cm]
+    \includegraphics[]{med-modelling-simulation-interface.png}
+    \caption{\gls{medLabel} model \textit{simulation mode} diagram with inputs and outputs}
+    \labfig{appendix:med-model:calibration-interface}
+\end{marginfigure}
+
+\section{Implementation}
 
 % Nomenclatura celda
 \begin{figure*}[h!]
-    \includegraphics[]{figures/med-modelling-cell.png}
-    \caption{}
+    \includegraphics[]{med-modelling-cell.png}
+    \caption{Detailed schematic of a single cell in the \gls{medLabel}
+    containing the effect or evaporator (left) and the preheater (right)}
     \labfig{ap:med-model:cell}
 \end{figure*}
 
+
 % Detalles efecto
 \begin{figure*}[h!]
-    \includegraphics[]{figures/med-modelling-effect.png}
-    \caption{}
+    \includegraphics[]{med-modelling-effect.png}
+    \caption{Detailed schematic of a single cell in the \gls{medLabel} with
+    the effect's equations.}
     \labfig{ap:med-model:effect}
 \end{figure*}
 
 \begin{figure*}[h!]
-    \includegraphics[]{figures/med-modelling-effect2.png}
-    \caption{}
+    \includegraphics[]{med-modelling-effect2.png}
+    \caption{Detailed schematic of a single cell in the \gls{medLabel} with
+    the energy source side equations and internal effect condensate flashing.}
     \labfig{ap:med-model:effect2}
 \end{figure*}
 
 % Detalle precalentador
 \begin{figure*}[h!]
-    \includegraphics[]{figures/med-modelling-preheater.png}
-    \caption{}
+    \includegraphics[]{med-modelling-preheater.png}
+    \caption{Detailed schematic of a single cell in the \gls{medLabel} with
+    the preheater's equations.}
     \labfig{ap:med-model:preheater}
 \end{figure*}
 
+% \clearpage
+\FloatBarrier
+% \begin{figure}
+%     \includegraphics[width=\textwidth]{med-fp-model-calibration-mode-validation.png}
+%     \caption{\gls{medLabel} first-principles model \textit{calibration mode} validation}
+%     \labfig{ap:med-model:validation:calibration}
+% \end{figure}
+
+
+% \begin{figure}
+%     \includegraphics[width=\textwidth]{med-fp-model-simulation-mode-validation.png}
+%     \caption{\gls{medLabel} first-principles model \textit{simulation mode} validation}
+%     \labfig{ap:med-model:validation:simulation}
+% \end{figure}
+
+\section{Validation}
+
+Using the same dataset presented in \nrefsec{solarmed:modelling:med} --
+Palenzuela~\etal~\sidecite{palenzuela_experimental_2016},
+the \textit{calibration mode} of the model is evaluated, with the results shown in
+\reffig{ap:med-model:validation}~(a). Then it was divided in training
+and validation set and the training set was used to generate data-driven models
+for the different parameters required in the \textit{simulation mode}. The
+\textit{simulation mode} was then evaluated using the validation set and the
+results are presented in \reffig{ap:med-model:validation}~(b).
+
+
+The results demonstrate that both variants of the model can accurately predict
+the output variables such as the plant's distillate production. As expected, the
+calibration model performs better since it uses more detailed inputs, but the
+simulation model also shows good accuracy. Finally, a comparison of both modes
+obtained heat transfer coefficients is shown in
+\reffig{ap:med-model:heat-transfer-coeffs-comp}. They show similar trends
+except for part of the experimental dataset where higher discrepancies are
+observed for the latter effects (effects 11--14). This can probably be explained
+by the fact that the sequential calculation of the model coupled to its high
+non-linearity means that error is accumulated, where small deviations in the
+first effects can lead to larger errors in the latter ones. Nonetheless, both
+models overall provide similar results and trends.
+
+
+\begin{figure}[h!]
+    \includegraphics[width=\textwidth]{med-fp-model-heat-transfer-coeff-comp.png}
+    \caption{Heat transfer coefficients comparison between \textit{calibration
+    mode} and \textit{simulation mode} for the validation set}
+    \labfig{ap:med-model:heat-transfer-coeffs-comp}
+\end{figure}
+
+
 % Detalle distribución
-\begin{figure*}[h!]
-    \includegraphics[]{figures/med-modelling-distribution.png}
-    \caption{}
+\begin{figure*}[h]
+    \includegraphics[]{med-modelling-distribution.png}
+    \caption{Detailed schematic of a single cell in the \gls{medLabel} with
+    distribution lines for the energy source side and generated steam. Also
+    auxiliary elements like demister and preheater-effect distribution line geometry.}
     \labfig{ap:med-model:distribution}
 \end{figure*}
+
+\begin{figure*}
+    \centering
+    \subfloat[\centering  \textit{Calibration mode}]{{\includegraphics[width=0.85\linewidth]{med-fp-model-calibration-mode-validation.png}}}%
+    % \hspace{0.01\linewidth}
+    \vspace{1ex}
+    \subfloat[\centering \textit{Simulation mode}]{{\includegraphics[width=0.85\linewidth]{med-fp-model-simulation-mode-validation.png}}}%
+    \caption[]{\gls{medLabel} first-principles model validation}
+    \labfig{ap:med-model:validation}
+\end{figure*}
+
+\reffig{solarmed:tests-calendar} shows the operation history of the plant (starting from 2009)
+
+
+\begin{marginfigure}[-5.5cm]
+    \includegraphics[]{med_test_days.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.4in]{\repositoryBaseUrl/figures/med_test_days.html}}
+    \caption[]{Operation history of the pilot plant.\hspace{1ex}\usebox\captionqr}
+    \labfig{solarmed:tests-calendar}
+\end{marginfigure}
