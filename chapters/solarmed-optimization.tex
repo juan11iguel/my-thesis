@@ -486,8 +486,8 @@ tractable, only a limited number of combinations, $n_{problems}$, are
 evaluated. This transforms the mixed-integer problem into a simpler form by
 moving the integer variables from the decision to the environment space.
 In effect, the original \textbf{\gls{minlpLabel}} is decomposed into a library
-of \textbf{\gls{nlpLabel}} problems that are individually
-evaluated\sidenote{\textbf{\gls{minlpLabel}}~$\rightarrow$~\textbf{n\gls{nlpLabel}}}.
+of \textbf{\gls{nlpLabel}} problems\sidenote{\textbf{\gls{minlpLabel}}~$\rightarrow$~\textbf{n\gls{nlpLabel}}} that are individually
+evaluated, \gls{nnlpLabel}.
 
 % As mentioned, two evaluations of this layer are performed at different times:
 % one to plan subsystem start-up, and another to schedule shutdown.  
@@ -495,7 +495,31 @@ evaluated\sidenote{\textbf{\gls{minlpLabel}}~$\rightarrow$~\textbf{n\gls{nlpLabe
 To improve robustness, the layer can be evaluated multiple times ($n_{evals}$)
 under different scenarios ---typically reflecting variations in forecasted
 environmental conditions. The final operation plan is selected as the best
-compromise across these scenarios.
+compromise across these scenarios using a composite evaluation metric.
+
+This composite score considers three aspects in the performance across different
+scenarios. Each alternative is assessed according to: its average performance,
+its consistency across scenarios, and its robustness in the worst-case
+situation. The average performance \( \mu_i \) reflects the overall expected behavior of the
+alternative, while the standard deviation \( \sigma_i \) captures its sensitivity to scenario
+variability, penalizing options that exhibit large fluctuations in performance.
+Similarly, the worst-case performance \( W_i \) represents the most adverse outcome among
+all considered scenarios, ensuring that alternatives prone to extreme negative
+results are appropriately penalized. These three components are combined into a
+single composite score ($S_i$), where weighting factors control the influence of
+consistency and worst-case penalties relative to the mean performance. The
+alternative with the lowest composite score is selected as the most balanced and
+robust solution according to \refeq{solarmed:optimization:composite_score}.
+
+\begin{equation}
+    \labeq{solarmed:optimization:composite_score}
+S_i = \mu_i + w_{\mathrm{std}} \, \sigma_i + w_{\mathrm{wc}} \, W_i,
+\end{equation}
+
+\noindent where \( w_{\mathrm{std}} \) is the weight applied to the standard
+deviation penalty and \( w_{\mathrm{wc}} \) is the weight applied to the worst-case
+penalty.
+
 
 The time required to perform this layer's computation is denoted
 $\Delta t_{eval,plan}$.
@@ -505,13 +529,14 @@ $\Delta t_{eval,plan}$.
 Given the available computational resources and the complexity of the objective
 function, it has been found feasible to evaluate in the order of $n_{problems}
 \sim 100$ candidate combinations. This constraint informs how many
-\gls{dofLabel} (\ie number of updates available for the operation modes)
-can be defined by using \refeq{solarmed:optimization:n_problems}. The
-particular design choice for the number of updates per subsystem is shown in
+\gls{dofLabel} (\ie number of updates available for the operation modes) can be
+defined by using \refeq{solarmed:optimization:n_problems}. The particular design
+choice for the number of updates per subsystem is shown in
 \reftab{solarmed:optimization:dof}. In total, 101 distinct operation plans are
-generated for the start-up evaluation and 144 for the shutdown\sidenote[][*-5]{Notice
-the total number does not match exactly \refeq{solarmed:optimization:n_problems} since
-special cases are added (subsystem inactive)}.
+generated for the start-up evaluation and 144 for the
+shutdown\sidenote[][*-5]{Notice the total number does not match exactly
+\refeq{solarmed:optimization:n_problems} since special cases are added like
+having inactive subsystems}.
 
 \begin{table}[htbp]
 \centering
@@ -541,7 +566,8 @@ allocated to day 2 actions, as these decisions are more speculative and have a
 less direct effect on the current operation. For the shutdown evaluation (2), no
 start actions are considered in day~1 since the system is already operational,
 and day 2 operation becomes more relevant when deciding when to stop operation
-in day~1, hence the allocation of more \gls{dofLabel} to day 2 actions\sidenote{\gls{dofLabel}=2 for start and stop in day 2}.
+in day~1, hence the allocation of more \gls{dofLabel} to day 2
+actions\sidenote{\gls{dofLabel}=2 for start and stop in day 2}.
 
 This allocation strategy balances the need for flexibility in near-term
 decisions with the computational constraints of evaluating a large number of
@@ -549,48 +575,63 @@ operation plans.
 
 \subsection{Update times generation}
 
-Up to this stage the operation plans generated just consist of a list of ones
+Up to this stage, the operation plans generated consist merely of lists of ones
 and zeros for each subsystem, indicating whether the subsystem is active or
-inactive in the particular update. The next step is to assign the operation
-mode updates to specific time instants, which then can be resampled to match
-the desired sampling time of the optimization problem\sidenote{As with the
-continuous component of the decision vector, this is done by forward filling the values of the decision vector until the
-next update time. This is also known as \textit{Last Observation Carried Forward}~\cite{hyndman_forecasting_2021}.}.
+inactive at each update. The next step is to assign these operation mode updates
+to specific time instants, which can then be resampled to match the desired
+sampling time of the optimization problem\sidenote{As with the continuous
+component of the decision vector, this is achieved by forward-filling the values
+until the next update time. This approach is also known as \textit{Last
+Observation Carried Forward}~\cite{hyndman_forecasting_2021}}.
 
-In order to maintain the solution close to the optimal one, while keeping the
-number of problems reasonable, decision updates are distributed throughout the
-prediction horizon at strategic time instants. Since the case study system is
-fundamentally a solar process, the operation is strongly dependent on the
-irradiance availability, and thus operation changes are likely to take place at
-the start and end of the solar day. 
+To maintain solutions close to the optimal one while keeping the number of
+decision variables manageable, updates are distributed throughout the prediction
+horizon at strategic time instants. Since the case study system is fundamentally
+solar-driven, its operation is highly dependent on irradiance availability, and
+thus changes in operation typically occur at the beginning and end of the solar
+day. 
 
-The operation mode updates are distributed temporally as shown in
-\reffig{solarmed:optimization:operation_plan}~(b) depending on the number of
-updates available (\gls{dofLabel}). These update times are dependent on the
-solar irradiance profile and are bounded by lower- and upper-level thresholds.
-Depending on the plan action (start-up or shutdown), they are named early-late
-start or early-late stop thresholds, respectively.
+The temporal distribution of operation mode updates is shown in
+\reffig{solarmed:optimization:updates_distribution}, which depends on the number
+of available updates (\gls{dofLabel}). These update times are determined based
+on the solar irradiance profile and are bounded by lower and upper thresholds.
+Depending on the type of operation (start-up or shutdown), these thresholds are
+referred to as early--late start or early--late stop thresholds, respectively.
 
-In \reffig{solarmed:optimization:operation_plan}~(b) up to three \gls{dofLabel}
-are visualized. If only one update is available, the update time is set at the
-mean of the early and late thresholds. If two \gls{dofLabel} are available, for
-the \gls{sftsLabel} subsystem, they are placed halfway between the early
-threshold and the mean, and the late threshold and the mean, respectively. For
-the \gls{medLabel} subsystem, updates are delayed. Finally, with three
-\gls{dofLabel}, updates for the \gls{sftsLabel} subsystem are placed at the
-early, mean and late thresholds, while for the \gls{medLabel} subsystem, the
-leftmost and rightmost updates are shifted to the left and right, respectively.
-If more updates for the particular action are available \ie \gls{dofLabel},
-additional thresholds can be added.
+In \reffig{solarmed:optimization:updates_distribution}, up to three
+\gls{dofLabel} are illustrated. If only one update is available
+(1~\gls{dofLabel}), it is placed at the midpoint between the early and late
+thresholds. When two \gls{dofLabel} are available, they are located at the early
+threshold and the midpoint, and at the late threshold, respectively. With three
+\gls{dofLabel}, the subsystem updates occur at the early, average, and late
+thresholds. For the \gls{medLabel} subsystem, these updates can  be delayed with
+respect to those of the \gls{sftsLabel} subsystem as illustrated in
+\reffig{solarmed:optimization:updates_distribution} -- 2~\gls{dofLabel}. If more
+\gls{dofLabel} are available, additional thresholds can be introduced as needed. 
 
-\begin{figure*}
-    \centering
-    \subfloat[\centering Computation timeline]{{\includegraphics[width=0.48\linewidth]{solarmed-optimization-timeline.png}}}%
-    \hspace{0.01\linewidth}
-    \subfloat[\centering Operation mode updates time distribution]{{\includegraphics[width=0.48\linewidth]{solarmed-optimization-updates_distribution.png}}}%
-    \caption[Operation plan layer computation and updates distribution]{Operation plan layer computation and updates distribution. The yellow line represents the irradiance illustrating the solar day.}%
-    \labfig{solarmed:optimization:operation_plan}
-\end{figure*}
+The relative shift or delay between subsystems acts as an additional tuning
+parameter of the methodology. However, for simplicity, this offset has been set
+to zero, as the inherent differences in subsystem start-up times already provide
+a natural temporal offset. Combined with the varying number of
+\gls{dofLabel} assigned to each subsystem, this configuration naturally results
+in staggered operation changes across the candidate problems.
+
+
+\begin{marginfigure}[-5.5cm]
+    \includegraphics[]{figures/solarmed-optimization-updates_distribution.png}
+    \caption{Operation mode updates time distribution. The thick-yellow line illustrates the irradiance.}
+    \labfig{solarmed:optimization:updates_distribution}
+\end{marginfigure}
+
+
+% \begin{figure*}
+%     \centering
+%     \subfloat[\centering Computation timeline]{{\includegraphics[width=0.48\linewidth]{solarmed-optimization-timeline.png}}}%
+%     \hspace{0.01\linewidth}
+%     \subfloat[\centering Operation mode updates time distribution]{{\includegraphics[width=0.48\linewidth]{solarmed-optimization-updates_distribution.png}}}%
+%     \caption[Operation plan layer computation and updates distribution]{Operation plan layer computation and updates distribution. The yellow line represents the irradiance illustrating the solar day.}%
+%     \labfig{solarmed:optimization:operation_plan:method}
+% \end{figure*}
 
 
 Given a number of updates per subsystem and the update times assigned. The
@@ -602,51 +643,71 @@ potential operation time change candidates are defined as:
 
 Ordered in ascending order, where $t_0$ is the earliest potential operation
 change time and $t_{\max(n_{updates,\forall x_i})}$ is the latest potential
-operation change time\sidenote{Based on this definition, the earliest potential
+operation change time\sidenote[][*-1.5]{Based on this definition, the earliest potential
 subsystem start-up would be at $t_{\uparrow, candidates}(0)$. Similarly, the
 earliest potential shutdown would be at $t_{\downarrow, candidates}(0)$.}.
+
+\begin{figure*}[h!]
+    \includegraphics[]{figures/solarmed_optimization_methodology_timeline.png}
+    \caption{Proposed n\gls{nlpLabel} methodology computation timeline.
+    \texttt{(1)}~Operation plan start-up evaluation. \texttt{(2)}~Start of
+    operation optimization evaluation train. \texttt{(3)}~System operation
+    start. \texttt{(4)}~Operation plan shutdown evaluataion and
+    \texttt{(5)}~System operation end.}
+    \labfig{solarmed:optimization:methodology_timeline}
+\end{figure*}
+
 
 \subsubsection{Start-up}
 \labsec{solarmed:optimization:operation_plan:start-up}
 
-The most important aspect of this evaluation is to find the right time to bring
-the subsystems online, and a secondary objective is to provide a preliminary
-estimate for their shutdown timing.
-
-This is the first evaluation of the proposed methodology. It is computed ahead of the
-first potential operation mode change
-(\reffig{solarmed:optimization:operation_plan}~(a) -- \textit{start-up}), with
-enough lead time to complete the analysis before any potential change in
-operation mode (\ie $t_{\uparrow,candidates}(0)$):
+This is the first evaluation of the proposed methodology as illustrated in
+\reffig{solarmed:optimization:methodology_timeline}~\texttt{(1)}. It is
+computed ahead of the first potential operation mode change
+($t_{\uparrow,candidates}(0)$), with enough lead time to complete the evaluation
+before any potential change in operation mode\sidenote{This is represented by
+the first yellow triangle group ({\large \trianglemarker[D6B656]{up}}) in
+\reffig{solarmed:optimization:methodology_timeline}}:
 
 \[
     t=t_{\uparrow,candidates}(0) - (\Delta t_{eval,plan}\times n_{evals})
 \]
 
-Being the earliest evaluation, it has the longest prediction horizon and thus
-the highest predicted variables uncertainty. As a counterpart (see
-\reffig{solarmed:optimization:operation_plan}~(a)), this early evaluation start
-allows sufficient computation time, even several hours in advance, to perform
-several evaluations. Specifically three evaluations ($n_{evals}$) are performed:
-a nominal scenario with the forecasted environmental conditions, a pessimist one
-with a 20~\% decrease in the expected solar irradiance and an optimist one with
-a 20~\% increase in the expected solar irradiance\sidenote{The solar irradiance
-is chosen as the uncertain variable since it is the one with the highest impact
-on the system operation / performance.}.
+The most important aspect of this evaluation is to find the right time to bring
+the subsystems online\sidenote{Yellow upward-pointing triangles ({\large
+\trianglemarker[D6B656]{up}}) in
+\reffig{solarmed:optimization:methodology_timeline}~\texttt{(3)}}, and a
+secondary objective is to provide a preliminary estimate for their shutdown
+timing\sidenote{Yellow downwards-pointing triangles ({\large
+\trianglemarker[D6B656]{down}}) in
+\reffig{solarmed:optimization:methodology_timeline}~\texttt{(5)}}.
 
+As the earliest evaluation, it considers the longest prediction horizon and
+therefore the highest uncertainty in the predicted variables. On the other
+hand, starting the evaluation early provides ample computation time--- 
+several hours in advance ---to perform multiple assessments under different
+\textit{scenarios}. In this work, three evaluations ($n_{evals}=3$) are
+conducted using distinct solar irradiance estimates. Irradiance is selected as
+the uncertain variable because it has the strongest influence on system
+operation and performance. The three scenarios considered are: a nominal
+scenario based on the forecasted environmental conditions, a pessimistic
+scenario with a 20~\% decrease in the expected solar irradiance, and an
+optimistic scenario with a 20~\% increase in the expected solar irradiance.
 
 \subsubsection{Shutdown}
 
-A second evaluation is carried out later in the day (see
-\reffig{solarmed:optimization:operation_plan}~(a)), prior to system shutdown. Its
+A second evaluation is carried out later in the day, prior to system shutdown
+(see \reffig{solarmed:optimization:methodology_timeline}~\texttt{(4)}). Its
 objective is to determine the most appropriate moment to stop operations based
-on the most up-to-date system state information. This evaluation also includes
-\gls{dofLabel} related to the operation schedule of the following day, enabling
-the shutdown decision for day~1 to account for its influence on the start and
-end times of day~2\sidenote{See
+on the most up-to-date system state information\sidenote{Represented in
+\reffig{solarmed:optimization:methodology_timeline}~\texttt{(5)} as red
+downwards-pointing triangles ({\large \trianglemarker[B85450]{down}})}. This
+evaluation also includes \gls{dofLabel} related to the operation schedule of the
+following day, enabling the shutdown decision for day~1 to account for its
+influence on the start and end times of day~2\sidenote{See
 \reftab{solarmed:optimization:dof}}.
 
-Only a single evaluation is required, since the uncertainty in the prediction
+Only a single scenario evaluation is required, since the uncertainty in the prediction
 horizon at this stage is considerably lower than during the start-up evaluation.
 It is executed in parallel with the operation optimization
 layer\sidenote{Explained in the following section} and triggered shortly before
@@ -687,8 +748,10 @@ lenient, computational resources may be wasted on poor-performing candidates.
 \labsec{solarmed:optimization:op-optim-layer}
 
 As mentioned, this middle layer establishes the setpoints for the continuous
-process variables, \ie the continuous part of the \gls{minlpLabel} problem. The
-operation optimization layer evaluates periodically, with a sample time
+process variables, \ie the continuous part of the \gls{minlpLabel} problem. It
+is depicted in \reffig{solarmed:optimization:methodology_timeline} --
+\textit{Operation optimization} and starting its evaluation cycle at \texttt{(2)}.
+The operation optimization layer evaluates periodically, with a sample time
 $T_{eval,optim}$, a \gls{nlpLabel} problem where the integer decision variables
 are fixed to the values provided by the operation plan layer\sidenote{It is
 exactly equivalent to the operation plan layer problem, just making
@@ -710,7 +773,7 @@ This warm-starting strategy helps to speed up the convergence of the
 optimization algorithm by starting from a solution that is already close to
 optimal.
 
-\begin{kaobox}[title=\gls{solarmedLabel} optimization methodology]
+\begin{kaobox}[title=\gls{solarmedLabel} \gls{nnlpLabel} optimization methodology]
 
     \begin{enumerate}
         \item Generate operation mode change candidates based on the available
@@ -739,11 +802,7 @@ optimal.
 \end{kaobox}
 
 
-\section{Alternative strategies}
-
-
-%================================
-\subsection{Heuristic approach}
+\section{Alternative strategies. Heuristic approach}
 \labsec{solarmed:optimization:heuristic}
 
 This alternative makes use of a rule-based approach to decide when to start and

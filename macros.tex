@@ -130,3 +130,22 @@
     \epigraph{#1}{#2}%
   }%
 }
+
+% Command: \trianglemarker[color][direction]
+% color      -> HTML hex (default: D6B656) or any xcolor name
+% direction  -> 'up' (default) or 'down'
+\newcommand{\trianglemarker}[2][D6B656]{%
+  \begingroup
+    % define a temporary color from the provided hex (HTML model)
+    \definecolor{tempcol}{HTML}{#1}%
+    \tikz[baseline=-0.0ex,scale=1]{%
+      \ifstrequal{#2}{down}{%
+        % downward pointing triangle
+        \fill[tempcol] (0,0.2)--(0.3,0.2)--(0.15,0)--cycle;
+      }{%
+        % upward pointing triangle (default)
+        \fill[tempcol] (0,0)--(0.3,0)--(0.15,0.2)--cycle;
+      }%
+    }%
+  \endgroup
+}
