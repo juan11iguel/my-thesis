@@ -106,16 +106,50 @@ distribution. The upper plot shows the frequency distribution of the samples
 while the lower one the actual values per input, where the x-axis represents
 the samples and the y-axis the values for each of the input variables.
 
-\subsubsection{Validation}
-
-\begin{figure}
+\begin{figure}[htbp]
     \includegraphics[width=.9\textwidth]{cc-validation-wct-regression.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-wct-regression.html}}
     \caption[\gls{wctLabel} Models performance regression]{\gls{wctLabel} models performance comparison between the different modelling approaches.\\[1ex] \usebox\captionqr}
     \labfig{cc:validation:wct:regression}
 \end{figure}
 
-\begin{table*}[]
+\subsubsection{Validation}
+
+
+
+The results of each modelling alternative and its comparison can be visualized
+in \reffig{cc:validation:wct:regression}. It shows the results obtained with the
+models using the validation dataset (\reftab{cc:exp-campaigns} --
+\textit{\gls{wctLabel}-val}). In \reftab{cc:validation:wct:results}, the performance
+of the studied modelling approaches are included for the different performance
+metrics\sidenote{Described in \refsec{intro:modelling:metrics}} where \texttt{T}
+represents the performance metric value  for the training / calibration dataset
+and \texttt{V} for the validation one. 
+
+In both the figure and the table, there are two Gaussian PR models: one trained
+using the experimental data (labeled as \textit{Gaussian PR}) and the second is
+the surrogate model trained using the synthetic data from the physical model
+(labeled as \textit{Gaussian PR (FP)}).
+
+Comparing the physical model to the data-driven ones, it can be seen that there
+are three groups: gradient boosting and random forest alternatives underperform
+with R$^2$ values around 0.8 and some clear outliers in
+\reffig{cc:validation:wct:regression}. \gls{annLabel} alternatives in general
+provide good results, specially the radial-basis architecture. Finally, the
+Gaussian Process Regression approach provides the best results among the
+data-driven alternatives, with R$^2$ values above 0.95 for both output
+variables. This advantage is mantained even in the case of the surrogate model with
+R$^2$ values of 0.94 and 0.95 for the outlet temperature and water consumption,
+respectively. The physical model provides superior performance for both output
+variables: obtaining an \gls{rmseLabel} of 0.33 $^\circ$C and an R$^2$ of 0.98
+for the temperature and in terms of water consumption, \gls{rmseLabel} and R$^2$
+(8.5~l/h and 0.97). This explains how the surrogate model is able to outperform
+many of the data-driven alternatives, as it provides a good approximation of the
+superior physical model. It achieves this with a fraction of the computational cost,
+vectorization support, limited need for experimental data (same as the physical
+model) and covering a wide input space.
+
+\begin{table*}[htbp]
 \caption{Summary table of the prediction results obtained with the different modelling approaches studied.}
 \labtab{cc:validation:wct:results}
 \resizebox{\linewidth}{!}{%
@@ -174,39 +208,6 @@ the samples and the y-axis the values for each of the input variables.
 \textcolor{darkgray}{\footnotesize\textit{s.u.} stands for \textit{same units} as the predicted variable}
 \end{table*}
 
-
-The results of each modelling alternative and its comparison can be visualized
-in \reffig{cc:validation:wct:regression}. It shows the results obtained with the
-models using the validation dataset (\reftab{cc:exp-campaigns} --
-\textit{\gls{wctLabel}-val}). In \reftab{cc:validation:wct:results}, the performance
-of the studied modelling approaches are included for the different performance
-metrics\sidenote{Described in \refsec{intro:modelling:metrics}} where \texttt{T}
-represents the performance metric value  for the training / calibration dataset
-and \texttt{V} for the validation one. 
-
-In both the figure and the table, there are two Gaussian PR models: one trained
-using the experimental data (labeled as \textit{Gaussian PR}) and the second is
-the surrogate model trained using the synthetic data from the physical model
-(labeled as \textit{Gaussian PR (FP)}).
-
-Comparing the physical model to the data-driven ones, it can be seen that there
-are three groups: gradient boosting and random forest alternatives underperform
-with R$^2$ values around 0.8 and some clear outliers in
-\reffig{cc:validation:wct:regression}. \gls{annLabel} alternatives in general
-provide good results, specially the radial-basis architecture. Finally, the
-Gaussian Process Regression approach provides the best results among the
-data-driven alternatives, with R$^2$ values above 0.95 for both output
-variables. This advantage is mantained even in the case of the surrogate model with
-R$^2$ values of 0.94 and 0.95 for the outlet temperature and water consumption,
-respectively. The physical model provides superior performance for both output
-variables: obtaining an \gls{rmseLabel} of 0.33 $^\circ$C and an R$^2$ of 0.98
-for the temperature and in terms of water consumption, \gls{rmseLabel} and R$^2$
-(8.5~l/h and 0.97). This explains how the surrogate model is able to outperform
-many of the data-driven alternatives, as it provides a good approximation of the
-superior physical model. It achieves this with a fraction of the computational cost,
-vectorization support, limited need for experimental data (same as the physical
-model) and covering a wide input space.
-
 % =================================
 \subsection{Dry cooler model alternatives comparison and validation}
 
@@ -218,10 +219,10 @@ model) and covering a wide input space.
     \labfig{cc:modelling:dc:nusselt}
 \end{marginfigure}
 
-The following $\dot{m}_{dc,air}$-$w_{dc}$ relation was obtained with the
+The following $\dot{m}_{dc,air}$-$\omega_{dc}$ relation was obtained with the
 \reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-fan} dataset
 \begin{equation}
-    \dot{m}_{dc,air} =0.30195\cdot w_{dc}-1.02179. 
+    \dot{m}_{dc,air} =0.30195\cdot \omega_{dc}-1.02179. 
     \labeq{cc:dc:ma}
 \end{equation}
 The \gls{dcLabel} model uses this linear function to estimate the air mass flow rate, with
@@ -240,7 +241,7 @@ line. The correlation (using \refeq{dc:Nu}) fits 82~\% of the data points
 with a deviation lower than 20~\%. 
 
 \begin{equation}
-    \Nus_a = 0.006411 \cdot \Rey_a^{0.9143} \cdot \Pra_a^{0.36}. 
+    \Nus_a = 0.006411 \cdot \Rey_{air}^{0.9143} \cdot \Pra_{air}^{0.36}. 
     \labeq{dc:Nu}
 \end{equation}
 
@@ -442,6 +443,13 @@ estimated.% In this case the inputs of the model are $T_{c,in}$,
 
 \subsubsection{Validation}
 
+\begin{marginfigure}[*-5]
+    \centering    
+    \includegraphics[width=\linewidth]{cc-condenser_model_regression.png} % .85\textwidth
+    \caption{Surface condenser validation}
+    \labfig{cc:validation:condenser}
+\end{marginfigure}
+
 To validate this model, a different data set of 15 steady state tests
 (\reftab{cc:exp-campaigns} -- \textit{\gls{scLabel}-val}) has been used with the
 results depicted in \reffig{cc:validation:dc:regression}. The predicted outlet water
@@ -452,17 +460,18 @@ the condensate water temperature at the shell-side outlet (\gls{maeLabel} =
 temperature does not exactly match the vapor saturation temperature ($T_v$), but
 is instead 0.1 to 1.7~$^\circ$C subcooled.
 
-\begin{marginfigure}[*-5]
-    \centering    
-    \includegraphics[width=\linewidth]{cc-condenser_model_regression.png} % .85\textwidth
-    \caption{Surface condenser validation}
-    \labfig{cc:validation:condenser}
-\end{marginfigure}
 
 
 % =================================
 \subsection{Complete system model validation}
 \labsec{cc:validation:complete-system}
+
+\begin{marginfigure}[]
+    \includegraphics[width=\linewidth]{cc_model_regression.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc_model_regression.html}}
+    \caption[Combined cooler model validation]{Complete combined cooler model validation.\\[1ex]\usebox\captionqr}
+    \labfig{cc:validation:complete-model}
+\end{marginfigure}
 
 For the proposed optimization strategy in \nrefch{cc:optimization}, a model is
 required that is fast, reliable, and easily scalable to different system sizes.
@@ -519,7 +528,7 @@ satisfactory results over a wide range of operating and ambient conditions. The
 outlet temperatures show a \gls{maeLabel} lower than 0.97~$^\circ$C, with the
 largest error occurring in $T_{wct,out}$, when the cooling power was far from
 the nominal value. This may be due to the need to improve the relation
-$\dot{m}_{air}-w_{wct}$ relationship at low flow rates. In the case of the water
+$\dot{m}_{air}-\omega_{wct}$ relationship at low flow rates. In the case of the water
 consumption, the tendency (R$^2$=0.82) of the predicted values follows the
 experimental ones, being the \gls{maeLabel} 19.4~l/h.
 
@@ -552,13 +561,6 @@ T$_{c,in}$ ($^\circ$C) &  & - &  & 0.99 &  & - &  & 0.53 &  & - &  & 1.52 \\ \hl
 % \textcolor{darkgray}{\footnotesize\textit{s.u.} stands for \textit{same units} as the predicted variable}
 \end{table}
 
-\begin{marginfigure}[-12cm]
-    \includegraphics[width=\linewidth]{cc_model_regression.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc_model_regression.html}}
-    \caption[Combined cooler model validation]{Complete combined cooler model validation.\\[1ex]\usebox\captionqr}
-    \labfig{cc:validation:complete-model}
-\end{marginfigure}
-
 \begin{figure*}
     \centering
     \subfloat[\centering \gls{wctLabel}]{
@@ -576,17 +578,16 @@ T$_{c,in}$ ($^\circ$C) &  & - &  & 0.99 &  & - &  & 0.53 &  & - &  & 1.52 \\ \hl
 % Optimization validation
 %================================
 %================================
-\section{Control and optimization results}
+\section{Control and optimization results}[Control and optimization]
 \labsec{cc:validation:optimization}
 
 Once the models of the main components of the system have been validated, the
 next step is to validate the optimization strategies proposed in
 \nrefsec{cc:modelling:optimization}. First, an optimization algorithm is chosen
-by comparing different alternatives in \nrefsec{cc:validation:algorithm} for
-each optimization alternative (\ie static and horizon). Then, the two proposed
-variants for the combined cooler are compared in simulation for one
-representative operation period in the simulated pilot plant in order to see
-which one performs better in
+by comparing different alternatives for each optimization alternative (\ie
+static and horizon). Then, the two proposed variants for the combined cooler are
+compared in simulation for one representative operation period in the simulated
+pilot plant in order to see which one performs better in
 \nrefsec{cc:validation:optimization:static-vs-horizon}. Finally, the proposed
 horizon methodology is tested in the real facility, where planned changes are
 introduced in the operation schedule, in order to validate how the optimization
@@ -713,7 +714,7 @@ size configuration.
 .
 
 %================================
-\section{Implementation results}[Results]
+\subsection{Simulation results}[Simulation results]
 \labsec{cc:simulation:optimization-results}
 
 \reffig{cc:simulation:results-multiple-days} shows the optimization
@@ -846,14 +847,14 @@ when it will be most beneficial.
 
 
 %================================
-\subsection{Validation at pilot plant}
+\subsection{Experimental validation}
 
-A hierarchical control\sidenote{See \refsec{intro:hierarchical-control}}
+A hierarchical control\sidenote{See \nrefsec{intro:hierarchical-control}}
 strategy has been implemented in order to validate the optimization strategy in
 the real facility. \reffig{cc:validation:optimization:diagram} shows a diagram
 of the methodology, where the left side represents the upper layer with the
 proposed shrinking horizon optimization\sidenote{See
-\nrefsec{optimization:horizon}} and the right side shows the low-level
+\nrefsec{cc:optimization:horizon}} and the right side shows the low-level
 regulatory control layer, which directly interfaces with the actuators and
 sensors of the facility. 
 

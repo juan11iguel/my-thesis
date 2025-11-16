@@ -403,7 +403,7 @@ recirculation flow rate, but now the fan speed of the wet cooler
 ($\omega_{wct}$) is included. The cost of cooling now includes the cost of
 water ($J_w$) and its availability is updated using the water consumption
 ($C_{w}$) as described in
-Equations~\ref{cc:optimization:wa1}--\ref{cc:optimization:wa3}. The
+Equations~\ref{eq:cc:optimization:wa1}--\ref{eq:cc:optimization:wa3}. The
 environment now includes the air relative humidity and water prices.
 
 
@@ -626,12 +626,6 @@ the end of the operation day.
     time series with non-uniform time steps.
 \end{remark}
 
-\begin{marginfigure}[*-3]
-    \includegraphics[]{optimization-diagrams-search-space.png}
-    \caption{Visualization of a constrained search space for two decision variables}
-    \labfig{cc:optimization:search-space}
-\end{marginfigure}
-
 % \begin{enumerate} 
 %     \item An operation plan of the thermal load (power block or MED operating
 %     conditions) needs to be defined.
@@ -655,7 +649,7 @@ variables that are direct inputs on the process, \ie decision variables
 represent actuators in the system. As explained in
 \refsec{cc:modelling:complete-model}, not every combination of these variables
 yields a feasible solution. In the real system, this implies that stable
-operation would not be achieved for such a set of inputs\sidenote{Either the
+operation would not be achieved for such a set of inputs\sidenote[][*10]{Either the
 system would be overcooled, causing the vapor pressure and temperature to
 decrease until a new equilibrium is reached, or undercooled, leading them to
 increase instead}. To check for feasible operation the three mentioned
@@ -666,6 +660,12 @@ islands of feasible solution space regions separated by infeasible regions. This
 means that finding a feasible solution is not trivial, and the optimization
 algorithm will need to explore the solution space-a global search algorithm-in
 an attempt to find the global minimum.
+
+\begin{marginfigure}[-6.5cm]
+    \includegraphics[]{optimization-diagrams-search-space.png}
+    \caption{Visualization of a constrained search space for two decision variables}
+    \labfig{cc:optimization:search-space}
+\end{marginfigure}
 
 For one single step (equivalent to the static \refprob{cc:static}), most global
 search algorithms with multiple runs are able to consistently find the global
@@ -740,18 +740,18 @@ and its components are described in the following sections.
 
 \subsubsection{Solving the multi-objective optimization problems}
 
-To limit the complexity of the problem, the decision space can be reduced by
-one variable by analyzing how the complete model is solved and described in
-\nrefsec{cc:modelling:complete-model}; firstly, the condenser can be solved
-just by using the recirculation flow rate ($q_c$), it follows the dry cooler by
+To limit the complexity of the problem, the decision space can be reduced by one
+variable by analyzing how the complete model is solved and described in
+\nrefsec{cc:modelling:complete-model}; firstly, the condenser can be solved just
+by using the recirculation flow rate ($q_c$), it follows the dry cooler by
 adding the first valve ratio ($R_p$) and dry cooler fan speed ($\omega_{dc}$).
 The only remaining component to solve is the wet cooler. The wet cooler inlet
 conditions ($q_{wct}$, $T_{wct,in}$) can be determined by using the second valve
 ratio ($R_s$). As for the outlet conditions, from the condenser evaluation, its
-inlet temperature is known and it sets the value of the combined cooler
-outlet temperature ($T_{cc,out}$), which in turn is the result of the mixing from the \gls{dcLabel}
-and \gls{wctLabel} outlet temperatures ($T_{dc,out}$ and $T_{wct,out}$,
-respectively). 
+inlet temperature is known and it sets the value of the combined cooler outlet
+temperature ($T_{cc,out}$), which in turn is the result of the mixing from the
+\gls{dcLabel} and \gls{wctLabel} outlet temperatures ($T_{dc,out}$ and
+$T_{wct,out}$, respectively). 
 
 The result of this analysis is that the wet cooler fan speed is not a decision
 variable anymore, but an output of the model, which can be computed by inverting the

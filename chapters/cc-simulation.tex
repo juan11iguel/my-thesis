@@ -1,5 +1,5 @@
 \setchapterpreamble[u]{\margintoc}
-\chapter{Annual analysis: Andasol-II CSP plant}%CSP and inland-MED}
+\chapter{Annual analysis: Andasol-II \gls{cspLabel} plant}%\gls{cspLabel} and inland-MED}
 \labch{cc:simulation}
 
 \tldrbox{ This chapter presents an analysis of the annual performance of
@@ -40,10 +40,10 @@ cooling system. This methodology has been validated using data from a pilot
 plant. In this chapter, the objective is to apply the framework to a specific
 case study: a commercial 50~MW$_e$ \fullgls{cspLabel} plant.
 
-As previously mentioned, CSP plants are among the most water-intensive power
+As previously mentioned, \gls{cspLabel} plants are among the most water-intensive power
 generation technologies, a concern that is especially relevant in the arid
-regions where they are typically located. To assess the performance-water use
-and operational costs- of different cooling systems, the proposed methodology is
+regions where they are typically located. To assess the performance ---water use
+and operational costs--- of different cooling systems, the proposed methodology is
 applied to a real-world case study through an annual simulation. The case study
 examined is the Andasol-II \gls{cspLabel} plant.
 
@@ -107,13 +107,13 @@ developer, Andasol-II vaporizes 870 000~m$^3$/year, or in specific units
 \labsec{cc:simulation:environment:water}
 
 Obtaining accurate water availability data is challenging. Unlike resources
-such as electricity—where demand, supply, and prices are readily
-available—water availability data is often lacking. Water prices are not
+such as electricity ---where demand, supply, and prices are readily
+available--- water availability data is often lacking. Water prices are not
 standardized; they vary from region to region, and even within the same region,
 depending on the source and the specific agreements in place.
 
 For the simulation scenario, two sources of water are considered\sidenote{See
-\nrefsec{cc:fig:cc:optimization:environment}}. The first source is rainwater
+\nrefsec{cc:optimization:environment}}. The first source is rainwater
 collected in a reservoir, which is assumed to be available at a constant price. To
 create a representative dataset, water availability is modeled as a function of
 precipitation data, which can be obtained from hourly \gls{tpyLabel}
@@ -125,7 +125,7 @@ the resampled fortnightly volume by 15. This approach accounts for the presence
 of water reservoirs and some degree of management capacity.
 
 The alternative regenerated water source\sidenote{This is not an exogenous
-idea; the Villena CSP plant, for example, uses wastewater from a nearby prison
+idea; the Villena \gls{cspLabel} plant, for example, uses wastewater from a nearby prison
 to partially meet its water needs} is not limited in volume.
 
 %================================
@@ -137,7 +137,7 @@ electricity only when solar energy was available. This approach remained common
 until the rapid rise in competitiveness of \gls{pvLabel} plants, which offer
 significantly lower generation costs. In response, concentrated solar power
 plants began integrating thermal energy storage systems to enable dispatchable
-power generation. Today, 21 out of 51 CSP plants in Spain—approximately
+power generation. Today, 21 out of 51 \gls{cspLabel} plants in Spain—approximately
 42\%—have thermal storage capacities exceeding two
 hours~\sidecite{thonig_cspguru_2023,lilliestam_midterm_2021,bonilla_csp_2024}.
 This enables them to produce electricity even when solar input is unavailable.
@@ -156,7 +156,7 @@ already observable in Spain during the summer months; see
 %     \caption{Spanish electricity mix on July 12, 2024. The peak in
 %     photovoltaic generation is clearly visible at midday, while thermosolar
 %     generation is more evenly distributed throughout the day. Peak production
-%     is majorly from CSP plants with no storage.\\
+%     is majorly from \gls{cspLabel} plants with no storage.\\
 %     {\scriptsize \textcolor{black!50!gray}{Data source: Figure elaborated using data
 %     extracted from \url{https://www.ree.es/es/datos}}}}
 %     \labfig{cc:simulation:mix}
@@ -202,7 +202,7 @@ $P_{w,s2}=80\times P_{e} = 8\pm 5$~\euro/m$^3$.%\sidenote{This value includes
         \item \textbf{Weather data}. Hourly weather data from \gls{tpyLabel} of
         Guadix (Spain) for the year. Data from~\cite{meteotestag_meteonorm_}.
         \item \textbf{Thermal load}. Hourly thermal load data from the power block
-        of Andasol-II CSP plant from a simulation model~\cite{ortegadelgado_theoretical_2016}.
+        of Andasol-II \gls{cspLabel} plant from a simulation model~\cite{ortegadelgado_theoretical_2016}.
         \item \textbf{Electricity price}. Spanish electricity pool market for
         2022~\cite{REE_website}.
         \item \textbf{Maximum available water}. 2~m$^3$/day, modeled as a

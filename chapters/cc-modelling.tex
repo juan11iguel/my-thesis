@@ -247,7 +247,7 @@ coefficient and the logarithmic mean temperature difference.
 
  \begin{align}  
     & \dot{Q}_{dc, released}= \dot{m}_{dc} \cdot c_{p,c} \cdot(T_{dc,in}-T_{dc,out}), \label{eq:cc:dc_released} \\ 
-    & \dot{Q}_{dc, absorbed} = \dot{m}_{dc,air} \cdot c_{p,a}\cdot(T_{dc,air,out}-T_{amb}), \label{eq:cc:dc_absorbed}\\ 
+    & \dot{Q}_{dc, absorbed} = \dot{m}_{dc,air} \cdot c_{p,air}\cdot(T_{dc,air,out}-T_{amb}), \label{eq:cc:dc_absorbed}\\ 
     & \dot{Q}_{dc, transferred} = U_{dc}\cdot A_{dc} \cdot F \cdot LMTD, \label{eq:cc:dc_transferred} \\
     & \dot{Q}_{dc, released} = \dot{Q}_{dc, absorbed} = \dot{Q}_{dc, transferred}
 \end{align} 
@@ -281,7 +281,7 @@ experimental data to an equation that relates the air side Nusselt number and
 the air side Reynolds number, as follows:
 
 \begin{equation}\labeq{cc:Nu_corr}
-    \Nus_a = G \cdot \Rey_a^{m} \cdot \Pra_a^{0.36}, \\
+    \Nus_a = G \cdot \Rey_{air}^{m} \cdot \Pra_{air}^{0.36}, \\
 \end{equation}
 
 where $\Nus_a=h_o\cdot L_{dc,tb}/k_{dc,tb}$, and \textit{G} and \textit{m} are
@@ -488,9 +488,9 @@ that the current input combination is not feasible.
         % condenser model
         & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
         % dc model
-        & T_{dc,out},\,C_{e,dc} = \text{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in};\,\theta_{dc}) \\
+        & T_{dc,out},\,C_{e,dc} = \text{dc\:model}(q_{dc},\, \omega_{dc},\, T_{amb},\, T_{dc,in};\,\theta_{dc}) \\
         % first mixer
-        & q_{wct},\,T_{wct,in} = \text{mixer\:model}(q_{wct,p},\,T_{T{cc,in}},\, q_{wct,s},\, T_{dc,out}) \\
+        & q_{wct},\,T_{wct,in} = \text{mixer\:model}(q_{wct,p},\,T_{cc,in},\, q_{wct,s},\, T_{dc,out}) \\
         % final mixer
         & q_{cc},\,T_{cc,out} = \text{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
         % wct model

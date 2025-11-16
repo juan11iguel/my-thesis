@@ -1066,7 +1066,7 @@ compared to \glspl{gaLabel}}.
 
 \begin{kaobox}[title=Genetic Algorithms versus Evolutionary Strategies]
     An interesting reflection from Francesco Biscani and Dario
-    Izzo~\cite{biscani_parallel_2020}:\\
+    Izzo~\cite{biscani_parallel_2020}:
     \begin{quote}
         Approximately during the same decades as Evolutionary Strategies were
         studied, a different group led by John Holland, and later by his student
@@ -1150,7 +1150,18 @@ work:
     premature convergence, and achieve fast progress toward optima even in
     high-dimensional, ill-conditioned, or nonconvex landscapes. The algorithm is
     illustrated in \reffig{intro:optimization:cmaes_and_compass}~(a).
+\end{itemize}
 
+\begin{figure*}[t]
+    \centering
+    \subfloat[\centering CMA-ES \\ Source: \href{https://en.wikipedia.org/wiki/File:Concept_of_directional_optimization_in_CMA-ES_algorithm.png}{Wikipedia}]{{\includegraphics[width=0.47\linewidth]{Concept_of_directional_optimization_in_CMA-ES_algorithm.png}}}%
+    \hspace{0.01\linewidth}
+    \subfloat[\centering Compass-search \\ Source: \href{https://esa.github.io/pagmo2/docs/cpp/algorithms/compass_search.html}{Pagmo 2.19.1 documentation}]{{\includegraphics[width=0.43\linewidth]{compass-search.png}}}%
+    \caption[Illustration of optimization runs for two algorithms]{Illustration of optimization runs for two algorithms. In CMA-ES (a) it shows the covariance matrix adaptation on a simple two-dimensional problem. The spherical optimization landscape is depicted with solid lines of equal f-values. It  shows how the distribution (dotted line) of the population (dots) changes during the optimization. On this simple problem, the population concentrates over the global optimum within a few generations.}
+    \labfig{intro:optimization:cmaes_and_compass}
+\end{figure*}
+
+\begin{itemize}
     \item \textbf{Extended Ant Colony Optimization
     (GACO)}~\sidecite{schluter_extended_2009},~\cite{ biscani_parallel_2020}.
     Ant Colony Optimization (ACO) is a class of optimization algorithms inspired
@@ -1240,16 +1251,6 @@ work:
     2.19.1 documentation}}
     \labfig{intro:optimization:pso}
 \end{marginfigure}
-
-
-\begin{figure*}
-    \centering
-    \subfloat[\centering CMA-ES \\ Source: \href{https://en.wikipedia.org/wiki/File:Concept_of_directional_optimization_in_CMA-ES_algorithm.png}{Wikipedia}]{{\includegraphics[width=0.48\linewidth]{Concept_of_directional_optimization_in_CMA-ES_algorithm.png}}}%
-    \hspace{0.01\linewidth}
-    \subfloat[\centering Compass-search \\ Source: \href{https://esa.github.io/pagmo2/docs/cpp/algorithms/compass_search.html}{Pagmo 2.19.1 documentation}]{{\includegraphics[width=0.44\linewidth]{compass-search.png}}}%
-    \caption[Illustration of optimization runs for two algorithms]{Illustration of optimization runs for two algorithms. In CMA-ES (a) it shows the covariance matrix adaptation on a simple two-dimensional problem. The spherical optimization landscape is depicted with solid lines of equal f-values. It  shows how the distribution (dotted line) of the population (dots) changes during the optimization. On this simple problem, the population concentrates over the global optimum within a few generations.}
-    \labfig{intro:optimization:cmaes_and_compass}
-\end{figure*}
 
 In this research work the two problems that are going to be presented on each
 part are non linear and non-convex. One of them also includes constraints.
@@ -1449,7 +1450,7 @@ computationally expensive, so it is typically addressed using simplified process
 models with long sampling periods, and the computation of new decisions is
 performed only occasionally.
 
-\begin{marginfigure}[-3.5cm]
+\begin{marginfigure}[]
     \includegraphics[]{hierarchical-architecture-diagram.png}
     \caption{Hierarchical control architecture}
     \labfig{intro:hierarchical-control}
