@@ -1,45 +1,66 @@
 \pagelayout{wide} % No margins
-\myepigraphhead[500]{Just some phrase, it may be longer, it might be shorter, but in the end, it's a phrase. Aren't we all phrases? Well, no}{Someone else answering someone}
+\myepigraphhead[500]{Such arbitrariness had its origins in the example of the Catalan sage, for whom wisdom was not worthwhile if it could not be used to invent a new way of preparing chickpeas.}{Gabriel García Márquez, \textit{One Hundred Years of Solitude}}
 \part{Energy management in \gls{medLabel} processes driven by variable energy
 sources}
 
-\todo{Todavía por hacer el TL;DR cuando se tengan resultados de optimización. De momento solo está copiado de la otra parte}
+\tldrbox{ 
 
-\tldrbox{ To enhance the applicability and sustainability of solar thermal
-technologies, this work investigates a novel cooling system for the power block
-of a \gls{cspLabel} plant, combining dry and wet cooling components. A model of
-the \gls{ccsLabel} was developed alongside a two-stage optimization strategy.
-The methodology was validated using an experimental pilot plant, achieving R$^2$
-values above 0.9 for the main output variables and successfully adapting the
-plant's operation to changing conditions.
+This work advances the integration, evaluation, and optimal operation of
+low-temperature \gls{medLabel} systems powered by variable energy sources such
+as thermal energy. As desalination becomes increasingly important to address
+global freshwater scarcity, modern thermal systems ---particularly low-temperature
+\gls{medLabel}--- offer a robust and complementary pathway for brine
+concentration and resource recovery, especially when coupled with waste-heat or
+renewable sources.\\
 
-A case study is presented for a commercial 50~MWe \gls{cspLabel} plant with 8
-hours of storage, Andasol-II, using annual simulations under a water-scarcity
-scenario where the current wet-only cooling system is replaced with the proposed
-\gls{ccsLabel}. Results indicate a potential 80~\% reduction in cooling costs
-and a 48~\% reduction in mean annual water use, but more importantly, a 38~\%
-reduction during the driest and hottest months, demonstrating the significant
-potential of the system when operated optimally. \\
+A standardized methodology is developed to evaluate \gls{medLabel} performance under
+realistic and highly variable operating conditions. The approach defines
+instrumentation requirements, key performance indicators, and uncertainty
+quantification procedures, complemented by an automated steady-state detection
+algorithm that enhances the robustness of experimental assessments. Tests at
+elevated top-brine temperatures confirm the feasibility of high-temperature
+operation without significant scale formation, although design changes are
+required to unlock further gains in concentration and thermal efficiency.\\
+
+To reproduce system behavior, a complete hybrid model of the solar-driven
+\gls{medLabel} installation at \gls{psaLabel} is formulated. This includes
+physics-based and data-driven dynamic models for heat generation, storage, and
+desalination subsystems, combined with discrete supervisory finite-state
+machines that encode operational logic. The resulting model captures multi-hour
+system dynamics with mean absolute percentage errors below 15~\%, ensuring both
+fidelity and computational tractability for optimization and control tasks.\\
+
+The core contribution of the work is a novel hierarchical optimization strategy
+that governs the autonomous operation of the coupled solar-\gls{medLabel} system. The
+upper-level controller solves a mixed-integer nonlinear economic problem that
+determines subsystem activation, startup, shutdown, and regulation while
+exploiting solar availability and storage flexibility. When compared over a full
+week of operation, the strategy outperforms both a heuristic rule-based baseline
+and a continuous-only optimization approach by 32~\% and 21~\%, respectively.
+These gains stem from the ability to maximize useful temperature differences and
+align \gls{medLabel} operation with the temporal value of heat, achieving performance
+levels comparable to systems optimized for waste-heat recovery.\\
 
 \begin{minipage}{\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{cc-visual-abstract-with-results.png}\\
+    \includegraphics[width=\linewidth]{solarmed-visual-abstract.png}\\
     \small \textit{Visual abstract}
 \end{minipage}
 }
 
 \section*{Part structure}
 
-This part is structured as follows: first in \nrefch{cc:intro} a context of
-concentrated solar thermal technologies is provided and their relationship with
-the water resource, specifically for the case of \gls{cspLabel}. Then, the
-experimental \gls{ccsLabel} pilot at \gls{psaLabel} is presented in
-\refch{cc:facility}. The methodology for modelling and optimizing the operation
-of the system are described in \refch{cc:modelling} and \refch{cc:optimization},
-respectively. Both are validated in the experimental plant as showcased in
-\refch{cc:validation}. Finally, \nrefch{cc:simulation}, describes and analyzes
-the results of the annual simulations performed for a commercial \gls{cspLabel}
-plant using the proposed cooling system.
+This part is structured as follows: first in \nrefch{intro:desalination} a
+context of thermal desalination technologies is provided and their applicability
+to new applications such as brine-mining, specifically for the case of
+\gls[format=long]{medLabel}. Then, the experimental solar-driven \gls{medLabel}
+pilot at \gls{psaLabel} is presented in \refch{solarmed:facility}. A standard
+methodology for the experimental assessment of \gls{medLabel} systems under
+variable operating conditions is detailed in \refch{solarmed:std}, and its
+application to the experimental plant is shown in \refch{solarmed:std} in a
+high-TBT experimental campaign. The methodology for modelling and optimizing the
+operation of the system are described in \refch{solarmed:modelling} and
+\refch{solarmed:optimization}, respectively.
 
 \pagelayout{margin} % Restore margins
 %===================================
@@ -250,11 +271,11 @@ newer hybrid configurations, have evolved through several decades of incremental
 improvements focused primarily on maximizing thermal efficiency and reducing
 specific energy consumption. Early developments emphasized heat recovery,
 exemplified by the integration of
-\gls{tvcLabel}~\sidecite[*-5]{milow_advanced_1997} and absorption heat pumps
-(DEAHP)~\sidecite{alarcon-padilla_application_2007}, both designed to increase
-the gain output ratio~\sidenote{A metric that measures the heat provided to the
+\gls{tvcLabel}~\sidecite[*-10]{milow_advanced_1997} and absorption heat pumps
+(DEAHP)~\sidecite[*-7]{alarcon-padilla_application_2007}, both designed to increase
+the gain output ratio\sidenote[][*-3]{A metric that measures the heat provided to the
 system per unit of distillate produced. Also relates to the number of times
-latent heat is reused in the system. Further described in \refch{solarmed:std}}
+latent heat is reused in the system.\\Further described in \refch{solarmed:std}}
 by reusing latent heat more effectively. Research throughout the 1980s and 1990s
 concentrated on optimizing heat exchanger design, corrosion resistance, and
 system modularity, leading to steady improvements in performance and
@@ -270,7 +291,7 @@ science, leading to thin-film composite membranes with high salt rejection and
 flux, as well as by the widespread deployment of energy recovery devices that
 dramatically lowered specific energy consumption.
 
-\begin{marginfigure}[-4.5cm]
+\begin{marginfigure}[-3.5cm]
     \includegraphics[]{desalination-plants-worldwide.png}
     \caption{Desalination technologies used at plants worldwide in 2019\\[1ex]Source:
     Panagopoulos \etal~\cite{panagopoulos_environmental_2020}}
@@ -287,7 +308,7 @@ basis of primary energy consumption. \gls{roLabel}'s efficiency advantage
 results from the cost and “conductivity” advantages of membranes over heat
 exchangers. Significant improvements in heat exchanger costs or heat transfer
 coefficients would be needed to make thermal desalination technologies such as
-\gls{medLabel} competitive in this respect~\sidecite{bouma_metrics_2020}. If we
+\gls{medLabel} competitive in this respect~\sidecite[]{bouma_metrics_2020}. If we
 extend the comparison to primary energy consumption, which correlates directly
 with fuel usage. While \gls{medLabel} uses approximately three times the exergy
 of an \gls{roLabel} system at the desalination system inlet, it requires less
@@ -298,9 +319,9 @@ remains more efficient overall, the difference narrows when considering primary
 energy or co-generation scenarios, where electricity and water are produced
 together. In such cases, overall second-law efficiencies can approach 70~\%,
 with only about a 1~\% difference between \gls{roLabel} and thermal
-technologies~\cite[*-8]{bouma_metrics_2020}. 
+technologies~\cite{bouma_metrics_2020}. 
 
-\begin{marginfigure}[*-10]
+\begin{marginfigure}[*-7]
     \includegraphics{desalination-technologies-with-renewable-worldwide.png}
     \caption{Desalination technologies coupled with renewable energy sources at
     plants worldwide. \\Source: Panagopoulos

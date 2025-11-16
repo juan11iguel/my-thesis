@@ -100,7 +100,7 @@ together with the constant parameters can be found in
 
 The main difference with respect to the model presented
 in~\cite{ampuno_modeling_2018} is how the apparent transport delay is
-modelled~\sidecite{ampuno_apparent_2019}\sidenote{Transport delays are a common
+modelled~\sidecite[*-10]{ampuno_apparent_2019}\sidenote[][*-10]{Transport delays are a common
 feature in dynamic systems, where the response of the system to an input is not
 instantaneous, but rather delayed by a certain amount of time. This delay can be
 caused by various factors, in this particular system, is due to the time it
@@ -108,7 +108,7 @@ takes for the water to flow through the solar field and reach the temperature
 sensors. The apparent delay is the result of adding up the individual -
 different delays of each collector cell}. In this implementation, the transport
 delay is simplified to a single steady state parameter based on the work
-presented in Normey-Rico~\etal~\sidecite{normey-rico_robust_1998} since delays
+presented in Normey-Rico~\etal~\sidecite[*-10]{normey-rico_robust_1998} since delays
 vary less than 30\% from this nominal value.
 
 % Bloque de modelo con interfaz y ecuaciones
@@ -125,8 +125,8 @@ vary less than 30\% from this nominal value.
             \theta
         \right) \\
         & L_{pipe,eq} = \frac{T_s}{A_{pipe,eq}} \sum_{k=0}^{n} q_{sf}[k] \tag*{{\small\textit{Equivalent pipe length [m]}}} \\
-        & L_{eq} = n_{c,s} \cdot L_t \tag*{{\small\textit{Eq. collector tube length [m]}}} \\
-        & c_f = n_{c-loop} \cdot n_{tub-c} \tag*{{\small\textit{Conversion factor [-]}}} \\
+        & L_{eq} = n_{c-s} \cdot L_{tb} \tag*{{\small\textit{Eq. collector tube length [m]}}} \\
+        & c_f = n_{c-loop} \cdot n_{tb-c} \tag*{{\small\textit{Conversion factor [-]}}} \\
         & K_{1} = \beta / (\rho \cdot c_p \cdot A_{cs}) \tag*{{\small\textit{[K·m$^2$/J]}}} \\
         & K_{2} = H / (L_{pipe,eq} \cdot A_{cs} \cdot \rho \cdot c_p) \tag*{{\small\textit{[1/s]}}} \\
         & K_{3} = 1 / (L_{pipe,eq} \cdot A_{cs} \cdot c_f) \cdot (1/3600) \tag*{{\small\textit{[h/(3600·m$^3$·s)]}}} \\
@@ -140,7 +140,7 @@ vary less than 30\% from this nominal value.
 \end{modelcounter}
 
 % Diagrama del componente con variables
-\begin{marginfigure}[-6.5cm]
+\begin{marginfigure}[-5.5cm]
     \includegraphics[]{solarmed-diagrams-solar_field_compact.png}
     \caption{Solar field process diagram.}
     \labfig{solarmed:diagrams:solar_field}
@@ -169,7 +169,7 @@ procedure was followed to estimate it:
     \]
     \item With this equivalent length ($L_{pipe,eq}$), the number of delay
     samples can be estimated for any sample time $T_s$ and flows vector
-    $\mathbf{q}_{sf}$ by iteratively adding the distance that flow travels at
+    $\pmb{q}_{sf}$ by iteratively adding the distance that flow travels at
     each sample time until the equivalent length is reached.
 \end{enumerate}
 
@@ -1005,7 +1005,7 @@ shifting. Despite this, the static model is able to capture the condenser's
 overall behavior once the system stabilizes and the inlet temperature becomes
 the primary changing variable.
 
-\begin{table}[]
+\begin{table}[htbp]
 \centering
 \caption{Models parameters}
 \labtab{solarmed:modelling:models-parameters}
@@ -1028,10 +1028,10 @@ conductance              &  & 1.35$\times 10^4$                    &  & W/K
 
 \multicolumn{9}{c}{Fixed model parameters}                                                                                                              \\ \hline
 \multirow{6}{*}{Solar field}     &  & $A_{cs}$     &  & Collector tube cross-section area      &  & 7.85$\times 10^{-5}$                 &  & m$^2$     \\
-                                 &  & $n_{tub-c}$  &  & Number of parallel tubes per collector &  & 1                                    &  & -         \\
+                                 &  & $n_{tb-c}$  &  & Number of parallel tubes per collector &  & 1                                    &  & -         \\
                                  &  & $n_{c-loop}$ &  & Number of parallel collectors per loop &  & 7 $\times$ 5                         &  & -         \\
-                                 &  & $L_t$        &  & Individual collector tube length       &  & 23                                   &  & m         \\
-                                 &  & $n_{c,s}$    &  & Number of collector row's in series    &  & 2                                    &  & -         \\
+                                 &  & $L_{tb}$        &  & Individual collector tube length       &  & 23                                   &  & m         \\
+                                 &  & $n_{c-s}$    &  & Number of collector row's in series    &  & 2                                    &  & -         \\
                                  &  & T$_{max}$    &  & Maximum working temperature            &  & 120                                  &  & $^\circ$C
      \\ \hline
 \end{tabular}%
@@ -1126,7 +1126,7 @@ parameters\sidenote{In parentheses the value used}:
 % Figura de la máquina de estado finito y gráfica con la evolución de estados
 % durante un ensayo
 
-\begin{figure*}
+\begin{figure*}[]
     \centering
     \subfloat[\centering \gls{sftsLabel}]{{\includegraphics[width=0.3\linewidth]{solarmed-sfts-fsm.png}}}%
     \hspace{0.1\linewidth}
@@ -1239,7 +1239,7 @@ vacuum is generated the start-up procedure gets triggered at sample 12-13. The
 system then stays active producing separation until it is shut-off at sample 56
 for two samples, equivalent to over 10 minutes.
 
-\begin{figure*}
+\begin{figure*}[htbp]
     \includegraphics[width=\linewidth]{solarmed_fsm_evolution_20230703.png}
     \caption[SolarMED \gls{fsmLabel} states evolution during a test on 20230703]{\gls{solarmedLabel} \gls{fsmLabel} states evolution during a test on 20230703.
     Purple represents the \gls{medfsmLabel} state and orange the
@@ -1447,6 +1447,17 @@ the heat exchanger output, which in turn depends on the thermal storage state,
 which itself depends on the MED plant operation and, ultimately, on the solar
 field. Consequently, errors can propagate and accumulate over time.
 
+
+Therefore, achieving consistent accuracy for multi-hour horizons in a fully
+coupled system is challenging. For standalone component models,
+\gls{mapeLabel} values above 5--10~\% would typically be considered poor;
+however, for the complete integrated system, maintaining \gls{mapeLabel} values
+below roughly 15~\% across several hours is a commendable result. This is
+particularly the case for thermal state variables such as $T_{ts,h}$ and
+$T_{ts,c}$, where the model captures the general dynamic behavior well even at
+long horizons. The computation times shown in the last column remain reasonable,
+with the 8-hours horizon evaluation taking around 5~s.
+
 \marginnote[*-10]{
     \begin{kaobox}[title=Extended validation results]
     \begin{minipage}{0.6\linewidth}
@@ -1460,16 +1471,6 @@ field. Consequently, errors can propagate and accumulate over time.
     \end{minipage}
     \end{kaobox}
 }
-
-Therefore, achieving consistent accuracy for multi-hour horizons in a fully
-coupled system is challenging. For standalone component models,
-\gls{mapeLabel} values above 5--10~\% would typically be considered poor;
-however, for the complete integrated system, maintaining \gls{mapeLabel} values
-below roughly 15~\% across several hours is a commendable result. This is
-particularly the case for thermal state variables such as $T_{ts,h}$ and
-$T_{ts,c}$, where the model captures the general dynamic behavior well even at
-long horizons. The computation times shown in the last column remain reasonable,
-with the 8-hours horizon evaluation taking around 5~s.
 
 % \marginnote[*-10]{
 %     \begin{kaobox}[title=Extended validation results]
