@@ -1,76 +1,163 @@
-% From the template
-\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
-\nomenclature{$h$}{Planck constant}
-\nomenclature[AT]{$T$}{temperature ($^\circ$C)}
+% \nomenclature[GROUP, SORTKEY]{SYMBOL}{DESCRIPTION}
+
+% Important!
+% Nomenclature groups are defined in macros.tex (need to be defined before \begin{document})
 
 
-% \nomenclature[Aw]{$w$}{humidity ratio (kg kg$^{-1}$)}
-\nomenclature[Ah]{$h$}{enthalpy (J/kg)}
-\nomenclature[Amdot]{$\dot{m}$}{mass flow rate (kg/s)}
-\nomenclature[Ac]{$c$}{$\Me$ correlation parameter}
-\nomenclature[Acp]{$c_p$}{specific heat (J/kg K)}
-\nomenclature[Ady]{$dy$}{differential of variable y}
-\nomenclature[AhC]{$h_C$}{heat transfer coefficient (W/m$^{2}$ K)}
-\nomenclature[Af]{$f$}{frequency percentage (\%)}
-\nomenclature[AhD]{$h_D$}{mass transfer coefficient (kg/m$^{2}$ s)}
-% \nomenclature[Ahv]{$h_v$}{enthalpy of vapour (J kg$^{-1}$)}
-% \nomenclature[AQ]{$\dot{Q}$}{total heat transferred from water to air (W)}
-\nomenclature[ALe]{$Le$}{Lewis number ($ =h_C/ \left(h_Dc_{p_{ma}}\right)$)}
-\nomenclature[An]{$n$}{$\Me$ correlation parameter}
-\nomenclature[AaV]{$a_V$}{surface area of exchange per unit of volume (m$^{2}$/m$^{3}$)}
-% \nomenclature[AA]{$A$}{frontal area (m$^{2}$)}
-\nomenclature[AMe]{$\Me$}{Merkel number} % ($ =h_D a_V V/\dot{m}_w $)}
-\nomenclature[Av]{$v$}{velocity (m/s)}
-\nomenclature[AV]{$V$}{volume of the transfer region (m$^{3}$)}
-\nomenclature[Aq]{$q$}{volumetric flow rate ($m^3/h$)}
-\nomenclature[AR2]{R$^2$}{R-squared}
-\nomenclature[Az]{$z$}{height (m)}
-%\nomenclature[ATwb]{$T_{wb}$}{wet bulb temperature ($^\circ$C)}
-\nomenclature[Ayi]{$y_i$}{measurement variable for the $i-th$ data point}
-\nomenclature[Ayii]{$\hat{y}_i$}{estimated value of variable $y_i$}
-\nomenclature[AN]{$N$}{number of data points}
-\nomenclature[Ayiii]{$\bar{y}$}{mean value of the experimental values}
+% Symbols ---------------------------------------
 
-%Greek symbols
-% \nomenclature[Br ]{$\rho$}{density (kg m$^{-3}$)}
-\nomenclature[Bw]{$\omega$}{humidity ratio (kg/kg)}
-\nomenclature[Bh]{$\phi$}{relative humidity (\%)} 
-
-%Subscripts
-\nomenclature[Ca ]{$a$}{air}
-\nomenclature[Cs ]{$s$}{saturated}
-%\nomenclature[Cv ]{$v$}{vapour}
-\nomenclature[Cw ]{$w$}{water}
-\nomenclature[Ci ]{$i$}{inlet}
-\nomenclature[CO ]{$o$}{outlet}
-\nomenclature[Camb]{$\infty$}{ambient}
-\nomenclature[Cfan]{$fan$}{fan}
-\nomenclature[Clost]{$lost$}{consumption}
-\nomenclature[Cwb]{$b$}{wet bulb}
-
-%Abbreviations
-% TODO: Check which ones are necessary and move them to the glossary
-\nomenclature[DACC]{ACC}{Air Cooled Condenser}
-\nomenclature[DANN]{ANN}{Artificial Neural Network}
-\nomenclature[DRBF]{RBF}{Radial-basis function}
-\nomenclature[DCF]{CF}{Cascade-forward}
-\nomenclature[DFF]{FF}{Feedfoward}
-\nomenclature[DMIMO]{MIMO}{Multiple Inputs - Multiple Outputs}
-\nomenclature[DExp]{Exp}{Experimental campaign}
-\nomenclature[DCSP]{CSP}{Concentrated Solar Power}
-%\nomenclature[DFFNN]{FFNN}{Feed Forward Neural Network}
-\nomenclature[DRMSE]{RMSE}{Root Mean Square Error}
-\nomenclature[DMAPE]{MAPE}{Mean Absolute Percentage Error}
-\nomenclature[MAE]{MAE}{Mean absolute Error}
-%\nomenclature[DRSM]{RSM}{Response Surface Methodology}
-\nomenclature[DPSA]{PSA}{Plataforma Solar de Almería}
-%\nomenclature[DSC]{SC}{Surface Condenser}
-%\nomenclature[DSG]{SG}{Steam Generator}
-\nomenclature[DWCT]{WCT}{Wet Cooling Tower}
-\nomenclature[DNDWCT]{NDWCT}{Natural Draft Counter-flow Wet Cooling Towers}
+% Common
 
 
-% New
-\nomenclature[new]{$T_s$}{Sample time}
-\nomenclature[new]{$n_{steps}$}{Number of steps in the horizon}
-\nomenclature[new]{$n_{x}$}{Number of decision variables in the decision vector}
+% Combined cooling
+
+
+% SolarMED
+
+\nomenclature[A, H]{$HR$}{Relative humidity \nomunit{\SI[group-digits=false]{}{\%}}}
+\nomenclature[A, irradiance]{$I$}{Irradiance \nomunit{\SI[group-digits=false]{}{\watt\per\metre\squared}}}
+\nomenclature[A, Q]{$Q$}{Thermal energy or heat \nomunit{\SI[group-digits=false]{}{\kilo\joule}}}
+\nomenclature[A, Qdot]{$\dot{Q}$}{Thermal power \nomunit{\SI[group-digits=false]{}{\kilo\watt}}}
+\nomenclature[A, t]{$T$}{Temperature, Period} % \nomunit{\SI[group-digits=false]{}{\degreeCelsius}}
+\nomenclature[A, p]{$P$}{Pressure \nomunit{\SI{}{\mbar}} }
+\nomenclature[A, l]{$L$}{Level \nomunit{\SI{}{\mm}} }
+\nomenclature[A, c]{$C$}{Conductivity, Consumption, Heat capacity}
+\nomenclature[A, b]{$b$}{Molality \nomunit{\SI[group-digits=false]{}{\mol\per\kilogram}} }
+\nomenclature[A, h]{$h$}{Enthalpy \nomunit{J kg$^{-1}$}}
+\nomenclature[A, Le]{$\lew$}{Lewis number}% ($ =h_C/ \left(h_Dc_{p_{ma}}\right)$)
+\nomenclature[A, Me]{$\Me$}{Merkel number} % ($ =h_D a_V V/\dot{m}_w $) % }
+% \nomenclature[A, c1]{$c$}{constant in ASHRAE correlation}
+% \nomenclature[A, m1]{$m$}{constant in ASHRAE correlation}
+\nomenclature[A, U]{$U$}{Heat transfer coefficient \nomunit{W m$ ^{-2}$ K$^{-1}$}}
+\nomenclature[A, L]{$L$}{Length \nomunit{\SI{}{\metre}}}
+\nomenclature[A, thermalloss]{$H$}{Thermal loss coefficient \nomunit{\SI{}{\joule\per\second\per\degreeCelsius}}}
+\nomenclature[A, n]{$n$, $N$}{Number of}
+\nomenclature[A, k]{$k$}{Thermal conductivity, Step, Coverage factor \nomunit{W m$^{-1}$ K$^{-1}$, -, -}}
+\nomenclature[A, D]{$D$}{Diameter \nomunit{\SI{}{\metre}}} 
+\nomenclature[A, R]{$R$}{Distribution ratio, Fouling resistance \nomunit{m$^{2}$ K W$^{-1}$)}} 
+\nomenclature[A, m]{$\dot{m}$}{{Mass flow rate} \nomunit{\SI[group-digits=false]{}{\kilogram\per\second}} }
+\nomenclature[A, q]{$q$}{Volumetric flow rate \nomunit{\SI[group-digits=false]{}{\cubic\metre\per\hour}} }
+\nomenclature[A, heat]{$c_p$}{Specific heat capacity \nomunit{\SI[group-digits=false]{}{\kilo\joule\per\kilogram\per\degreeCelsius}} }
+\nomenclature[A, salinity]{$w$}{Salinity, Concentration in terms of mass fraction \nomunit{\SI[group-digits=false]{}{\gram\per\kilogram}} }
+\nomenclature[A, gibbs]{$g$}{Specific Gibbs free energy \nomunit{\SI[group-digits=false]{}{\kilo\joule\per\kilogram}} }
+\nomenclature[A, entalphy]{$h$}{Specific entalphy \nomunit{\SI[group-digits=false]{}{\kilo\joule\per\kilogram}} }
+\nomenclature[A, entropy]{$s$}{Specific entropy \nomunit{\SI[group-digits=false]{}{\kilo\joule\per\kilogram}} }
+\nomenclature[A, exergy]{$e$}{Environment variables, Specific exergy flow \nomunit{-, \SI[group-digits=false]{}{\kilo\joule\per\kilogram}} }
+\nomenclature[A, electrical]{J}{Electrical power consumption, Cost of operation, Cost of cooling \nomunit{\SI[group-digits=false]{}{\kilo\watt}, -} }
+\nomenclature[A, benefit]{B}{Benefit \nomunit{u.m.} }
+% \nomenclature[A, ]{$\dot{W}_{electrical}$}{Electrical work \nomunit{\SI[group-digits=false]{}{\kilo\watt}} }
+\nomenclature[A, ]{$\dot{E}x$}{Exergy flow rate \nomunit{\SI[group-digits=false]{}{\kilo\watt}} }
+% \nomenclature[A, ]{$\dot{W}_{min}$}{Minimum work to perform separation of seawater at given recovery ratio \nomunit{\SI[group-digits=false]{}{\kilo\watt}} }
+% \nomenclature[A, ]{$\dot{W}_{min}^{least}$}{Minimum least work to perform separation of seawater at infinitesimal recovery ratio \nomunit{\SI[group-digits=false]{}{\kilo\watt}} }
+\nomenclature[A, work]{$\dot{W}$}{Work of separation of seawater \nomunit{\SI[group-digits=false]{}{\kilo\watt}} }
+\nomenclature[A, valve]{$v$}{Valve position}
+\nomenclature[A, x]{$x$}{Decision vector}
+\nomenclature[A, sample-time]{$T_s$}{Sample time \nomunit{\SI{}{\second}}}
+\nomenclature[A, path]{$p$, $\pmb{p}$}{Point, Path of points}
+\nomenclature[A, loop]{$l$}{Solar field loop}
+\nomenclature[A, volume]{$V$}{Volume \nomunit{\SI{}{\cubic\metre}}}
+\nomenclature[A, composite-score]{$S$}{Composite score}
+\nomenclature[A, worst-case-performance]{$W$}{Worst case performance}
+
+
+% Greek symbols ---------------------------------------
+
+\nomenclature[G, w]{$\omega$}{Humidity ratio, Actuator value \nomunit{\SI[group-digits=false]{}{\kilogram\per\kilogram}, -}}
+\nomenclature[G, lambda]{$\lambda$}{Specific latent heat of phase change \nomunit{\SI[group-digits=false]{}{\kilo\joule\per\kilogram}} }
+\nomenclature[G, rho]{$\rho$}{Density \nomunit{\SI[group-digits=false]{}{\kilogram\per\cubic \metre}} }
+\nomenclature[G, efficiency]{$\eta$}{Efficiency \nomunit{\%}}
+\nomenclature[G, chemical]{$\mu$}{Chemical potential, Average performance \nomunit{\SI[group-digits=false]{}{\kilo\joule\per\kilogram}, -} }
+\nomenclature[G, variation]{$\Delta$}{Variation}
+\nomenclature[G, parameters]{$\theta$}{Parameters}
+\nomenclature[G, tolerance]{$\epsilon$}{Tolerance, effectiveness}
+\nomenclature[G, beta]{$\beta$}{Temperature gain coefficient \nomunit{m}}
+\nomenclature[G, gamma]{$\gamma$}{Threshold}
+\nomenclature[G, sigma]{$\sigma$}{Standard-deviation performance}
+
+
+% Subscripts ---------------------------------------
+
+% Common
+\nomenclature[S, max]{$max$}{Maximum}
+\nomenclature[S, min]{$max$}{Minimum}
+\nomenclature[S, average]{$avg$}{Average}
+\nomenclature[S, amb]{$amb$, $\infty$}{Ambient conditions}
+\nomenclature[S, s]{$s$}{Saturated, Series component, Heat source, Source, Secodary side}
+\nomenclature[S, w]{$w$}{Water}
+\nomenclature[S, in]{$in$}{Inlet}
+\nomenclature[S, out]{$out$}{Outlet}
+\nomenclature[S, i]{$i$}{Inner, Iteration, $i_{th}$ element}
+\nomenclature[S, o]{$o$}{Outer}
+\nomenclature[S, tb]{$tb$}{Tube}
+\nomenclature[S, eq]{$eq$}{Equivalent}
+\nomenclature[S, cross-section]{$cs$}{Cross-section}
+\nomenclature[S, delay]{$d$}{Delay}
+\nomenclature[S, controlled-variable]{$cv$}{Controlled variable}
+\nomenclature[S, black-box]{$bb$}{Black-box}
+\nomenclature[S, fsm]{$fsm$}{Finite-state machine}
+\nomenclature[S, standard]{$std$}{Standard deviation}
+\nomenclature[S, worst-case]{$wc$}{Worst-case}
+
+% Combined cooling
+\nomenclature[S, air]{$air$}{Air}
+\nomenclature[S, v]{$v$}{Vapor}f
+\nomenclature[S, dc]{$dc$}{Dry cooler}
+\nomenclature[S, wct]{$wct$}{Wet cooling tower}
+\nomenclature[S, cc]{$cc$}{Combined cooler}
+\nomenclature[S, e]{$e$}{Electrical}
+\nomenclature[S, p]{$p$}{Primary side, Parallel component}
+\nomenclature[S, c]{$c$}{Surface condenser, Condenser, Cooling water, Cold}
+\nomenclature[S, cond]{$cond$}{Condensate}
+\nomenclature[S, wb]{$wb$}{Wet bulb}
+\nomenclature[S, db]{$db$}{Dry bulb}
+
+% SolarMED
+% \nomenclature[b]{$c$}{Cooling water}
+\nomenclature[S, KKsf]{$sf$}{Solar field}
+\nomenclature[S, KKts]{$sf$}{Thermal storage}
+\nomenclature[S, KKhx]{$hx$, $hex$}{Heat exchanger}
+\nomenclature[S, KKthreewayvalve]{$3wv$}{Three-way valve}
+\nomenclature[S, KKmed]{$med$}{Multi-effect distillation}
+\nomenclature[S, f]{$f$}{Feed water}
+% \nomenclature[S, s]{$s$}{Heat source}
+\nomenclature[S, d]{$d$}{Distillate}
+\nomenclature[S, b]{$b$}{Brine, Bottom}
+\nomenclature[S, t]{$t$}{Top}
+\nomenclature[S, r]{$r$}{Rejected cooling water}
+\nomenclature[S, v]{$v$}{Vapor}
+\nomenclature[S, sat]{$sat$}{Saturation}
+\nomenclature[S, dis]{$dis$}{Discharge}
+\nomenclature[S, src]{$src$}{Source}
+\nomenclature[S, hot]{$h$}{Hot}
+\nomenclature[S, top]{$T$}{Top}
+\nomenclature[S, bottom]{$B$}{Bottom}
+\nomenclature[S, ref]{$ref$}{Reference}
+\nomenclature[S, avail]{$avail$}{Available}
+\nomenclature[S, sol]{$sol$}{Solute}
+\nomenclature[S, 0]{$0$}{Reference system, Dead-state, Initial state}
+\nomenclature[S, aux]{$aux$}{Auxiliary systems}
+\nomenclature[S, streams]{$streams$}{Discharge streams}
+\nomenclature[S, wh]{$wh$}{Waste heat}
+\nomenclature[S, bc]{$bc$}{Brine concentration}
+\nomenclature[S, nacl]{$NaCl$}{Sodium chloride}
+\nomenclature[S, two]{$II$}{Second law}
+\nomenclature[S, min]{$min$}{Minimum}
+\nomenclature[S, bc]{$least$}{Least}
+\nomenclature[S, par-col-tube]{$tb-c$}{Parallel solar field's collector tube}
+\nomenclature[S, par-col]{$c-loop$}{Parallel solar field's collectors per loop}
+\nomenclature[S, s-col]{$c-s$}{Series solar field's collector rows}
+\nomenclature[S, steaty-state]{$ss$}{Steady-state}
+\nomenclature[S, mode]{$mode$}{Discrete operation mode}
+\nomenclature[S, evaluation]{$eval$}{Evaluation}
+\nomenclature[S, optimization]{$optim$}{Optimization}
+
+% Superscripts and modifiers ---------------------------------------
+
+% Common
+\nomenclature[X, 00]{$\hat{X}$}{Prediction}
+\nomenclature[X, 01]{$\overline{X}$}{Mean, Upper limit}
+\nomenclature[X, 02]{$\underline{X}$}{Lower limit}
+\nomenclature[X, 03]{$X^*$}{Setpoint}
+\nomenclature[X, 04]{$X_{\uparrow}$}{Start-up}
+\nomenclature[X, 05]{$X_{\downarrow}$}{Shutdown}
+\nomenclature[X, 06]{$X^{(x)}$}{Cumulative $X$ up to step $x$}

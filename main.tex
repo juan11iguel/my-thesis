@@ -75,7 +75,7 @@
 
 \makeglossaries % Make LaTeX produce the files required to compile the glossary
 \input{glossary.tex} % Include the glossary definitions
-% \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
+\makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
 % Reset sidenote counter at chapters
 \counterwithin*{sidenote}{chapter}
@@ -84,17 +84,11 @@
 %	PERSONAL MODIFICATIONS
 %----------------------------------------------------------------------------------------
 
-% \usepackage{amsmath, amssymb, algorithm, algpseudocode}
-
 % Rotated figures and vertically aligned tables
-\usepackage{rotating}
-\usepackage{array}
-
-% For subfigures
-\usepackage{subfig}
-
-% Links to additional material
-\usepackage{qrcode}
+\usepackage{rotating} % Horizontal figures
+\usepackage{array} % Aligned equations
+\usepackage{subfig} % For subfigures
+\usepackage{qrcode} % Links to additional material
 % \usepackage{fancyqr}
 \usepackage{fontspec}
 \usepackage{etoolbox}
@@ -165,40 +159,40 @@
 % ----------------------------------------------------------------------------------------
 % Components testing
 
-Default (yellow, up): \trianglemarker{up}\\
-Explicit (yellow, up): \trianglemarker[D6B656]{up}\\
-Explicit (yellow, down): \trianglemarker[D6B656]{down}\\
-Red down: \trianglemarker[B85450]{down}\\
+% Default (yellow, up): \trianglemarker{up}\\
+% Explicit (yellow, up): \trianglemarker[D6B656]{up}\\
+% Explicit (yellow, down): \trianglemarker[D6B656]{down}\\
+% Red down: \trianglemarker[B85450]{down}\\
 
 
-Normal: $\omega$ \\
-Bold: $\pmb{\omega}$
+% Normal: $\omega$ \\
+% Bold: $\pmb{\omega}$
 
-\wipbox{Additional text to add}
+% \wipbox{Additional text to add}
 
-\begin{kaobox}[title=Kaobox with custom color,colback=MediumPurple2!25!white,colbacktitle=MediumPurple2!25!white]
-    What is thiiiis
-    \begin{enumerate}
-      \item Enumerations
-      \item should
-      \item be
-      \item okay
-    \end{enumerate}
+% \begin{kaobox}[title=Kaobox with custom color,colback=MediumPurple2!25!white,colbacktitle=MediumPurple2!25!white]
+%     What is thiiiis
+%     \begin{enumerate}
+%       \item Enumerations
+%       \item should
+%       \item be
+%       \item okay
+%     \end{enumerate}
 
-    Even fancy figures\texttrademark{}. \\
+%     Even fancy figures\texttrademark{}. \\
 
-    \begin{minipage}{0.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/cc-intro-hybrid-cooler-diagram-no-bg.png}\\
-    \small Hybrid cooler
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/cc-intro-combined-cooler-diagram-no-bg.png}\\
-    \small Combined cooler
-    \end{minipage}
-\end{kaobox}
+%     \begin{minipage}{0.48\linewidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/cc-intro-hybrid-cooler-diagram-no-bg.png}\\
+%     \small Hybrid cooler
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}{0.48\linewidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/cc-intro-combined-cooler-diagram-no-bg.png}\\
+%     \small Combined cooler
+%     \end{minipage}
+% \end{kaobox}
 
 % \newgeometry{margin=0cm}
 % \begin{figure*}[!p]    % Full-page float
@@ -226,97 +220,97 @@ Bold: $\pmb{\omega}$
 % \end{figure*}
 % \restoregeometry
 
-\blindtext\blindtext
+% \blindtext\blindtext
 
-\begin{modelcounter}{Test}
-	\begin{align*}
-    T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,out} = \mathrm{combined\:cooler\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR_i,T_{v},\dot{m}_{v}) \\
-    & T_{cc,in}=T_{c,out} \\
-    & T_{dc,in}=T_{cc,in} \\
-    % three-way valves
-    & q_{dc} = q_{c} \cdot (1-R_{p}) \\
-    & q_{wct,p} = q_{c} \cdot R_{p} \\
-    & q_{wct,s} = q_{dc} \cdot R_{s} \\
-    % dc model
-    & T_{dc,out},\,C_{e,dc} = \mathrm{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in}) \\
-    % first mixer
-    & q_{wct},\,T_{wct,in} = \mathrm{mixer\:model}(q_{wct,p},\,T_{T{cc,in}},\, q_{wct,s},\, T_{dc,out}) \\
-    \end{align*}
-	\labmod{test}
-\end{modelcounter}
+% \begin{modelcounter}{Test}
+% 	\begin{align*}
+%     T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,out} = \mathrm{combined\:cooler\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR_i,T_{v},\dot{m}_{v}) \\
+%     & T_{cc,in}=T_{c,out} \\
+%     & T_{dc,in}=T_{cc,in} \\
+%     % three-way valves
+%     & q_{dc} = q_{c} \cdot (1-R_{p}) \\
+%     & q_{wct,p} = q_{c} \cdot R_{p} \\
+%     & q_{wct,s} = q_{dc} \cdot R_{s} \\
+%     % dc model
+%     & T_{dc,out},\,C_{e,dc} = \mathrm{dc\:model}(q_{dc},\, \omega_{\text{dc}},\, T_{\text{amb}},\, T_{dc,in}) \\
+%     % first mixer
+%     & q_{wct},\,T_{wct,in} = \mathrm{mixer\:model}(q_{wct,p},\,T_{T{cc,in}},\, q_{wct,s},\, T_{dc,out}) \\
+%     \end{align*}
+% 	\labmod{test}
+% \end{modelcounter}
 
-As can be seen in \refmod{test}, the counter is working.
-As can be seen in \refprob{test}, the counter is working.
+% As can be seen in \refmod{test}, the counter is working.
+% As can be seen in \refprob{test}, the counter is working.
 
-\begin{problemcounter}{Test}
-	\blindtext
-  \begin{equation*}
-	\min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = f(x)
-  \end{equation*}
+% \begin{problemcounter}{Test}
+% 	\blindtext
+%   \begin{equation*}
+% 	\min_{\mathbf{x},\, \mathbf{e};\, \boldsymbol{\theta}} \quad J = f(\mathbf{x}, \mathbf{e}; \boldsymbol{\theta}) = f(x)
+%   \end{equation*}
 
-  \textbf{with}:
-  \begin{itemize}
-	\item Model name model
-	\[
-	  out_1,\, out_2 = f(in_1,\, in_2,\, \ldots,\, in_N)
-	\]
-	\item Decision variables
-	\[
-	  \mathbf{x} = [x_1,\, x_2]
-	\]
-	\item Environment variables
-	\[
-	  \mathbf{e} = [e_1,\, e_2,\, \ldots,\, e_3]
-	\]
-	\item Fixed parameters
-	\[
-	  \pmb{\theta} = [\theta_1 = X,\, \theta_2 = Y]
-	\]
-  \end{itemize}
+%   \textbf{with}:
+%   \begin{itemize}
+% 	\item Model name model
+% 	\[
+% 	  out_1,\, out_2 = f(in_1,\, in_2,\, \ldots,\, in_N)
+% 	\]
+% 	\item Decision variables
+% 	\[
+% 	  \mathbf{x} = [x_1,\, x_2]
+% 	\]
+% 	\item Environment variables
+% 	\[
+% 	  \mathbf{e} = [e_1,\, e_2,\, \ldots,\, e_3]
+% 	\]
+% 	\item Fixed parameters
+% 	\[
+% 	  \pmb{\theta} = [\theta_1 = X,\, \theta_2 = Y]
+% 	\]
+%   \end{itemize}
 
-  \textbf{subject to}:
-  \begin{itemize}
-	\item Box-bounds
-	\begin{itemize}
-	  \item \( x_{1} \in [\underline{x}_{1}, \overline{x}_{1}] \)
-	  \item \( x_{2} \in [\underline{x}_{2}, \overline{x}_{2}] \)
-	\end{itemize}
-	\item Constraints
-	\begin{itemize}
-	  \item \( \left| out_X - out_Y \right| \leq \epsilon_1 \)
-	  \item \( out_X \leq out_Z - \Delta Z \)
-	\end{itemize}
-  \end{itemize}
-  \labprob{test}
-\end{problemcounter}
+%   \textbf{subject to}:
+%   \begin{itemize}
+% 	\item Box-bounds
+% 	\begin{itemize}
+% 	  \item \( x_{1} \in [\underline{x}_{1}, \overline{x}_{1}] \)
+% 	  \item \( x_{2} \in [\underline{x}_{2}, \overline{x}_{2}] \)
+% 	\end{itemize}
+% 	\item Constraints
+% 	\begin{itemize}
+% 	  \item \( \left| out_X - out_Y \right| \leq \epsilon_1 \)
+% 	  \item \( out_X \leq out_Z - \Delta Z \)
+% 	\end{itemize}
+%   \end{itemize}
+%   \labprob{test}
+% \end{problemcounter}
 
-\blindtext
+% \blindtext
 
-\tldrbox{Too Long Didn't Read (TL;DR) boxes are defined with the \texttt{tldrbox}
-command. They are equivalent to abstracts or summaries and are placed at the
-beginning of sections or chapters.}
+% \tldrbox{Too Long Didn't Read (TL;DR) boxes are defined with the \texttt{tldrbox}
+% command. They are equivalent to abstracts or summaries and are placed at the
+% beginning of sections or chapters.}
 
-\blindtext
+% \blindtext
 
-\marginannotation[*-5]{Title of the annotation}{
-	Is everything in this life just a wrapped kaobox? What if I told you that a
-	kaobox is just a wrapper of tcolorbox?
-}
+% \marginannotation[*-5]{Title of the annotation}{
+% 	Is everything in this life just a wrapped kaobox? What if I told you that a
+% 	kaobox is just a wrapper of tcolorbox?
+% }
 
-\begin{definition}
-\labdef{openset}
-Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
-if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
-U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
-of all the open subsets of $(X, d).$
-\end{definition}
+% \begin{definition}
+% \labdef{openset}
+% Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
+% if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
+% U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
+% of all the open subsets of $(X, d).$
+% \end{definition}
 
-\begin{remark}
-Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
-if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
-U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
-of all the open subsets of $(X, d).$
-\end{remark}
+% \begin{remark}
+% Let $(X, d)$ be a metric space. A subset $U \subset X$ is an open set 
+% if, for any $x \in U$ there exists $r > 0$ such that $B(x, r) \subset 
+% U$. We call the topology associated to d the set $\tau\textsubscript{d}$ 
+% of all the open subsets of $(X, d).$
+% \end{remark}
 
 
 
@@ -347,15 +341,15 @@ of all the open subsets of $(X, d).$
 %----------------------------------------------------------------------------------------
 
 \dedication{
-	The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
-	\flushright -- D'Arcy Wentworth Thompson
-	% \flushleft - ¿Quieres que te cuente el cuento del rábano pimiento? \\
-	% \flushright - ¡Vale! \\
-	% \flushleft - No te he preguntado si \textit{vale}, te he preguntado que si\\ quieres 
-	% que te cuente el cuento del rábano pimiento. \\
-	% \flushright-Sí, una vez más, por favor. \\
-	% \vspace{5ex}
-	% \flushleft\textit{Un abuelo y su nieto}
+	% The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
+	% \flushright -- D'Arcy Wentworth Thompson
+	\flushleft -- ¿Quieres que te cuente el cuento del rábano pimiento? \\
+	\flushright -- ¡Vale! \\
+	\flushleft -- No te he preguntado si \textit{vale}, te he preguntado que si\\ quieres 
+	que te cuente el cuento del rábano pimiento. \\
+	\flushright--Sí, una vez más, por favor. \\
+	\vspace{5ex}
+	\flushleft\textit{Un abuelo y su nieto}
 }
 
 %----------------------------------------------------------------------------------------
@@ -422,12 +416,12 @@ of all the open subsets of $(X, d).$
 %----------------------------------------------------------------------------------------
 %	COMBINED COOLING
 %----------------------------------------------------------------------------------------
-% \input{chapters/cc.tex}
-% \input{chapters/cc-facility.tex}
-% \input{chapters/cc-modelling.tex}
-% \input{chapters/cc-optimization.tex}
-% \input{chapters/cc-validation.tex}
-% \input{chapters/cc-simulation.tex}
+\input{chapters/cc.tex}
+\input{chapters/cc-facility.tex}
+\input{chapters/cc-modelling.tex}
+\input{chapters/cc-optimization.tex}
+\input{chapters/cc-validation.tex}
+\input{chapters/cc-simulation.tex}
 
 %----------------------------------------------------------------------------------------
 %	SOLARMED
@@ -487,6 +481,7 @@ of all the open subsets of $(X, d).$
 %	APPENDIX
 %----------------------------------------------------------------------------------------
 
+\myepigraphhead[500]{Should I kill myself or have a cup of coffee?}{Albert Camus}
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
 \pagelayout{wide} % No margins
@@ -513,46 +508,8 @@ of all the open subsets of $(X, d).$
 %	NOMENCLATURE
 %----------------------------------------------------------------------------------------
 
-% TODO: Get this working
-% The nomenclature needs to be compiled on the command line with 'makeindex main.nlo -s nomencl.ist -o main.nls' from the template directory
-
-% \input{nomenclature.tex}
-
-% \renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
-% \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.} % Prepend this text to the nomenclature
-
-% \printnomenclature % Output the nomenclature
-
-%----------------------------------------------------------------------------------------
-%	GREEK ALPHABET
-% 	Originally from https://gitlab.com/jim.hefferon/linear-algebra
-%----------------------------------------------------------------------------------------
-
-% \vspace{1cm}
-
-% {\usekomafont{chapter}Greek Letters with Pronunciations} \\[2ex]
-% \begin{center}
-% 	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
-% 	\begin{tabular}{l l @{\hspace*{3em}} l l}
-% 		\toprule
-% 		Character & Name & Character & Name \\ 
-% 		\midrule
-% 		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
-% 		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\ 
-% 		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
-% 		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
-% 		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
-% 		$\zeta$ & zeta \pronounced{ZAY-tuh} & $\sigma$, $\Sigma$ & sigma \pronounced{SIG-muh} \\
-% 		$\eta$ & eta \pronounced{AY-tuh} & $\tau$ & tau \pronounced{TOW (as in cow)} \\
-% 		$\theta$, $\Theta$ & theta \pronounced{THAY-tuh} & $\upsilon$, $\Upsilon$ & upsilon \pronounced{OOP-suh-LON} \\
-% 		$\iota$ & iota \pronounced{eye-OH-tuh} & $\phi$, $\Phi$ & phi \pronounced{FEE, or FI (as in hi)} \\
-% 		$\kappa$ & kappa \pronounced{KAP-uh} & $\chi$ & chi \pronounced{KI (as in hi)} \\
-% 		$\lambda$, $\Lambda$ & lambda \pronounced{LAM-duh} & $\psi$, $\Psi$ & psi \pronounced{SIGH, or PSIGH} \\
-% 		$\mu$ & mu \pronounced{MEW} & $\omega$, $\Omega$ & omega \pronounced{oh-MAY-guh} \\
-% 		\bottomrule
-% 	\end{tabular} \\[1.5ex]
-% 	Capitals shown are the ones that differ from Roman capitals.
-% \end{center}
+\input{nomenclature.tex}
+\printnomenclature % Output the nomenclature
 
 %----------------------------------------------------------------------------------------
 %	GLOSSARY

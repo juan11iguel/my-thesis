@@ -1,3 +1,7 @@
+%----------------------------------------------------------------------------------------
+%	CONSTANTS
+%----------------------------------------------------------------------------------------
+
 % This allows to place QR codes in the caption of figures
 \newsavebox{\captionqr}
 \newsavebox{\captionqrleft}
@@ -11,6 +15,27 @@
 \DeclareMathOperator{\Nus}{Nu}
 \DeclareMathOperator{\LMTD}{LMTD}
 
+% Declare SI units
+\DeclareSIUnit\mbar{\milli\bar}
+
+% Command: \trianglemarker[color][direction]
+% color      -> HTML hex (default: D6B656) or any xcolor name
+% direction  -> 'up' (default) or 'down'
+\newcommand{\trianglemarker}[2][D6B656]{%
+  \begingroup
+    % define a temporary color from the provided hex (HTML model)
+    \definecolor{tempcol}{HTML}{#1}%
+    \tikz[baseline=-0.0ex,scale=1]{%
+      \ifstrequal{#2}{down}{%
+        % downward pointing triangle
+        \fill[tempcol] (0,0.2)--(0.3,0.2)--(0.15,0)--cycle;
+      }{%
+        % upward pointing triangle (default)
+        \fill[tempcol] (0,0)--(0.3,0)--(0.15,0.2)--cycle;
+      }%
+    }%
+  \endgroup
+}
 
 % See glossary.tex for glossary entries and commands to add new entries
 \newcommand{\fullgls}[1]{\glsentryfull{#1}} % Alias to print full form of a glossary entry
@@ -131,21 +156,26 @@
   }%
 }
 
-% Command: \trianglemarker[color][direction]
-% color      -> HTML hex (default: D6B656) or any xcolor name
-% direction  -> 'up' (default) or 'down'
-\newcommand{\trianglemarker}[2][D6B656]{%
-  \begingroup
-    % define a temporary color from the provided hex (HTML model)
-    \definecolor{tempcol}{HTML}{#1}%
-    \tikz[baseline=-0.0ex,scale=1]{%
-      \ifstrequal{#2}{down}{%
-        % downward pointing triangle
-        \fill[tempcol] (0,0.2)--(0.3,0.2)--(0.15,0)--cycle;
-      }{%
-        % upward pointing triangle (default)
-        \fill[tempcol] (0,0)--(0.3,0)--(0.15,0.2)--cycle;
-      }%
-    }%
-  \endgroup
+%----------------------------------------------------------------------------------------
+%	NOMENCLATURE
+%----------------------------------------------------------------------------------------
+
+% \renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
+% \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.\par\bigskip} % Prepend this text to the nomenclature
+\setlength{\nomitemsep}{-\parskip} % Baseline skip between items
+
+% So that the units appear at the end of the line, aligned to the right
+\newcommand{\nomunit}[1]{%
+  \renewcommand{\nomentryend}{\hspace*{\fill}[#1]\nolinebreak\hspace*{2cm}\mbox{}}%
+}
+
+\renewcommand{\nomgroup}[1]{%
+  \vspace{2em} % extra space *before group title*
+  \item[\bfseries
+    \ifstrequal{#1}{P}{Physics constants}{%
+    \ifstrequal{#1}{G}{Greek symbols}{%
+    \ifstrequal{#1}{S}{Subscripts}{%
+    \ifstrequal{#1}{X}{Superscripts and modifiers}{%
+    \ifstrequal{#1}{O}{Other symbols}{}}}}}
+  ]%
 }

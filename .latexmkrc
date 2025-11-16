@@ -201,3 +201,17 @@ add_cus_dep('aux', 'glstex', 0, 'run_bib2gls');
 #     popd;
 #     return $return;
 # }
+
+# ======================================================================================
+# Custom dependency for the nomencl package
+# ======================================================================================
+
+# Run makeindex on .nlo to produce .nls
+add_cus_dep('nlo', 'nls', 0, 'makenlo2nls');
+
+sub makenlo2nls {
+    my ($base) = @_;   # base name without extension
+    my $cmd = "makeindex -s nomencl.ist -o \"$base.nls\" \"$base.nlo\"";
+    print "Running nomenclature: $cmd\n";
+    return system($cmd);
+}
