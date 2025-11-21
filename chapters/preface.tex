@@ -171,15 +171,17 @@ considering a two-day prediction horizon. This allows the optimization to
 account not only for immediate performance but also for the effect of present
 decisions on future production. The approach is based on an experimentally
 validated system model that includes the electrical consumption of each
-component, combined with the most comprehensive data-driven \gls{medLabel}
-model currently available in the literature. The control architecture follows a
+component, combined with the most comprehensive data-driven \gls{medLabel} model
+currently available in the literature. The control architecture follows a
 hierarchical three-layer structure, in which the upper operational layer solves
-a \glsentrylong{minlpLabel} problem aimed at maximizing water production while minimizing
-operating costs. Results from a week-long system simulation are compared with
-two alternative strategies, a baseline operation and a fixed-schedule optimized
-operation. The proposed method significantly increases water production by
-XX~\%, fully leveraging the solar resource and thermal storage capacity while
-accounting for primary operational costs.
+a \glsentrylong{minlpLabel} problem aimed at maximizing water production while
+minimizing operating costs. Results from a week-long system simulation are
+compared with two alternative strategies, a baseline rule-based operation and a
+fixed-schedule optimized operation. The proposed method significantly increases
+system performance by 32~\% relative to the heuristic baseline and by 21~\%
+relative to the fixed-schedule strategy. These gains arise from the proposed
+method ability to fully exploit the temporal flexibility provided by the thermal
+storage while accounting for operational costs.
 
 \bigskip
 
@@ -215,23 +217,25 @@ integran configuraciones de refrigeración combinada novedosas. Con este fin, se
 evalúa el rendimiento anual de diferentes alternativas de refrigeración para una
 planta comercial de 50~MW$_e$ \gls{cspLabel}, Andasol-II, ubicada en el sur de
 España. En concreto, se comparan tres sistemas de refrigeración, todos ellos
-modelados y validados: la \gls{wctLabel} existente de la planta, y dos variantes
-de un novedoso sistema \gls{ccLabel} con capacidades de enfriador seco del
-75~\% y del 100~\% de la carga térmica nominal del sistema \gls{wctLabel}. 
+modelados y validados: el sistema húmedo \gls{wctLabel} existente en la planta,
+y dos variantes de un novedoso sistema de refrigeración combinada (\gls{ccLabel})
+con capacidades de enfriador seco del 75~\% y del 100~\% de la carga térmica
+nominal del sistema \gls{wctLabel}. 
 
 Para cada alternativa, la operación de la planta se optimiza bajo el mismo
-escenario de escasez de agua utilizando un marco de optimización multi-etapa
-propuesto. Este marco minimiza el costo diario de refrigeración, que incluye los
-gastos de electricidad y agua, garantizando al mismo tiempo que se satisfaga la
-demanda de refrigeración. El desafío clave radica en gestionar eficazmente el
-recurso hídrico limitado. Los resultados muestran que la integración del
-\gls{ccLabel} puede reducir los costos específicos de refrigeración hasta en un
-80~\% y el consumo anual de agua en alrededor del 48~\%, con un ahorro del
-38~\% durante los meses más secos. Estos beneficios surgen principalmente de la
-menor dependencia de fuentes de agua alternativas y costosas. Las alternativas
-\gls{ccLabel} también ofrecen una operación más estable y rentable a lo largo
-del año en comparación con la \gls{wctLabel}, que es altamente sensible a la
-disponibilidad de agua. 
+escenario de escasez de agua utilizando un método de optimización multi-etapa
+propuesto. Este método busca minimizar el coste diario de refrigeración, que
+incluye gastos de electricidad y agua, garantizando al mismo tiempo que se
+satisfaga la demanda de refrigeración dadas unas condiciones de entorno. El
+desafío clave radica en gestionar eficazmente el recurso hídrico limitado. Los
+resultados muestran que la integración del \gls{ccLabel} puede reducir los
+costes específicos de refrigeración hasta en un 80~\% y el consumo anual de agua
+en alrededor del 48~\%, con un ahorro del 38~\% durante los meses más secos.
+Estos beneficios surgen principalmente de la menor dependencia de fuentes de
+agua alternativas y su alto coste asociado. Las alternativas \gls{ccLabel}
+también ofrecen una operación más estable y rentable a lo largo del año en
+comparación con la \gls{wctLabel}, que es altamente sensible a la disponibilidad
+de agua. 
 
 \bigskip
 
@@ -265,34 +269,39 @@ experimentales confirman que la metodología es confiable y consistente, lo que
 permite comparaciones justas entre sistemas \gls{medLabel} bajo diferentes
 escenarios operativos. 
 
-La campaña experimental incluye evaluaciones a altas \glspl{tbtLabel}. Los
-resultados, analizados mediante diversas métricas de rendimiento y riesgos de
-formación de incrustaciones, demuestran que el proceso \gls{medLabel} puede
-operar a altas \glspl{tbtLabel} sin incrustaciones significativas y puede
-alcanzar mayores concentraciones. Sin embargo, no se observan mejoras
-sustanciales en el rendimiento térmico o la capacidad de reconcentración, a
-menos que se introduzcan modificaciones específicas en el diseño. 
+La campaña experimental incluye evaluaciones a altas temperaturas de salmuera en
+el primer efecto (\gls{tbtLabel}). Los resultados,
+analizados mediante diversas métricas de rendimiento y riesgos de formación de
+incrustaciones, demuestran que el proceso \gls{medLabel} puede operar a altas
+\glspl{tbtLabel} sin incrustaciones significativas en las superficies de
+intercambio y puede alcanzar mayores concentraciones. Sin embargo, no se
+observan mejoras sustanciales en el rendimiento térmico o la capacidad de
+reconcentración, a menos que se introduzcan modificaciones específicas en el
+diseño. 
 
 \medskip
 
-Finalmente, se propone una estrategia operativa novedosa que permite la
-integración fluida, autónoma y óptima de un sistema \gls{medLabel} impulsado por
+Finalmente, se propone una estrategia de oepración novedosa que permite la
+integración autónoma y óptima de un sistema \gls{medLabel} alimentado con
 energía solar. El método determina explícitamente cuándo iniciar y detener cada
 subsistema, considerando un horizonte de predicción de dos días. Esto permite
-que la optimización tenga en cuenta no solo el rendimiento inmediato, sino
-también el efecto de las decisiones presentes sobre la producción futura. El
+que la optimización tenga en cuenta no solo el impacto inmediato de las
+decisiones presentes, sino también el efecto sobre la producción futura. El
 enfoque se basa en un modelo del sistema validado experimentalmente que incluye
 el consumo eléctrico de cada componente, combinado con el modelo \gls{medLabel}
 basado en datos más completo disponible actualmente en la literatura. La
 arquitectura de control sigue una estructura jerárquica de tres niveles, en la
-que la capa operativa superior resuelve un problema \glsentrylong{minlpLabel}
-destinado a maximizar la producción de agua mientras se minimizan los costos
-operativos. Los resultados de una simulación del sistema durante una semana se
-comparan con dos estrategias alternativas: una operación base y una operación
-optimizada con horario fijo. El método propuesto aumenta significativamente la
-producción de agua en un XX~\%, aprovechando plenamente el recurso solar y la
-capacidad de almacenamiento térmico, al tiempo que tiene en cuenta los costos
-operativos principales. 
+que la capa superior, la capa de planificación de la operación, resuelve un
+problema de programación no lineal mixto (\gls{minlpLabel} por sus siglas en
+inglés) destinado a maximizar la producción de agua mientras se minimizan los
+costes de operación. Los resultados de una simulación del sistema durante una
+semana se comparan con dos estrategias alternativas: una operación simple basada
+en reglas y una operación optimizada con un plan de operación fijo. El método
+propuesto aumenta significativamente el rendimiento del sistema en un 32~\% en
+relación con la alternativa heurística y en un 21~\% comparado con la estrategia
+de plan de operación fijo. Estas ganancias se deben a la capacidad del método
+propuesto para aprovechar al máximo la flexibilidad temporal que ofrece el
+almacenamiento térmico, al tiempo que se tienen en cuenta los costes de operación.
 
 \bigskip
 
