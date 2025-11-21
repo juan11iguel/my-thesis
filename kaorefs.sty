@@ -198,10 +198,10 @@
 
 %\newcommand{\refsec}[1]{Section~{\usekomafont{section}\normalsize\nameref{sec:#1}}\xspace\vpageref{sec:#1}\,}
 \newcommand{\refsecshort}[1]{\hyperref[sec:#1]{\sectionnameshort\xspace\ref{sec:#1}}}
-\newcommand{\refsec}[1]{\hyperref[sec:#1]{\sectionname\xspace\ref{sec:#1}}}
+\newcommand{\refsec}[1]{\hyperref[sec:#1]{\sectionname~\ref{sec:#1}}}
 \newcommand{\vrefsec}[1]{\hyperref[sec:#1]{\sectionname\xspace\vref{sec:#1}}}
-\newcommand{\nrefsec}[1]{\hyperref[sec:#1]{\sectionname\xspace\ref{sec:#1} (\nameref{sec:#1})}}
-\newcommand{\frefsec}[1]{\hyperref[sec:#1]{\sectionname\xspace\ref{sec:#1} (\nameref{sec:#1}) \vpageref{sec:#1}}}
+\newcommand{\nrefsec}[1]{\hyperref[sec:#1]{\sectionname~\ref{sec:#1} (\nameref{sec:#1})}}
+\newcommand{\frefsec}[1]{\hyperref[sec:#1]{\sectionname~\ref{sec:#1} (\nameref{sec:#1}) \vpageref{sec:#1}}}
 
 \newcommand{\refsubsecshort}[1]{\hyperref[subsec:#1]{\sectionnameshort\xspace\ref{subsec:#1}}}
 \newcommand{\refsubsec}[1]{\hyperref[subsec:#1]{\subsectionname\xspace\ref{subsec:#1}}}
@@ -211,15 +211,15 @@
 
 %\newcommand{\reffig}[1]{{\hypersetup{colorlinks=false}\usekomafont{captionlabel}\hyperref[fig:#1]{Figure}\xspace\ref{fig:#1}}}
 \newcommand{\reffigshort}[1]{\hyperref[fig:#1]{\figurenameshort\xspace\ref{fig:#1}}}
-\newcommand{\reffig}[1]{\hyperref[fig:#1]{\figurename}\xspace\ref{fig:#1}}
+\newcommand{\reffig}[1]{\hyperref[fig:#1]{\figurename}~\ref{fig:#1}}
 \newcommand{\vreffig}[1]{\hyperref[fig:#1]{\figurename\xspace\vref{fig:#1}}}
 
 %\newcommand{\reftab}[1]{{\hypersetup{colorlinks=false}\usekomafont{captionlabel}\hyperref[tab:#1]{Table}\xspace\ref{tab:#1}}}
-\newcommand{\reftab}[1]{\hyperref[tab:#1]{\tablename}\xspace\ref{tab:#1}}
+\newcommand{\reftab}[1]{\hyperref[tab:#1]{\tablename}~\ref{tab:#1}}
 \newcommand{\vreftab}[1]{\hyperref[tab:#1]{\tablename\xspace\vref{tab:#1}}}
 
 \newcommand{\refeqshort}[1]{\hyperref[eq:#1]\eqnameshort\xspace(\ref{eq:#1})}
-\newcommand{\refeq}[1]{\hyperref[eq:#1]\eqname\xspace\ref{eq:#1}}
+\newcommand{\refeq}[1]{\hyperref[eq:#1]\eqname~\ref{eq:#1}}
 \newcommand{\vrefeq}[1]{\hyperref[eq:#1]\eqname\xspace\vref{eq:#1}}
 
 \newcommand{\refdef}[1]{\hyperref[def:#1]\defname\xspace\ref{def:#1}}
