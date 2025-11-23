@@ -3,18 +3,16 @@
 \labch{cc:modelling}
 
 \tldrbox{ This chapter describes the steady-state modelling of the different
-    components of a combined cooling system, mainly a \gls{wctLabel} and a
-    \gls{dcLabel}. Different alternatives are presented: from physical models to
-    data-driven approaches, including the generation of surrogate data-driven
-    models trained using synthetic data from a physical model. Models are also
-    developed for the other components of the system and finally it is shown how
-    they are integrated into a complete system model. The complete system model
-    interface is defined at \refmod{cc}. \\[1ex]
+    components of a combined cooling system. Different alternatives are
+    presented: from physical models to data-driven approaches, including the
+    generation of surrogate data-driven models trained using synthetic data from
+    a physical model. Finally, it is shown how they are integrated into a
+    complete system model.\\[1ex]
 
     \begin{minipage}{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{cc-modelling-complete-model-diagram-with-bg.png}\\
-        \small \textit{System block diagram including all relevant variables.}
+        \small \textit{Visual abstract}
     \end{minipage}    
 }
 
@@ -23,21 +21,20 @@
 In order to study the potential advantages of making use of a combined cooling
 system, it is first necessary to develop the modelling of its components. Since
 the objective is performance prediction, this chapter focuses on the steady
-state modelling of the combined cooler main components, \ie the \gls{wctLabel}
-and the \gls{dcLabel}. More specifically, the aim is to develop two modelling
-strategies: that based on physical equations and that based on black box
-data-driven models. 
+state modelling of the combined cooler main components, \ie the
+\fullgls{wctLabel}, the \fullgls{dcLabel} and the \fullgls{scLabel}. More
+specifically, the aim is to develop two modelling strategies: that based on
+physical equations and that based on black box data-driven models. 
 
-First, in \refsec{cc:modelling:wct} a physical
-model for the \gls{wctLabel} is described followed by a methodology to generate
-a synthetic dataset for surrogate data-driven models. In
-\refsec{cc:modelling:dc} the same structure is followed for the
-\gls{dcLabel}-type \gls{acheLabel}. Other first-principles model components are
-presented in \refsec{cc:modeling:other-components}: the surface condenser,
-mixers, and the electrical consumption. Finally, all components are integrated
-in \refsec{cc:modelling:complete-model} to form the complete model of the
-combined cooling system. Each component and the complete model sections is
-completed with a model interface block. 
+First, in \refsec{cc:modelling:wct} a physical model for the \gls{wctLabel} is
+described followed by a methodology to generate a synthetic dataset for
+data-driven surrogate models. In \refsec{cc:modelling:dc} the same structure is
+followed for the \gls{dcLabel}-type \gls{acheLabel}. Other first-principles
+model components are presented in \refsec{cc:modelling:other-components}: the
+surface condenser, mixers, and the electrical consumption. Finally, all
+components are integrated in \refsec{cc:modelling:complete-model} to form the
+complete model of the combined cooling system. The individual component and the
+\gls{ccsLabel} model sections are completed with a model interface block. 
 
 %===================================
 %===================================
@@ -102,7 +99,9 @@ green dashed lines indicate the fill and air-side control volumes, respectively.
         \put(44,22){$h_C\left(T_{w}-T\right)dA$}        
     \end{overpic} 
     \vspace{1cm} 
-    \caption{Control volume in the exchange area of a wet cooling tower arrangement. Source:~\cite{serrano_wet_2024}.}
+    \caption{Control volume in the exchange area of a wet cooling tower
+    arrangement. Variables are described in the Nomenclature section.\\Source:
+    Serrano \etal~\cite{serrano_wet_2024}.}
     \labfig{cc:modelling:poppe-transfer-area}
 \end{figure}
 
@@ -127,13 +126,14 @@ are~\cite{kloppers_critical_2005,navarro_critical_2022}:
 \labeq{cc:poppe_Me}
 \end{align}
 }
+\marginnote[*-5]{$Le$ is the Lewis number, $\omega$ is the humidity ratio
+(kg/kg), $h$ is the enthalpy and $c_p$ the specific heat.}
 
-where the evolution of key variables such as the air enthalpy
-(\refeq{cc:poppe_h}), humidity ratio (\refeq{cc:poppe_omega}), and the Merkel
+where the evolution of key variables such as the humidity ratio
+(\refeq{cc:poppe_omega}), air enthalpy (\refeq{cc:poppe_h}), and the Merkel
 number (\refeq{cc:poppe_Me}) along the fill height is obtained by numerically
 solving the set of differential equations using a fourth-order Runge-Kutta
-algorithm\sidenote{$Le$ is the Lewis number, $\omega$ is the humidity ratio
-(kg/kg), $h$ is the enthalpy and $c_p$ the specific heat.}. Secondly, the Merkel
+algorithm. Secondly, the Merkel
 number of a wet cooling tower is not a constant value but varies with the
 operating conditions. When plotted against the water-to-air mass flow ratio
 (defined as the ratio between the water and air mass flow rates within the
@@ -153,24 +153,25 @@ experimental data fitting.
 
 
 %=====================================
-\subsection{Surrogate model synthetic dataset generation}[Surrogate model]
+\subsection{Generating synthetic data for surrogate \gls{wctLabel}
+Model}[Surrogate model]
 
-The first pair of input variables for the \gls{wctLabel} synthetic dataset generation are
-the wet bulb temperature ($T_{wb}$) and the difference between this temperature
-and the system inlet temperature ($\Delta T_{wb-in}$). The wet bulb temperature
-is used instead of the ambient temperature or the relative humidity, because as
-it can be derived from the physical model, it is the most relevant
-thermodynamic variable for the wet cooling tower performance. Using both the
-ambient temperature and the relative humidity would lead to a larger than
-necessary input space with many duplicate samples, as the wet bulb
-temperature is a function of both variables. The second pair of input
-variables are the cooling water flow rate ($q_{wct}$) and, following the
-reasoning from the physical model, the air to water mass flow ratio
+The first pair of input variables for the \gls{wctLabel} synthetic dataset
+generation are the wet bulb temperature ($T_{wb}$) and the difference between
+this temperature and the system inlet temperature ($\Delta T_{wb-in}$). The wet
+bulb temperature ---the most relevant thermodynamic variable for the
+\gls{wctLabel} performance--- is used instead of the ambient temperature or the
+relative humidity.
+Using both the ambient temperature and the relative humidity would lead to a
+larger than necessary input space with many duplicate samples, as the wet bulb
+temperature is a function of both variables. The second pair of input variables
+are the cooling water flow rate ($q_{wct}$) and, following the reasoning from
+the physical model, the air to water mass flow ratio
 ($\dot{m}_{wct,air}/\dot{m}_{wct}$), since it is a key parameter in defining the
-operating conditions of the tower. From the resulting 2D grid, valid combinations
-are obtained by calculating the air mass flow rate and finding if a valid fan
-speed can be obtained using an air mass flow rate to fan speed empirical
-correlation.
+operating conditions of the tower. From the resulting 2D grid, valid
+combinations are obtained by calculating the air mass flow rate and finding if a
+valid fan speed can be obtained using an air mass flow rate to fan speed
+empirical correlation.
 
 Finally, all valid thermodynamic and operational combinations are merged into a
 comprehensive sample set, enabling detailed system evaluations across a
@@ -246,7 +247,7 @@ heat transferred from the hot fluid (water), heat transferred to the cold fluid
 coefficient and the logarithmic mean temperature difference.
 
  \begin{align}  
-    & \dot{Q}_{dc, released}= \dot{m}_{dc} \cdot c_{p,c} \cdot(T_{dc,in}-T_{dc,out}), \label{eq:cc:dc_released} \\ 
+    & \dot{Q}_{dc, released}= \dot{m}_{dc} \cdot c_{p,w} \cdot(T_{dc,in}-T_{dc,out}), \label{eq:cc:dc_released} \\ 
     & \dot{Q}_{dc, absorbed} = \dot{m}_{dc,air} \cdot c_{p,air}\cdot(T_{dc,air,out}-T_{amb}), \label{eq:cc:dc_absorbed}\\ 
     & \dot{Q}_{dc, transferred} = U_{dc}\cdot A_{dc} \cdot F \cdot LMTD, \label{eq:cc:dc_transferred} \\
     & \dot{Q}_{dc, released} = \dot{Q}_{dc, absorbed} = \dot{Q}_{dc, transferred}
@@ -287,13 +288,13 @@ the air side Reynolds number, as follows:
 where $\Nus_a=h_o\cdot L_{dc,tb}/k_{dc,tb}$, and \textit{G} and \textit{m} are
 parameters to be determined by fitting to experimental data, and the exponent
 for the Prandtl number, $\Pra$, is assumed to be the same value as that proposed
-by Zukauskas for staggered tube banks~\sidecite{kakac}\sidenote{
-The system design characteristics needed for applying this methodology for the
-pilot plant are listed in \reftab{cc:facility:dc}.
-}.
+by Zukauskas for staggered tube banks~\sidecite{kakac}\sidenote{ The system
+design characteristics needed for applying this methodology for
+the pilot plant are listed in \reftab{cc:facility:dc}. }.
 
 %=====================================
-\subsection{Surrogate model synthetic dataset generation}[Surrogate model]
+\subsection{Generating synthetic data for surrogate \gls{dcLabel}
+model}[Surrogate model]
 \labsec{cc:modelling:dc:samples}
 % de muestreos seguida y mostrar la gráfica de resultados
 
@@ -322,6 +323,7 @@ Finally, infeasible combinations are filtered based on physical constraints.
     \end{align*}
     \labmod{dc}
 \end{modelcounter}
+\marginnote[*-6]{$\theta_{dc}$ are the model parameters such as the area ($A_{dc}$), that can be found in \reftab{cc:facility:dc}.}
 % \marginnote[*-2]{The condenser area ($A$) is a constant parameter}
 
 % \begin{modelcounter}{Dry cooling system model}
@@ -368,9 +370,12 @@ transfer surfaces (\textit{transferred}).
     \end{align*}
     \labmod{sc}
 \end{modelcounter}
+\marginnote[*-10]{$\theta_c$ are the model parameters such as the condenser area ($A_c$), that can be found in \reftab{cc:facility:sc}.}
 
-being $U_c$ the overall heat transfer coefficient. Which can be determined in a
-variety of ways. One of them is given by:
+Being $\dot{m}_c$ the condenser cooling water flow rate, $T_{v}$ the vapor
+temperature inside the condenser and $\dot{m}_v$ its flow rate. $U_c$, the
+overall heat transfer coefficient, can be determined in a variety of ways. One
+of them is given by:
 \begin{equation}
     U_{c}\cdot A_c = \left( \frac{1}{A_{c,i}\cdot h_i}+ \frac{R_{c,if}}{A_{c,i}} + \frac{\ln(D_{c,tb,o}/D_{c,tb,i})}{2 \cdot \pi \cdot k_{c,tb} \cdot L_{c,tb} \cdot n_{c,tb}}+\frac{1}{A_{c,o}\cdot h_o} + \frac{R_{c,of}}{A_{c,o}} \right)^{-1}, \\
     \labeq{cc:sc_UA}
@@ -378,19 +383,21 @@ variety of ways. One of them is given by:
 
 where $R_{c,if}$ and $R_{c,of}$ are the fouling resistances (inside and outside,
 respectively). The shell-side heat transfer coefficient $h_{o}$ is estimated
-once again using the Nusselt method~\cite{Serth2007} for laminar-flow condensation over a
-horizontal tube bundle ($0 < \Rey < 30 \times 10^{6}$) including the Kern
-correction for condensate inundation, while the tube-side convective heat
-transfer coefficient for the water flow inside the tube bundle, $h_{i}$, is
-approximated using the Petukhov-Kirillov-Popov correlation for fully-developed
-turbulent flow through smooth circular tubes~\sidecite{rohsenow_handbook_1998}, valid within
-$0.5 < \Pra < 10^{6}$ and $4000 < \Rey < 5 \times 10^{6}$.
+once again using the Nusselt method~\sidecite{Serth2007} for laminar-flow
+condensation over a horizontal tube bundle ($0 < \Rey < 30 \times 10^{6}$)
+including the Kern correction for condensate inundation, while the tube-side
+convective heat transfer coefficient for the water flow inside the tube bundle,
+$h_{i}$, is approximated using the Petukhov-Kirillov-Popov correlation for
+fully-developed turbulent flow through smooth circular
+tubes~\sidecite{rohsenow_handbook_1998}, valid within $0.5 < \Pra < 10^{6}$ and
+$4000 < \Rey < 5 \times 10^{6}$.
 
 %================================
 \subsection{Electrical consumption}
 
-Electrical consumption is modelled with polynomial regressions of order 3 from
-experimental data:
+For each component (\eg, the recirculated cooling water flow rate,
+cooler fan speed, etc.). electrical consumption is modelled with polynomial
+regressions of order 3 derived from experimental data:
 
 \begin{modelcounter}{Electrical consumption}
     \begin{align*}
@@ -399,16 +406,20 @@ experimental data:
     \end{align*}
     \labmod{electrical-consumption}
 \end{modelcounter}
+\marginnote[*-4]{$\theta$ represents the model parameters, \ie, the polynomial
+coefficients ($p_1, p_2, p_3, p_4$).}
 
 where \(C_e\) represents the electrical consumption, and \(x\) is the input
-variable (e.g., the recirculated cooling water flow rate, particular cooler fan
-speed, etc.). The coefficients \(p_i\) correspond to a polynomial regression
+variable. The coefficients \(p_i\) correspond to a polynomial regression
 and must be calibrated individually for each component.
 
 \subsection{Mixers}
 
-The mixers outlet flow ($q_{mix,out,i}$) and temperature ($T_{mix,out,i}$) can
-be determined with a simple mass and energy balances from its inlets streams
+Fluids are mixed at the inlet of the \gls{wctLabel} and at the outlet of the
+combined cooler (\texttt{MIX~1} and \texttt{MIX~2} in
+\reffig{cc:modelling:complete-model-diagram}, respectively). The mixers outlet
+flow ($q_{mix,out,i}$) and temperature ($T_{mix,out,i}$) can be determined with
+a simple mass and energy balances from its inlets streams
 ($q_{mix,in},\,T_{mix,in}$):
 
 
@@ -428,11 +439,12 @@ mixing temperature differences of this type of system.
 
 \subsection{Valves}
 
-The two divergent three-way valves are modeled using the distribution ratio $R$
-as inputs, so the mass flow rate at the outlets of each valve can be easily
-estimated as $q_{out,1}=R\cdot q_{in}$ and conversely $q_{out,2}=(1-R)\cdot
-q_{in}$. Where $R$ is a value in the range [0,1], which implicitly includes the
-non-linearities of the valve.
+The two divergent three-way valves (see
+\reffig{cc:modelling:complete-model-diagram}) are modeled using the distribution
+ratio $R$ as inputs, so the mass flow rate at the outlets of each valve can be
+easily estimated as $q_{out,1}=R\cdot q_{in}$ and conversely
+$q_{out,2}=(1-R)\cdot q_{in}$. Where $R$ is a value in the range [0,~1], which
+implicitly includes the non-linearities of the valve.
 
 %=====================================
 %=====================================
@@ -440,73 +452,47 @@ non-linearities of the valve.
 \labsec{cc:modelling:complete-model}
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{cc-modelling-complete-model-diagram.png}
+    \includegraphics[width=.9\textwidth]{cc-modelling-complete-model-diagram.png}
     \caption{Complete model diagram of the combined cooling system}
     \labfig{cc:modelling:complete-model-diagram}
 \end{figure}
 
 The complete model of the combined cooling system integrates the models of the
 \gls{wctLabel} and \gls{dcLabel}, along with the surface condenser and the
-mixers, as defined in \nrefmod{cc}, where $\theta$ represents the parameters of
-the different components (condenser area, heat transfer coefficients, number of
-tubes in the \gls{acheLabel}, etc.)\sidenote{The electrical consumption for the
-cooling water recirculation depends on the hydraulic circuit configuration,
-since the dry cooler and the wet cooler offer different circulation
-resistances}. The full diagram, including all variables, is shown in
-\reffig{cc:modelling:complete-model-diagram}.
+mixers, as defined in \nrefmod{cc}. The full diagram, including all variables,
+is shown in \reffig{cc:modelling:complete-model-diagram}.
+
+% \sidenote{The electrical consumption for the
+% cooling water recirculation depends on the hydraulic circuit configuration,
+% since the dry cooler and the wet cooler offer different circulation
+% resistances}. 
 
 The system can be solved with the provided inputs ($q_{c}$, $R_{p}$, $R_{s}$,
-$\omega_{dc}$, $\omega_{wct}$, $T_{amb}$, $HR$, $T_{v}$, $\dot{m}_{v}$) in the
-following way: First, flows across the different paths can be determined
-provided the recirculation flow rate ($q_{c}$) and the valve positions ($R_{p},
-R_{s}$). It follows the evaluation of the condenser model, providing the only
-remaining input to fully determine the dry cooler, its inlet temperature
-($T_{dc,in}==T_{c,out}$). Then, the temperature inlet and outlet conditions for
-the wet cooler can be obtained by evaluating the mixers with the now known dry
-cooler outlet conditions ($T_{dc,out}$), together with the combined cooler
-outlet temperature, which equals the condenser inlet temperature
-($T_{cc,out}=T_{c,in}$). It only remains to evaluate the wet cooling tower,
-where given its inlet temperature ($T_{wct,in}$, obtained from the first mixer),
-and its fan speed ($\omega_{wct}$), the outlet temperature ($T_{wct,out}$) and
-the water consumption ($C_{w,wct}$) can be determined. With the outlet
-temperature requires matching the obtained value from the second mixer.
+$\omega_{dc}$, $\omega_{wct}$, $T_{amb}$, $HR$, $T_{v}$, $\dot{m}_{v}$) as
+follows. First, the flow rates through the different paths are determined from
+the recirculation flow ($q_{c}$) and the valve positions ($R_{p}$, $R_{s}$).
+Next, the condenser model is evaluated, yielding the remaining input needed to
+fully specify the dry cooler, namely its inlet temperature
+($T_{dc,in} = T_{c,out}$). The inlet and outlet temperatures for the wet cooler
+are then obtained by evaluating the mixers using the dry-cooler outlet
+temperature ($T_{dc,out}$) together with the combined-cooler outlet temperature,
+which equals the condenser inlet temperature ($T_{cc,out} = T_{c,in}$). Finally,
+the wet cooling tower is evaluated: given its inlet temperature
+($T_{wct,in}$, from the first mixer) and fan speed ($\omega_{wct}$), its outlet
+temperature ($T_{wct,out}$) and water consumption ($C_{w,wct}$) are obtained.
+A consistency check is performed requiring that the wet-cooler outlet
+temperature matches the value obtained from the second mixer.
 
 If no convergence is achieved, the process can either be repeated iteratively
 changing the condenser vapor temperature ($T_v$) until the system converges to a
 valid equilibrium steady-state. Or alternatively, a flag can be set to indicate
 that the current input combination is not feasible.
 
-\begin{modelcounter}{Combined cooling system}
-    \begin{align*}
-        T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,in},\,T_{c,out} = \text{ccs\:\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_{v};\,\theta) \\
-        & T_{cc,in}=T_{c,out} \\
-        & T_{dc,in}=T_{cc,in} \\
-        % three-way valves
-        & q_{dc} = q_{c} \cdot (1-R_{p}) \\
-        & q_{wct,p} = q_{c} \cdot R_{p} \\
-        & q_{wct,s} = q_{dc} \cdot R_{s} \\
-        % condenser model
-        & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v) \\
-        % dc model
-        & T_{dc,out},\,C_{e,dc} = \text{dc\:model}(q_{dc},\, \omega_{dc},\, T_{amb},\, T_{dc,in};\,\theta_{dc}) \\
-        % first mixer
-        & q_{wct},\,T_{wct,in} = \text{mixer\:model}(q_{wct,p},\,T_{cc,in},\, q_{wct,s},\, T_{dc,out}) \\
-        % final mixer
-        & q_{cc},\,T_{cc,out} = \text{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
-        % wct model
-        & T_{wct,out},\,C_{e,wct},\,C_{w,wct} = \text{wct\:model}(q_{wct},\, \omega_{wct},\, T_{amb},\, HR,\, T_{wct,in};\,\theta_{wct}) \\
-        % electrical consumptions
-        & C_{e,c} = \text{electrical\:consumption}(q_c) \\
-        & C_{e,dc} = \text{electrical\:consumption}(\omega_{dc}) \\
-        & C_{e,wct} = \text{electrical\:consumption}(\omega_{wct}) \\
-        % totals
-        & C_{e} = C_{e,dc} + C_{e,wct} + C_{e,c} \\
-        & C_{w} = C_{w,wct}
-    \end{align*}
-    \labmod{cc}
-\end{modelcounter}
+\marginnote[*3]{$\theta_{cc}$ represents the parameters of the different
+components (condenser area, heat transfer coefficients, number of tubes in the
+\gls{acheLabel}, etc.)}
 
-\begin{marginfigure}[*-20]
+\begin{marginfigure}[*8]
     \centering
     \includegraphics[]{cc-modelling-wct-io-diagram.png}
     % {\footnotesize \textbf{(a)} \gls{mimoLabel} configuration\\}
@@ -524,3 +510,33 @@ that the current input combination is not feasible.
     \caption{Inputs-outputs block diagram of the main model components}
     \labfig{cc:modelling:component-models-diagrams}
 \end{marginfigure}
+
+\begin{modelcounter}{Combined cooling system}
+    \begin{align*}
+        T_{cc,out},\,C_{e}&,\,C_{w},\,T_{c,in},\,T_{c,out} = \text{ccs\:\:model}(q_{c}, R_{p}, R_{s}, \omega_{dc}, \omega_{wct},T_{amb},HR,T_{v},\dot{m}_{v};\,\theta_{cc}) \\
+        & T_{cc,in}=T_{c,out} \\
+        & T_{dc,in}=T_{cc,in} \\
+        % three-way valves
+        & q_{dc} = q_{c} \cdot (1-R_{p}) \\
+        & q_{wct,p} = q_{c} \cdot R_{p} \\
+        & q_{wct,s} = q_{dc} \cdot R_{s} \\
+        % condenser model
+        & T_{c,in},\,T_{c,out} = \text{condenser\:model}(q_c,\, \dot{m}_v,\, T_v;\,\theta_{c}) \\
+        % dc model
+        & T_{dc,out},\,C_{e,dc} = \text{dc\:model}(q_{dc},\, \omega_{dc},\, T_{amb},\, T_{dc,in};\,\theta_{dc}) \\
+        % first mixer
+        & q_{wct},\,T_{wct,in} = \text{mixer\:model}(q_{wct,p},\,T_{cc,in},\, q_{wct,s},\, T_{dc,out}) \\
+        % final mixer
+        & q_{cc},\,T_{cc,out} = \text{mixer\:model}(q_{wct},\, T_{wct,out},\, q_{dc},\, T_{dc,out}) \\
+        % wct model
+        & T_{wct,out},\,C_{e,wct},\,C_{w,wct} = \text{wct\:model}(q_{wct},\,\omega_{wct},\, T_{amb},\, HR,\, T_{wct,in};\,\theta_{wct}) \\
+        % electrical consumptions
+        & C_{e,c} = \text{electrical\:consumption}(q_c;\,\theta_{c,e}) \\
+        & C_{e,dc} = \text{electrical\:consumption}(\omega_{dc};\,\theta_{dc,e}) \\
+        & C_{e,wct} = \text{electrical\:consumption}(\omega_{wct};\,\theta_{wct,e}) \\
+        % totals
+        & C_{e} = C_{e,dc} + C_{e,wct} + C_{e,c};\,C_{w} = C_{w,wct}
+    \end{align*}
+    \labmod{cc}
+\end{modelcounter}
+
