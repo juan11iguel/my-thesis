@@ -15,9 +15,10 @@
 
 \section*{Introduction}
 
-The combined cooling pilot plant at Plataforma Solar de Almería is a unique
-facility that integrates a wet cooling tower and a dry cooler (both provided by
-\textit{Hamon D'Hondt}) in a flexible hydraulic configuration. It allows for the
+The combined cooling pilot plant at \fullgls{psaLabel} ---see
+\reffig{cc:facility:cc-pilot-plant-diagram}--- is a unique facility that
+integrates a wet cooling tower and a dry cooler\sidenote{Both provided by
+\textit{Hamon D'Hondt}} in a flexible hydraulic configuration. It allows for the
 study and validation of different cooling configurations, models, and control
 and optimization strategies.
 % Historia de la planta
@@ -27,10 +28,8 @@ within the Horizon 2020 (H2020) program. The main goal of the project was the
 development of innovative technologies for water management in \gls{cspLabel}
 plants.
 
-
-This chapter describes the
-plant in \nrefsec{cc:facility:description} and the experimental campaigns carried
-out in \nrefsec{cc:facility:exp}.
+This chapter describes the plant in \nrefsec{cc:facility:description} and the
+experimental campaigns carried out in \nrefsec{cc:facility:exp}.
 
 % TODO: A la salida de la segunda válvula hay que añadir una flecha para que
 % sea más legible, renombrar válvulas V1 y V2 a Vp y Vs.
@@ -51,47 +50,40 @@ out in \nrefsec{cc:facility:exp}.
 The pilot plant of combined cooling systems located at \gls{psaLabel} (see the
 layout in \reffig{cc:facility:pid}) consists of three circuits: cooling,
 exchange and heating. In the cooling circuit, water circulating inside the tube
-bundle of a \fullgls{scLabel} can be cooled through a Wet
-Cooling Tower and/or a Dry Cooling Tower (type \gls{acheLabel}), both with a
-designed thermal power of 204~kW$_{th}$. In the exchange circuit, a saturated
-steam generator of 80~kW$_{th}$ (on the design point), generates steam at
-different pressures (in the range between 82~mbar and 200~mbar), which is in
-turn condensed in the surface condenser. In this way, the steam transfers its
-latent heat of condensation to the refrigeration water, that is heated. Finally,
-in the heating circuit, a solar field with a thermal power of 300~kW$_{th}$ at
+bundle of a \fullgls{scLabel} (main design specifications in
+\reftab{cc:facility:sc}) can be cooled through a \fullgls{wctLabel} and/or a
+\fullgls{dcLabel} (type \gls{acheLabel}, characteristics available in
+\reftab{cc:facility:dc}), both with a designed thermal power of
+204~kW$_{\text{th}}$. In the exchange circuit, a saturated steam generator of
+80~kW$_{\text{th}}$ (on the design point), generates steam at different
+pressures (in the range between 82~mbar and 200~mbar), which is in turn
+condensed in the surface condenser. In this way, the steam transfers its latent
+heat of condensation to the refrigeration water, that is heated. Finally, in the
+heating circuit, a solar field with a thermal power of 300~kW$_{\text{th}}$ at
 the design point, provides the energy required by the steam generator, in the
 form of hot water. It is a unique, very flexible, fully instrumented and
 versatile facility, able to operate in different operation modes: series and
 parallel mode, conventional dry-only mode (all water flow is cooled through the
 dry cooling tower) and wet-only mode (all water flow is cooled through the wet
-cooling tower). The instrumentation related to the \gls{wctLabel} is described
+cooling tower).
+
+The instrumentation related to the system components is described
 in \reftab{cc:facility:instr}. 
 
-Note that sensors measuring the air velocity, temperature and relative humidity
-at the outlet area of the wet cooling tower are not permanently installed in the
-plant. Portable sensors were used instead in some experiments to characterize
-them. They were measured at the outlet area of the cooling tower\sidenote[][*4]{Using
-the sensors listed in \reftab{cc:facility:instr}}. The outlet area was divided
-into 9 quadrants and the above mentioned magnitudes were registered at the
-center of each quadrant. The obtained values were averaged to determine the mean
-velocity, temperature and relative humidity used in the air mass flow rate
-calculation. 
-
-
-\begin{marginfigure}[-10cm]
+\begin{marginfigure}[-7.4cm]
     \includegraphics[]{WASCOP-facility-WCT.png}
 	\caption{Back view of the \gls{wctLabel}}
     \labfig{cc:facility:wct-back-view}
 \end{marginfigure}
 
-With regard to operational aspects of the system, note that the cooling water
-and air flow rates at the experimental facility ($\dot{m}_{wct}$, and air,
-$\dot{m}_{wct,air}$, respectively), are modified with the \textit{Pump 1} and the fan
-frequency percentage \texttt{\gls{scLabel}-001}, respectively (see
-\reffig{cc:facility:pid}).
+% With regard to operational aspects of the system, note that the cooling water
+% and air flow rates at the experimental facility ($\dot{m}_{wct}$, and air,
+% $\dot{m}_{wct,air}$, respectively), are modified with the \textit{Pump 1} and
+% the fan frequency percentage \texttt{\gls{scLabel}-001}, respectively (see
+% \reffig{cc:facility:pid}).
 
 \begin{table}[h]
-\caption[Characteristics of instrumentation]{Characteristics of instrumentation ($^a$ value of the temperature in $^\circ$C, $^b$ of reading, $^c$ full scale, $^d$ mean value).} 
+\caption[Characteristics of instrumentation]{Characteristics of instrumentation ($^a$~value of the temperature in $^\circ$C, $^b$~of reading, $^c$~full scale, $^d$~mean value).} 
 \labtab{cc:facility:instr}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{cccc} 
@@ -99,26 +91,26 @@ frequency percentage \texttt{\gls{scLabel}-001}, respectively (see
     \textbf{Measured variable} & \textbf{Instrument} & \textbf{Range}  &
     \textbf{Measurement uncertainty}\\
     \midrule
-    Water temperature & Pt100 & 0 - 100 $^\circ$C & 0.03 + 0.005$\cdot T^a$\\
+    Water temperature & Pt100 & 0--100~$^\circ$C & 0.03 + 0.005$\cdot T^a$\\
     (\texttt{TT-001}... \texttt{TT-007}) & & &\\
     Cooling water flow rate & Vortex flow meter & 9.8 - 25 m$^3$/h & $\pm$ 0.65
     \% o.r.$^b$\\
     (\texttt{FT-001}...\texttt{FT-003})  & & &\\
-    Water flow rate  & Paddle wheel & 0.05 - 2 m$^3$/h & $\pm$ 0.5 \% of
+    Water flow rate  & Paddle wheel & 0.05--2~m$^3$/h & $\pm$ 0.5 \% of
     F.S$^c$  \\
     (\texttt{FT-004}) & flow meter  & & + 2.5 \% o.r\\
-    Condensate water & Coriolis flow meter & 0.1 - 0.3 m$^3$/h & $<$ 0.1  \% \\
+    Condensate water & Coriolis flow meter & 0.1--0.3 m$^3$/h & $<$ 0.1  \% \\
     flow rate  (\texttt{FT-006}) &   & & \\
     
     Ambient temperature & Pt1000 & -40 - 60 $^\circ$C  & $\pm$ 0.4 $@$20
     $^\circ$C \\
-    Relative humidity & Capacitive sensor & 0 - 98\% & $\pm$ 3 \% o.r $@$20
+    Relative humidity & Capacitive sensor & 0--98~\% & $\pm$ 3~\% o.r $@$20
     $^\circ$C  \\
-            Air velocity & Impeller anemometer & 0.1-15$~\mbox{m s$^{-1}$}$ &
+            Air velocity & Impeller anemometer & 0.1--15$~\mbox{m s$^{-1}$}$ &
             $\pm$ 0.1$~\mbox{m s$^{-1}$}$ + 1.5 \%  o.r \\
-            Outlet air temperature & Pt100   & -20-70$^\circ$C & $\pm
-            0.5^\circ$C \\
-            Outlet air humidity & Capacitive sensor   & 0-100\%& $\pm$ 2\% \\
+            Outlet air temperature & Pt100   & -20--70~$^\circ$C & $\pm$
+            0.5~$^\circ$C \\
+            Outlet air humidity & Capacitive sensor   & 0--100~\%& $\pm$ 2~\% \\
     \bottomrule
 \end{tabular}
 }
@@ -129,8 +121,8 @@ frequency percentage \texttt{\gls{scLabel}-001}, respectively (see
 \section{Experimental campaigns}
 \labsec{cc:facility:exp}
 
-With the aim of characterizing and developing models for this novel facility,
-over the years several experimental campaigns have been carried out.
+With the aim of characterizing and developing models for this novel facility
+several experimental campaigns have been carried out over the years.
 
 The normative framework followed to carry out the experiments, in order to
 ensure stable conditions, has been the standards \texttt{UNE
@@ -138,30 +130,31 @@ ensure stable conditions, has been the standards \texttt{UNE
 CTI~\sidecite{cti_code_2000}. These standards specify the test duration and the
 allowed variations of the most representative ambient and operating magnitudes
 (water flow rate, heat load, cooling tower range, wet-bulb and dry-bulb
-temperatures and wind velocity) during the tests. Although the duration of the
-test should not be less than one hour according to the standards, due to the low
-capacity of the \gls{wctLabel} in the PSA pilot plant and the operational
-experience, the duration of the tests has been reduced to up to 30 minutes. Once
-stable conditions are maintained during the defined interval time, the average
-and deviations values of each measurement are calculated in order to check that
-they are within the allowable limits of the norm, which finally lead to a valid
+temperatures and wind velocity) during the tests ---specific to \gls{wctLabel}
+and extended to the other components. Although the duration of the test should
+not be less than one hour according to the standards, due to the low capacity of
+the components in the \gls{psaLabel} pilot plant and the operational experience, the
+duration of the tests has been reduced to up to 30 minutes. Once stable
+conditions are maintained during the defined interval time, the average and
+deviations values of each measurement are calculated in order to check that they
+are within the allowable limits of the norm, which finally lead to a valid
 steady-state operating point. 
 
 \begin{figure}
-    \includegraphics[width=.9\textwidth]{WASCOP-facility-PID.png}
+    \includegraphics[width=\textwidth]{WASCOP-facility-PID.png}
     \caption{Layout of combined cooling systems pilot plant at \gls{psaLabel}.}
     \labfig{cc:facility:pid}
 \end{figure}
 
 Specifically, 11 experimental campaigns have been conducted at the pilot plant,
-which have classified according to its goal. \reftab{cc:exp-campaigns} summarizes these
-experimental campaigns, describing the \gls{doeLabel} employed
-and indicating the number of tests conducted under steady-state conditions.
-The ranges of the variables involved in the experiments are also indicated,
-with those used to define the \gls{doeLabel} for each test campaign shown in bold.
+which have been classified according to its goal. \reftab{cc:exp-campaigns}
+summarizes these experimental campaigns, describing the \gls{doeLabel} employed
+and indicating the number of tests conducted under steady-state conditions. The
+ranges of the variables involved in the experiments are also indicated, with
+those used to define the \gls{doeLabel} for each test campaign shown in bold.
     
-The data for the different experimental campaigns in the \gls{wctLabel} is
-available at~\sidecite[*-4]{palenzuela_steadystate_2024a,serrano_wet_2024}
+% The data for the different experimental campaigns in the \gls{wctLabel} is
+% available at~\sidecite[*-4]{palenzuela_steadystate_2024a,serrano_wet_2024}
 
 %================================
 \subsection{Physical model calibration campaigns}
@@ -212,33 +205,50 @@ available at~\sidecite[*-4]{palenzuela_steadystate_2024a,serrano_wet_2024}
 \end{margintable}
 
 \begin{itemize}
-    \item \textit{\gls{wctLabel}-fan}. The aim of this campaign was to fit a function
-        (mapping) that relates the air mass flow rate at the outlet of the
-        tower, $\dot{m}_{wct,air}$, with the frequency of the fan,
+    \item \textit{\gls{wctLabel}-fan}. The aim of this campaign was to fit a
+        function (mapping) that relates the air mass flow rate at the outlet of
+        the tower, $\dot{m}_{wct,air}$, with the frequency of the fan,
         $\omega_{wct}$. Air velocity and temperature were measured at 8
         different fan speed levels, ranging from 30~\% to 100~\% in 10~\%
-        increments. The \gls{wctLabel} fan area was divided into six quadrants, and
-        measurements were taken at the center of each quadrant. The recorded
-        values were then averaged to obtain the mean air velocity and
-        temperature, which were used to calculate the air mass flow rate. 
+        increments (see \reftab{cc:exp-campaigns} -- \textit{\gls{wctLabel}-fan}). 
+        
+        Sensors measuring the air velocity, temperature and relative humidity at
+        the outlet area of the wet cooling tower are not permanently installed
+        in the plant. Portable sensors were used instead in some experiments to
+        characterize them. They were measured at the outlet area of the cooling
+        tower ---using the sensors listed in \reftab{cc:facility:instr} and at
+        the top of the tower in \reffig{cc:facility:wct-back-view}. The outlet
+        area was divided into 9 quadrants and the above mentioned magnitudes
+        were registered at the center of each quadrant. The obtained values were
+        averaged to determine the mean velocity, temperature and relative
+        humidity used in the air mass flow rate calculation.
+
+        % The \gls{wctLabel} fan area was divided into six quadrants,
+        % and measurements were taken at the center of each quadrant. The recorded
+        % values were then averaged to obtain the mean air velocity and
+        % temperature, which were used to calculate the air mass flow rate. 
     
-    \item \textit{\gls{dcLabel}-fan}. As air mass flow rate measurements are a specific
-    requirement for the \gls{dcLabel} model, the $\dot{m}_{dc,air}$-$\omega_{dc}$
-    relationship was derived during an experimental campaign
-    (\reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-fan}). Air velocity and
-    temperature were measured at 10 different fan speed levels, ranging from 11~\%
-    to 100~\% in 10~\% increments. The \gls{acheLabel} fan area was divided into
-    eight quadrants, and measurements were taken at the center of each quadrant. The
-    recorded values were then averaged to obtain the mean air velocity and
-    temperature, which were used to calculate the air mass flow rate.
+    \item \textit{\gls{dcLabel}-fan}. The aim of this campaign was to fit a
+        function (mapping) that relates the air mass flow rate at the outlet of
+        the \gls{dcLabel}, $\dot{m}_{dc,air}$, with the frequency of the fan,
+        $\omega_{dc}$ (see \reftab{cc:exp-campaigns} --
+        \textit{\gls{dcLabel}-fan}). Air velocity and temperature were measured
+        at 10 different fan speed levels, ranging from 11~\% to 100~\% in 10~\%
+        increments. The \gls{acheLabel} fan area was divided into eight
+        quadrants, and measurements were taken at the center of each quadrant.
+        The recorded values were then averaged to obtain the mean air velocity
+        and temperature, which were used to calculate the air mass flow rate.
     
-    \item \textit{\gls{wctLabel}-cal}. The experimental campaign was designed to calibrate
-        the physical model by focusing on the Merkel number, which depends on
-        the water-to-air mass flow ratio.\sidenote{This enables the calculation
-        of the air mass flow rate at the outlet of the cooling tower,
-        $\dot{m}_{wct,air}$, using the permanent sensors installed in the facility}.
-        Tests were performed under consistent summer conditions, with high
-        ambient temperatures and low relative humidities.
+    \item \textit{\gls{wctLabel}-cal}. The experimental campaign was designed to
+        calibrate the physical model by focusing on the Merkel number, which
+        depends on the water-to-air mass flow ratio\sidenote{Further explained
+        in \refsec{cc:modelling:wct:physical}}.
+        %  This enables the
+        % calculation of the air mass flow rate at the outlet of the cooling
+        % tower, $\dot{m}_{wct,air}$, using the permanent sensors installed in the
+        % facility}. 
+        % Tests were performed under consistent summer conditions, with
+        % high ambient temperatures and low relative humidities.
     
     \item \textit{\gls{dcLabel}-cal}. An experimental campaign (\textit{\gls{dcLabel}-cal}) was designed and performed to calibrate the Nusselt
         number correlation as described in \refsec{cc:modelling:dc:physical}.
