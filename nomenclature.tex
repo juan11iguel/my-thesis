@@ -13,15 +13,29 @@
 
 
 % SolarMED
-\nomenclature[A, um]{$u.m.$}{Monetary units \nomunit{-}}
-\nomenclature[A, H]{$HR$}{Relative humidity \nomunit{\SI[group-digits=false]{}{\%}}}
-\nomenclature[A, irradiance]{$I$}{Irradiance \nomunit{\SI[group-digits=false]{}{\watt\per\metre\squared}}}
-\nomenclature[A, Q]{$Q$}{Thermal energy or heat \nomunit{\SI[group-digits=false]{}{\kilo\joule}}}
-\nomenclature[A, Qdot]{$\dot{Q}$}{Thermal power \nomunit{\SI[group-digits=false]{}{\kilo\watt}}}
-\nomenclature[A, t]{$T$}{Temperature, Period} % \nomunit{\SI[group-digits=false]{}{\degreeCelsius}}
+\nomenclature[A, J]{$J$}{Fitness / Cost function} 
+\nomenclature[A, A]{$A$}{Area \nomunit{\SI{}{\metre\squared}} } 
+
+\nomenclature[A, um]{$u.m.$}{Monetary units \nomunit{-}} 
+
+\nomenclature[A, H]{$HR$}{Relative humidity
+\nomunit{\SI[group-digits=false]{}{\%}}} 
+
+\nomenclature[A, irradiance]{$I$}{Irradiance
+\nomunit{\SI[group-digits=false]{}{\watt\per\metre\squared}}} 
+
+\nomenclature[A, Q]{$Q$}{Thermal energy or heat
+\nomunit{\SI[group-digits=false]{}{\kilo\joule}}} 
+
+\nomenclature[A, Qdot]{$\dot{Q}$}{Thermal power
+\nomunit{\SI[group-digits=false]{}{\kilo\watt}}}
+\nomenclature[A, t]{$T$}{Temperature, Period, Time}
+% \nomunit{\SI[group-digits=false]{}{\degreeCelsius}}
 \nomenclature[A, p]{$P$}{Pressure, Price \nomunit{\SI{}{\mbar}, [u.m./\euro]} }
 \nomenclature[A, l]{$L$}{Level \nomunit{\SI{}{\mm}} }
-\nomenclature[A, c]{$C$}{Conductivity, Consumption, Heat capacity}
+\nomenclature[A, c]{$C$}{Conductivity, Consumption, Heat capacity
+\nomunit{\SI{}{\milli\siemens\per\centi\meter}, \SI{}{\kilo\watt} / \SI{}{\liter},
+ \SI[group-digits=false]{}{\joule\per\kelvin\per\second}}}
 \nomenclature[A, b]{$b$}{Molality \nomunit{\SI[group-digits=false]{}{\mol\per\kilogram}} }
 \nomenclature[A, h]{$h$}{Enthalpy \nomunit{J kg$^{-1}$}}
 \nomenclature[A, Le]{$\lew$}{Lewis number}% ($ =h_C/ \left(h_Dc_{p_{ma}}\right)$)
@@ -52,11 +66,11 @@
 \nomenclature[A, work]{$\dot{W}$}{Work of separation of seawater \nomunit{\SI[group-digits=false]{}{\kilo\watt}} }
 \nomenclature[A, valve]{$v$}{Valve position}
 \nomenclature[A, x]{$x$}{Decision vector}
-\nomenclature[A, sample-time]{$T_s$}{Sample time \nomunit{\SI{}{\second}}}
+% \nomenclature[A, sample-time]{$T_s$}{Sample time \nomunit{\SI{}{\second}}}
 \nomenclature[A, path]{$p$, $\pmb{p}$}{Point, Path of points}
 \nomenclature[A, loop]{$l$}{Solar field loop}
 \nomenclature[A, volume]{$V$}{Volume \nomunit{\SI{}{\cubic\metre}}}
-\nomenclature[A, composite-score]{$S$}{Composite score}
+\nomenclature[A, composite-score]{$S$}{Composite score \nomunit{u.m.}}
 \nomenclature[A, worst-case-performance]{$W$}{Worst case performance}
 
 
@@ -82,11 +96,11 @@
 \nomenclature[S, min]{$max$}{Minimum}
 \nomenclature[S, average]{$avg$}{Average}
 \nomenclature[S, amb]{$amb$, $\infty$}{Ambient conditions}
-\nomenclature[S, s]{$s$}{Saturated, Series component, Heat source, Water Source, Secondary side}
+\nomenclature[S, s]{$s$}{Saturated, Series component, Heat source, Water Source, Secondary side, Sample}
 \nomenclature[S, w]{$w$}{Water}
 \nomenclature[S, in]{$in$}{Inlet}
 \nomenclature[S, out]{$out$}{Outlet}
-\nomenclature[S, i]{$i$}{Inner, Iteration, $i_{th}$ element}
+\nomenclature[S, i]{$i$}{Inner, Iteration, $i_{th}$ element, Integral}
 \nomenclature[S, o]{$o$}{Outer}
 \nomenclature[S, tb]{$tb$}{Tube}
 \nomenclature[S, eq]{$eq$}{Equivalent}
@@ -105,7 +119,7 @@
 \nomenclature[S, wct]{$wct$}{Wet cooling tower}
 \nomenclature[S, cc]{$cc$}{Combined cooler}
 \nomenclature[S, e]{$e$}{Electrical}
-\nomenclature[S, p]{$p$}{Primary side, Parallel component}
+\nomenclature[S, p]{$p$}{Primary side, Parallel component, Proportional}
 \nomenclature[S, c]{$c$}{Surface condenser, Condenser, Cooling water, Cold}
 \nomenclature[S, cond]{$cond$}{Condensate}
 \nomenclature[S, wb]{$wb$}{Wet bulb}
@@ -126,6 +140,7 @@
 \nomenclature[S, r]{$r$}{Rejected cooling water}
 \nomenclature[S, v]{$v$}{Vapor}
 \nomenclature[S, sat]{$sat$}{Saturation}
+\nomenclature[S, st]{$st$}{State}
 \nomenclature[S, dis]{$dis$}{Discharge}
 \nomenclature[S, src]{$src$}{Source}
 \nomenclature[S, hot]{$h$}{Hot}

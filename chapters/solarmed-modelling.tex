@@ -5,17 +5,16 @@
 \glsresetall % Reset glossary entries
 
 \tldrbox{ This chapter presents the discrete and complete dynamic modelling of
-    the \gls{solarmedLabel} system.  First, continuous physics-based and
-    data-driven models for the solar field, heat exchanger, thermal storage,
-    three-way valve, and \gls{medLabel} plant.
+    the \gls{solarmedLabel} system.  First, dynamic physics-based models are
+    developed for the solar field, heat exchanger, thermal storage, three-way
+    valve, and a data-driven static model for the \gls{medLabel} plant.
     
-    These dynamic models are then combined with the discrete behavior of the
+    These models are then combined with the discrete behavior of the
     installation. This is represented by means of two supervisory
-    \glspl{fsmLabel} that define the operation states of the heat generation and
-    storage subsystem (\gls{sftsLabel}) and the multi-effect distillation
-    subsystem (\gls{medfsmLabel}). Each \gls{fsmLabel} determines subsystem
-    activation and transitions based on system inputs, internal rules, and
-    configurable parameters such as cooldown or startup durations.
+    \glspl{fsmLabel} that define the operation states of the \gls{sftsLabel} and
+    the \gls{medfsmLabel}. Each \gls{fsmLabel} determines subsystem activation
+    and transitions based on system inputs, internal rules, and configurable
+    parameters such as cooldown or startup durations.
     
     The integrated hybrid model is evaluated under realistic operation
     conditions with different prediction horizons, showing good agreement with
@@ -62,20 +61,28 @@ system. However, some models described in the following sections are
 steady-state approximations. While this can introduce discrepancies during
 transient events, the impact is minor. The model is intended primarily for
 optimization, with sampling times on the order of minutes. Moreover, inputs to
-slower components are adjusted infrequently (typically at intervals of 30 minutes
-or more) allowing sufficient time for the system to reach steady
-state\sidenote{Further discussed in \nrefsec{intro:modelling}}.
+slower components ---like the \gls{medLabel}--- are adjusted infrequently
+(typically at intervals of 30 minutes or more) allowing sufficient time for the
+system to reach steady state\sidenote[][*-5]{Further discussed in
+\nrefsec{intro:modelling}}.
+
 
 %===================================
 %===================================
 \subsection{Solar field}
 
+\marginannotation[]{}{In all models, it has been assumed that model parameters
+like heat transfer coefficient (U) or heat loss coefficients (H) are constant,
+and not a function of temperature.}
+
 % Describe input and outputs
-The (flat-plate collector) solar field is basically a converter of electrical to
-thermal energy subject to irradiance availability. The main outputs, in terms of
-operation of the solar field, are the thermal power obtained,
+The (flat-plate collector) solar field can be seen as a converter of electrical
+to thermal energy, subject to irradiance availability. The main outputs, in
+terms of operation of the solar field, are the thermal power obtained,
 $\dot{Q}_{sf}$ (kW$_{th}$), at what temperature that heat is obtained,
-$T_{sf,out}$ ($^\circ$C), and the electricity needed to do so, $C_{e,sf}$ (kW$_{e}$).
+$T_{sf,out}$ ($^\circ$C), and the electricity needed to do so, $C_{e,sf}$
+(kW$_{\text{e}}$).
+
 
 The diagram in \reffig{solarmed:diagrams:solar_field} illustrates the individual
 loops that make up the field. In the model, it is assumed that all loops have
@@ -86,30 +93,31 @@ loop with a collector area equal to the sum of the collector areas of the
 individual rows of collector loops.
 
 % References
-A first-principles model (see \refmod{solarmed:sf}) based on the one presented
-in Ampuño et al.~\sidecite{ampuno_modeling_2018} is used to model the solar
+A first-principles model ---see \refmod{solarmed:sf}--- based on the one presented
+in Ampuño et al.~\sidecite[*-2]{ampuno_modeling_2018} is used to model the solar
 field. The model has two types of parameters: dynamic and constant\sidenote{Also
 called model and fixed model parameters, respectively}. The dynamic parameters
 are the thermal loss coefficient, $H_{sf}\,\left( \frac{J}{s·^\circ C} \right)$,
 which relates thermal losses to the environment and the gain coefficient,
-$\beta$ (m), encompassing the collector transmisitivity and absorstance. It
+$\beta$ (m), encompassing the collector transmisitivity and absorstance, and
 determines the amount of irradiance that is transfered to the working fluid.
-These two dynamic parameters are calibrated using experimental data which
-together with the constant parameters can be found in
+These two dynamic parameters are calibrated using experimental data, and their
+values, together with the constant parameters, are presented in
 \reftab{solarmed:modelling:models-parameters}.
 
-The main difference with respect to the model presented
-in~\cite{ampuno_modeling_2018} is how the apparent transport delay is
-modelled~\sidecite[*-10]{ampuno_apparent_2019}\sidenote[][*-10]{Transport delays are a common
-feature in dynamic systems, where the response of the system to an input is not
-instantaneous, but rather delayed by a certain amount of time. This delay can be
-caused by various factors, in this particular system, is due to the time it
-takes for the water to flow through the solar field and reach the temperature
-sensors. The apparent delay is the result of adding up the individual -
-different delays of each collector cell}. In this implementation, the transport
-delay is simplified to a single steady state parameter based on the work
-presented in Normey-Rico~\etal~\sidecite[*-10]{normey-rico_robust_1998} since delays
-vary less than 30\% from this nominal value.
+The main difference of the model developed in this research work with respect to
+the model presented in~\cite{ampuno_modeling_2018} is how the apparent transport
+delay is
+modelled~\sidecite[*-10]{ampuno_apparent_2019}\sidenote[][*-5]{Transport delays
+are a common feature in dynamic systems, where the response of the system to an
+input is not instantaneous, but rather delayed by a certain amount of time. This
+delay can be caused by various factors. In this particular system, is due to the
+time it takes for the water to flow through the solar field and reach the
+temperature sensors. The apparent delay is the result of adding up the
+individual ---different delays of each collector cell}. In this implementation,
+the transport delay is simplified to a single steady state parameter based on
+the work presented in Normey-Rico~\etal~\sidecite[*3]{normey-rico_robust_1998}
+since delays vary less than 30~\% from the nominal value.
 
 % Bloque de modelo con interfaz y ecuaciones
 \begin{modelcounter}{Solar field}
@@ -121,7 +129,7 @@ vary less than 30\% from this nominal value.
             I_k,\,
             T_{\text{amb},k};\,
             \beta,\,
-            H,\,
+            H_{sf},\,
             \theta
         \right) \\
         & L_{pipe,eq} = \frac{T_s}{A_{pipe,eq}} \sum_{k=0}^{n} q_{sf}[k] \tag*{{\small\textit{Equivalent pipe length [m]}}} \\
@@ -147,7 +155,7 @@ vary less than 30\% from this nominal value.
 \end{marginfigure}
 
 
-The number of delay samples depends on the model sample time and a system
+The number of delay samples ($n_d$) depends on the model sample time and a system
 parameter called the equivalent length. The following
 procedure was followed to estimate it:
 
@@ -192,7 +200,7 @@ procedure was followed to estimate it:
 \end{figure*}
 
 % Explicar configuración/situación hidráulica del campo
-The \textit{AQUASOL} solar field consists of a set of pumps that recirculate
+The \textit{AQUASOL-II} solar field consists of a set of pumps that recirculate
 water through the system. The pumps are controlled by \glspl{vfdLabel}
 that allow to vary the flow rate through the solar field. A main recirculation
 pump ($P_{l0}$) is responsible for the primary flow, while additional pumps
@@ -216,9 +224,10 @@ A series of tests were performed as can be seen in
 carried out in two different dates since they have to be performed early, before
 the solar field is irradiated by the sun and the field heats up\sidenote{Observe
 the trend in \reffig{solarmed:modelling:sf:electrical_consumption_tests} -
-\textit{Temperatures}}. In the first day, step trains are applied to the main
-loop and individual isolated loops\sidenote{20240925 07:15 -- 08:30}. On the
-second day, different speeds levels were set for the main recirculation pump
+\textit{Temperatures}. The flow needs to be purposely regulated to maintain
+safe solar field temperatures}. In the first day, step trains are applied to the
+main loop and individual isolated loops\sidenote{20240925 07:15 -- 08:30}. On
+the second day, different speeds levels were set for the main recirculation pump
 (10\% - 100\%, 10\% increments) while step trains were applied to the individual
 loops (40\% - 100\%, 20\% increments)\sidenote{In
 \reffig{solarmed:modelling:sf:electrical_consumption_tests}, from 20240927 07:35
@@ -228,19 +237,19 @@ to 08:20}.
 \begin{figure}
     \includegraphics[width=\textwidth]{sf_flow_vs_power_consumption.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/sf_flow_vs_power_consumption.html}}
-    \caption{Solar field flow for different pump configurations and their associated power consumption.\\[1ex] \usebox\captionqr}
+    \caption{Solar field flow rate for different pump configurations and their associated power consumption.\\[1ex] \usebox\captionqr}
     \labfig{solarmed:modelling:sf:flow_vs_power_consumption}
 \end{figure}
 
 % Describir selección de configuración para finalmente realizar calibración
 \reffig{solarmed:modelling:sf:flow_vs_power_consumption} shows the relationship
-between flow rate and power consumptions for different configuration and pump
+between flow rate and power consumptions for different configurations and pump
 speeds. Up to 91.9~l/min the best configuration is to just use the main
 recirculation pump. Above this flow rate, the main pump is used in combination
 with the individual loop pumps. First, a combination of main pump from 85 to
 100\% and individual loops fixed at their 40\% minimum speed up until 105~l/min,
 then the main pump fixed at 100\% and individual loops at increasing values from
-40 to 100\% until a maximum achievable flow rate of 148~l/min. 
+40 to 100\% until a maximum flow rate of 148~l/min is achieved. 
 
 \begin{equation}
     \text{Optimal configuration}(q_{sf}) =
@@ -251,8 +260,8 @@ then the main pump fixed at 100\% and individual loops at increasing values from
     \end{cases}
 \end{equation}
 
-With this selection, a third--order polynomial regression is fitted to the data,
-with a coefficient of determination of $R^2 = 0.99$.
+With this optimal selection, a third-order polynomial regression is fitted to
+the data, with a coefficient of determination of $R^2 = 0.99$.
 
 % [-8.47935428e-02, 2.29091363e-02, -8.72483421e-04, 1.29582523e-05]
 \begin{modelcounter}{Solar field electrical consumption}
@@ -265,10 +274,10 @@ with a coefficient of determination of $R^2 = 0.99$.
 
 
 Summarizing, the electrical consumption of the solar field is modelled as a
-function of the flow rate through the solar field from a minimum value of 3.7
-m$^3$/h (50~W) to a maximum value of 88.84 m$^3$/h (4.2~kW). This is achieved as
-the result of different combinations of the main recirculation pump and the
-individual loops depending on the working flow range.
+function of the flow rate through the solar field from a minimum value of
+3.7~m$^3$/h (50~W) to a maximum value of 88.84 m$^3$/h (4.2~kW). This is
+achieved as the result of different combinations of the main recirculation pump
+and the individual loops depending on the working flow range.
 
 
 %================================
@@ -278,7 +287,10 @@ individual loops depending on the working flow range.
     \includegraphics[width=\linewidth]{solar_field_validation.png}
     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solar_field_validation_20231106.html}}
     \savebox\captionqrright{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solar_field_validation_20230511.html}}
-    \caption[]{Solar field model calibration and validation tests. \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
+    \caption[]{Solar field model calibration and validation tests. The colors in
+    the validation plot represent the different loops (not available in the
+    calibration data)\hfill
+    \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
     \labfig{solarmed:modelling:validation:solar-field}
 \end{figure*}
 
@@ -287,6 +299,7 @@ representative experimental test is used\sidenote{See
 \reffig{solarmed:modelling:validation:solar-field}-- left} where the parameters
 are fitted. %A collector conversion factor of $\beta_{sf}=4.36\cdot 10^{-2}\:
 %(m)$ and a thermal loss coefficient $H_{sf}=13.57 \, (W/m^2)$.
+The values can be found in \reftab{solarmed:modelling:models-parameters}.
 Compared to the results presented in Ampuño~\etal~\cite{ampuno_modeling_2018},
 double the gain coefficient is obtained while higher losses are found. This
 could be explained by the fact that the calibration was performed including the
@@ -305,7 +318,7 @@ temperature. Nonetheless, in relative terms very similar errors are
 obtained\sidenote{6.25 compared to 6.3 in terms of \gls{mapeLabel}}.
 
 Several more tests (10) are evaluated, and the performance obtained is shown in
-\reftab{solarmed:modelling:validation:heat-exchanger}. Here it can be seen than
+\reftab{solarmed:modelling:validation:solar-field}. Here it can be seen than
 for many tests performance close to the calibration tests are obtained. There is
 a notable difference in the performance of the model depending on the sample
 rate used. R$^2$ goes from 0.96 to 0.93, and \gls{maeLabel} from 2.50 to
@@ -369,12 +382,20 @@ no heat is being delivered to the load.
 
 A first-principles model of a two-tank thermal storage system is developed to
 capture the key thermodynamic and fluid dynamic phenomena governing energy
-transfer and stratification~\sidecite{duffie_energy_2013}.
+transfer and stratification based on the methodology developed by
+Duffie~\etal~\sidecite{duffie_energy_2013}.
 
 The governing model equations and boundary conditions to simulate the transient
 thermal behavior of the storage system, including mass and energy balances,
 heat transfer mechanisms, and the stratification dynamics are shown in
 \refmod{solarmed:modelling:thermal-storage}.
+
+% Diagrama del componente con variables
+\begin{marginfigure}[+3cm]
+    \includegraphics[]{solarmed-diagrams-thermal_storage.png}
+    \caption{Thermal storage process diagram.}
+    \labfig{solarmed:diagrams:thermal_storage}
+\end{marginfigure}
 
 \begin{modelcounter}{Thermal storage}
     \begin{align*}
@@ -508,13 +529,6 @@ heat transfer mechanisms, and the stratification dynamics are shown in
     \labmod{solarmed:modelling:thermal-storage}
 \end{modelcounter}
 
-% Diagrama del componente con variables
-\begin{marginfigure}[-9.5cm]
-    \includegraphics[]{solarmed-diagrams-thermal_storage.png}
-    \caption{Thermal storage process diagram.}
-    \labfig{solarmed:diagrams:thermal_storage}
-\end{marginfigure}
-
 Three types of volumes are defined: the inner volume, the top volume and the
 bottom volume:
 \begin{itemize}
@@ -570,17 +584,17 @@ conditions (see \reffig{solarmed:modelling:validation:thermal-storage} - left).
 The first and last days included both charge and discharge cycles, while the
 middle two days were dedicated to charging-only operations. In between these
 days, the system was left idle to observe the natural thermal losses. The model
-parameters were fitted to minimize a combined metric averaging the three
-temperature measurements available per tank\sidenote{See
-\reftab{solarmed:modelling:models-parameters}}, obtaining a low thermal loss
-coefficient in the order of 10$^{-2}$ to 10$^{-4}$~(W/K). On the other hand,
-adding the volumes of the three control volumes totals around the 15~m$^3$ of
-the actual tank volume, which is a good indication that the model is capturing
-the thermal behavior of the system well. However, they are not distributed
-evenly; for both tanks the bottom volumes are significantly smaller than the
-upper ones. This can be explained by the fact that the temperature transmitters
-are not spaced evenly, and the bottom transmitter is located near the tank's
-bottom.
+parameters were fitted\sidenote{See their values in
+\reftab{solarmed:modelling:models-parameters}} to minimize a combined metric
+averaging the three temperature measurements available per tank, obtaining a low
+thermal loss coefficient in the order of 10$^{-2}$ to 10$^{-4}$~(W/K). On the
+other hand, adding the volumes of the three control volumes totals around the
+15~m$^3$ of the actual tank volume, which is a good indication that the model is
+capturing the thermal behavior of the system well. However, they are not
+distributed evenly; for both tanks the bottom volumes are significantly smaller
+than the upper ones. This can be explained by the fact that the temperature
+transmitters are not spaced evenly, and the bottom transmitter is located near
+the tank's bottom.
 
 \begin{figure*}[h!]
     \includegraphics[width=\linewidth]{thermal_storage_validation.png}
@@ -615,7 +629,7 @@ shown in \reftab{solarmed:modelling:validation:thermal-storage}. It should be
 noted that this model only receives feedback from the process initially, and
 then outputs are forecasted based on the inputs and the model own previously
 forecasted states. This means that any error in the prediction will be
-accumulated over time, This makes metrics like $R^2$ not representative of the
+accumulated over time. This makes metrics like $R^2$ not representative of the
 model performance, as a small offset in the prediction will make $R^2$ drop
 significantly. For this reason, more emphasis is put on the \gls{maeLabel} and
 \gls{mapeLabel} metrics. In general, almost identical performance is obtained
@@ -695,7 +709,7 @@ The solar field and thermal storage are interfaced by a \gls{hexLabel} or
 \texttt{hx}, particularly a water-to-water counter-flow heat exchanger. The
 component is modelled using a first-principles steady state model based on the
 effectiveness--NTU method~\sidecite{cengel_heat_2015,kays_compact_1958}. The
-following assumptions need to be considered~\cite{cengel_heat_2015}: 
+following assumptions are considered~\cite{cengel_heat_2015}: 
 
 \begin{itemize}
     \item It has been assumed that the rate of change for the temperature of
@@ -729,7 +743,7 @@ the dynamic behavior of the model is validated with another test. It can be seen
 than the model performs fairly well even in transient conditions, with a
 \gls{maeLabel} of $T_{hx,p,out}=1.38\:^\circ$C, $T_{hx,p,out}=1.39\:^\circ$C and
 a coefficient of determination $R^2=99\%$ for both outputs\sidenote{With fast
-sample rate -- 5 seconds}.
+sample rate --10 seconds}.
 
 % Bloque de modelo con interfaz y ecuaciones
 \begin{modelcounter}{Heat exchanger}
@@ -771,9 +785,9 @@ Several more tests (11) are evaluated, and the performance obtained is shown in
 identical performance is obtained with the fast ($T_s=5$~s) and slow
 ($T_s=400$~s) sample rates, but as in the previous models, the computational
 time is significantly reduced, from 0.45~s to 0.01~s, an order of magnitude
-faster.In terms of accuracy, there seems to be a systematic higher error in the
+faster. In terms of accuracy, there seems to be a systematic higher error in the
 outlet of the secondary circuit with respect to the primary side, with double
-the error (\gls{maeLabel}: 1.08 compared to 2.16~$^\circ$C). Overall good
+the error (\gls{maeLabel}: 1.08 compared to 2.16~$^\circ$C). In general, good
 agreement between model and experimental data is observed with maximum errors
 below 8~\% \gls{mapeLabel}.
 
@@ -854,7 +868,7 @@ operating conditions happen at a slow enough rate that the dynamic behavior
 between stable states can be neglected, and thus, only those stable states are
 considered. Two models are developed for the \gls{medLabel}: a data-driven model
 based on experimental data from the pilot plant, and a first-principles model
-based on thermodynamic equations. The data-driven model is the one integranted
+based on thermodynamic equations. The data-driven model is the one integrated
 in the overall plant model used in optimization applications (See
 \refch{solarmed:optimization}), while the first-principles model is used for
 comparison purposes and to gain insight into the operation of the \gls{medLabel}
@@ -863,8 +877,8 @@ comparison purposes and to gain insight into the operation of the \gls{medLabel}
 %================================
 \subsubsection{Data-driven model}
 
-A \gls{gprLabel} model calibrated using data from two experimental campaigns
-desbrined in \refsec{solarmed:facility:med}.
+A \gls{gprLabel} model is calibrated using data from the two experimental campaigns
+described in \refsec{solarmed:facility:med}.
 
 % Bloque de modelo con interfaz y ecuaciones
 \begin{modelcounter}{\gls{medLabel} model}
@@ -887,14 +901,14 @@ desbrined in \refsec{solarmed:facility:med}.
 \end{marginfigure}
 
 As observed in \refmod{solarmed:med}, the model has five inputs: the heat source
-flow rate ($q_{med,s}$), the feedwater flow rate ($q_{med,f}$), the inlet
-temperature of the heat source ($T_{med,s,in}$), the inlet temperature of the
-cooling water ($T_{med,c,in}$) and the outlet temperature of the cooling water
-($T_{med,c,out}$). The model returns three main outputs: the distillate flow
-rate ($q_{med,d}$), the outlet temperature of the heat source ($T_{med,s,out}$)
-and the cooling water flow rate ($q_{med,c}$). An additional output is
+flow rate ($q_{s}$), the feedwater flow rate ($q_{f}$), the inlet
+temperature of the heat source ($T_{s,in}$), the inlet temperature of the
+cooling water ($T_{c,in}$) and the outlet temperature of the cooling water
+($T_{c,out}$). The model returns three main outputs: the distillate flow
+rate ($q_{d}$), the outlet temperature of the heat source ($T_{s,out}$)
+and the cooling water flow rate ($q_{c}$). An additional output is
 included with a validated value for the condenser outlet temperature
-($T_{med,c,out}$), in cases where an unfeasible temperature is given as input.
+($T_{c,out}$), in cases where an unfeasible temperature is given as input.
 In \refmod{solarmed:med}, the functions $f_{bb,q}$ and $f_{bb,T}$ represent the
 black-box \gls{gprLabel} models for the model with the main outputs and the
 auxiliary output, respectively. 
@@ -912,37 +926,42 @@ Appendix, \nrefch{appendix:med-model}.
 A similar procedure to the one for the solar field and thermal storage was
 followed, with some particular considerations:
 
-The extraction pumps need to be evaluated under vacuum conditions, since this
-has a direct influence on the intake conditions (lower head pressure). The brine
-pump is evaluated with a \textit{step train test} while the plant is inactive
-(no thermal input), in vacuum conditions and with feedwater being pumped. The
-water will naturally fall by gravity to the final effect\sidenote{Given the
-plant vertically-stacked configuration}. The power consumption is measured using
-the \gls{vfdLabel} integrated power meter. For the distillate pump, water does
-not reach the final condenser unless vapor is generated, so the pump is
-evaluated with the plant active and distillate being produced. A test that
-produces distillate at the midrange working conditions of the \gls{vfdLabel}:
-$\approx$35~Hz. The step train is then performed by alternating high and low
-values\sidenote{For example, 35 $\rightarrow$ 40 $\rightarrow$ 30 $\rightarrow$
-45 $\rightarrow$ 25 $\rightarrow$ 50 $\rightarrow$ 20~Hz} and making sure the
-level stays within the operating range. 
+The extraction pumps need to be evaluated under vacuum conditions, since this is
+how the system operates under normal conditions. This has a direct influence on
+the intake conditions (lower head pressure). The brine pump is evaluated with a
+\textit{step train test} while the plant is inactive (no thermal input), in
+vacuum conditions and with feedwater being pumped. The water will naturally fall
+by gravity to the final effect\sidenote{Given the plant vertically-stacked
+configuration}. The power consumption is measured using the \gls{vfdLabel}
+integrated power meter. For the distillate pump, water does not reach the final
+condenser unless vapor is generated, so the pump is evaluated with the plant
+active in operating conditions that produce distillate at the midrange working
+conditions of the \gls{vfdLabel}, aournd 35~Hz. The step train is then performed
+by alternating high and low values\sidenote{For example, 35 $\rightarrow$ 40
+$\rightarrow$ 30 $\rightarrow$ 45 $\rightarrow$ 25 $\rightarrow$ 50
+$\rightarrow$ 20~Hz} and making sure the level stays within the operating range. 
 
 For the rest of the system pumps: heat source, feedwater and cooling water, a
-simple \textit{step train test} is performed. Finally, the obtained electrical
-model is shown in \refmod{solarmed:modelling:med:electrical_consumption}.
+simple \textit{step train test} is performed. The vacuum system has tree levels:
+high when generating vacuum, low when maintaining vacuum, and inactive. Each
+with an associated constant consumption. Finally, the obtained electrical model
+is shown in \refmod{solarmed:modelling:med:electrical_consumption}.
 
 %================================
 \subsubsection{Validation}
 
 As explained, two \gls{gprLabel} models are used, so two models need to be
-calibrated, one for the aforementioned desired system outputs ($q_{med,d}$,
-$T_{med,s,out}$ and $q_{med,c}$) and an additional one for the condenser outlet
+calibrated, one for the aforementioned desired system outputs ($q_{d}$,
+$T_{s,out}$ and $q_{c}$) and an additional one for the condenser outlet
 temperature. An 80/20 training/validation split is used. The training is
 performed using an \gls{rbfLabel} kernel. The regression model is defined with
 the \texttt{GPy} library, which includes a Gaussian likelihood with a noise term
 by default. The kernel hyperparameters (variance, lengthscale, and noise
 variance) are optimized by maximizing the log-marginal likelihood using
-GPy's~\sidecite{gpy2014} built-in L-BFGS local optimizer.
+GPy's~\sidecite{gpy2014} built-in L-BFGS local optimizer. The regression results
+for the main outputs are shown in \reffig{solarmed:modelling:med-regression}. As
+can be seen, the model performs very well for all outputs, with $R^2$ values
+above 0.90 in all cases. 
 
 \begin{modelcounter}{\gls{medLabel} electrical consumption}
     \begin{align*}
@@ -983,27 +1002,27 @@ GPy's~\sidecite{gpy2014} built-in L-BFGS local optimizer.
     \labfig{solarmed:modelling:validation:med}
 \end{figure*}
 
-From \reffig{solarmed:modelling:validation:med}, several observations can be
-drawn. First, the model shows high accuracy in predicting both distillate
-production and the heat source outlet temperature, even during transient phases
-such as those observed in the early part of the 31032023 test
-(\reffig{solarmed:modelling:validation:med}, left).
+\reffig{solarmed:modelling:validation:med} shows the model validation for two
+particular tests. Several observations can be drawn. First, the model shows high
+accuracy in predicting both distillate production and the heat source outlet
+temperature, even during transient phases such as those observed in the early
+part of the 31032023 test (\reffig{solarmed:modelling:validation:med}, left).
 
 In contrast, the cooling water predictions are less reliable during these
 transitions. As vapor gradually accumulates—visible as a pressure ramp in the
-condenser between 10:30 and 12:30 in the 202303031 test ---it becomes difficult to
-predict how much vapor ultimately reaches the final condenser. Once stable
+condenser between 10:30 and 12:30 in the 202303031 test ---it becomes difficult
+to predict how much vapor ultimately reaches the final condenser. Once stable
 conditions are established, however, the model can accurately estimate the
 cooling water demand required to maintain equilibrium at a given operating
-point, even under varying inlet water temperatures. This is evident in the later
-phase of the 202303031 test and throughout most of the 20230418 test.
+point, even under varying inlet water temperatures ($T_{c,in}$). This is evident
+in the later phase of the 202303031 test and throughout most of the 20230418
+test.
 
 A further observation is the system's strong sensitivity to the cooling water
-inlet temperature. In the pilot plant, which operates in a closed
-loop\sidenote{Operating in a closed loop}, these inlet conditions are constantly
-shifting. Despite this, the static model is able to capture the condenser's
-overall behavior once the system stabilizes and the inlet temperature becomes
-the primary changing variable.
+inlet temperature. In the pilot plant, which operates in a closed loop, these
+inlet conditions are constantly shifting. Despite this, the static model is able
+to capture the condenser's overall behavior once the system stabilizes and the
+inlet temperature becomes the primary changing variable.
 
 \begin{table}[htbp]
 \centering
@@ -1043,11 +1062,11 @@ conductance              &  & 1.35$\times 10^4$                    &  & W/K
 \section{Discrete modelling. Operation state}[Discrete modelling]
 \labsec{solarmed:modelling:discrete}
 
-The second modelling component defines the discrete state of the system, that
-is, its \textit{operation state}. This component is modelled by means of
-\glspl{fsmLabel}. In order to determine its state, the \fullgls{fsmLabel} uses
-information from both its inputs, its internal state and the configured
-parameters.
+In the previous section, the dynamic and static models of each component were
+explained. This section focuses on the discrete behavior, its \textit{operation
+state}. This component is modelled by means of \glspl{fsmLabel}. In order to
+determine its state, the \fullgls{fsmLabel} uses information from its
+inputs, internal state and the configured parameters.
 
 \marginreminder[*-7]{\glspl[format=long]{fsmLabel}}{
     A finite state machine is a model of behavior composed of a finite number of
@@ -1057,7 +1076,8 @@ state and transition some \textit{action} can be performed\footnote{See
 }
 
 The complete system is divided into two subsystems: the heat generation and
-storage subsystem (\gls{sftsLabel}) and the separation subsystem (\gls{medfsmLabel}).
+storage subsystem (\gls{sftsLabel}) and the separation subsystem
+(\gls{medfsmLabel}).
 
 %================================
 \subsection{Heat generation and storage subsystem (\texttt{sfts})}
@@ -1094,7 +1114,7 @@ visualized in \reffig{solarmed:modelling:fsm-diagrams} (a). The states involve:
 
 \begin{margintable}[*-7]
 \caption{\gls{sftsLabel} \gls{fsmLabel} states definitions. $\land$ represents
-the logical \texttt{AND} operator and $\forall$ represents that all meet the condition.}
+the logical \texttt{AND} operator.}
 \labtab{solarmed:modelling:sfts_fsm_states}
 \resizebox{\linewidth}{!}{%
 \begin{tabular}{cll}
@@ -1145,13 +1165,14 @@ parameters\sidenote{In parentheses the value used}:
 
 Two inputs are used in this machine, one logical which indicates the active
 state the system when all of the required pumps for operation are enabled. The
-other is an integer variable that regulates the vacuum state. This latter
+other is an integer variable that regulates the vacuum state
+($\text{med}_{\text{vac}}$). This latter
 variable has three possible values: 0 when the vacuum pump is off, 1 when the
 vacuum pump operates at low speed (maintaining vacuum) and 2 when the vacuum
 pump operates at high speed (generating vacuum). The \gls{fsmLabel} states are
-computed based on these two inputs based on the conditions shown in
-\reftab{solarmed:modelling:med_fsm_states} and the possible transitions are
-visualized in \reffig{solarmed:modelling:fsm-diagrams} (b). The states are
+computed based on these two inputs and the conditions shown in
+\reftab{solarmed:modelling:med_fsm_states}. The possible transitions are
+visualized in \reffig{solarmed:modelling:fsm-diagrams}~(b). The states are
 described in the following:
 
 \begin{itemize}
@@ -1164,14 +1185,14 @@ described in the following:
     \item \textbf{Starting-up} (3). The system is starting up, all pumps start
     operation following the procedure outlined in
     \refsec{solarmed:std:monitoring-control}. No distillate is produced at this
-    stage and temperature and pressure progressively ramp up until reaching
+    stage and the temperatures and pressures progressively ramp up until reaching
     equilibrium for the given inputs. 
     \item \textbf{Shutting down} (4). The system is being shut down, distillate
     production has stopped and the system is cooled-down progressively.
     Extraction pumps start cycles of operation to empty the system. Vacuum may
-    or may not be mantained at this stage.
+    be maintained at this stage.
     \item \textbf{Active} (5). The system is active, all pumps are operating and
-    distillate is being produced.
+    distillate is being produced. Vacuum is maintained.
 \end{itemize}
 
 As in the previous machine, the machine has additional \gls{fsmLabel} parameters
@@ -1219,18 +1240,16 @@ the condition, and $\forall$ represents that all meet the condition.}
 \subsection{Validation}
 
 \reffig{solarmed:modelling:fsm} shows the evolution of the states of both
-\glspl{fsmLabel} during a test. Particularly, the same test that is visualized
-in \reffig{} so that the actual inputs and subsystems states can be compared. It
-can be seen how both machines evolve in parallel in the bottom plot, while the
-upper one shows the cumulative input values\sidenote{All variables are shown as
-integers and aliases are created to group the logical active conditions \eg
-$\texttt{med\_active} = \forall q > \underline{q}$}. The \gls{sftsLabel} first
-starts with the heating up of the solar field state triggered by the activation
-of the solar field pump (\texttt{sf\_active}), and once the temperature is high
-enough after few samples the thermal storage starts recirculating
-(\texttt{ts\_active}). This continues until the end of the tests when the
-temperature decreases so it gets deactivated (at sample 80 in
-\reffig{solarmed:modelling:fsm}).
+\glspl{fsmLabel} during a test. It can be seen how both machines evolve in
+parallel in the bottom plot, while the upper one shows the cumulative input
+values\sidenote{All variables are shown as integers and aliases are created to
+group the logical active conditions \eg $\texttt{med\_active} = \forall q >
+\underline{q}$}. The \gls{sftsLabel} first starts with the heating up of the
+solar field state triggered by the activation of the solar field pump
+(\texttt{sf\_active}), and once the temperature is high enough after few samples
+the thermal storage starts recirculating (\texttt{ts\_active}). This continues
+until the end of the tests when the temperature decreases so it gets deactivated
+(at sample 80 in \reffig{solarmed:modelling:fsm}).
 
 For the \gls{medfsmLabel}, there is no measurement for the vacuum state of the
 system so it is assumed that it is set at a high-level from the beginning and
@@ -1240,10 +1259,10 @@ system then stays active producing separation until it is shut-off at sample 56
 for two samples, equivalent to over 10 minutes.
 
 \begin{figure*}[htbp]
-    \includegraphics[width=\linewidth]{solarmed_fsm_evolution_20230703.png}
+    \includegraphics[width=.9\linewidth]{solarmed_fsm_evolution_20230703.png}
     \caption[SolarMED \gls{fsmLabel} states evolution during a test on 20230703]{\gls{solarmedLabel} \gls{fsmLabel} states evolution during a test on 20230703.
     Purple represents the \gls{medfsmLabel} state and orange the
-    \gls{sftsLabel}.\\ Note: \textit{med active} is equivalent to the condition $\forall q_{med,i} > \underline{q_{med,i}}$} 
+    \gls{sftsLabel}.\\ \textbf{NOTE:} \textit{med active} is equivalent to the condition $\forall q_{med,i} > \underline{q_{med,i}}$} 
     \labfig{solarmed:modelling:fsm}
 \end{figure*}
 
@@ -1252,23 +1271,25 @@ for two samples, equivalent to over 10 minutes.
 \labsec{solarmed:modelling:complete}
 
 Finally, all the individual components described above (continuos and discrete)
-are combined to form the complete system model. The complete model is a hybrid
+are combined to form the complete system model\sidenote{To clearly distinguish
+that a variable belongs to a subsystem, the subsystem acronym is added as a
+subscript \eg~$q_s\,\rightarrow\,q_{med,s}$}. The complete model is a hybrid
 model that orchestrates physics models for the solar field, heat exchanger,
-thermal storage, three-way valve and data-driven for the MED, plus two
-supervisory finite state machines. The continuous states are the outputs of the
-different subsystems, while the discrete states are the states of the two
+thermal storage, three-way valve and data-driven for the \gls{medLabel}, plus
+two supervisory finite state machines. The continuous states are the outputs of
+the different subsystems, while the discrete states are the states of the two
 \glspl{fsmLabel}.
 
 The model ---defined in \refmod{solarmed:solarmed}--- is implemented following
 an object-oriented approach\sidenote{Specifically as a Python class}. Once it is
-initialized provided with the initial discrete states (\eg vacuum generated,
-brine emptied from final effect, etc) and system parameters (\eg thermal storage
-volumes, heat exchanger transfer conductance, \gls{medfsmLabel} timings, etc).
-Also need to be initialized the initial temperatures for the solar field and
-thermal storage.
+initialized by being provided with the initial discrete states (\eg vacuum
+generated, brine emptied from final effect, etc) and system parameters (\eg
+thermal storage volumes, heat exchanger transfer conductance, \gls{medfsmLabel}
+timings, etc). It also needs to be initialized with the initial solar field and
+thermal storage temperatures.
 
 Each step takes environment inputs (irradiance $I$, ambient temperature
-$T_{amb}$, seawater temperature $T_{med,c,in}$) and \textit{operation decisions}
+$T_{amb}$, seawater temperature $T_{med,c,in}$) and operation decisions
 (\eg, $q^{\ast}_{sf}$, $q^{\ast}_{ts,src}$, $q^{\ast}_{med,s}$,
 $q^{\ast}_{med,f}$, $T^{\ast}_{med,s,in}$, $T^{\ast}_{med,c,out}$). Setpoints
 reflect operator/optimizer intent, the model then validates and turns them into
@@ -1276,50 +1297,6 @@ realized outputs. Each step advances the plant one sampling interval.
 Physically, the model treats the installation as three hydraulic/thermal loops that
 exchange energy, all embedded in ambient conditions and subject to equipment
 limits.
-
-% Bloque de modelo con interfaz y ecuaciones
-\begin{modelcounter}{SolarMED model}
-    \begin{align*}
-        q_{med,d},\,C_{e} &= f\bigl(
-            q_{med,s}, q_{med,f}, T_{med,s,in}, T_{med,c,out}, \\
-            &\qquad q_{ts,src}, q_{sf}, med_{vac,st}, T_{med,c,in}, T_{amb}, I; \\
-            &\qquad \theta_{sf}, \theta_{hx}, \theta_{med}, \theta^{fsm}_{sfts}, \theta^{fsm}_{med}, \theta_{\infty}
-        \bigr) \\ \\
-        &\text{st}_{sfts}  = \text{sfts fsm model}(q_{sf}, q_{ts,src}; \theta^{fsm}_{sfts}) \\
-        &\text{st}_{med}  = \text{med fsm model}(q_{med,s}, q_{med,f}, T_{med,c}; \theta^{fsm}_{med}) \\ \\
-        &T_{\text{sf,out}} = \text{sf model}\!\left(
-            T_{\text{sf,out},k-1},\,
-            \mathbf{T}_{\text{sf,in},k-n:k},\,
-            \boldsymbol{q}_{sf,k-n:k},\,
-            I,\,
-            T_{\text{amb}};\,
-            \theta_{sf}
-        \right) \\
-        &\pmb{T}_\text{ts,h},\; \pmb{T}_\text{ts,c} = \text{ts model}\Bigl( \\
-            & \qquad \qquad \pmb{T}_\text{ts,h}(k-1),\;
-            \pmb{T}_\text{ts,c}(k-1),\;
-            T_\text{hx,s,out}, \\
-            &\qquad \qquad T_\text{med,s,out},\;
-            q_\text{ts,src},\;
-            q_\text{ts,dis},\;
-            T_\text{amb};\;
-            \boldsymbol{\theta}_\text{ts} \\
-        & \Bigr) \\
-        &T_{sf,in},\,T_{hx,s,out} = \text{hx model}(
-            T_{sf,out}, T_{ts,c,b}, q_{sf}, q_{ts,src}, T_{amb}; \theta_{hx}
-        ) \\
-        &q_{ts,dis}=\text{3wv model}(q_{med,s}, T_{med,s,in}, T_{med,s,out}) \\
-        &q_{med,d},\,T_{med,s,out},\,q_{med,c},\,T_{med,c,out} = \text{med model}\bigl(\\ 
-        &\qquad \qquad q_{med,s},q_{med,f}, T_{med,s,in}, T_{med,c,out}, T_{med,c,in} \\ 
-        & \bigr) \\ \\
-        &C_{e,sf} = \text{sf electrical consumption}(q_{sf}) \\
-        &C_{e,ts} = \text{ts electrical consumption}(q_{ts,src}) \\
-        &C_{e,med} = \text{med electrical cons.}(q_{med,s}, q_{med,f}, q_{med,c}, q_{med,d}, q_{med,b}) \\
-        &C_e=C_{e,sf}+C_{e,ts}+C_{e,med}
-    \end{align*}
-    \labmod{solarmed:solarmed}
-\end{modelcounter}
-
 
 The supervisory logic (\ie, \glspl{fsmLabel}) first decides which subsystems are
 allowed to act (solar field circulating, storage charging/discharging,
@@ -1335,13 +1312,13 @@ heat flow. This set of dependencies between the different subsystems is
 visualized in \reffig{solarmed:modelling:complete_model}.
 
 The \gls{medLabel} is solved first because it defines the thermal demand that
-the rest of the system must support.  With the \gls{medLabel} demand known, the
+the rest of the system must support. With the \gls{medLabel} demand known, the
 three-way valve determines how much hot water must be extracted from storage and
 how to mix it to meet the \gls{medLabel} hot-side inlet target. Physically, it
 blends water drawn from the top of the hot tank with the \gls{medLabel} return,
 choosing a mix ratio and discharge flow that close the \gls{medLabel}'s energy
 balance. That fixes the storage discharge flow and the thermal duty the storage
-must deliver this step.
+must deliver in this step.
 
 Next, the heat supply side is computed. When the solar field is circulating and
 storage is being recharged, the solar field, heat exchanger, and tanks are
@@ -1350,17 +1327,12 @@ primary/secondary outlet temperatures, and the evolving tank stratification all
 depend on each other. In that coupled case, a small nonlinear subproblem is
 solved so that energy balances are simultaneously satisfied across generation,
 transfer, and load (storage), considering the previous tank states. When the
-field and storage are not simultaneously active (for example, idle storage or
-field, or storage discharging), the supply side decouples: the solar field is
-first evaluated alone, producing a primary-side outlet temperature ; then the
-tanks update their stratified temperatures by applying the computed inlet/outlet
-temperatures and the discharge flows.
+solar field and storage are not simultaneously active (for example, idle storage
+or solar field, or storage discharging), the supply side decouples: the solar
+field is first evaluated alone, producing a primary-side outlet temperature ;
+then the tanks update their stratified temperatures by applying the computed
+inlet/outlet temperatures and the discharge flows.
 
-\begin{marginfigure}[-3cm]
-    \includegraphics[]{solarmed-modelling-complete_model.png}
-    \caption{Complete \gls{solarmedLabel} model architecture.}
-    \labfig{solarmed:modelling:complete_model}
-\end{marginfigure}
 
 Once temperatures and flows are settled, the model computes electrical powers
 using the actuators fitted curves. Finally, time-dependent states are rolled
@@ -1368,6 +1340,55 @@ forward: solar loop histories are shifted to carry the new inlet/outlet values
 into the next step, and the tank stratification produced this step becomes the
 initial condition for the next.
 
+
+% Bloque de modelo con interfaz y ecuaciones
+\begin{modelcounter}{SolarMED model}
+    \begin{align*}
+    q_{med,d},\,C_{e} &= f\bigl(
+        q_{med,s}, q_{med,f}, T_{med,s,in}, T_{med,c,out}, \\
+        &\qquad q_{ts,src}, q_{sf}, med_{vac,st}, T_{med,c,in}, T_{amb}, I; \\
+        &\qquad \theta_{sf}, \theta_{hx}, \theta_{med}, \theta^{fsm}_{sfts}, \theta^{fsm}_{med}, \theta_{\infty}
+    \bigr) \\ \\
+    &\text{st}_{sfts}  = \text{sfts fsm model}(q_{sf}, q_{ts,src}; \theta^{fsm}_{sfts}) \\
+    &\text{st}_{med}  = \text{med fsm model}(q_{med,s}, q_{med,f}, T_{med,c}; \theta^{fsm}_{med}) \\ \\
+    &T_{\text{sf,out}} = \text{sf model}\!\left(
+        T_{\text{sf,out},k-1},\,
+        \mathbf{T}_{\text{sf,in},k-n:k},\,
+        \boldsymbol{q}_{sf,k-n:k},\,
+        I,\,
+        T_{\text{amb}};\,
+        \theta_{sf}
+        \right) \\
+        &\pmb{T}_\text{ts,h},\; \pmb{T}_\text{ts,c} = \text{ts model}\Bigl( \\
+        & \qquad \qquad \pmb{T}_\text{ts,h}(k-1),\;
+        \pmb{T}_\text{ts,c}(k-1),\;
+        T_\text{hx,s,out}, \\
+        &\qquad \qquad T_\text{med,s,out},\;
+        q_\text{ts,src},\;
+        q_\text{ts,dis},\;
+        T_\text{amb};\;
+        \boldsymbol{\theta}_\text{ts} \\
+        & \Bigr) \\
+        &T_{sf,in},\,T_{hx,s,out} = \text{hx model}(
+            T_{sf,out}, T_{ts,c,b}, q_{sf}, q_{ts,src}, T_{amb}; \theta_{hx}
+            ) \\
+            &q_{ts,dis}=\text{3wv model}(q_{med,s}, T_{med,s,in}, T_{med,s,out}) \\
+            &q_{med,d},\,T_{med,s,out},\,q_{med,c},\,T_{med,c,out} = \text{med model}\bigl(\\ 
+            &\qquad \qquad q_{med,s},q_{med,f}, T_{med,s,in}, T_{med,c,out}, T_{med,c,in} \\ 
+            & \bigr) \\ \\
+            &C_{e,sf} = \text{sf electrical consumption}(q_{sf}) \\
+            &C_{e,ts} = \text{ts electrical consumption}(q_{ts,src}) \\
+            &C_{e,med} = \text{med electrical cons.}(q_{med,s}, q_{med,f}, q_{med,c}, q_{med,d}, q_{med,b}) \\
+            &C_e=C_{e,sf}+C_{e,ts}+C_{e,med}
+    \end{align*}
+    \labmod{solarmed:solarmed}
+\end{modelcounter}
+
+\begin{marginfigure}[-13cm]
+    \includegraphics[]{solarmed-modelling-complete_model.png}
+    \caption{Complete \gls{solarmedLabel} model architecture.}
+    \labfig{solarmed:modelling:complete_model}
+\end{marginfigure}
 
 \subsection{Validation}
 
@@ -1419,11 +1440,11 @@ For the \gls{medLabel}, as commented in the component section, the output with
 the highest error is the cooling water flow rate, showing higher errors at the
 beginning where there is a heat source temperature mismatch (the actual
 temperature is higher that the upper limit of the data-driven model so is
-clipped) and in the second part of the test where the inlet cooling water
-temperature increases significantly, and since the flow was kept
-constant in the test the condenser is not stable
-anymore\sidenote{\reffig{solarmed:modelling:validation:solarmed} -- \textit{MED
--- Temperatures~(right) --$P_{v,14}$}}.
+clipped). In the second part of the test, the inlet cooling water temperature
+increases significantly, and since the flow was kept constant in the test, the
+condenser is not stable anymore\sidenote{Observe the trend in
+\reffig{solarmed:modelling:validation:solarmed} -- \textit{MED --
+Temperatures~(right) -- $P_{v,14}$}}.
 
 \reftab{solarmed:modelling:validation:solarmed} shows the results obtained for
 different metrics (\gls{maeLabel}, \gls{mapeLabel}) for two different test days.

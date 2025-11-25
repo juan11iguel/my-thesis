@@ -218,15 +218,10 @@ reference.}
         
         \item Environment variables
         \[
-        \mathbf{e} = [\mathbf{I},\,\mathbf{T_{amb}},\, \mathbf{P_e},\, \mathbf{P_{w}}]
+        \mathbf{e} = [\mathbf{I},\,\mathbf{T_{amb}},\,\mathbf{T_{med,c,in}},\, \mathbf{P_e},\, \mathbf{P_{w}}]
         \]
         where $\mathbf{e}=[e_{1,1},\,\ldots\, e_{1,n_{steps}},\, \ldots,\,
         e_{n_{e},n_{steps}}]$
-        
-        \item Fixed parameters ??
-        \[
-        \theta = [R_p = 1,\, R_s = 0,\, \omega_{\text{dc}} = 0]
-        \]
     
     \end{itemize}
     
@@ -445,19 +440,19 @@ time~\cite{hyndman_forecasting_2021}.
 \labsec{solarmed:optimization:strategy}
 
 A hierarchical control approach (see
-\reffig{solarmed:optimization:architecture}) was chosen consisting of
-three layers: operation plan, operation optimization, and control.
-This scheme was chosen for two main reasons. On the one hand, the time scales
-of the different aspects of the operation of the system (operation mode
-changes, process variables setpoint changes, regulatory control, respectively)
-can differ substantially. Secondly, it allows to abstract process complexity
-from the more computationally demanding upper layers by allocating it into the
-downstream layers. The operation plan layer makes decisions for the \textit{operation
+\reffig{solarmed:optimization:architecture}) was chosen consisting of three
+layers: operation plan, operation optimization, and control. This scheme was
+chosen for two main reasons. On the one hand, the time scales of the different
+aspects of the operation of the system (operation mode changes, process
+variables setpoint changes, regulatory control, respectively) can differ
+substantially. Secondly, it allows to abstract process complexity from the more
+computationally demanding upper layers by allocating it into the downstream
+layers. The operation plan layer makes decisions for the \textit{operation
 modes}, the operation optimization layer sets the setpoints given to the
 continuous \textit{process variables} that are to be followed by the low-level
 regulatory control layer.
 
-\begin{marginfigure}[-7.5cm]
+\begin{marginfigure}[-1cm]
     \includegraphics[]{solarmed-optimization-architecture.png}
     \caption{Proposed optimization strategy architecture}
     \labfig{solarmed:optimization:architecture}
@@ -480,18 +475,18 @@ the following sections.
 \section{Operation plan layer description}
 \labsec{solarmed:optimization:op-plan-layer}
 
-\marginnote[*3]{The number of updates available for each integer variable
+\marginnote[*9]{The number of updates available for each integer variable
 $n_{updates,xi}$ will be interchangeably referred to as \fullgls{dofLabel}.}
 
 This layer determines the integer decision variables of the \gls{minlpLabel}
-problem, namely, the sequence of operation modes producing an operation plan. 
-To make the problem computationally
-tractable, only a limited number of combinations, $n_{problems}$, are
-evaluated. This transforms the mixed-integer problem into a simpler form by
-moving the integer variables from the decision to the environment space.
-In effect, the original \textbf{\gls{minlpLabel}} is decomposed into a library
-of \textbf{\gls{nlpLabel}} problems\sidenote{\textbf{\gls{minlpLabel}}~$\rightarrow$~\textbf{n\gls{nlpLabel}}} that are individually
-evaluated, \gls{nnlpLabel}.
+problem, namely, the sequence of operation modes producing an operation plan. To
+make the problem computationally tractable, only a limited number of
+combinations, $n_{problems}$, are evaluated. This transforms the mixed-integer
+problem into a simpler form by moving the integer variables from the decision to
+the environment space. In effect, the original \textbf{\gls{minlpLabel}} is
+decomposed into a library of \textbf{\gls{nlpLabel}}
+problems\sidenote[][*5]{\textbf{\gls{minlpLabel}}~$\rightarrow$~\textbf{n\gls{nlpLabel}}}
+that are individually evaluated, \gls{nnlpLabel}.
 
 % As mentioned, two evaluations of this layer are performed at different times:
 % one to plan subsystem start-up, and another to schedule shutdown.  
@@ -539,7 +534,7 @@ defined by using \refeq{solarmed:optimization:n_problems}. The particular design
 choice for the number of updates per subsystem is shown in
 \reftab{solarmed:optimization:dof}. In total, 101 distinct operation plans are
 generated for the start-up evaluation and 144 for the
-shutdown\sidenote[][*-5]{Notice the total number does not match exactly
+shutdown\sidenote[][*-2]{Notice the total number does not match exactly
 \refeq{solarmed:optimization:n_problems} since special cases are added like
 having inactive subsystems}.
 

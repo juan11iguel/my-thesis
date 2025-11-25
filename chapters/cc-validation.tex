@@ -419,19 +419,26 @@ valuable benchmark for validating the data-driven approaches.
 % obtained with the method 3 is the one that best fits the experimental data,
 % with a \gls{maeLabel} of 17.6~kW and a maximum error of 33.41~kW (15~\%).
 
+\begin{marginfigure}[*-3]
+    \centering    
+    \includegraphics[width=\linewidth]{cc-condenser_model_regression.png} % .85\textwidth
+    \caption{Surface condenser validation}
+    \labfig{cc:validation:condenser}
+\end{marginfigure}
+
 Following the same methodology as in the previous case, data from the model
 calibration campaign (see \reftab{cc:exp-campaigns} -- \textit{\gls{scLabel}-cal}) was used to calculate the global heat
 transfer coefficient, $U_{c}$, with \refeq{cc:sc_UA} together with the surface
 condenser manufacturer's specifications from \reftab{cc:facility:sc}. $U_{c}$ is
 in this case calibrated as a function of the input variables $T_{c,in}$ and
-$q_{c}$, obtaining the following relation\sidenote{$p_1$=12.71, $p_2$=2.91,
-$p_3$=9.5$\cdot$10$^{-3}$, $p_4$=343.29, $p_5$=-1$\cdot$10$^{-3}$ and
-$p_6$=-4.83$\cdot$10$^{-2}$, where each parameter, $p_i$ has units consistent
-with the variables involved.}:
+$q_{c}$, obtaining the following relation:
 \begin{equation}
    U_c= p_1\cdot T_{c,in}+p_2\cdot \dot{m}_{c,tb}+p_3\cdot \dot{m}_{c,tb}\cdot T_{c,in}+p_4+p_5\cdot \dot{m}_{c,tb}^2+p_6\cdot T_{c,in}^2,
 \end{equation}
-where $\dot{m}_{c,tb}$ is the water mass flow rate inside each condenser tube.
+where $\dot{m}_{c,tb}$ is the water mass flow rate inside each condenser ,tube
+$p_1$=12.71, $p_2$=2.91, $p_3$=9.5$\cdot$10$^{-3}$, $p_4$=343.29,
+$p_5$=-1$\cdot$10$^{-3}$ and $p_6$=-4.83$\cdot$10$^{-2}$, with each parameter,
+$p_i$, has units consistent with the variables involved.
 
 
 Using the previous relation and equations from \refmod{sc} and assuming that the
@@ -442,13 +449,6 @@ estimated.% In this case the inputs of the model are $T_{c,in}$,
 % $\dot{m}_c$ and $\dot{m}_v$.
 
 \subsubsection{Validation}
-
-\begin{marginfigure}[*-5]
-    \centering    
-    \includegraphics[width=\linewidth]{cc-condenser_model_regression.png} % .85\textwidth
-    \caption{Surface condenser validation}
-    \labfig{cc:validation:condenser}
-\end{marginfigure}
 
 To validate this model, a different data set of 15 steady state tests
 (\reftab{cc:exp-campaigns} -- \textit{\gls{scLabel}-val}) has been used with the
@@ -466,12 +466,6 @@ is instead 0.1 to 1.7~$^\circ$C subcooled.
 \subsection{Complete system model validation}
 \labsec{cc:validation:complete-system}
 
-\begin{marginfigure}[]
-    \includegraphics[width=\linewidth]{cc_model_regression.png}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc_model_regression.html}}
-    \caption[Combined cooler model validation]{Complete combined cooler model validation.\\[1ex]\usebox\captionqr}
-    \labfig{cc:validation:complete-model}
-\end{marginfigure}
 
 For the proposed optimization strategy in \nrefch{cc:optimization}, a model is
 required that is fast, reliable, and easily scalable to different system sizes.
@@ -489,7 +483,7 @@ The main strength of the physical models presented in this chapter lies in their
 generality: they can predict cooler operation under a wide range of conditions
 without retraining. Data-driven models, while faster and more suitable for
 vectorized evaluation, trade this generality for speed, restricting their use to
-the contexts for which they were developed and requiering significant data to
+the contexts for which they were developed and requiring significant data to
 achieve satisfactory results.
 
 Therefore, as combining a wet cooler and a dry cooler into a combined cooler
@@ -509,7 +503,7 @@ dataset composed of 24 tests (see \reftab{cc:exp-campaigns} --
 results with the predicted values. To visualize the operational characteristics
 of each test, the data points are represented with the following information:
 \begin{itemize}
-    \item The dashed circle represents the nominal cooling power (200~kW$_\mathrm{th}$).
+    \item The dashed circle represents the nominal cooling power (200~kW$_\text{th}$).
     \item The filled circle represents the cooling power measured in the test
     relative to the nominal value. The closer it is to the dashed circle, the
     closer the cooling power is to the nominal one.
@@ -528,14 +522,21 @@ satisfactory results over a wide range of operating and ambient conditions. The
 outlet temperatures show a \gls{maeLabel} lower than 0.97~$^\circ$C, with the
 largest error occurring in $T_{wct,out}$, when the cooling power was far from
 the nominal value. This may be due to the need to improve the relation
-$\dot{m}_{air}-\omega_{wct}$ relationship at low flow rates. In the case of the water
-consumption, the tendency (R$^2$=0.82) of the predicted values follows the
+$\dot{m}_{air}-\omega_{wct}$ relationship at low flow rates. In the case of the
+water consumption, the tendency (R$^2$=0.82) of the predicted values follows the
 experimental ones, being the \gls{maeLabel} 19.4~l/h.
 
 A summary of the models' results is shown in \reftab{cc:validation:results}.
 This table includes the performance metrics of each component simulated
 individually (\textit{Cnt} column) and those obtained with the complete model
 (\textit{CC} column).
+
+\begin{marginfigure}[-22cm]
+    \includegraphics[width=\linewidth]{cc_model_regression.png}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc_model_regression.html}}
+    \caption[Combined cooler model validation]{Complete combined cooler model validation.\\[1ex]\usebox\captionqr}
+    \labfig{cc:validation:complete-model}
+\end{marginfigure}
 
 \begin{table}[]
 \centering
@@ -583,7 +584,7 @@ T$_{c,in}$ ($^\circ$C) &  & - &  & 0.99 &  & - &  & 0.53 &  & - &  & 1.52 \\ \hl
 
 Once the models of the main components of the system have been validated, the
 next step is to validate the optimization strategies proposed in
-\nrefsec{cc:modelling:optimization}. First, an optimization algorithm is chosen
+\nrefsec{cc:optimization}. First, an optimization algorithm is chosen
 by comparing different alternatives for each optimization alternative (\ie
 static and horizon). Then, the two proposed variants for the combined cooler are
 compared in simulation for one representative operation period in the simulated
@@ -1027,11 +1028,11 @@ cooler outputs in terms of temperature profile and water consumption in the wet
 cooler case. Finally, the right group of plots shows the low-level control layer
 performance for each control loop: coolers outlet temperature and flows.
 
-In \reffig{cc:validation:exp-results} -- \textit{Hydraulic Distribution}, several sequentially added bars
-are shown. The first bar corresponds to the experimental value, while the
-remaining bars represent the predicted hydraulic distributions from successive
-optimization evaluations: the second bar comes from the first evaluation, the
-third from the second, and so on.
+In \reffig{cc:validation:exp-results} -- \textit{Hydraulic Distribution},
+several sequentially added bars are shown. The first bar corresponds to the
+experimental value, while the remaining bars represent the predicted hydraulic
+distributions from successive optimization evaluations: the second bar comes
+from the first evaluation, the third from the second, and so on.
 
 From the results, a few observations can be made:
 

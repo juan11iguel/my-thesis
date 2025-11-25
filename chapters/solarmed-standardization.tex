@@ -80,12 +80,12 @@ to consider the quality of the thermal energy used in desalination processes.
 This limitation of traditional energetic metrics was showcased in Bouma~\etal
 \sidecite{bouma_metrics_2020} where they compared four different configurations
 of \gls{medLabel} plants: a low temperature \gls{medLabel} configuration
-(LT-MED), a \gls{medLabel} unit incorporating Thermal Vapor Compression
-(MED-TVC), a \gls{medLabel} unit using nanofiltration (NF-LT-MED) for feedwater
-pretreatment, and a combination of TVC and nanofiltration. Although the
-\gls{stecLabel} values favored the use of TVC, a more rigorous ---exergetic---
+(\gls{ltLabel}-\gls{medLabel}), a \gls{medLabel} unit incorporating Thermal Vapor Compression
+(\gls{medLabel}-\gls{tvcLabel}), a \gls{medLabel} unit using nanofiltration (\gls{nfLabel}-\gls{ltLabel}-\gls{medLabel}) for feedwater
+pretreatment, and a combination of \gls{tvcLabel} and nanofiltration. Although the
+\gls{stecLabel} values favored the use of \gls{tvcLabel}, a more rigorous ---exergetic---
 analysis revealed that the most efficient systems were those that used lower
-temperature heat sources (LT-MED and NF-LT-MED).
+temperature heat sources (\gls{ltLabel}-\gls{medLabel} and \gls{nfLabel}-\gls{ltLabel}-\gls{medLabel}).
 
 %Furthermore, each energy type possesses different thermodynamic or economic
 %values, further complicating the evaluation process. It is important to note
@@ -111,10 +111,10 @@ temperature heat sources (LT-MED and NF-LT-MED).
 %limitation of traditional metrics was showcased in
 %\cite{boumaMetricsMatterAccurately2020}, where four \gls{medLabel} plants configurations
 %were compared: a basic configuration, one that included Thermal Vapor
-%Compression (TVC), one where the feedwater was pretreated with nanofiltration
-%(NF) and a combination of both. Even though STEC figures favored the use of
-%TVC an exergetic analysis reveals that SEXC values actually fall towards the
-%basic \gls{medLabel} or MED-NF. 
+%Compression (\gls{tvcLabel}), one where the feedwater was pretreated with nanofiltration
+%(\gls{nfLabel}) and a combination of both. Even though STEC figures favored the use of
+%\gls{tvcLabel} an exergetic analysis reveals that SEXC values actually fall towards the
+%basic \gls{medLabel} or \gls{medLabel}-\gls{nfLabel}. 
 
 Some authors have carried out exergy analysis to overcome the limitations
 aforementioned of energy performance metrics. Darwish~\etal
@@ -126,7 +126,7 @@ The second sets the work potential of the extracted steam as a baseline,
 considering the desalination plant separation efficiency and adding the energy
 consumption for pumping. The problem of this study is that it is limited to
 cogeneration schemes (joint electricity and water production) and would not be
-useful in the case of desalination with low-temperature sources. Shahzad et
+useful in the case of desalination with \gls{ltLabel} sources. Shahzad et
 al.~\sidecite{shahzad_standard_2019} developed an approach based on the second
 law of thermodynamics, which is also useful only for cogeneration schemes. They
 proposed a common metric called the Standard Universal Performance Ratio to
@@ -867,19 +867,25 @@ sensitivity analysis.
     
     %It provides information about how variations in the input parameters of a system (measured variables) affect the outputs (performance metrics). In this case, the Sobol method~\sidecite{nossent_sobolsensitivity_2011} has been used for this purpose, which is a variance-based approach by means of Herman's~\etal implementation~\sidecite{herman_salib_2017,iwanaga_toward_2022}. This method decomposes the total variance of the model output into contributions from individual input parameters and their interactions.
     
-\begin{marginfigure}[-2.5cm]
+\marginnote[*-15]{ All \glspl{kpvLabel} must be monitored regardless of their
+    influence on the performance metric being evaluated because, as mentioned
+    above, the average values of these variables at steady state conditions
+    define an operating point. }
+    
+\reffig{solarmed:std:sensitivity-analysis} shows the results obtained from
+the sensitivity analysis in terms of total-order \gls{siLabel}. The closer
+the \gls{siLabel} is to 1, the greater the influence of the variable (shown
+on the left axis) on the reliability of the performance metric (shown on the
+top). In other words, the quality of the variable measurement should be
+higher for variables with a higher \gls{siLabel}. The cases where no
+sensitivity index is obtained indicate that the variable has no effect on
+the metric. 
+
+\begin{marginfigure}[-1.5cm]
     \includegraphics[]{solarmed-sensitivity-analysis.png}
     \caption{Sensitivity index results for different variables. Useful to assess the impact of the different measured variables uncertainty on the performance metrics. \glspl{kpvLabel} are shown in bold notation}
     \labfig{solarmed:std:sensitivity-analysis}
 \end{marginfigure}
-
-\reffig{solarmed:std:sensitivity-analysis} shows the results obtained from the
-sensitivity analysis in terms of total-order \gls{siLabel}. The closer the
-\gls{siLabel} is to 1, the greater the influence of the variable (shown on the
-left axis) on the reliability of the performance metric (shown on the top). In
-other words, the quality of the variable measurement should be higher for
-variables with a higher \gls{siLabel}. The cases where no sensitivity index is
-obtained indicate that the variable has no effect on the metric. 
     
     % Note that the KPV must be always monitored regardless it is not required by a particular performance metric.
 In general, monitoring of these variables must be performed online for each
@@ -903,10 +909,6 @@ using the same calibration pattern, which translates into observed values for
 the uncertainty of the temperature difference in the range of 0.1~$^\circ$C or
 5~\%.
 
-\marginnote[]{ All \glspl{kpvLabel} must be monitored regardless of their
-    influence on the performance metric being evaluated because, as mentioned
-    above, the average values of these variables at steady state conditions
-    define an operating point. }
 
 On the other hand, the total electrical energy consumption (represented as
 \texttt{JT01} in \reffig{solarmed:pid}) can be monitored as global system
@@ -1551,7 +1553,7 @@ q_f \) scenarios, respectively. The results are even more pronounced in terms of
 second-law efficiency, with reductions of 32\% and 46\%, respectively. This
 decline occurs because higher-quality exergy is being destroyed in the
 process. More energy ---of superior quality--- is being consumed to
-produce distillate less efficiently\todo{comprobar números}.
+produce distillate less efficiently.
 
 This behavior is expected and can be attributed to the fact that the increase in
 heat source temperature is not utilized to incorporate additional effects, which
