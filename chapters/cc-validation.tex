@@ -2,25 +2,28 @@
 \chapter{Validation in the combined cooling pilot plant} % Optimization strategy experimental validation
 \labch{cc:validation}
 
-\tldrbox{ This chapter presents the modelling and optimization results for the
-combined cooling pilot plant. First calibration and training results of various
-modelling approaches, followed by validation of the complete integrated model.
-The best performing data-driven model, the \gls{gprLabel} is calibrated using
-synthetic data from the first-principle models. This surrogate and on-demand
-model that can be adapted to the particular case study, while still being fast
-and efficient in terms of computational resources achieves a \gls{maeLabel}
-below 0.97~$^\circ$C for temperatures and 19.4~l/h for water consumption. In the
-second part of the chapter, the proposed optimization strategies are compared.
-The horizon optimization alternative, which is also validated experimentally,
-shows superior performance.}
+\tldrbox{%
+This chapter presents the modelling and optimization results for the
+combined cooling pilot plant. First, calibration and training results of various
+modelling approaches are shown, followed by validation of the complete
+integrated model. The best-performing data-driven model, the \gls{gprLabel},
+is calibrated using synthetic data from the first-principle models. This
+surrogate and on-demand model, which can be adapted to the particular case
+study while remaining fast and computationally efficient, achieves a
+\gls{maeLabel} below 0.97~$^\circ$C for temperatures and 19.4~l/h for water
+consumption. In the second part of the chapter, the proposed optimization
+strategies are compared. The horizon optimization alternative, which is also
+validated experimentally, shows superior performance.%
+}
+
 
 % ====================================
 % ====================================
-\section{Modelling}
+\section{Modelling results}
 
-The system consists of two main components, the \gls{wctLabel} and 
-the \gls{dcLabel}, which are modelled using different approaches and compared. 
-The alternatives considered are:
+As mentioned, the system consists of two main components, the \gls{wctLabel} and 
+the \gls{dcLabel}. The different modelling approaches results are compared in
+this section. The alternatives considered are:
 
 \begin{enumerate}
     \item A first-principles approach, described in 
@@ -65,7 +68,7 @@ of the tower, $\dot{m}_{wct,air}$, with the fan speed, $\omega_{wct}$:
 \end{equation}
 
 And with data from the calibration campaign (\reftab{cc:exp-campaigns} --
-\textit{\gls{wctLabel}-cal}), the Merkel performance number, $\Me$.
+\textit{\gls{wctLabel}-cal}), the Merkel performance number, $\Me$ can be fitted.
 \reffig{cc:validation:Me_LG} shows the variation of the Merkel number as a
 function of the water-to-air mass flow ratio
 ($\dot{m}_{wct}/\dot{m}_{wct,air}$). As can be seen, the $\Me$ decreases with
@@ -79,23 +82,27 @@ obtained from the data fitting are 1.52 and 0.69, respectively.
 In order to generate the data-driven from first-principles alternative, the most
 relevant input variables identified in \refsec{cc:modelling:wct:samples} are
 discretized using a fixed number of resolution steps (\textit{n} in
-\reftab{cc:validation:wct:samples-params}) for each variable, within ranges
-based on expected operating conditions, as defined in
+\reftab{cc:validation:wct:samples-params}) for each variable ---within ranges
+established according to the expected operating conditions--- as defined in
 \reftab{cc:validation:wct:samples-params}.
 
 \begin{margintable}[]
-    \caption{Bounds and discretization of the model \gls{wctLabel} input variables.}
+    \caption{Bounds and discretization of the model \gls{wctLabel} input
+    variables. Lower and upper bounds are indicated as \textbf{lb} and
+    \textbf{ub}, respectively. The number of discretization steps is indicated
+    as \textbf{n}.}
     \labtab{cc:validation:wct:samples-params}
     \resizebox{\linewidth}{!}{%
     \begin{tabular}{lcccc}
         \toprule
         $\mathbf{x}$ & \textbf{Units} & \textbf{lb} & \textbf{ub} & \textbf{n} \\
         \midrule
-        $T_{amb}$       & $^\circ$C            & 3   & 50   & 7 \\
-        $\Delta T_{amb-in}$       & $^\circ$C            & 3   & 30    & 7  \\
-        $q_{dc}$       & m$^3$/h            & 0.00   & 1.00    & 5  \\
-        $\omega_{\text{dc}}$   & \%         & 11.00  & 99.18   & 10 \\
-        $\omega_{\text{wct}}$  & \%         & 21.00  & 93.42   & 10 \\
+        $T_{wb}$       & $^\circ$C            & 3   & 40   & 7 \\
+        $\Delta T_{wb-in}$       & $^\circ$C            & 3   & 30    & 15  \\
+        $T_{wct,in}$   & \%         & 25  & 45   & 10 \\
+        $q_{wct}$       & m$^3$/h            & 6   & 24    & 12  \\
+        $\omega_{\text{wct}}$  & \%         & 21  & 93.4   & 10 \\
+        $\dot{m}_{wct}/\dot{m}_{wct,air}$  & -         & 0.5  & 4   & 10 \\
         \bottomrule
     \end{tabular}
     }
@@ -115,42 +122,43 @@ the samples and the y-axis the values for each of the input variables.
 
 \subsubsection{Validation}
 
-
-
 The results of each modelling alternative and its comparison can be visualized
 in \reffig{cc:validation:wct:regression}. It shows the results obtained with the
 models using the validation dataset (\reftab{cc:exp-campaigns} --
-\textit{\gls{wctLabel}-val}). In \reftab{cc:validation:wct:results}, the performance
-of the studied modelling approaches are included for the different performance
-metrics\sidenote{Described in \refsec{intro:modelling:metrics}} where \texttt{T}
-represents the performance metric value  for the training / calibration dataset
-and \texttt{V} for the validation one. 
+\textit{\gls{wctLabel}-val}). In \reftab{cc:validation:wct:results}, the
+performance of the studied modelling approaches is included for the different
+performance metrics\sidenote{Described in \refsec{intro:modelling:metrics}}
+where \texttt{T} represents the performance metric value  for the training /
+calibration dataset and \texttt{V} for the validation one. 
 
 In both the figure and the table, there are two Gaussian PR models: one trained
-using the experimental data (labeled as \textit{Gaussian PR}) and the second is
-the surrogate model trained using the synthetic data from the physical model
-(labeled as \textit{Gaussian PR (FP)}).
+using the experimental data (labeled as \textit{Gaussian PR}) and the second one
+corresponding to a surrogate model trained using the synthetic data from the
+physical model (labeled as \textit{Gaussian PR (FP)}).
 
-Comparing the physical model to the data-driven ones, it can be seen that there
-are three groups: gradient boosting and random forest alternatives underperform
-with R$^2$ values around 0.8 and some clear outliers in
-\reffig{cc:validation:wct:regression}. \gls{annLabel} alternatives in general
-provide good results, specially the radial-basis architecture. Finally, the
+Comparing the physical model to the data-driven ones, three groups can be
+identified: gradient boosting and random forest alternatives underperform, with
+R$^2$ values around 0.8 and clear outliers in
+\reffig{cc:validation:wct:regression}. \gls{annLabel} alternatives generally
+provide good results, especially the radial-basis architecture. Finally, the
 Gaussian Process Regression approach provides the best results among the
 data-driven alternatives, with R$^2$ values above 0.95 for both output
-variables. This advantage is mantained even in the case of the surrogate model with
-R$^2$ values of 0.94 and 0.95 for the outlet temperature and water consumption,
-respectively. The physical model provides superior performance for both output
-variables: obtaining an \gls{rmseLabel} of 0.33 $^\circ$C and an R$^2$ of 0.98
-for the temperature and in terms of water consumption, \gls{rmseLabel} and R$^2$
-(8.5~l/h and 0.97). This explains how the surrogate model is able to outperform
-many of the data-driven alternatives, as it provides a good approximation of the
-superior physical model. It achieves this with a fraction of the computational cost,
-vectorization support, limited need for experimental data (same as the physical
-model) and covering a wide input space.
+variables. This advantage is maintained even in the case of the surrogate model,
+which reaches R$^2$ values of 0.94 and 0.95 for the outlet temperature and water
+consumption, respectively. The physical model provides superior performance for
+both output variables, obtaining an \gls{rmseLabel} of 0.33~$^\circ$C and an
+R$^2$ of 0.98 for the temperature; and in terms of water consumption,
+\gls{rmseLabel}~=~8.5~l/h and R$^2$~=~0.97. This advantage of the physical model
+explains why the surrogate model is able to outperform many of the data-driven
+alternatives, as it is a good approximation of the superior physical model.
+Additionally, it achieves this at a fraction of the computational cost, with
+vectorization support, a limited need for experimental data (the same as the
+physical model), and coverage of a wide input space.
 
 \begin{table*}[htbp]
-\caption{Summary table of the prediction results obtained with the different modelling approaches studied.}
+\caption{Summary table of the prediction results obtained with the different
+modelling approaches studied. \textbf{T} and \textbf{V} stand for training and 
+validation datasets, respectively.}
 \labtab{cc:validation:wct:results}
 \resizebox{\linewidth}{!}{%
     
@@ -219,14 +227,15 @@ model) and covering a wide input space.
     \labfig{cc:modelling:dc:nusselt}
 \end{marginfigure}
 
-The following $\dot{m}_{dc,air}$-$\omega_{dc}$ relation was obtained with the
-\reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-fan} dataset
+The following $\dot{m}_{dc,air}$-$\omega_{dc}$ relation was obtained from the
+\reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-fan} dataset.
+
 \begin{equation}
     \dot{m}_{dc,air} =0.30195\cdot \omega_{dc}-1.02179. 
     \labeq{cc:dc:ma}
 \end{equation}
-The \gls{dcLabel} model uses this linear function to estimate the air mass flow rate, with
-the $\omega_{dc}$ input applied in the pilot plant.
+% The \gls{dcLabel} model uses this linear function to estimate the air mass flow rate, with
+% the $\omega_{dc}$ input applied in the pilot plant.
 
 Once the air mass flow rate is established, the set of 27 experimental points
 (see \reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-cal}) is used to fit the
@@ -250,14 +259,16 @@ with a deviation lower than 20~\%.
 In order to generate the data-driven from first-principles alternative, the most
 relevant input variables identified in \refsec{cc:modelling:dc:samples} are
 discretized using a fixed number of resolution steps for each variable, within
-ranges based on expected operating conditions, as defined in
+ranges established according to the expected operating conditions, as defined in
 \reftab{cc:validation:dc:samples-params}.
-\reffig{cc:validation:samples-distribution} (b) visualizes the generated input
+\reffig{cc:validation:samples-distribution}~(b) visualizes the generated input
 space distribution where it can be appreciated that the samples are well
 distributed across the entire input space.
 
 \begin{margintable}[]
-    \caption{Bounds and discretization of the model input variables.}
+    \caption{Bounds and discretization of the model input variables. Lower and
+    upper bounds are indicated as \textbf{lb} and \textbf{ub}, respectively. The
+    number of discretization steps is indicated as \textbf{n}.}
     \labtab{cc:validation:dc:samples-params}
     \resizebox{\linewidth}{!}{%
     \begin{tabular}{lcccc}
@@ -265,10 +276,10 @@ distributed across the entire input space.
         $\mathbf{x}$ & \textbf{Units} & \textbf{lb} & \textbf{ub} & \textbf{n} \\
         \midrule
         $T_{amb}$       & $^\circ$C            & 3   & 50   & 7 \\
-        $\Delta T_{amb-dc,in}$       & $^\circ$C            & 3   & 30    & 7  \\
+        $\Delta T_{amb-in}$       & $^\circ$C            & 3   & 30    & 7  \\
         $q_{dc}$       & m$^3$/h            & 6   & 24    & 7  \\
         $T_{dc,in}$   & $^\circ$C         & 25  & 45   & - \\
-        $\omega_{\text{dc}}$  & \%         & 11  & 99.18   & 6 \\
+        $\omega_{\text{dc}}$  & \%         & 11  & 99.2   & 6 \\
         \bottomrule
     \end{tabular}
     }
@@ -278,7 +289,9 @@ distributed across the entire input space.
 \subsubsection{Validation}
 
 \begin{table*}[]
-\caption{Summary table of the prediction results obtained with the different modelling approaches studied.}
+\caption{Summary table of the prediction results obtained with the different
+modelling approaches studied. \textbf{T} and \textbf{V} stand for training and
+validation datasets, respectively.}
 \labtab{cc:validation:dc:results}
 \resizebox{\linewidth}{!}{%
     
@@ -324,12 +337,12 @@ distributed across the entire input space.
 \textcolor{darkgray}{\footnotesize\textit{s.u.} stands for \textit{same units} as the predicted variable}
 \end{table*}
 
-The results of the different modelling alternatives for predicting the
-outlet temperature can be seen in \reftab{cc:validation:dc:results} (with the
-validation dataset, \reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-val}). The table
-presents the performance of the physical and data-driven approaches in terms of
-the selected performance metrics\sidenote{Described in
-\refsec{intro:modelling:metrics}}.
+The results of the different modelling alternatives for predicting the outlet
+temperature can be seen in \reftab{cc:validation:dc:results} and
+\reffig{cc:validation:dc:regression} (both using the validation dataset,
+\reftab{cc:exp-campaigns} -- \textit{\gls{dcLabel}-val}). The table presents the
+performance of the physical and data-driven approaches in terms of the selected
+performance metrics\sidenote{Described in \refsec{intro:modelling:metrics}}.
 
 \begin{figure}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc-validation-dc-regression.html}}
@@ -338,42 +351,43 @@ the selected performance metrics\sidenote{Described in
     \labfig{cc:validation:dc:regression}
 \end{figure}
 
-Once again, two Gaussian Process Regression models are included: one trained directly with
-the experimental data (\textit{Gaussian PR}) and the other acting as a surrogate
-trained with the synthetic data from the physical model (\textit{Gaussian PR
-(FP)}).
+Once again, two Gaussian Process Regression models are included: one trained
+directly with the experimental data (\textit{Gaussian PR}) and the other acting
+as a surrogate trained with the synthetic data from the physical model
+(\textit{Gaussian PR (FP)}).
 
 The physical model itself provides robust performance, with R$^2$ = 0.98 on the
 validation set and the lowest error metrics among the deterministic approaches
-(\gls{rmseLabel} = 0.50 $^\circ$C, \gls{maeLabel} = 0.42 $^\circ$C, and \gls{mapeLabel} =
-1.28~\%). Nevertheless, the Gaussian PR trained with experimental data surpasses
-this performance in all metrics: it achieves R$^2$ values of 0.99 for both
-training and validation, and substantially lower error indicators
-(\gls{rmseLabel} = 0.24–0.32 $^\circ$C, \gls{maeLabel} = 0.19–0.25 $^\circ$C). The surrogate
-version, Gaussian PR (FP), also delivers excellent results, nearly matching the
-experimental Gaussian PR model with R$^2$ values close to 1.00 and very low
-errors (\gls{rmseLabel} = 0.03–0.53 $^\circ$C, \gls{maeLabel} = 0.02–0.44 $^\circ$C).
+(\gls{rmseLabel}~=~0.50~$^\circ$C, \gls{maeLabel}~=~0.42~$^\circ$C, and
+\gls{mapeLabel}~=~1.28~\%). Nevertheless, the Gaussian PR trained with
+experimental data surpasses this performance in all metrics: it achieves R$^2$
+values of 0.99 for both training and validation, and substantially lower error
+indicators (\gls{rmseLabel}~=~0.24--0.32~$^\circ$C,
+\gls{maeLabel}~=~0.19--0.25~$^\circ$C). The surrogate version, Gaussian PR (FP),
+also delivers excellent results, nearly matching the experimental Gaussian PR
+model with R$^2$ values close to 1.00 and very low errors
+(\gls{rmseLabel}~=~0.03--0.53~$^\circ$C, \gls{maeLabel}~=~0.02--0.44~$^\circ$C).
 Importantly, this surrogate achieves such accuracy at an extremely low
 evaluation time (0.002~s), which is one order of magnitude faster than the
 physical model.
 
 Among the machine learning alternatives, the feedforward and cascade-forward
 \gls{annLabel} architectures yield reasonable results, with validation R$^2$
-values between 0.78 and 0.85. However, their errors (\gls{rmseLabel} ≈ 1.37–1.62
-$^\circ$C and \gls{mapeLabel} ≈ 3–4~\%) are significantly higher than those of the
-Gaussian PR. Tree-based methods show mixed outcomes: random forest underperforms
-with validation R$^2$ = 0.61 and high prediction errors (\gls{rmseLabel} = 2.17
-$^\circ$C, \gls{mapeLabel} = 4.69~\%), while gradient boosting achieves nearly perfect
-training performance but suffers from overfitting, with validation R$^2$ = 0.86
+values between 0.78 and 0.85. However, their errors
+(\gls{rmseLabel}~≈~1.37--1.62 $^\circ$C and \gls{mapeLabel}~≈~3--4~\%) are
+significantly higher than those of the Gaussian PR. Tree-based methods show
+mixed outcomes: random forest underperforms with validation R$^2$~=~0.61 and
+high prediction errors (\gls{rmseLabel}~=~2.17 $^\circ$C,
+\gls{mapeLabel}~=~4.69~\%), while gradient boosting achieves nearly perfect
+training performance but suffers from overfitting, with validation R$^2$~=~0.86
 and errors similar to the ANN alternatives.
 
 In summary, the Gaussian Process Regression models clearly outperform all other
 data-driven methods, consistently reaching R$^2$ values above 0.98 and very low
 error levels. The surrogate version (\textit{Gaussian PR (FP)}) combines this
-predictive accuracy with extremely low computational cost, explaining its
-advantage over more complex architectures. The physical model, although slightly
-less accurate than Gaussian PR, still offers solid results and remains a
-valuable benchmark for validating the data-driven approaches.
+predictive accuracy with extremely low computational cost. The physical model,
+although slightly less accurate than Gaussian PR, still offers solid results and
+remains a valuable benchmark for validating the data-driven approaches.
 
 %================================
 %================================
@@ -427,11 +441,12 @@ valuable benchmark for validating the data-driven approaches.
 \end{marginfigure}
 
 Following the same methodology as in the previous case, data from the model
-calibration campaign (see \reftab{cc:exp-campaigns} -- \textit{\gls{scLabel}-cal}) was used to calculate the global heat
-transfer coefficient, $U_{c}$, with \refeq{cc:sc_UA} together with the surface
-condenser manufacturer's specifications from \reftab{cc:facility:sc}. $U_{c}$ is
-in this case calibrated as a function of the input variables $T_{c,in}$ and
-$q_{c}$, obtaining the following relation:
+calibration campaign (see \reftab{cc:exp-campaigns} --
+\textit{\gls{scLabel}-cal}) were used to calculate the global heat transfer
+coefficient, $U_{c}$, with \refeq{cc:sc_UA} together with the surface condenser
+manufacturer's specifications from \reftab{cc:facility:sc}. $U_{c}$ is in this
+case calibrated as a function of the input variables $T_{c,in}$ and $q_{c}$,
+obtaining the following relation:
 \begin{equation}
    U_c= p_1\cdot T_{c,in}+p_2\cdot \dot{m}_{c,tb}+p_3\cdot \dot{m}_{c,tb}\cdot T_{c,in}+p_4+p_5\cdot \dot{m}_{c,tb}^2+p_6\cdot T_{c,in}^2,
 \end{equation}
@@ -441,10 +456,9 @@ $p_5$=-1$\cdot$10$^{-3}$ and $p_6$=-4.83$\cdot$10$^{-2}$, with each parameter,
 $p_i$, has units consistent with the variables involved.
 
 
-Using the previous relation and equations from \refmod{sc} and assuming that the
-water leaving the shell side of the condenser is saturated at temperature $T_v$,
-the surface condenser model can be solved to estimate $T_{c,out}$ and $T_v$.
-Otherwise if $T_v$ is provided $T_{c,out}$ and $T_{c,in}$ can be
+Using the previous relation and equations from \refmod{sc}, the surface
+condenser model can be solved to estimate $T_{c,out}$ and $T_v$. Otherwise if
+$T_v$ is provided $T_{c,out}$ and $T_{c,in}$ can be
 estimated.% In this case the inputs of the model are $T_{c,in}$,
 % $\dot{m}_c$ and $\dot{m}_v$.
 
@@ -452,15 +466,14 @@ estimated.% In this case the inputs of the model are $T_{c,in}$,
 
 To validate this model, a different data set of 15 steady state tests
 (\reftab{cc:exp-campaigns} -- \textit{\gls{scLabel}-val}) has been used with the
-results depicted in \reffig{cc:validation:dc:regression}. The predicted outlet water
-temperature in the tubes shows good agreement with the experimental
-measurements, with a low \gls{maeLabel}. In contrast, the prediction error is larger for
-the condensate water temperature at the shell-side outlet (\gls{maeLabel} =
-1.86~$^\circ$C). This discrepancy may arise because the experimental outlet
-temperature does not exactly match the vapor saturation temperature ($T_v$), but
-is instead 0.1 to 1.7~$^\circ$C subcooled.
-
-
+results depicted in \reffig{cc:validation:condenser}. The predicted outlet water
+temperature in the tubes ($T_{c,out}$) shows good agreement with the
+experimental measurements, with a low \gls{maeLabel}. In contrast, the
+prediction error is larger for the condensate water temperature ($T_{cond}$,
+\gls{maeLabel}~=~1.86~$^\circ$C). This discrepancy may arise because the
+condensation temperature obtained experimentally does not exactly match the
+vapor saturation temperature ($T_v$), but is instead 0.1 to 1.7~$^\circ$C
+subcooled.
 
 % =================================
 \subsection{Complete system model validation}
@@ -470,31 +483,24 @@ is instead 0.1 to 1.7~$^\circ$C subcooled.
 For the proposed optimization strategy in \nrefch{cc:optimization}, a model is
 required that is fast, reliable, and easily scalable to different system sizes.
 
-First-principle models, while accurate and broadly applicable, have a much
-longer execution time compared to data-driven alternatives. This becomes a
-critical drawback for optimization, where the model must be evaluated many
-times within short time spans. In contrast, data-driven models can be executed
-orders of magnitude faster and their runtime remains nearly constant
-independently of the input conditions. However, they are limited to the specific
-system and operating conditions on which they were trained, and achieving robust
-performance typically demands significantly larger datasets.
-
-The main strength of the physical models presented in this chapter lies in their
-generality: they can predict cooler operation under a wide range of conditions
-without retraining. Data-driven models, while faster and more suitable for
-vectorized evaluation, trade this generality for speed, restricting their use to
-the contexts for which they were developed and requiring significant data to
-achieve satisfactory results.
+First-principle models offer high accuracy and broad applicability, as they can
+predict cooler operation under a wide range of conditions ---even scaled
+systems--- without retraining. However, their main drawback is their long
+execution time, which becomes limiting for optimization tasks requiring many
+rapid evaluations. Data-driven models, in contrast, run orders of magnitude
+faster with nearly constant runtime regardless of the input conditions and are
+therefore well suited for vectorized evaluation. This speed, however, comes at
+the cost of generality: they are restricted to the specific system and operating
+conditions on which they were trained, and achieving robust performance
+typically requires substantially larger datasets.
 
 Therefore, as combining a wet cooler and a dry cooler into a combined cooler
 offers potential advantages compared to the individual systems, combining both
 modelling approaches is the chosen solution to model the system. The best
-performing data-driven model, the \gls{gprLabel} is calibrated using synthetic
-data from the first-principle models, where physical models can be adapted to
-different scales and finally the surrogate data-driven model can be generated.
-This approach provides a way of having on-demand models that can be adapted to
-the particular case study, while still being fast and efficient in terms of
-computational resources.
+performing data-driven model, the \gls{gprLabel}, is calibrated using synthetic
+data from the first-principle models. This approach provides a way of having
+on-demand models that can be adapted to the particular case study, while still
+being fast and efficient in terms of computational resources.
 
 The complete model of the combined cooler has been validated with a different
 dataset composed of 24 tests (see \reftab{cc:exp-campaigns} --
@@ -531,7 +537,7 @@ This table includes the performance metrics of each component simulated
 individually (\textit{Cnt} column) and those obtained with the complete model
 (\textit{CC} column).
 
-\begin{marginfigure}[-22cm]
+\begin{marginfigure}[-19cm]
     \includegraphics[width=\linewidth]{cc_model_regression.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/cc_model_regression.html}}
     \caption[Combined cooler model validation]{Complete combined cooler model validation.\\[1ex]\usebox\captionqr}
@@ -542,7 +548,7 @@ individually (\textit{Cnt} column) and those obtained with the complete model
 \centering
 \caption{Performance metrics obtained with the complete (CC) and component (Cnt) models}
 \labtab{cc:validation:results}
-\resizebox{.8\textwidth}{!}{%
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{ccccccccccccc}
 \hline
 \multirow{3}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Predicted\\ variable\end{tabular}}} &  & \multicolumn{11}{c}{\textbf{Performance metric}}
@@ -584,15 +590,14 @@ T$_{c,in}$ ($^\circ$C) &  & - &  & 0.99 &  & - &  & 0.53 &  & - &  & 1.52 \\ \hl
 
 Once the models of the main components of the system have been validated, the
 next step is to validate the optimization strategies proposed in
-\nrefsec{cc:optimization}. First, an optimization algorithm is chosen
-by comparing different alternatives for each optimization alternative (\ie
-static and horizon). Then, the two proposed variants for the combined cooler are
-compared in simulation for one representative operation period in the simulated
-pilot plant in order to see which one performs better in
-\nrefsec{cc:validation:optimization:static-vs-horizon}. Finally, the proposed
-horizon methodology is tested in the real facility, where planned changes are
-introduced in the operation schedule, in order to validate how the optimization
-strategy adapts to changing conditions.
+\nrefsec{cc:optimization}. First, an optimization algorithm is chosen from the
+comparison between different alternatives for each optimization problem variant
+(\ie static and horizon). Then, these two variants are compared for the combined
+cooler, in simulation, for one representative operation period in the simulated
+pilot plant in order to see which one performs better. Finally, the horizon
+optimization variant is tested in the real facility. During the test, planned
+changes are introduced in the operation schedule in order to validate how the
+optimization strategy adapts to changing conditions.
 
 %================================
 \subsection{Choosing an optimization algorithm}
@@ -600,16 +605,16 @@ strategy adapts to changing conditions.
 
 \subsubsection{Static problems}
 
-For every static optimization problem (\refprob{cc:dc}, \refprob{cc:wct},
-\refprob{cc:static}) three different algorithms are tested: \gls{seacstrLabel},
+For every static optimization problem (\refprob{cc:dc}, \ref{prob:cc:wct},
+\ref{prob:cc:static}) three different algorithms are tested: \gls{seacstrLabel},
 \gls{ihsLabel} and \gls{decstrLabel}. For each alternative the same number of
-objective function evaluations are given (800) but they are distributed
-differently depending on the algorithm:
+objective function evaluations ---\ie~budget--- is given (800) but they are
+distributed differently depending on the algorithm:
 \begin{itemize}
     \item \gls{seacstrLabel} and \gls{decstrLabel} make use of the
-    \gls{cstrLabel} wrapper algorithm, which allows them to the constrained
-    problems. 10 iterations are performed for this wrapper algorithm, leaving
-    80 iterations to spare for the inner algorithm.
+    \gls{cstrLabel} wrapper algorithm, which allows them to to solve constrained
+    problems. 10 iterations are performed for this wrapper algorithm, leaving 80
+    iterations to spare for the inner algorithm.
     
     \item For all alternatives, three values are tested for the initial
     population size: 50, 100 and 400 individuals\sidenote{The initial
@@ -630,7 +635,11 @@ differently depending on the algorithm:
 \resizebox{\linewidth}{!}{%
 \begin{tabular}{llllclclccccccccc}
 \hline
-\multirow{2}{*}{\textbf{System}} &  & \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Algorithm}}} &  & \multicolumn{5}{c}{\textbf{Parameters}}                                                                                             &  & \multicolumn{7}{c}{\textbf{Average fitness per obj. fun. evaluations}}                                                                 \\ \cline{5-9} \cline{11-17} 
+\multirow{2}{*}{\textbf{System}} &  &
+\multicolumn{1}{c}{\multirow{2}{*}{\textbf{Algorithm}}} &  &
+\multicolumn{5}{c}{\textbf{Parameters}}
+&  & \multicolumn{7}{c}{\textbf{Average fitness per obj. fun. evaluations} (u.m.)}
+\\ \cline{5-9} \cline{11-17} 
                                  &  & \multicolumn{1}{c}{}                                    &  & \textbf{\begin{tabular}[c]{@{}c@{}}pop\\ size\end{tabular}} &  & \textbf{gen}     &  & \textbf{\begin{tabular}[c]{@{}c@{}}wrapper\\ algo\\ iters\end{tabular}} &  & \multicolumn{1}{c}{\textbf{0}} & \textbf{} & \multicolumn{1}{c}{\textbf{50}} & \textbf{} & \multicolumn{1}{c}{\textbf{150}} & \textbf{} & \multicolumn{1}{c}{\textbf{800}} \\ \cline{1-1} \cline{3-3} \cline{5-5} \cline{7-7} \cline{9-9} \cline{11-11} \cline{13-13} \cline{15-15} \cline{17-17} 
 
 
@@ -693,7 +702,7 @@ algorithms evaluated are: \gls{gacoLabel}, \fullgls{ihsLabel}, \gls{sgaLabel} an
 if the particular algorithm evolves more than one individual; the number of
 generations is calculated accordingly so that all alternatives have the same
 budget of objective function evaluations, equal to 200k
-evaluations\sidenote{Only up to 50k evaluations is shown in the figure for
+evaluations\sidenote{Only up to 50k evaluations are shown in the figure for
 clarity}. The results are visualized in
 \reffig{cc:validation:path_explorer_algo_comp}, where there are different plots
 for different dates, the y-axis represents the fitness and the x-axis shows the
@@ -718,10 +727,32 @@ size configuration.
 \subsection{Simulation results}[Simulation results]
 \labsec{cc:simulation:optimization-results}
 
-\reffig{cc:simulation:results-multiple-days} shows the optimization
-results\sidenote{in simulation and at pilot-scale} for the horizon optimization
+Simulation results are presented to first analyze in detail how the horizon
+optimization strategy operates the combined cooler system under different
+environmental conditions. Then, a comparison between the static and horizon
+optimization strategies is carried out to evaluate their performance in terms of
+operational costs.
+
+\textbf{Environment}. The optimization environment for this simulated analysis
+is defined as follows. Hourly weather data is obtained from a \gls{tpyLabel} of
+Tabernas (Spain) for the year~\sidecite{meteotestag_meteonorm_}. Electricity
+cost data were taken from the 2022 Spanish market pool~\sidecite{REE_website}.
+The water cost is defined as $P_{w,s1}=0.03$~\euro/m$^3$ for source~1, and
+$P_{w,s2}=80\times P_{e} = 8\pm5$~\euro/m$^3$ for source~2.
+
+The thermal load profile is created by fixing the vapor temperature at
+$T_v=35\,^\circ$C and generating an arbitrary cooling power based on the heat
+available from a scaled down \gls{cspLabel}
+model~\sidecite{ortegadelgado_theoretical_2016}. Finally, the maximum initial
+available water volume is set to $V_{avail,0}=2$~m$^3$ (only available during
+the peak precipitation period).
+
+\subsubsection{Horizon optimization}
+
+\reffig{cc:simulation:results-multiple-days} shows the optimization results
+---in simulation and at pilot-scale--- for the horizon optimization
 strategy\sidenote{This results figure structure is going to be repeated several
-times in the next sections.}. This is for the same three days in different
+times in the next sections}. This is for the same three days in different
 months: 15-February, 15-June, 15-September, that is, different periods of the
 year. This means that three different environments are available, respectively:
 cold\sidenote{\reffig{cc:simulation:results-multiple-days} - \textit{Weather
@@ -729,39 +760,40 @@ conditions}} and wet\sidenote{\ie plenty of water resource available,
 \reffig{cc:simulation:results-multiple-days} - \textit{Resources context}},
 moderate temperature and water availability; and finally hot and dry.
 
-The cooling costs obtained in each scenario are displayed in
-\reffig{cc:simulation:results-multiple-days} - \textit{Operational costs}. In
-yellow costs associated with electricity use while green for water associated
-costs. 
+The cooling costs obtained in each scenario are shown in
+\reffig{cc:simulation:results-multiple-days} under \textit{Operational costs},
+with electricity-related costs displayed in yellow and water-related costs in
+green.
 
 In terms of hydraulic distribution, it can be observed that when the water
-resource is abundant (\ie 15-February) the system relies mostly in the wet
-cooler and when combined with the dry cooler, is the only scenario where the
-parallel configuration is used. Both in the moderate (15-June) and hot-dry
-(15-September) scenarios, the system operates mostly in series, or using
+resource is abundant (\ie 15-February) the system relies mostly on the wet
+cooler. When combined with the dry cooler, this is the only scenario where the
+parallel configuration is used, while for both in the moderate (15-June) and the
+hot-dry (15-September) scenarios, the system operates mostly in series, or using
 exclusively the dry cooler. 
 
 At the bottom of the figure, in the \textit{Components} section, the cooling
 power provided by each cooler ($\dot{Q}_{wct}$ / $\dot{Q}_{dc}$) is shown with
-respect to the total ($\dot{Q}_{c}$). It can be observed that in the cold and wet
-season the system relies mostly on the wet cooler with some assist from the dry
-cooler also boosted by the low ambient temperatures. In the moderate scenario
-the roles reverse, with the dry cooler providing most of the cooling power
-while the wet cooler is used only occasionally, at the central hours of the day
-where the ambient temperature is higher and the dry cooler is not able to cope with
-the full load. Finally, in the hot and dry scenario, the system tries to rely
-exclusively on the dry cooler. However, at the peak hours of the day, the dry
-cooler is not able to provide the full cooling load, and the wet cooler is
-used to supplement the cooling power (11:00 -- 16:00).
+respect to the total ($\dot{Q}_{c}$). It can be observed that in the cold and
+wet season the system relies mostly on the wet cooler with some minor assistance
+from the dry cooler ---also boosted by the low ambient temperatures. In the
+moderate scenario the roles reverse, with the dry cooler providing most of the
+cooling power while the wet cooler is used only occasionally ---at the central
+hours of the day--- where ambient temperatures are higher and the dry cooler is
+not able to cope with the full load. Finally, in the hot and dry scenario, the
+system tries to rely exclusively on the dry cooler. However, at the peak hours
+of the day, the dry cooler is not able to provide the full cooling load, and the
+wet cooler is used to supplement the cooling power (11:00 -- 16:00).
 
-Comparing the costs, in the cold and wet season (15-Feb) not zero but orders of magnitude
-cheaper cooling is obtained compared to the other two scenarios since the
-thermal load is lower and the wet system can be broadly used. In the moderately
-hot and dry season significant higher costs can be observed due to the extended
-use of the more expensive dry cooler. This is still cheaper than the hot and dry
-season, where on top of the already more expensive dry cooler cooling, the
-sparse wet cooler use and the lack of water resource significantly increase the
-cooling costs by 50~\% compared to the moderate scenario.
+Comparing the costs, in the cold and wet season (15-Feb) cheaper cooling is
+obtained compared to the other two scenarios\sidenote{Not zero but orders of
+magnitude cheaper cooling is obtained} since the thermal load is lower and the
+wet system can be broadly used. In the moderately hot and dry season significant
+higher costs can be observed due to the extended use of the more expensive dry
+cooler. This is still cheaper than the hot and dry season, where on top of the
+already more expensive dry cooler cooling, the sparse wet cooler use and the
+lack of water resource significantly increase the cooling costs by 50~\%
+compared to the moderate scenario.
 
 % {%
 % \newgeometry{margin=0.5cm}
@@ -852,7 +884,7 @@ when it will be most beneficial.
 
 A hierarchical control\sidenote{See \nrefsec{intro:hierarchical-control}}
 strategy has been implemented in order to validate the optimization strategy in
-the real facility. \reffig{cc:validation:optimization:diagram} shows a diagram
+the real facility. \reffig{cc:validation:implementation:diagram} shows a diagram
 of the methodology, where the left side represents the upper layer with the
 proposed shrinking horizon optimization\sidenote{See
 \nrefsec{cc:optimization:horizon}} and the right side shows the low-level
@@ -887,33 +919,34 @@ forecasts obtained from the \href{https://openweathermap.org/api}{OpenWeather
 API}~\sidecite{openweather_current_2025}. Electricity cost data were taken from
 the 2022 Spanish market pool~\sidecite{REE_website}. The water cost was defined
 as $P_{w,s1}=0.03$~\euro/m$^3$ for source~1, and $P_{w,s2}=80\times P_{e} =
-8\pm5$~\euro/m$^3$ for source~2.
+8\pm5$~\euro/m$^3$ for source~2. Finally, the initial available water volume was
+set to $V_{avail,0}=0.4$~m$^3$, after which it was updated dynamically according
+to the system's real-time consumption data.
 
-The thermal load profile was created by fixing the vapor temperature at
-$T_v=45,^\circ$C and generating an arbitrary cooling power based on the heat
-available from the flat-plate collector field—the system's heat source for the
-selected day. Finally, the initial available water volume was set to
-$V_{avail,0}=0.4$~m$^3$, after which it was updated dynamically according to the
-system's real-time consumption data.
+% The thermal load profile was created by fixing the vapor temperature at
+% $T_v=45,^\circ$C and generating an arbitrary cooling power based on the heat
+% available from the flat-plate collector field ---the system's heat source for the
+% pilot plant. 
 
-\textbf{Optimization layer}. The optimization algorithm is run every 30 minutes,
+\textbf{Optimization layer}. The optimization algorithm is run periodically,
 and generates a new set of results for the remaining operation time. The results
 of the optimization are then passed to the regulatory control layer by setting
 them as setpoints for the low-level control. The box-bounds for the decision
-variables are shown in \reftab{cc:validation:optimization-bounds}. Since the
-low-level control layer actuates over the coolers fan speeds, instead of using
-$\omega_{dc}$ and $\omega_{wct}$ directly as setpoints, the would be obtained
-outlet temperatures values ($T_{dc,out}$ and $T_{wct,out}$) are used instead.
-This makes the strategy more robust, since as long as the outlet temperatures
-from the coolers are kept, and they will be since the fan speed is continuously
-regulated to achieve that, the correct condenser operation can be guaranteed,
-despite possible deviations. 
+variables are shown in \reftab{cc:validation:optimization-bounds}. 
 
-The optimization algorithm is executed every 30~minutes and generates a new set
-of results for the remaining operation period. These results are then passed to
-the regulatory control layer, where they serve as setpoints for the low-level
-control. The box constraints for the decision variables are provided in
-\reftab{cc:validation:optimization-bounds}.
+% Since the low-level control layer actuates over the coolers fan speeds, instead
+% of using $\omega_{dc}$ and $\omega_{wct}$ directly as setpoints, the
+% corresponding outlet temperatures values ($T_{dc,out}$ and $T_{wct,out}$) are
+% used instead. This makes the strategy more robust, since as long as the outlet
+% temperatures from the coolers are kept, and they will be since the fan speed is
+% continuously regulated to achieve that, the correct condenser operation can be
+% guaranteed, despite possible deviations. 
+
+% The optimization algorithm is executed every 30~minutes and generates a new set
+% of results for the remaining operation period. These results are then passed to
+% the regulatory control layer, where they serve as setpoints for the low-level
+% control. The box constraints for the decision variables are provided in
+% \reftab{cc:validation:optimization-bounds}.
 
 \begin{table}
 \caption{Low-level control loops}
@@ -940,35 +973,35 @@ FC-03 & V$_s$ & ZC-01  & $q_{dc-wct}$ & \textit{f}(FT-01,FT-02, FT-03) & 0.7 \%$
 setpoints calculated by the upper layer for the five controlled variables and
 maintain them near steady-state conditions around these references, even in the
 presence of disturbances such as variations in temperature or flow rate.
-Classical feedback loops with \gls{piLabel} controllers have been used in this
-regulatory layer, which were tuned using the improved SIMC technique~
+Classical feedback loops with \gls{piLabel} have been used in this regulatory
+layer, which were tuned using the improved SIMC technique~
 \sidecite{skogestad_simc_2012}. \reftab{cc:validation:control} shows the
-proportional gain, $K_p$, and the integral time, $K_i$, for each control loop.
+proportional gain, $K_p$, and the integral time, $T_i$, for each control loop.
 The ideal configuration of the \gls{piLabel} controller has been
 implemented\sidenote{\ie $C(s) = K_p(1 + 1/(T_i·s))$}, including anti-windup
 mechanism and a sample time of one second. In the special case of the
 \gls{acheLabel}, due to its strong nonlinear dynamics, a Gain Scheduling
 scheme~\sidecite{hagglund_advanced_2006} has been implemented. For this purpose,
-a 3$\times$3 matrix of regions has been defined to account for three levels: low,
-medium and high values in the three main variables involved
-($q_{dc}$,$\omega_{dc}$ and $\Delta T_{in-amb}$). 
+a 3$\times$3 matrix of regions has been defined to account for three levels:
+low, medium and high values in the three main variables involved
+($q_{dc}$, $\omega_{dc}$ and $\Delta T_{in-amb}$). 
 
 The optimization does not provide $\omega_{dc}$ and $\omega_{wct}$ as setpoints.
 Instead, it provides the expected corresponding outlet temperature values. This
 way the low-level control layer directly adjusts the fan speeds of the coolers
 in order to regulate the outlet temperatures ($T_{dc,out}$ and $T_{wct,out}$) to
 the setpoints provided. This approach increases the robustness of the control
-strategy: as long as the outlet temperatures of the coolers are maintained—and
-they are, since fan speeds are continuously regulated to achieve them—the proper
-operation of the condenser can be ensured, even in the presence of potential
-deviations due to modelling inaccuracies, external disturbances or uncertainty
-in the forecasted weather conditions.
+strategy: as long as the outlet temperatures of the coolers are maintained
+---and they are, since fan speeds are continuously regulated to achieve them---
+the proper operation of the condenser can be ensured, even in the presence of
+potential deviations due to modelling inaccuracies, external disturbances or
+uncertainty in the forecasted weather conditions.
 
 \textbf{Experimental results}. In order to validate the optimization strategy,
 several tests were performed over different days. In particular
-\reffig{cc:validation:exp-results} visualizes one test carried out in the 1st
-August to analyze in this section. The objective of the test was twofold. For
-the first part of the test a set operation plan was established: 
+\reffig{cc:validation:exp-results} visualizes one test carried out the 1st
+August. The objective of the test was twofold. For the first part of the test a
+set operation plan was established: 
 
 \begin{itemize}
     \item $\dot{Q}$ = Ramp up from 150 to 200 kW from 08:40 until 10:00, and
@@ -976,41 +1009,39 @@ the first part of the test a set operation plan was established:
     \item $T_v$ = 45 $^\circ$C. Held constant throughout the experiment (08:40 -- 13:00)
 \end{itemize}
 
-The objective was to validate that the optimized operation based on the provided
-predictions was effectively able to correctly manage resources and cool the
-thermal load with the predicted associated consumptions. During operation of a
-CSP plant changes to the operation plan can arise in response to changes in
-electricity market dynamics, or other unforeseen environment circumstances. At
-10:20 a change is introduced in the operation plan to simulate this behavior,
-the thermal load was ramped down with a similar (inverse) profile to the initial
-one. This allows to verify the adaptability of the proposed strategy to changing
-conditions and is the second objective of the test.
+The objective was to validate that the optimized operation ---using the
+available environment prediction--- was effective at correctly managing
+resources and cool the thermal load with the expected consumptions. During a a
+\gls{cspLabel} plant operation, changes to the operation plan can arise in
+response to changes in electricity market dynamics, or other unforeseen
+environment circumstances. At 10:20 a change is introduced in the operation plan
+to simulate this behavior. The thermal load was reduced with a similar (inverse)
+profile to the initial one. This allows to verify the adaptability of the
+proposed strategy to changing conditions which is the second objective of the
+test.
 
 The operation strategy was as follows:
 
 \begin{itemize}
+    \item The low-level control layer is activated since the beginning of the test.
+
     \item Before the test and while the system starts up by generating vacuum in
     the surface condenser, the optimization layer was evaluated to have an
-    initial perspective on the day operation and expected consumptions. If the
-    operator was satisfied the provided values were used as reference and
-    manually set to bring the system into stable operation after gradually
-    increasing the thermal load.
+    initial perspective on the day operation and expected consumptions. These
+    values were used as reference and manually set to bring the system into
+    stable operation after gradually increasing the thermal load.
     
-    \item The optimization sample time was 20 minutes, it takes around that time
-    to compute and is evaluated every 40 minutes.
+    \item The optimization sample time was 20 minutes and is evaluated every 40
+    minutes.
     
-    \item The thermal load was designed to change every 40 minutes, this means
+    \item The thermal load was designed to change every 40 minutes. This means
     that for each optimization evaluation, two setpoint changes are provided to
     the regulatory control layer per optimization evaluation and thus
     predictions must be valid for those at least 40 minutes.
     
-    \item For every optimization layer evaluation, first the environment is
-    updated and then is provided as input to the optimization evaluation (see
+    \item For each optimization layer evaluation, the environment is first
+    updated and then provided as input to the optimization process (see
     \reffig{cc:validation:implementation:diagram}).
-    
-    \item The low-level control layer has available the operation strategy for
-    the whole horizon provided by the upper layer and following its schedule
-    updates its setpoints.
 \end{itemize}
 
 
@@ -1040,37 +1071,42 @@ From the results, a few observations can be made:
     \item Overall a very good agreement between the optimization layer predicted
     operation and the experimental values can be observed. It can be seen than
     as long as the environment does not change, the generated operation strategy
-    is valid for hours. Particularly, the initial evaluation at XX:XX. In
-    another test (not shown) where the thermal load does not change throughout
-    the day the initial optimization held valid until the end of operation. But
-    as mentioned, in this particular test a planned change in the thermal load
-    profile is introduced at 10:30, which is then taken into account in the
-    optimization layer re-evaluation at 10:40, and thus a new adapted operation
-    strategy to the new scenario is generated and successfully applied.
+    is valid for hours. Particularly, the initial evaluation at 08:30 is valid
+    until the introduced change at 10:30\sidenote{In another test (not shown
+    here) where the thermal load did not change throughout the day and the
+    initial optimization held valid until the end of operation}. As mentioned,
+    in this particular test a planned change in the thermal load profile is
+    introduced at 10:30, which is then taken into account in the optimization
+    layer re-evaluation at 10:40, and thus a new adapted operation strategy to
+    the new scenario is generated and successfully applied.
     
-    \item The dry system is very sensitive to the ambient temperature when
-    operating in its limits. Less than half-degree prediction error in the
-    ambient temperature (0.4 $^\circ$C between 09:04 and 09:17) translates in a
-    15\% difference between the expected and the actual fan speed.
+    \item The dry system is highly sensitive to ambient temperature when
+    operating near its limits. A prediction error of less than half a degree
+    (0.4~$^\circ$C between 09:04 and 09:17) results in a 15~\% deviation between
+    the expected and actual fan speed.
+
     
-    \item When both systems are operating, if the dry cooler falls short in its
-    cooling allocation, the wet cooler can compensate for the dry cooler
-    shortcoming on its cooling allocation. However, as can be seen at the
-    beginning of the test (09:04 -- 09:17), when only the dry cooler is used and
-    does so in its limits (\reffig{cc:validation:exp-results} - \textit{\gls{dcLabel} outlet temperature loop - Control
-    signal}) it can happen that the load is undercooled resulting in a higher
-    condenser pressure (in terms of temperature, +1-2 $^\circ$C can be observed,
-    which would translate in a penalty in the power produced by the turbine). A
-    low-level supervisory controller should be set in place to prevent this.
+    \item When both systems are operating, the wet cooler can compensate for any
+    shortfall in the dry cooler's assigned cooling duty. However, as observed at
+    the beginning of the test (09:04--09:17), when only the dry cooler is active
+    and operating at its limits (\reffig{cc:validation:exp-results} --
+    \textit{\gls{dcLabel} outlet temperature loop -- Control signal}), the load
+    may become undercooled. This leads to an increase in condenser pressure,
+    with outlet temperatures rising by approximately 1--2~$^\circ$C, which would
+    penalize the turbine's power production. To avoid such situations, a
+    low-level supervisory controller should be implemented\sidenote{This is
+    indicated in \reffig{cc:validation:implementation:diagram} --
+    \textit{Regulatcory control} -- \textit{Cooling power}}.
+
     
-    \item To avoid using the alternative more expensive alternative water
-    source, the optimization prioritized the use of the dry cooling (as far as
-    being dry-only as long as the ambient temperature and demanded thermal load
-    allowed it, up until 09:20) to conserve water until the end of operation. After the
-    operation plan change, the lower expected load gives more room for
+    \item To avoid using the more expensive alternative water source, the
+    optimization prioritized the use of the dry cooling (as far as being
+    dry-only as long as the ambient temperature and demanded thermal load
+    allowed it, up until 09:20) to conserve water until the end of operation.
+    After the operation plan changes, the lower expected load gives more room for
     adjustment and the optimization increases the load through the wet system
-    from 0-40\% to about 50\% (\reffig{cc:validation:exp-results} - \textit{Hydraulic distribution and Cooling
-    power distribution}).
+    from 0--40~\% to about 50~\% (\reffig{cc:validation:exp-results} --
+    \textit{Hydraulic distribution and Cooling power distribution}).
     
     \item The restricted availability of the water resource, means that the
     optimization strategy always prioritizes water savings either by dry-only
@@ -1083,9 +1119,13 @@ From the results, a few observations can be made:
     control, for example, in a static feed-forward action.
     
     \item From the initial optimization evaluation, the low-level control layer
-    has available an operation strategy for the whole horizon. This makes the
-    strategy robust in the case the optimization is not evaluated again, or not
-    evaluated on time.
+    receives an operation strategy for the entire horizon in the form of a
+    vector of setpoints. This allows the controller to remain robust even if the
+    optimization is not recomputed or updated on time, as it can continue
+    applying the previously evaluated setpoints until new ones become available.
+    And, as observed, the operation strategy remains valid for long periods
+    ---in the order of hours--- as long as unexpected changes in the environment
+    do not occur.
 \end{itemize}
 
 \newgeometry{margin=0.5cm}
