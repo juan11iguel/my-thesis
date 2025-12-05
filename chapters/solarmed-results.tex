@@ -226,7 +226,7 @@ affects overall performance, different visualizations are presented in
 Figures~\ref{fig:solarmed:optimization:results:key_vars_comp},
 \ref{fig:solarmed:optimization:results:schedule_comparison}, and
 \ref{fig:solarmed:optimization:results:final_comparison}. Each operation
-strategy is compared on a day-by-day basis\sidenote[][*-5]{In
+strategy is compared on a day-by-day basis\sidenote[][]{In
 Figures~\ref{fig:solarmed:optimization:results:key_vars_comp} and
 \ref{fig:solarmed:optimization:results:final_comparison}, the cumulative daily
 irradiance is shown in the background as a reference of the available solar
@@ -244,18 +244,12 @@ operation schedule of each subsystem. Yellow bars correspond to the heat
 generation and storage subsystem (\gls{sftsLabel}), while purple bars represent
 the \gls{medLabel} desalination subsystem. The start and end of each bar
 indicate subsystem start-up and shutdown times, respectively, with the bar
-length representing the active period duration\sidenote[][*-10]{Also displayed
+length representing the active period duration\sidenote[][*-3]{Also displayed
 numerically next to each bar, and the mean value summarized in the legend}.
 
 Finally, \reffig{solarmed:optimization:results:final_comparison} compares
 the cumulative daily benefit (left bars) and the total benefit obtained at the
 end of the episode (rightmost yellow bars).
-
-\begin{marginfigure}[*-10]
-    \includegraphics[]{figures/solarmed_optim_startup_shutdown_comparison.png}
-    \caption[Operation schedule comparison]{Operation schedule comparison between optimization strategies}
-    \labfig{solarmed:optimization:results:schedule_comparison}
-\end{marginfigure}
 
 \paragraph{Results discussion.}
 
@@ -307,6 +301,12 @@ Although it operates the \gls{medLabel} longer than the \gls{nlpLabel}, this
 does not lead to higher benefits (see
 \reffig{solarmed:optimization:results:final_comparison}, Heuristic
 vs.~\gls{nlpLabel}).
+
+\begin{marginfigure}[*-4]
+    \includegraphics[]{figures/solarmed_optim_startup_shutdown_comparison.png}
+    \caption[Operation schedule comparison]{Operation schedule comparison between optimization strategies}
+    \labfig{solarmed:optimization:results:schedule_comparison}
+\end{marginfigure}
 
 Another interesting observation is the difference in \gls{medLabel} heat source
 temperature span between the Heuristic and optimized strategies: 2.34~K for the
