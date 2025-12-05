@@ -69,13 +69,33 @@ to assess, and achieving optimal \gls{medLabel} operation requires optimizing
 the entire coupled system.
 
 Several studies have addressed this broader problem at varying levels of
-complexity. For instance, González~\etal~\cite{gonzalez_economic_2014a} proposed
-a receding-horizon optimal control strategy with economic objectives
----maximizing water production while minimizing electricity costs. Their work
-relied on a simplified linear model, optimizing only the solar field flow while
-keeping the \gls{medLabel} inlet temperature constant. Nevertheless, the most
-advanced optimization efforts reported in the literature have focused not on
-\gls{medLabel}, but on \gls{mdLabel}.
+complexity. Roca~\etal~\sidecite{roca_hybrid_2009} developed a hierarchical
+hybrid control strategy for the AQUASOL solar desalination plant, when it was a
+hybrid \gls{medLabel} system powered by both solar thermal energy and a
+gas-fired absorption heat pump. Their approach explicitly models the discrete
+operating modes of the facility (solar, solar--recirculation, mixed, and
+fossil-fuel), combining a supervisory hybrid predictive controller with local
+controllers for the solar field, \gls{medLabel} inlet temperature, and
+absorption heat pump. Mode selection is handled through optimization of a
+hybrid model that incorporates both continuous dynamics (temperatures, flows)
+and logical variables associated with system configuration. While this work
+represents one of the earliest attempts to systematically manage operating-mode
+switching in solar-driven desalination, the optimization objective is set to
+maintain a nominal constant distillate production; it does not consider
+electrical-use-associated costs and only considers active operation (no
+startup/shutdown of the \gls{medLabel} process)\sidenote{At the time the
+facility included a very small thermal storage system, so it would not really
+provide much flexibility to take advantage of.}. As a result, the approach
+provides robust mode coordination but does not achieve full system-level
+optimality.
+
+González~\etal~\cite{gonzalez_economic_2014a} proposed a receding-horizon
+optimal control strategy with economic objectives ---maximizing water production
+while minimizing electricity costs. Their work relied on a simplified linear
+model, optimizing only the solar field flow while keeping the \gls{medLabel}
+inlet temperature constant. Nevertheless, the most advanced optimization efforts
+reported in the literature have focused not on \gls{medLabel}, but on
+\gls{mdLabel}.
 
 In Porrazzo~\etal~\sidecite{porrazzo_neural_2013}, the authors developed a
 neural network-based optimizing control system for a solar-powered seawater
@@ -120,9 +140,10 @@ rely on uncontrollable variables, or use overly simplified models. From the
 process analysis in \refch{solarmed:std}, it was concluded that the key
 controllable variables that fully define the operating conditions of an
 \gls{medLabel} plant are: the heat source flow rate ($q_{med,s}$), the heat
-source inlet temperature ($T_{med,s,in}$), the feedwater flow rate ($q_{med,f}$), and
-the condenser outlet temperature ($T_{med,c,out}$). These should therefore serve
-as the decision variables when optimizing plant operation. 
+source inlet temperature ($T_{med,s,in}$), the feedwater flow rate
+($q_{med,f}$), and the condenser outlet temperature ($T_{med,c,out}$). These
+should therefore serve as the decision variables when optimizing plant
+operation. 
 
 Secondly, the objective in optimizing desalination processes is to maximize
 distillate production while minimizing the resources required. In solar-driven
@@ -274,16 +295,27 @@ subsystem\sidenote{As defined in
 Tables~\ref{tab:solarmed:modelling:sfts_fsm_states} and
 \ref{tab:solarmed:modelling:med_fsm_states}.\\
 Once the values for these decision variables are provided, the low-level control
-layer is in charge of safely transitioning between operation states \eg:\\
-$med_{mode}: 0 \rightarrow
-1$
-\\med state: \textit{off} $\rightarrow$ \textit{generating vacuum}
-$\rightarrow$ \textit{starting-up} $\rightarrow$ \textit{active}} and accounted
-for in the models by the integrated finite-state machines as explained in
-\refsec{solarmed:modelling:discrete}. For the continuous space, the decision
-variables include the ones that define the operating conditions (\ie operation
-point) of the \gls{medLabel} system, and the two recirculation flow rates that
-determine the conditions of the heat source ($q_{sf}$, $q_{ts,src}$).
+layer is in charge of safely transitioning between operation states \eg:\\[1ex]
+· $med_{mode}: 0 \rightarrow 1$ \\
+· med state: \textit{off} $\rightarrow$ \textit{generating vacuum} $\rightarrow$ \textit{starting-up} $\rightarrow$\textit{active}\\
+} and accounted for in the models by the integrated finite-state
+machines as explained in \refsec{solarmed:modelling:discrete}. For the
+continuous space, the decision variables include the ones that define the
+operating conditions (\ie operation point) of the \gls{medLabel} system, and the
+two recirculation flow rates that determine the conditions of the heat source
+($q_{sf}$, $q_{ts,src}$).
+
+The decision vector ($\mathbf{x}$) is constructed by repeating each decision
+variable ($x_i$) as many times as the number of updates defined for it
+($n_{updates, x_i}$)\sidenote{The reason for this parameter is explained in the
+following section}:
+\begin{equation}
+    \mathbf{x}_{n_x \times \sum n_{updates, x_i}} = 
+    [x_{1,1}, \ldots, x_{1, n_{updates, x_1}}, 
+    \ldots, x_{n_x, n_{updates, x_{n_x}}}]
+    \labeq{solarmed:optimization:decision_vector}
+\end{equation}
+
 
 %================================
 %================================
@@ -294,12 +326,11 @@ determine the conditions of the heat source ($q_{sf}$, $q_{ts,src}$).
 \subsubsection{On the constraint handling}
 \labsec{solarmed:optimization:constraints-discussion}
 
-The reader might notice that no constraints are explicitly defined in the
-problem definition. This is because the constraints are implicitly defined in
-the model equations, which are used to evaluate the objective function. This
-design decision is motivated to avoid the need for a constraint-handling
-capable optimization algorithm, limiting the choice for an already complex
-\gls{minlpLabel} problem\sidenote{See
+No constraints are explicitly defined in the problem definition. This is because
+the constraints are implicitly defined in the model equations, which are used to
+evaluate the objective function. This design decision is motivated to avoid the
+need for a constraint-handling capable optimization algorithm, limiting the
+choice for an already complex \gls{minlpLabel} problem\sidenote{See
 \nrefsec{intro:optimization:constraints} for a more detailed discussion on the
 topic}. Specifically, two aspects demand further consideration:
 
@@ -339,14 +370,13 @@ topic}. Specifically, two aspects demand further consideration:
 \labsec{solarmed:optimization:decision_variables-discussion}
 
 The problem is designed as an optimization problem with a shrinking
-horizon\marginreminder[*-2]{Shrinking horizon optimization}{
-An optimization where the horizon end is fixed, and as time progresses, the
-start of the horizon moves forward.\footnote{See
-\nrefsec{intro:optimization}}
-}. The horizon size should be large enough so that
-decisions on how to operate the system are made with perspective, taking into
-account how they will affect the system in the future, but not so large that
-current decisions have no impact on the far future, and making the problem dimensionality become unmanageable. 
+horizon\marginreminder[*-2]{Shrinking horizon optimization}{ An optimization
+where the horizon end is fixed, and as time progresses, the start of the horizon
+moves forward.\footnote{See \nrefsec{intro:optimization}} }. The horizon size
+should be large enough so that decisions on how to operate the system are made
+with perspective, taking into account how they will affect the system in the
+future, but not so large that current decisions have no impact on the far
+future, and make the problem dimensionality unmanageable. 
 
 For this case study, this parameter should be chosen based
 on the hours of capacity of the thermal storage to operate the \gls{medLabel} system.
@@ -355,7 +385,7 @@ The thermal storage capacity allows the system to operate with no supply from
 the solar field for several hours. This means that depending on the charge
 state of the thermal storage, the system could start operation independently of
 the irradiance conditions, or operate at different levels of temperature.
-Considering this the optimization horizon, in time units, chosen was 36 hours.
+Considering this the optimization horizon chosen was 36 hours.
 This means that if the optimization is evaluated at 5:00 on day~1, the fitness
 function is evaluated until 19:00 of day 2 \ie including the end of operation
 for day 2. 
@@ -383,7 +413,8 @@ the number of integer variables ($n_{xi}$) and the number of decision updates
     n_{\text{problems}} = n_{xi}^{n_{\text{updates}, xi}}.
 \end{equation}
 
-This exponential growth makes the search space extremely large and complex\sidenote[][*-3]{For example: \\
+This exponential growth makes the search space extremely large and
+complex\sidenote[][*-3]{For example (with $n_{xi}=2$): \\
 $n_{\text{updates}, \forall xi}=6 \rightarrow n_{problems} = 64$, \\
 $n_{\text{updates}, \forall xi}=24 \rightarrow n_{problems} = 16\,777\,216$}.
 
@@ -392,36 +423,25 @@ whether the sequence of integer decisions (\ie, operational mode transitions
 over time) is predefined or whether the optimization algorithm is allowed to
 explore the decision tree freely and determine the optimal sequence. The latter
 case requires more computational effort but allows for potentially better-performing
-solutions by dynamically adjusting to system conditions.
+solutions.
 
 \subsubsection{On the decision variables update frequency}
 \labsec{solarmed:optimization:decision_variables-discussion}
 
-Apart from the integer decision variables, if a fixed update frequency is chosen
-for all continuous decision variables, the size of the decision vector can grow
-rapidly for long horizons, often with diminishing returns. To address this, a
-new design parameter is introduced: the number of updates
-$\left(n_{updates, x_i}\right)$ assigned to each decision variable in the
-optimization problem.
+Apart from the integer decision variables combinatory nature, using a uniform
+update frequency for all continuous variables can cause the decision vector to
+grow rapidly over long horizons, often with diminishing returns. To avoid this,
+each continuous decision variable is assigned a number of updates, \(
+n_{\text{updates}, x_i} \in [1, n_{\text{steps}}] \).
 
-Accordingly, the decision vector is constructed by repeating each decision
-variable as many times as the number of updates defined for it:
-\[
-    X_{n_x \times \sum n_{updates, x_i}} = 
-    [x_{1,1}, \ldots, x_{1, n_{updates, x_1}}, 
-    \ldots, x_{n_x, n_{updates, x_{n_x}}}]
-\]
+This tunnable parameter can be chosen independently for each decision variable,
+where variables associated with faster dynamics (\eg, \( q_{sf} \), \(
+q_{ts,src} \)) receive more frequent updates. These updates are distributed
+evenly across the \emph{active} period of the corresponding subsystem within the
+horizon. This prevents updates from being wasted during inactive intervals
+(\eg, the gap between the end of operation on day~1 and the start on day~2).
 
-The number of updates for each decision variable
-($n_{updates, x_i} \in [1, n_{steps}]$) can be selected independently.
-More frequent updates are assigned to variables governing faster dynamics
-(\eg, $q_{sf}$, $q_{ts,src}$). These updates are evenly distributed throughout
-the \textit{active} period of the corresponding subsystem within the horizon.
-This design choice is important, since otherwise the limited number of updates
-could be wasted on inactive periods (\eg, between the end of operation on day~1
-and the start on day~2).
-
-\begin{marginfigure}[-11.5cm]
+\begin{marginfigure}[-9.5cm]
     \includegraphics[]{solarmed-optimization-decision_tree.png}
     \caption{Decision tree resulting from the combinatorial nature of the integer part of the optimization problem. Text in nodes represents system states.}
     \labfig{solarmed:optimization:decision_tree}
@@ -578,8 +598,8 @@ operation plans.
 Up to this stage, the operation plans generated consist merely of lists of ones
 and zeros for each subsystem, indicating whether the subsystem is active or
 inactive at each update. The next step is to assign these operation mode updates
-to specific time instants, which can then be resampled to match the desired
-sampling time of the optimization problem\sidenote{As with the continuous
+to specific time instants\sidenote[][*-5]{Which can then be resampled to match
+the desired sampling time of the optimization problem. As with the continuous
 component of the decision vector, this is achieved by forward-filling the values
 until the next update time. This approach is also known as \textit{Last
 Observation Carried Forward}~\cite{hyndman_forecasting_2021}}.
@@ -591,29 +611,31 @@ solar-driven, its operation is highly dependent on irradiance availability, and
 thus changes in operation typically occur at the beginning and end of the solar
 day. 
 
-The temporal distribution of operation mode updates is shown in
-\reffig{solarmed:optimization:updates_distribution}, which depends on the number
-of available updates (\gls{dofLabel}). These update times are determined based
-on the solar irradiance profile and are bounded by lower and upper thresholds.
-Depending on the type of operation (start-up or shutdown), these thresholds are
-referred to as early--late start or early--late stop thresholds, respectively.
-
-In \reffig{solarmed:optimization:updates_distribution}, up to three
-\gls{dofLabel} are illustrated. If only one update is available
-(1~\gls{dofLabel}), it is placed at the midpoint between the early and late
-thresholds. When two \gls{dofLabel} are available, they are located at the early
-threshold and the midpoint, and at the late threshold, respectively. With three
-\gls{dofLabel}, the subsystem updates occur at the early, average, and late
-thresholds. For the \gls{medLabel} subsystem, these updates can  be delayed with
-respect to those of the \gls{sftsLabel} subsystem as illustrated in
-\reffig{solarmed:optimization:updates_distribution} -- 2~\gls{dofLabel}. If more
-\gls{dofLabel} are available, additional thresholds can be introduced as needed. 
-
-\begin{marginfigure}[-5.5cm]
+\begin{marginfigure}[-1.5cm]
     \includegraphics[]{figures/solarmed-optimization-updates_distribution.png}
     \caption{Operation mode updates time distribution. The thick-yellow line illustrates the irradiance.}
     \labfig{solarmed:optimization:updates_distribution}
 \end{marginfigure}
+
+The temporal distribution of operation mode updates is shown in
+\reffig{solarmed:optimization:updates_distribution}, which depends on the number
+of available updates (\gls{dofLabel}). These update times are determined based
+on the solar irradiance profile and are bounded by lower and upper
+thresholds\sidenote[][*5]{Being these two values two tunnable parameters of the
+method}. Depending on the type of operation (start-up or shutdown), these
+thresholds are referred to as early/late start or early/late stop thresholds,
+respectively.
+
+In \reffig{solarmed:optimization:updates_distribution}, up to three
+\gls{dofLabel} are illustrated. If only one update (1~\gls{dofLabel}) is
+available (1~\gls{dofLabel}), it is placed at the midpoint between the early and
+late thresholds. When two \gls{dofLabel} are available, they are located at the
+early threshold and the midpoint, and at the late threshold, respectively. With
+three \gls{dofLabel}, the subsystem updates occur at the early, average, and
+late thresholds. For the \gls{medLabel} subsystem, these updates can  be delayed
+with respect to those of the \gls{sftsLabel} subsystem as illustrated in
+\reffig{solarmed:optimization:updates_distribution} -- 2~\gls{dofLabel}. If more
+\gls{dofLabel} are available, additional thresholds can be introduced as needed. 
 
 The relative shift or delay between subsystems acts as an additional tuning
 parameter of the methodology. However, for simplicity, this offset has been set
@@ -635,16 +657,16 @@ in staggered operation changes across the candidate problems.
 % \end{figure*}
 
 
-Given a number of updates per subsystem and the update times assigned. The
+Given a number of updates per subsystem and the update times assigned, the
 potential operation time change candidates are defined as:
 
 \[
     t_{mode-change,candidates} =  \left[t_0,\, t_1,\, \ldots,\, t_{\max(n_{updates,\forall x_i})}\right]
 \]
 
-Ordered in ascending order, where $t_0$ is the earliest potential operation
+They are ordered in ascending order, where $t_0$ is the earliest potential operation
 change time and $t_{\max(n_{updates,\forall x_i})}$ is the latest potential
-operation change time\sidenote[][*-1.5]{Based on this definition, the earliest potential
+operation change time\sidenote[][*-3]{Based on this definition, the earliest potential
 subsystem start-up would be at $t_{\uparrow, candidates}(0)$. Similarly, the
 earliest potential shutdown would be at $t_{\downarrow, candidates}(0)$.}.
 
@@ -663,29 +685,31 @@ earliest potential shutdown would be at $t_{\downarrow, candidates}(0)$.}.
 \labsec{solarmed:optimization:operation_plan:start-up}
 
 This is the first evaluation of the proposed methodology as illustrated in
-\reffig{solarmed:optimization:methodology_timeline}~\texttt{(1)}. It is
-computed ahead of the first potential operation mode change
-($t_{\uparrow,candidates}(0)$), with enough lead time to complete the evaluation
-before any potential change in operation mode\sidenote{This is represented by
-the first yellow triangle group ({\large \trianglemarker[D6B656]{up}}) in
+\reffig{solarmed:optimization:methodology_timeline}~\texttt{(1)}. It is computed
+ahead of the first potential operation mode change
+($t_{\uparrow,candidates}(0)$)\sidenote{Nomenclature: $\uparrow$ indicates
+startup, $\downarrow$ indicates shutdown}, with enough lead time to complete the
+evaluation before any potential change in operation mode\sidenote{This is
+represented by the first yellow triangle group ({\large
+\trianglemarker[D6B656]{up}}) in
 \reffig{solarmed:optimization:methodology_timeline}}:
 
 \[
     t=t_{\uparrow,candidates}(0) - (\Delta t_{eval,plan}\times n_{evals})
 \]
 
-The most important aspect of this evaluation is to find the right time to bring
-the subsystems online\sidenote{Yellow upward-pointing triangles ({\large
+The primary goal of this evaluation is to determine the optimal timing for
+activating the subsystems\sidenote{Yellow upward-pointing triangles ({\large
 \trianglemarker[D6B656]{up}}) in
-\reffig{solarmed:optimization:methodology_timeline}~\texttt{(3)}}, and a
-secondary objective is to provide a preliminary estimate for their shutdown
-timing\sidenote{Yellow downwards-pointing triangles ({\large
+\reffig{solarmed:optimization:methodology_timeline}~\texttt{(3)}}, while a
+secondary objective is to provide an initial estimate for their shutdown
+schedule\sidenote{Yellow downward-pointing triangles ({\large
 \trianglemarker[D6B656]{down}}) in
 \reffig{solarmed:optimization:methodology_timeline}~\texttt{(5)}}.
 
 As the earliest evaluation, it considers the longest prediction horizon and
-therefore the highest uncertainty in the predicted variables. On the other
-hand, starting the evaluation early provides ample computation time--- 
+therefore deals with the highest uncertainty in the predicted variables. On the
+other hand, starting the evaluation early provides ample computation time---
 several hours in advance ---to perform multiple assessments under different
 \textit{scenarios}. In this work, three evaluations ($n_{evals}=3$) are
 conducted using distinct solar irradiance estimates. Irradiance is selected as
@@ -751,7 +775,7 @@ lenient, computational resources may be wasted on poor-performing candidates.
 As mentioned, this middle layer establishes the setpoints for the continuous
 process variables, \ie the continuous part of the \gls{minlpLabel} problem. It
 is depicted in \reffig{solarmed:optimization:methodology_timeline} --
-\textit{Operation optimization} and starting its evaluation cycle at \texttt{(2)}.
+\textit{Operation optimization} and its evaluation cycle starts at~\texttt{(2)}.
 The operation optimization layer evaluates periodically, with a sample time
 $T_{eval,optim}$, a \gls{nlpLabel} problem where the integer decision variables
 are fixed to the values provided by the operation plan layer\sidenote{It is
