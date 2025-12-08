@@ -83,12 +83,12 @@ operation of the system are described in \refch{solarmed:modelling} and
     growth~\cite{pltonykova_united_2020,jones_state_2019}. It already plays a
     fundamental role in many regions~\cite{eke_global_2020}, but, as more
     frequent droughts and water shortages are expected, the demand for
-    desalinated water is likely to increase.\\
+    desalinated water is likely to increase.\smallskip
 
     However, desalination also faces several challenges, the most important
     being the intense energy required to separate salts from seawater, which
     makes it an expensive process compared to other methods to obtain fresh
-    water.\\
+    water.\smallskip
 
     Low-temperature \gls{medLabel} systems constitute a mature, robust, and
     technically sound solution for brine concentration and resource recovery,
@@ -112,19 +112,9 @@ issue is not confined to emerging economies, as Southern European countries like
 Spain, Italy, and Portugal are also significantly affected with projections of
 extremely high water scarcity.
 
-\begin{figure}
-    \includegraphics[width=.7\textwidth]{water-stress-map.jpeg}
-    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{https://www.statista.com/chart/26140/water-stress-projections-global/}}
-    \caption{Global water stress map. \\[1ex]Source:
-    \href{https://www.statista.com/chart/26140/water-stress-projections-global/}{Statista}.\\[1ex]
-    \usebox\captionqr}
-    \labfig{solarmed:water-stress-map}
-\end{figure}
-
-
 Desalination is often seen as a solution to mitigate freshwater scarcity in the
 face of climate change and population
-growth~\sidecite{pltonykova_united_2020,jones_state_2019}. It already plays a
+growth~\sidecite[*-4]{pltonykova_united_2020,jones_state_2019}. It already plays a
 fundamental role in many regions~\sidecite{eke_global_2020}, but, as more
 frequent droughts and water shortages are expected, the demand for desalinated
 water is likely to increase~\sidecite{mekonnen_four_2016}. However, desalination
@@ -133,21 +123,31 @@ required to separate salts from seawater, which makes it an expensive process
 compared to other methods to obtain fresh water.
 
 In a water scarcity scenario, the priority should always be to reduce the water
-demand in the first place~\sidecite{semiat_energy_2008}. Secondly, to recycle as
-much water as possible so that it can be reused~\sidecite{howe_principles_2012}.
-However, for many parts of the world, these are only palliative measures. Simply
-put, there will not be enough water available to satisfy its needs, and thus the
-energy intense process of desalination is the only viable alternative.
+demand in the first place~\sidecite[*-2]{semiat_energy_2008}. Secondly, to
+recycle as much water as possible so that it can be
+reused~\sidecite[*-1]{howe_principles_2012}. However, for many parts of the world,
+these are only palliative measures. Simply put, there will not be enough water
+available to satisfy its needs, and thus the energy intense process of
+desalination is the only viable alternative.
 
 Great efforts are being made to reduce the energy consumption of desalination
 and use renewable energies to increase its
-sustainability~\sidecite{shekarchi_comprehensive_2019,allouhi_green_2024,schar_optimization_2023}.
+sustainability~\sidecite[*-4]{shekarchi_comprehensive_2019,allouhi_green_2024,schar_optimization_2023}.
 Another path to follow is to generate added value from the separation process. 
 
 %===================================
 %===================================
 \section{Brine concentration and mining}
 \labsec{solarmed:intro:brine}
+
+\begin{figure}
+    \includegraphics[width=.7\textwidth]{water-stress-map.jpeg}
+    \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{https://www.statista.com/chart/26140/water-stress-projections-global/}}
+    \caption{Global water stress map. \\[1ex]Source:
+    \href{https://www.statista.com/chart/26140/water-stress-projections-global/}{Statista}.\\[1ex]
+    \usebox\captionqr}
+    \labfig{solarmed:water-stress-map}
+\end{figure}
 
 Brine, a byproduct of the desalination process, typically exhibits salinities
 1.6--2.1 times higher than seawater, along with residual process chemicals such
@@ -232,7 +232,7 @@ The main thermal processes are:
     into vapor in a series of chambers operating at successively lower
     pressures. The vapor is condensed to produce distilled water, and the
     released heat is recovered to preheat the feed. \gls{msfLabel} systems are
-    robust and well-proven for large capacities but have high thermal and
+    robust and well-proven for large capacities but have higher thermal and
     electrical energy requirements.
     
     \item \fullgls{medLabel}.~\gls{medLabel} involves a sequence of
@@ -251,21 +251,25 @@ The main thermal processes are:
     \glsentryshort{tvcLabel} is often combined with \gls{medLabel} to improve
     energy recovery.
 
-    \item \gls{mdLabel}. Membrane Distillation bridges the gap between thermal
-    and membrane technologies. It operates on the principle of vapor-phase
-    transport through a hydrophobic, microporous membrane. The driving force is
-    a vapor pressure difference generated by a temperature gradient across the
-    membrane, rather than hydraulic pressure. The hot saline feed partially
-    evaporates at the membrane surface, and the vapor diffuses through the
-    membrane pores to condense on the cooler permeate side. \gls{mdLabel} can
-    utilize low-grade or waste heat (<~80~$^\circ$C), tolerate very high
-    salinity feeds (even near saturation), and achieve high rejection rates
-    (>99.9~\%). Common configurations include Direct Contact \gls{mdLabel}
-    (DC\gls{mdLabel}), Air-Gap \gls{mdLabel} (AG\gls{mdLabel}), Vacuum
-    \gls{mdLabel} (V\gls{mdLabel}), and Sweeping-Gas \gls{mdLabel}
-    (SG\gls{mdLabel}). Although still emerging at industrial scale,
-    \gls{mdLabel} is particularly promising for brine concentration,
-    \gls{mldLabel} systems, and solar-driven desalination.
+    \item \gls{mdLabel}. In Membrane Distillation a hydrophobic, microporous
+    membrane acts as a physical barrier that prevents liquid intrusion
+    while allowing water vapor to pass. The liquid and vapor phases at the
+    membrane interface remain in thermodynamic equilibrium, and the driving
+    force is a vapor pressure difference across the membrane, normally
+    established by a temperature gradient. Under this gradient, vapor formed at
+    the hot feed-membrane interface flows through the membrane pores toward the
+    side with lower vapor pressure, where it condenses. \gls{mdLabel} can
+    utilize low-grade or waste heat (<~80~$^\circ$C) and can operate with very
+    high salinity feeds (even near saturation). Salt rejection is typically
+    high, although the exact salt rejection factor depends strongly on membrane
+    properties, on operating conditions and the membrane configuration.
+
+    Common configurations include Direct Contact \gls{mdLabel}
+    (DC\gls{mdLabel}), Air-Gap \gls{mdLabel} (AG\gls{mdLabel}), Vacuum \gls{mdLabel}
+    (V\gls{mdLabel}), Sweeping-Gas \gls{mdLabel} (SG\gls{mdLabel}), and
+    Vacuum-Air-Gap \gls{mdLabel} (V-AG\gls{mdLabel}). Although still emerging at
+    industrial scale, \gls{mdLabel} is particularly promising for brine
+    concentration, \gls{mldLabel} systems, and solar-driven desalination.
 \end{itemize}
 
 
@@ -361,7 +365,7 @@ This resurgence is driven by the increasing availability of low-grade or waste
 heat, the desire for robust, low-maintenance systems in off-grid or remote
 regions, and the need for brine concentration and minimum-liquid discharge
 applications where \gls{roLabel} performance declines sharply. The development
-of membrane distillation (\gls{mdLabel}) ---a hybrid thermal-membrane
+of membrane distillation (\gls{mdLabel}) ---a low temperature thermal separation
 process--- is an example of this shift.
 
 
@@ -575,22 +579,21 @@ and energy sectors. However, challenges remain in terms of temporal
 availability, temperature matching, and economic competitiveness.
 
 \annotation{Solar energy and waste heat are free --- so why care about efficiency?}{
-Is it not solar energy free? Yes and no. This has been a recurring topic of debate
+{ Is it not solar energy free? Yes and no. This has been a recurring topic of debate
 in the literature. Although the fuel, the Sun, is indeed free and
 practically inexhaustible, converting that energy into a useful form (whether
 electrical, thermal, or otherwise) requires a transformation process that
-entails costs.
+entails costs.\\
 
 In the case of solar fields, whether photovoltaic or solar-thermal, the more
 energy you need, the larger the field area required, and consequently, the higher
 the investment cost. Therefore, renewable sources do not provide free energy. A
 similar argument applies to waste heat: to obtain usable heat for a thermal
 separator, a transformation process is often required, typically involving
-costly heat exchangers.
+costly heat exchangers.\\
 
 In summary, generating heat solely to power a thermal separation
 process (renewable or not) is generally inefficient and capital-intensive.\\
 
 A separate question ---explored in \nrefch{solarmed:std}--- is what we actually
-mean by efficiency, and how it should be defined according to the energy source.
-}
+mean by efficiency, and how it should be defined according to the energy source.}}
