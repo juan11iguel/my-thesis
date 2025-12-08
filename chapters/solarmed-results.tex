@@ -33,15 +33,15 @@
 \reffig{solarmed:optimization:results:op-plan-candidates} shows the initial
 evaluation of the operation plan layer -- startup. In
 \reffig{solarmed:optimization:results:op-plan-candidates}~(a) it is shown how
-the available degrees of freedom are distributed for Days 23 and 26. Three
+the available degrees of freedom are distributed for Days~23 and 26. Three
 \gls{dofLabel} are available for the initial startup, two for the shutdown, and
-none for the second day in the horizon. From this selection the operation plans
-are generated as shown in
+none ---\ie fixed schedule--- for the second day in the horizon. From this
+selection the operation plans are generated as shown in
 \reffig{solarmed:optimization:results:op-plan-candidates}~(b) -- Day 23, where
-the \textcolor[HTML]{666666}{dashed-gray (- -)} vertical lines are
-equivalent to the arrows in (a) and the horizontal lines represent the active
-operation span. For this particular day the optimization favors the shortest
-operation time and most delayed start (Problem 29 in
+the \textcolor[HTML]{666666}{dashed-gray (- -)} vertical lines are equivalent to
+the arrows in (a) and the horizontal lines represent the active operation span.
+For this particular day the optimization favors the shortest operation time and
+most delayed start (Problem 29 in
 \reffig{solarmed:optimization:results:op-plan-candidates}~(b)).
 
 Another thing to notice, is how despite the unstable irradiance in Day 26, the
@@ -55,7 +55,7 @@ explore the solution space and identify a decision vector that minimizes the
 objective function.
 
 The solution space has proven to be non-convex, exhibiting numerous local
-minima--- poor results were obtained when using gradient-based local search
+minima ---poor results were obtained when using gradient-based local search
 algorithms. The size of the decision vector depends on the duration of the
 active periods, typically around 120 elements. Moreover, simulating two days of
 operation (even when inactive periods are skipped) requires approximately
@@ -71,12 +71,11 @@ chosen, and a library of global evolutionary algorithms from the open-source
 \textit{PyGMO} Python package was tested\sidenote{See \nrefsec{intro:tools}}.
 The algorithms considered include: \gls{deLabel}, Self-adaptive Differential
 Evolution (SADE), \gls{seaLabel}, Covariance Matrix Adaptation Evolution
-Strategy (CMA-ES), and \gls{psoLabel}\sidenote{All of these algorithms are
-described in \nrefsec{intro:optimization:algorithms}}. The evolution results are
-shown in \reffig{solarmed:optimization:results:fitness_comparison}~(a),
-indicating that, for this particular problem, the best-performing algorithm is
-the (N+1)-ES Simple Evolutionary
-Algorithm\sidenote{\texttt{sea\_pop\_1\_gen\_1000} in
+Strategy (CMA-ES), and \gls{psoLabel}\sidenote{All described in
+\nrefsec{intro:optimization:algorithms}}. The evolution results are shown in
+\reffig{solarmed:optimization:results:fitness_comparison}~(a), indicating that,
+for this particular problem, the best-performing algorithm is the (N+1)-ES
+Simple Evolutionary Algorithm\sidenote{\texttt{sea\_pop\_1\_gen\_1000} in
 \reffig{solarmed:optimization:results:fitness_comparison}~(a)}.
 
 \subsection{Choosing a candidate problem}
@@ -97,8 +96,23 @@ evaluation in order not to early drop potential best-performing candidates.
 
 %================================
 \subsection{Simulation results}
-\labsec{solarmed:optimization:results}
+\labsec{solarmed:optimization:results:nnlp}
 
+\marginreminder[*-15]{Optimization objective and alternatives}{The aim is to
+define an operational strategy that manages both subsystems autonomously and
+efficiently and seeks to maximize water production while minimizing
+electrical consumption.\\
+This is formulated with an objective that minimizes the total operating cost
+($J$). Revenue from fresh water production ($q_{med,d}$) sold at price $P_w$
+contributes a negative cost term ($J_w$), while electrical consumption
+($C_e$) at price $P_e$ contributes a positive cost term ($J_e$). The net
+benefit ($B$) is the opposite of the operating cost.\\[1ex]
+The operation strategies evaluated are:\\[1ex]
+\textbf{Heuristic:} Rule-based approach.\\ 
+\textbf{NLP:} Optimized alternative with fixed subsystem start-up and
+shutdown schedule based on rules.\\ 
+\textbf{nNLP:} Optimized approach where the operation schedule is included in
+the decision space.}
 
 \reffig{solarmed:optimization:results:timeseries} shows the time-series results
 for one episode composed of seven consecutive days of operation applying the
@@ -110,21 +124,13 @@ end-of-summer conditions for Almería (southeast Spain). The seawater inlet
 temperature ($T_{med,c,in}$) remains nearly constant at the characteristic
 temperature of the Mediterranean Sea (22.1~$^\circ$C on average for the
 episode), obtained from the \textit{Copernicus Marine
-Programme}~\sidecite{cnr_mediterranean_2024}. The figure also displays the
-results for the alternative operation strategies across selected variables;
-however, a detailed comparison of these strategies is presented in the next
-section.
-
-
-In \reffig{solarmed:optimization:results:timeseries} -- \textit{Solar Field}, it
-can be observed that both strategies optimize the solar field operation almost
-identically, maximizing the outlet temperature (around 120~$^\circ$C) and
-achieving large temperature differences (averaging more than 33~$^\circ$C over
-the episode). This operation pattern is consistent with the objective of
-maximizing energy transfer, which can be achieved either by increasing the
-temperature gain in the solar field or by raising the mass flow rate--- the latter
-incurring additional pumping costs.
-
+Programme}~\sidecite[*15]{cnr_mediterranean_2024}. The figure also displays the
+results for the alternative \gls{nlpLabel} operation strategies across selected
+variables and the fitness evolution comparison for all studied strategies in
+\reffig{solarmed:optimization:results:timeseries}~--~\textit{Cumulative
+benefit}\sidenote[][*-2]{Constant prices for water and electricity are used, where
+$P_w=3\,[u.m./m^3]$ and $P_e=0.05\,[u.m./kWh_e]$, respectively.}. A detailed comparison of these strategies is
+presented in the next section.
 
 \begin{figure*}[!htpb]
     \centering
@@ -142,6 +148,15 @@ incurring additional pumping costs.
     \labfig{solarmed:optimization:results:fitness_comparison}
 \end{figure*}
 
+In \reffig{solarmed:optimization:results:timeseries} -- \textit{Solar Field}, it
+can be observed that both (\gls{nlpLabel} and n\gls{nlpLabel}) strategies
+optimize the solar field operation almost identically, maximizing the outlet
+temperature (around 120~$^\circ$C) and achieving large temperature differences
+(averaging more than 33~$^\circ$C over the episode). This operation pattern is
+consistent with the objective of maximizing energy transfer, which can be
+achieved either by increasing the temperature gain in the solar field and by
+raising the mass flow rate ---the latter incurring additional pumping costs.
+
 Regarding energy management, \reffig{solarmed:optimization:results:timeseries}
 -- \textit{Thermal Storage} shows that during the first day the system starts
 with highly charged tanks (significant stored energy) and gradually depletes
@@ -155,7 +170,7 @@ This behavior is likely a preparation for the drop in irradiance observed at the
 beginning of Day~25 (see \reffig{solarmed:optimization:results:timeseries} --
 \textit{Environment}). For the remaining two days, the algorithm prioritizes
 production on Day~26 while reducing operating time and heat-source
-temperatures--- especially on Days~26 and~27. The dotted lines represent the
+temperatures ---especially on Days~26 and~27. The dotted lines represent the
 alternative \gls{nlpLabel} strategy, which maintains a higher amount of stored
 energy at the end of each day, resulting in a more balanced storage level
 throughout the episode.
@@ -195,25 +210,6 @@ throughout the episode.
 % \caption{A rotated figure \hspace{1ex}\usebox\captionqr} \end{figure*}%
 % \restoregeometry
 % }
-
-\reminder{Optimization objective and alternatives}{ 
-    The aim is to define an operational strategy
-    that manages both subsystems autonomously and efficiently and seeks to
-    maximize water production while minimizing electrical consumption.\\
-
-    This is formulated with an objective that minimizes the total operating cost
-    ($J$). Revenue from fresh water production ($q_{med,d}$) sold at price $P_w$
-    contributes a negative cost term ($J_w$), while electrical consumption
-    ($C_e$) at price $P_e$ contributes a positive cost term ($J_e$). The net
-    benefit ($B$) is simply the negative of the operating cost. \\
-
-    The operation strategies evaluated are: \\
-    \textbf{Heuristic:} Rule-based approach.\\ 
-    \textbf{NLP:} Optimized alternative with fixed subsystem start-up and
-    shutdown schedule based on rules.\\ 
-    \textbf{nNLP:} Optimized approach where the operation schedule is included in
-    the decision space. 
-}
 
 % ================================
 \subsection{Operation and performance comparison between strategies}
@@ -276,6 +272,25 @@ the \gls{medLabel} at lower temperatures and for longer durations (9.8~h vs.
 particularly evident on the cloudy Day~27, where the nNLP maintains operation at
 the lowest temperature ($T_{med,s,in} = 66.4~^{\circ}\mathrm{C}$).
 
+
+Overall, the Heuristic approach tends to delay \gls{medLabel} start-up relative
+to the other strategies, while keeping it active later into the evening.
+Although it operates the \gls{medLabel} longer than the \gls{nlpLabel}, this
+does not lead to higher benefits (see
+\reffig{solarmed:optimization:results:final_comparison}, Heuristic
+vs.~\gls{nlpLabel}).
+
+
+Another interesting observation is the difference in \gls{medLabel} heat source
+temperature span between the Heuristic and optimized strategies: 2.34~$^\circ$C
+for the Heuristic versus 3.51~$^\circ$C (\gls{nlpLabel}) and 3.32~$^\circ$C
+(n\gls{nlpLabel}) ---see
+\reffig{solarmed:optimization:results:schedule_comparison}. This indicates that
+maximizing \gls{solarmedLabel} system performance is achieved by operating for
+longer periods at lower temperatures and with high temperature differences--- in
+both the solar field and \gls{medLabel} sides--- thereby maximizing the
+utilization of sensible heat.
+
 \bigskip
 \begin{figure*}[htpb]
     \centering
@@ -295,38 +310,23 @@ the lowest temperature ($T_{med,s,in} = 66.4~^{\circ}\mathrm{C}$).
     \labfig{solarmed:optimization:results:key_vars_comp}
 \end{figure*}
 
-Overall, the Heuristic approach tends to delay \gls{medLabel} start-up relative
-to the other strategies, while keeping it active later into the evening.
-Although it operates the \gls{medLabel} longer than the \gls{nlpLabel}, this
-does not lead to higher benefits (see
-\reffig{solarmed:optimization:results:final_comparison}, Heuristic
-vs.~\gls{nlpLabel}).
 
-\begin{marginfigure}[*-4]
+A key distinction between the \gls{nlpLabel} and n\gls{nlpLabel} strategies
+appears during cloudy conditions (Day~27). The n\gls{nlpLabel} strategy depletes
+storage on the previous day ---Day~26, see
+\reffig{solarmed:optimization:results:key_vars_comp}~(a)--- and adapts the
+following day by delaying start-up more significantly than on other days ---Day
+27 in \reffig{solarmed:optimization:results:schedule_comparison}--- while
+operating at a lower temperature ---Day~27 in
+\reffig{solarmed:optimization:results:key_vars_comp}~(b). In contrast, the
+\gls{nlpLabel} strategy reserves energy, allowing it to operate in a more
+consistent manner across the episode.
+
+\begin{marginfigure}[*-7]
     \includegraphics[]{figures/solarmed_optim_startup_shutdown_comparison.png}
     \caption[Operation schedule comparison]{Operation schedule comparison between optimization strategies}
     \labfig{solarmed:optimization:results:schedule_comparison}
 \end{marginfigure}
-
-Another interesting observation is the difference in \gls{medLabel} heat source
-temperature span between the Heuristic and optimized strategies: 2.34~K for the
-Heuristic versus 3.51~K (\gls{nlpLabel}) and 3.32~K (n\gls{nlpLabel}) ---see
-\reffig{solarmed:optimization:results:schedule_comparison}. This indicates that
-maximizing \gls{solarmedLabel} system performance is achieved by operating for
-longer periods at lower temperatures and with high temperature differences--- in
-both the solar field and \gls{medLabel} sides--- thereby maximizing the
-utilization of sensible heat.
-
-A key distinction between the \gls{nlpLabel} and n\gls{nlpLabel} strategies
-appears during cloudy conditions (Day~27). The n\gls{nlpLabel} strategy depletes
-storage on the previous day ---Day 26, see
-\reffig{solarmed:optimization:results:key_vars_comp}~(a)--- and adapts the
-following day by delaying start-up more significantly than on other days ---Day
-27 in \reffig{solarmed:optimization:results:schedule_comparison}--- while
-operating at a lower temperature ---Day 27 in
-\reffig{solarmed:optimization:results:key_vars_comp}~(b). In contrast, the
-\gls{nlpLabel} strategy reserves energy, allowing it to operate in a more
-consistent manner across the episode.
 
 As shown in Figures~\ref{fig:solarmed:optimization:results:schedule_comparison}
 and \ref{fig:solarmed:optimization:results:final_comparison}, the \gls{nlpLabel}
@@ -348,16 +348,12 @@ alternative, achieving a total benefit of 508.99~u.m., followed by the
 \gls{nlpLabel} (403.97~u.m.) and Heuristic (346.86~u.m.) alternatives. As
 mentioned earlier, some performance gap could be reduced by incorporating
 smarter rule-based logic into the \gls{nlpLabel} and Heuristic
-strategies\sidenote{The results presented here can serve as useful guidance for
-defining such rules.}, but they would still remain suboptimal compared to the
-n\gls{nlpLabel} approach. Since the \gls{nlpLabel} is effectively a subset of
-the n\gls{nlpLabel}, it cannot consistently outperform it.
+strategies\sidenote[][*8]{The results presented here can serve as useful
+guidance for defining such rules.}, but they would still remain suboptimal
+compared to the n\gls{nlpLabel} approach. Since the \gls{nlpLabel} is
+effectively a subset of the n\gls{nlpLabel}, it cannot consistently outperform
+it.
 
-\begin{figure}[!htpb]
-    \includegraphics[width=\textwidth]{figures/solarmed_optim_final_comparison.png}
-    \caption[]{Daily and total cumulative benefits comparison. \textit{u.m.} represents arbitrary monetary units.}
-    \labfig{solarmed:optimization:results:final_comparison}
-\end{figure}
 
 \paragraph{Conclusions.}
 
@@ -377,6 +373,12 @@ to minimize energy consumption. When the entire system is evaluated from the
 perspective of primary energy utilization, the optimal operation of a
 solar-driven \gls{medLabel} unit more closely resembles that of a
 waste-heat-driven process.
+
+\begin{figure}[!htpb]
+    \includegraphics[width=\textwidth]{figures/solarmed_optim_final_comparison.png}
+    \caption[]{Daily and total cumulative benefits comparison. \textit{u.m.} represents arbitrary monetary units.}
+    \labfig{solarmed:optimization:results:final_comparison}
+\end{figure}
 
 Furthermore, it was shown that achieving optimal performance in a thermally
 driven separation process powered by variable energy sources requires a
