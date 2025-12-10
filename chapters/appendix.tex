@@ -1,4 +1,9 @@
-\myepigraphhead[500]{Should I kill myself or have a cup of coffee?}{Albert Camus}
+\myepigraphhead[500]{My father always said that if you get into trouble, you
+have to drag as many people as you can down with you, because that way you'll
+get off more easily. My father knew a thing or two about trouble.\\//\\Mi padre
+decía siempre que, si te metes en un lío, tienes que arrastrar contigo a toda la
+gente que puedas, porqe así te librarás más fácilmente. Mi padre entendía de
+líos.}{Tatiana Țîbuleac, \textit{The Summer My Mother Had Green Eyes // El verano en que mi madre tuvo los ojos verdes}}
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 \setchapterstyle{lines}
 
@@ -180,26 +185,28 @@ component and the last the chemical component.
     \labeq{exergy}
 \end{equation}
 
-In \refeq{exergy}, the variables $h$, $s$, $\mu$, and $w$ represent the
-specific enthalpy, specific entropy, chemical potential, and mass fraction,
-respectively. The properties denoted with an asterisk in the equation are
-calculated at the restricted dead state conditions (when the temperature and
-pressure of the system change to match the temperature and pressure of the
-environment). On the other hand, properties labeled with a superscript of ``0"
-are determined at the global dead state (when the concentration is also changed
-to match that of the environment). The subscript $i$ represents a species (NaCl,
-H$_2$O and others if considered). Notice that the chemical exergy component in
-this work has been calculated by two approaches: empirical correlations (i) and
-modelling seawater as an electrolyte for a solution of NaCl with the same
-concentration as the feedwater salinity (ii). In the latter case, the required
-activity coefficients have been determined by Pitzer equations~\sidecite{pitzer_thermodynamics_1973}. 
+In \refeq{exergy}, the variables $h$, $s$, $\mu$, and $w$ represent the specific
+enthalpy, specific entropy, chemical potential, and mass fraction, respectively.
+The properties denoted with an asterisk in the equation are calculated at the
+restricted dead state conditions (when the temperature and pressure of the
+system change to match the temperature and pressure of the environment). On the
+other hand, properties labeled with a superscript of ``0" are determined at the
+global dead state (when the concentration is also changed to match that of the
+environment). The subscript $i$ represents a species (NaCl, H$_2$O and others if
+considered). Notice that the chemical exergy component in this work has been
+calculated by two approaches: empirical correlations (i) and modelling seawater
+as an electrolyte for a solution of NaCl with the same concentration as the
+feedwater salinity (ii). In the latter case, the required activity coefficients
+have been determined by Pitzer
+equations~\sidecite[*-4]{pitzer_thermodynamics_1973}. 
 
 Finally, in order to calculate the specific exergy flows, libraries in MATLAB
-~\sidecite{sharqawy_thermophysical_2010,nayar_thermophysical_2016} and Python
-~\sidecite{romera_jjgomera_2021a} are available. However, they are limited to 120
-kg/kg of concentration. For higher values, the approach used is the modelling of
-seawater as an electrolyte and in this case the chemical exergy flows are
-determined by the activity coefficients using a free and open source tool~\sidecite{marcellos_pyequion_2021}.
+~\sidecite[*-4]{sharqawy_thermophysical_2010,nayar_thermophysical_2016} and
+Python ~\sidecite[*-3]{romera_iapws_2021} are available. However, they are
+limited to 120 kg/kg of concentration. For higher values, the approach used is
+the modelling of seawater as an electrolyte and in this case the chemical exergy
+flows are determined by the activity coefficients using a free and open source
+tool~\sidecite[*-3]{marcellos_pyequion_2021}.
 
 
 % Finally, in order to calculate the specific exergy flows, it should be mentioned that a library for the determination of the thermophysical properties of seawater is available at \href{http://web.mit.edu/seawater/}{MIT webpage}, which is based on the work shown in \cite{sharqawy_thermophysical_2010} and \cite{nayar_thermophysical_2016}. It includes functions to calculate the the specific exergy flows and it is available in MATLAB, Engineering Equation Solver and Excel. There is also an implementation of the IAPWS R13-08 seawater properties standard \cite{IAPWSR13-08_2008} in Python, which includes the calculation of the specific enthalpy, entropy and chemical potential of seawater \cite{romera_jjgomeraiapws_2021}. The chemical exergy calculations in the above mentioned libraries are limited to 120 kg/kg of concentration. For higher values of concentration, the approach used is the modelling of seawater as an electrolyte and the chemical exergy flows are determined using the activity coefficients \cite{fitzsimons_exergy_2015,thiel_energy_2015,chung_thermodynamic_2017}. A free and open source implementation for obtaining such coefficients is available in \cite{marcellos_pyequion_2021} for the Python programming language.
@@ -296,13 +303,13 @@ used in is described in \nrefsec{solarmed:std:monitoring}. In both tables, $T_s$
 represents the sample time.
 
 % tables/table_params_ssi.tgn
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering
-\caption{Parameters for the steady-state detection algorithm, where
-\textit{s.u.} represents that the parameter has the same units to the related
-variable}
+\caption[Parameters for the steady-state detection algorithm]{Parameters for the
+steady-state detection algorithm, where \textit{s.u.} represents that the
+parameter has the same units to the related variable}
 \labtab{solarmed:std:params_ssi}
-\resizebox{.5\textwidth}{!}{%
+\resizebox{.6\textwidth}{!}{%
 \begin{tabular}{@{}clccccccccc@{}}
 \toprule
 \multirow{2}{*}{\textbf{Parameter}} &  & \multicolumn{9}{c}{\textbf{Variable}} \\ \cmidrule(l){3-11} 
@@ -316,9 +323,11 @@ Tss [s] &  & \multicolumn{9}{c}{600} \\ \bottomrule
 \end{table}
 
 % tables/table_params_control.tgn
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering
-\caption{Parameters for the \gls{pidLabel} based process control, where \textit{i.u.} represents the input variable units, and \textit{o.u.} the output units.}
+\caption[Parameters for the \gls{pidLabel} based process control]{Parameters for
+the \gls{pidLabel} based process control, where \textit{i.u.} represents the
+input variable units, and \textit{o.u.} the output units.}
 \labtab{solarmed:std:params_control}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}clccccccccclc@{}}
@@ -556,7 +565,7 @@ inputs.
 % Nomenclatura celda
 \begin{figure*}[!htpb]
     \includegraphics[]{med-modelling-cell.png}
-    \caption{Detailed schematic of a single cell in the \gls{medLabel}
+    \caption[Detailed schematic of a single cell in the \gls{medLabel}]{Detailed schematic of a single cell in the \gls{medLabel}
     containing the effect or evaporator (left) and the preheater (right)}
     \labfig{ap:med-model:cell}
 \end{figure*}
@@ -589,7 +598,8 @@ inputs.
 % Detalle distribución
 \begin{figure*}[!htpb]
     \includegraphics[]{med-modelling-distribution.png}
-    \caption{Detailed schematic of a single cell in the \gls{medLabel} with
+    \caption[Detailed schematic of a single cell in the \gls{medLabel} with
+    detailed distribution lines]{Detailed schematic of a single cell in the \gls{medLabel} with
     distribution lines for the energy source side and generated steam. Also,
     auxiliary elements like demister and preheater-effect distribution line geometry.}
     \labfig{ap:med-model:distribution}
@@ -647,7 +657,7 @@ models overall provide similar results and trends.
     % \hspace{0.01\linewidth}
     \vspace{1ex}
     \subfloat[\centering \textit{Simulation mode}]{{\includegraphics[width=0.85\linewidth]{med-fp-model-simulation-mode-validation.png}}}%
-    \caption[]{\gls{medLabel} first-principles model validation}
+    \caption[\gls{medLabel} first-principles model validation]{\gls{medLabel} first-principles model validation}
     \labfig{ap:med-model:validation}
 \end{figure*}
 

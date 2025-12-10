@@ -254,6 +254,13 @@ Some particularities of this system are explained hereinafter:
     preheaters, which using a fraction of the vapor generated in the effects,
     preheat the feedwater before entering the first effect. The fourteenth
     ``preheater'' would be the condenser.
+
+    \item The plant includes a distillate distribution system that allows the
+    distillate produced in one effect to be recirculated, instead of to the next
+    effect, to effects further down the series. This allows to increase energy
+    recovery by taking advantage of the greater temperature difference between
+    distillate extracted the first effects compared to the latter ones. The
+    system extracts from effects 4, 7 and 11 and injects into effects 10 and 13. 
     
     \item As mentioned, the external heat source driving the process, is hot
     water from a thermal storage system. Water is drawn from one of the tanks
@@ -295,7 +302,7 @@ Some particularities of this system are explained hereinafter:
 \end{itemize}
 
 
-\begin{margintable}[*-25]
+\begin{margintable}[*-27]
     \caption{\gls{medLabel} plant at \gls{psaLabel} specifications and nominal operating conditions}
     \labtab{solarmed:facility:specifications}
     \resizebox{\linewidth}{!}{%
@@ -325,7 +332,7 @@ Some particularities of this system are explained hereinafter:
 	}
 \end{margintable}
 
-\begin{margintable}[*-10]
+\begin{margintable}[*-12]
     \caption{\gls{medLabel} plant available experimental data range.}
     \labtab{solarmed:modelling:med-data-range}
     \resizebox{\linewidth}{!}{%
@@ -370,7 +377,10 @@ to control all flow rates in the system: heat source, cooling, feed, brine and
 distillate.
 
 \begin{table*}[]
-\caption{Characteristics of the instrumentation installed at MED-PSA unit ($^a$ value of the measured temperature in $^\circ$C, $^b$ of reading, $^c$ full scale).}
+\caption[Characteristics of the instrumentation installed at the
+\gls{medLabel}-\gls{psaLabel} unit]{Characteristics of the instrumentation
+installed at the \gls{medLabel}-\gls{psaLabel} unit ($^a$ value of the measured
+temperature in $^\circ$C, $^b$ of reading, $^c$ full scale).}
 \labtab{solarmed:facility:instrumentation}
 \resizebox{\linewidth}{!}{%
     \begin{tabular}{@{}ccccc@{}}
@@ -392,9 +402,11 @@ distillate.
 
 \begin{figure}[!b]
     % \raggedleft
-    \includegraphics[width=\textwidth]{solarmed-std-pid.png}
-    \caption{\gls{pYidLabel} representative of the \gls{medLabel}-\gls{psaLabel}
-    plant with the installed instrumentation, \glspl{kpvLabel}, and implemented
-    control loops (\texttt{ANSI/ISA 5.1-2022}).}
+    \includegraphics[width=.9\textwidth]{solarmed-std-pid.png}
+    \caption[\gls{pYidLabel} representative of the
+    \gls{medLabel}-\gls{psaLabel}]{\gls{pYidLabel} representative of the
+    \gls{medLabel}-\gls{psaLabel} plant with the installed instrumentation,
+    \glspl{kpvLabel}, and implemented control loops (\texttt{ANSI/ISA
+    5.1-2022}).}
     \labfig{solarmed:facility:pid}
 \end{figure}

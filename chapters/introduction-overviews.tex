@@ -115,7 +115,7 @@ long-term performance of the system.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{steady-state-transient-concept-plot.png}
-    \caption{Dynamic response (reaction curve) of a process output to changes in its inputs'}
+    \caption{Dynamic response (reaction curve) of a process output to changes in its inputs}
     \labfig{intro:modelling:dynamic-response}
 \end{figure}
 
@@ -243,7 +243,7 @@ an input variable $x$ to an output $f(x)$. In \reffig{intro:modelling:gpr}~(a),
 several sample functions are drawn from a \textit{prior} Gaussian Process, which
 expresses the assumed characteristics of functions before any data are observed.
 This prior favors smooth functions with an average (mean) value of zero across
-the input space\sidenote{Although the individual functions shown may not have a
+the input space\sidenote[][*-3]{Although the individual functions shown may not have a
 zero mean, the average of many such samples at any fixed $x$ would approach
 zero}. The shaded region represents the variability of these functions,
 corresponding to twice the pointwise standard deviation, which in this case is
@@ -252,7 +252,7 @@ constant across $x$.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{intro-modelling-gpr.png}
-    \caption{Illustration of Gaussian Process Regression. 
+    \caption[Illustration of Gaussian Process Regression]{Illustration of Gaussian Process Regression. 
     (a) Prior samples drawn from a Gaussian Process with zero mean and smooth covariance, 
     representing the prior belief before observing any data. 
     (b) Posterior samples and mean after conditioning on two observations, 
@@ -766,10 +766,9 @@ variables can take. The optimization problem is to find the values of the
 decision variables that minimize the objective function while satisfying the
 constraints. 
 
-
 \begin{marginfigure}[-1cm]
     \includegraphics[]{contrained-optimization-vertical.jpg}
-    \caption{Constrained optimization problem. The goal is to minimize $y=f(x)$
+    \caption[Constrained optimization problem]{Constrained optimization problem. The goal is to minimize $y=f(x)$
     with the two continuous  decision variables $x_1$ and $x_2$ constrained to
     $g(x)$. The problem is \gls{nlpLabel} with a convex solution-space.\\Source: Wang \textit{et
     al.}~\cite{wang_structural_2020}}
@@ -1106,14 +1105,14 @@ work:
 
 \begin{marginfigure}[-8.5cm]
     \includegraphics[]{simmulated_annealing.png}
-    \caption{Simulated Annealing. Example illustrating the effect of cooling
-    schedule on the performance of simulated annealing. The problem is to
-    rearrange the pixels of an image so as to minimize a certain potential
-    energy function, which causes similar colors to attract at short range and
-    repel at a slightly larger distance. The elementary moves swap two adjacent
-    pixels. These images were obtained with a fast cooling schedule (left) and a
-    slow cooling schedule (right), producing results similar to amorphous and
-    crystalline solids, respectively. \\
+    \caption[Simulated Annealing example]{Simulated Annealing. Example
+    illustrating the effect of cooling schedule on the performance of simulated
+    annealing. The problem is to rearrange the pixels of an image so as to
+    minimize a certain potential energy function, which causes similar colors to
+    attract at short range and repel at a slightly larger distance. The
+    elementary moves swap two adjacent pixels. These images were obtained with a
+    fast cooling schedule (left) and a slow cooling schedule (right), producing
+    results similar to amorphous and crystalline solids, respectively. \\
     Source: \href{https://en.wikipedia.org/wiki/Simulated_annealing}{Wikipedia}}
     \labfig{intro:optimization:sa}
 \end{marginfigure}
@@ -1244,9 +1243,10 @@ work:
 
 \begin{marginfigure}[-4cm]
     \includegraphics[]{particle-swarm-optimization.png}
-    \caption{Particle Swarm Optimization concept. Each particle adjusts its
-    velocity based on its own experience and that of neighboring particles to
-    explore the search space and converge towards optimal solutions.\\Source:
+    \caption[Particle Swarm Optimization concept]{Particle Swarm Optimization
+    concept. Each particle adjusts its velocity based on its own experience and
+    that of neighboring particles to explore the search space and converge
+    towards optimal solutions.\\Source:
     \href{https://esa.github.io/pagmo2/docs/cpp/algorithms/pso.html}{Pagmo
     2.19.1 documentation}}
     \labfig{intro:optimization:pso}

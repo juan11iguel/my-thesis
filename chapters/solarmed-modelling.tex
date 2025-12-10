@@ -71,7 +71,7 @@ system to reach steady state\sidenote[][*-5]{Further discussed in
 %===================================
 \subsection{Solar field}
 
-\marginannotation[]{}{In all models, it has been assumed that model parameters
+\marginnote[*-2]{In all models, it has been assumed that model parameters
 like heat transfer coefficient (U) or heat loss coefficients (H) are constant,
 and not a function of temperature.}
 
@@ -237,7 +237,7 @@ to 08:20}.
 \begin{figure}
     \includegraphics[width=\textwidth]{sf_flow_vs_power_consumption.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/sf_flow_vs_power_consumption.html}}
-    \caption{Solar field flow rate for different pump configurations and their associated power consumption.\\[1ex] \usebox\captionqr}
+    \caption[Solar field flow rate \vs consumption for different pump configurations]{Solar field flow rate for different pump configurations and their associated power consumption.\\[1ex] \usebox\captionqr}
     \labfig{solarmed:modelling:sf:flow_vs_power_consumption}
 \end{figure}
 
@@ -1113,8 +1113,9 @@ visualized in \reffig{solarmed:modelling:fsm-diagrams} (a). The states involve:
 % \end{modelcounter}
 
 \begin{margintable}[*-7]
-\caption{\gls{sftsLabel} \gls{fsmLabel} states definitions. $\land$ represents
-the logical \texttt{AND} operator.}
+\caption[\gls{sftsLabel} \gls{fsmLabel} states definitions]{\gls{sftsLabel}
+\gls{fsmLabel} states definitions. $\land$ represents the logical \texttt{AND}
+operator.}
 \labtab{solarmed:modelling:sfts_fsm_states}
 \resizebox{\linewidth}{!}{%
 \begin{tabular}{cll}
@@ -1216,7 +1217,7 @@ generated, whether the startup procedure has been completed or whether the brine
 emptying has been completed. 
 
 \begin{table}
-\caption{\gls{medfsmLabel} \gls{fsmLabel} states definitions. $\land$ represents
+\caption[\gls{medfsmLabel} \gls{fsmLabel} states definitions]{\gls{medfsmLabel} \gls{fsmLabel} states definitions. $\land$ represents
 the logical \texttt{AND} operator, $\exists$ represents that at least one meets
 the condition, and $\forall$ represents that all meet the condition.}
 \labtab{solarmed:modelling:med_fsm_states}
@@ -1396,7 +1397,8 @@ initial condition for the next.
 \begin{figure*}[h!]
     \includegraphics[width=\linewidth]{solar_med_validation_20230414.png}
     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solar_med_validation_20230414.html}}
-    \caption[]{\gls{solarmedLabel} model validation \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
+    \caption[\gls{solarmedLabel} model validation]{\gls{solarmedLabel} model
+    validation \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
     \labfig{solarmed:modelling:validation:solarmed}
 \end{figure*}
 
@@ -1416,7 +1418,7 @@ In \reffig{solarmed:modelling:validation:solarmed}, while all subsystems are
 active, it can be seen a good agreement between the model prediction and the
 actual measurements for both horizons. A higher error is observed during startup
 and shutdown for the solar
-field\sidenote{\reffig{solarmed:modelling:validation:solarmed} -- \textit{Solar
+field\sidenote[][*-3]{\reffig{solarmed:modelling:validation:solarmed} -- \textit{Solar
 field} from 06:00 to 10:00 and from 15:00 to 17:45} (which propagates to the
 heat exchanger).
 
@@ -1507,7 +1509,8 @@ with the 8-hours horizon evaluation taking around 5~s.
 % }
 
 \begin{table}[]
-\caption{Summary table of the prediction results obtained with the
+\caption[Summary table of the prediction results obtained with the
+\gls{solarmedLabel} model]{Summary table of the prediction results obtained with the
 \gls{solarmedLabel} model for different test days, sample time set to 400s and
 different prediction horizons.}
 \labtab{solarmed:modelling:validation:solarmed}

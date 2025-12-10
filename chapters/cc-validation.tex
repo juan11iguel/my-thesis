@@ -87,7 +87,8 @@ established according to the expected operating conditions--- as defined in
 \reftab{cc:validation:wct:samples-params}.
 
 \begin{margintable}[]
-    \caption{Bounds and discretization of the model \gls{wctLabel} input
+    \caption[Bounds and discretization of the model \gls{wctLabel} input
+    variables]{Bounds and discretization of the model \gls{wctLabel} input
     variables. Lower and upper bounds are indicated as \textbf{lb} and
     \textbf{ub}, respectively. The number of discretization steps is indicated
     as \textbf{n}.}
@@ -156,9 +157,11 @@ vectorization support, a limited need for experimental data (the same as the
 physical model), and coverage of a wide input space.
 
 \begin{table*}[htbp]
-\caption{Summary table of the prediction results obtained with the different
-modelling approaches studied. \textbf{T} and \textbf{V} stand for training and 
-validation datasets, respectively.}
+\caption[Summary table of the \gls{wctLabel} prediction results obtained with
+the different modelling approaches studied]{Summary table of the \gls{wctLabel}
+prediction results obtained with the different modelling approaches studied.
+\textbf{T} and \textbf{V} stand for training and validation datasets,
+respectively.}
 \labtab{cc:validation:wct:results}
 \resizebox{\linewidth}{!}{%
     
@@ -266,9 +269,11 @@ space distribution where it can be appreciated that the samples are well
 distributed across the entire input space.
 
 \begin{margintable}[]
-    \caption{Bounds and discretization of the model input variables. Lower and
-    upper bounds are indicated as \textbf{lb} and \textbf{ub}, respectively. The
-    number of discretization steps is indicated as \textbf{n}.}
+    \caption[Bounds and discretization of the \gls{dcLabel} model input
+    variables]{Bounds and discretization of the \gls{dcLabel} model input
+    variables. Lower and upper bounds are indicated as \textbf{lb} and
+    \textbf{ub}, respectively. The number of discretization steps is indicated
+    as \textbf{n}.}
     \labtab{cc:validation:dc:samples-params}
     \resizebox{\linewidth}{!}{%
     \begin{tabular}{lcccc}
@@ -289,9 +294,10 @@ distributed across the entire input space.
 \subsubsection{Validation}
 
 \begin{table*}[]
-\caption{Summary table of the prediction results obtained with the different
-modelling approaches studied. \textbf{T} and \textbf{V} stand for training and
-validation datasets, respectively.}
+\caption[Summary table of the \gls{dcLabel} prediction results obtained with the different
+modelling approaches studied]{Summary table of the \gls{dcLabel} prediction results obtained
+with the different modelling approaches studied. \textbf{T} and \textbf{V} stand
+for training and validation datasets, respectively.}
 \labtab{cc:validation:dc:results}
 \resizebox{\linewidth}{!}{%
     
@@ -738,14 +744,12 @@ is defined as follows. Hourly weather data is obtained from a \gls{tpyLabel} of
 Tabernas (Spain) for the year~\sidecite{meteotestag_meteonorm_}. Electricity
 cost data were taken from the 2022 Spanish market pool~\sidecite{REE_website}.
 The water cost is defined as $P_{w,s1}=0.03$~\euro/m$^3$ for source~1, and
-$P_{w,s2}=80\times P_{e} = 8\pm5$~\euro/m$^3$ for source~2.
-
-The thermal load profile is created by fixing the vapor temperature at
-$T_v=35\,^\circ$C and generating an arbitrary cooling power based on the heat
-available from a scaled down \gls{cspLabel}
-model~\sidecite{ortegadelgado_theoretical_2016}. Finally, the maximum initial
-available water volume is set to $V_{avail,0}=2$~m$^3$ (only available during
-the peak precipitation period).
+$P_{w,s2}=80\times P_{e} = 8\pm5$~\euro/m$^3$ for source~2. The thermal load
+profile is created by fixing the vapor temperature at $T_v=35\,^\circ$C and
+generating an arbitrary cooling power based on the heat available from a scaled
+down \gls{cspLabel} model~\sidecite{ortegadelgado_theoretical_2016}. Finally,
+the maximum initial available water volume is set to $V_{avail,0}=2$~m$^3$ (only
+available during the peak precipitation period).
 
 \subsubsection{Horizon optimization}
 
@@ -758,9 +762,8 @@ year. This means that three different environments are available, respectively:
 cold\sidenote{\reffig{cc:simulation:results-multiple-days} - \textit{Weather
 conditions}} and wet\sidenote{\ie plenty of water resource available,
 \reffig{cc:simulation:results-multiple-days} - \textit{Resources context}},
-moderate temperature and water availability; and finally hot and dry.
-
-The cooling costs obtained in each scenario are shown in
+moderate temperature and water availability; and finally hot and dry. The
+cooling costs obtained in each scenario are shown in
 \reffig{cc:simulation:results-multiple-days} under \textit{Operational costs},
 with electricity-related costs displayed in yellow and water-related costs in
 green.

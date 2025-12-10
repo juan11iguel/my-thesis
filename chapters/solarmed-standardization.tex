@@ -325,7 +325,7 @@ system under high \glspl{tbtLabel}. The results of this high-\gls{tbtLabel}
 operation are also analyzed in this section.
 
 \begin{margintable}[*-7]
-\caption{\fullgls{rsiLabel} values and their interpretation in terms of scaling and corrosion risk~\cite{ryznar_new_1944}.}
+\caption[\gls{rsiLabel} values and their interpretation]{\fullgls{rsiLabel} values and their interpretation in terms of scaling and corrosion risk~\cite{ryznar_new_1944}.}
 \labtab{solarmed:rsi}
 \resizebox{\linewidth}{!}{%
 \begin{tabular}{cl}
@@ -420,7 +420,7 @@ extracted from these streams}.
 
 \begin{figure}
     \includegraphics[width=.8\textwidth]{solarmed-control-volume.png}
-    \caption{Inputs and outputs variables in an \gls{medLabel} process. The dash line delimits the control volume}
+    \caption[Inputs and outputs variables in an \gls{medLabel} process]{Inputs and outputs variables in an \gls{medLabel} process. The dash line delimits the control volume}
     \labfig{solarmed:std:control-volume}
 \end{figure}
 
@@ -841,7 +841,7 @@ layout~\sidecite{palenzuela_concentrating_2015}. They are represented in
 
 \begin{figure}
     \includegraphics[width=\textwidth]{solarmed-std-pid.png}
-    \caption{\gls{pYidLabel} with the required instrumentation, \glspl{kpvLabel}, and basic control loops (ANSI/ISA 5.1-2022) required in an \gls{medLabel} plant}
+    \caption[\gls{pYidLabel} with the required instrumentation required in an \gls{medLabel} plant]{\gls{pYidLabel} with the required instrumentation, \glspl{kpvLabel}, and basic control loops (ANSI/ISA 5.1-2022) required in an \gls{medLabel} plant}
     \labfig{solarmed:pid}
 \end{figure}
 
@@ -880,9 +880,12 @@ quality of the variable measurement should be higher for variables with a higher
 \gls{siLabel}. The cases where no sensitivity index is obtained indicate that
 the variable has no effect on the metric. 
 
-\begin{marginfigure}[-1.8cm]
+\begin{marginfigure}[-3.2cm]
     \includegraphics[]{solarmed-sensitivity-analysis.png}
-    \caption{Sensitivity index results for different variables. Useful to assess the impact of the different measured variables uncertainty on the performance metrics. \glspl{kpvLabel} are shown in bold notation}
+    \caption[Sensitivity index results for different variables]{Sensitivity
+    index results for different variables. Useful to assess the impact of the
+    different measured variables uncertainty on the performance metrics.
+    \glspl{kpvLabel} are shown in bold notation}
     \labfig{solarmed:std:sensitivity-analysis}
 \end{marginfigure}
     
@@ -1187,7 +1190,7 @@ experimental campaign at the \gls{medLabel}-\gls{psaLabel} plant}[Methodology
 implementation results]
 \labsec{solarmed:std:results}
 
-\begin{margintable}[*-13]
+\begin{margintable}[*-17]
     \centering
     \caption{Experimental campaign design specifications}
     \labtab{solarmed:std:campaign-specs}
@@ -1206,7 +1209,7 @@ implementation results]
     }
 \end{margintable}
 
-\begin{marginfigure}[]
+\begin{marginfigure}[*-6]
     \includegraphics[]{med_experimental_campaign_heatmaps.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.4in]{\repositoryBaseUrl/figures/med_experimental_campaign_heatmaps.html}}
     \caption[]{Visualization of the different process inputs values during the experimental campaign.\\\usebox\captionqr}
@@ -1328,7 +1331,7 @@ vector is obtained for the evaluated metric.
 \begin{figure*}[h!]
     \includegraphics[]{med_20230508.png}
     \savebox\captionqr{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/med_tests_viz.zip}}
-    \caption[]{Test results. Several days available in interactive version \hfill \usebox\captionqr}
+    \caption[\gls{medLabel}-\gls{psaLabel} test results]{Test results. Several days available in interactive version \hfill \usebox\captionqr}
     \labfig{solarmed:std:test-results}
 \end{figure*}
 
@@ -1378,10 +1381,11 @@ the steady state.
 % Tabla de métricas de 8 puntos de operación
 
 \begin{table*}[]
-\caption{Measured variables and performance metrics for some operation points of
-the experimental campaign. The values are expressed as mean $\pm$ standard
-deviation with a coverage factor of 2 (95\% confidence interval). \textit{D} is
-the duration of the steady state period.}
+\caption[Measured variables and performance metrics for some operation points of
+the experimental campaign]{Measured variables and performance metrics for some
+operation points of the experimental campaign. The values are expressed as mean
+$\pm$ standard deviation with a coverage factor of 2 (95\% confidence interval).
+\textit{D} is the duration of the steady state period.}
 \labtab{solarmed:std:results}
 
 \resizebox{.9\linewidth}{!}{%
@@ -1478,7 +1482,8 @@ only be observed above 80~$^\circ$C and $\approx$ 100~g/kg as shown in
 
 \begin{figure*}[h!]
     \includegraphics[]{solarmed-std-tbt-pretreatment.png}
-    \caption{\gls{rsiLabel} values as a function of temperature and
+    \caption[\gls{rsiLabel} values as a function of temperature and
+    concentration]{\gls{rsiLabel} values as a function of temperature and
     concentration before (left) and after (right) pretreatment using
     nanofiltration.}
     \labfig{solarmed:std:tbt-pretreatment}

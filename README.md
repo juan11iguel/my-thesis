@@ -298,15 +298,9 @@ decisions on how to operate the system are made with perspective...
 
 ## TODOs
 
-- [ ] Añadir List of open-source software used. Not an extensive list but the
-  main ones.
-- [ ] Add \listofcontributions
 - [ ] Add \listofmodels
 - [ ] Add \listofproblems
 - [ ] Glosary is not being printed
-- [ ] Mirar la posibilidad de incluir citas en páginas en blanco entre
-  capítulos
-- [x] Caja TL;DR para inicio de cada capítulo
 
 
 Si finalmente se hace un capíutlo de instalaciones experimentales, se puede
@@ -319,3 +313,9 @@ refrigeración combinada, etc. y la MED
 
 
 ![alt text](image.png)
+
+
+# License
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0
+International License](http://creativecommons.org/licenses/by-nc/4.0/). See [LICENSE](./LICENSE.md) for more details.

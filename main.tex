@@ -98,6 +98,7 @@
 \usepackage{epigraph}
 \usepackage{mathrsfs} % calligraphic letters since mathcal does not work, problem with Fira font?
 \usepackage{placeins}  % For \FloatBarrier
+\usepackage[normalem]{ulem} % strikeout text with \sout{}
 
 % Set custom font, from TheoWinterhalter-PhD
 \setmainfont[
@@ -335,22 +336,21 @@
 % \makeatother
 
 \input{chapters/copyright.tex} % Include the copyright page
-
 %----------------------------------------------------------------------------------------
 %	DEDICATION
 %----------------------------------------------------------------------------------------
 
-% \dedication{
-% 	% The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
-% 	% \flushright -- D'Arcy Wentworth Thompson
-% 	\flushleft -- ¿Quieres que te cuente el cuento del rábano pimiento? \\
-% 	\flushright -- ¡Vale! \\
-% 	\flushleft -- No te he preguntado si \textit{vale}, te he preguntado que si\\ quieres 
-% 	que te cuente el cuento del rábano pimiento. \\
-% 	\flushright--Sí, una vez más, por favor. \\
-% 	\vspace{5ex}
-% 	\flushleft\textit{Un abuelo y su nieto}
-% }
+\dedication{
+	% The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
+	% \flushright -- D'Arcy Wentworth Thompson
+	\flushleft -- ¿Quieres que te cuente el cuento del rábano pimiento? \\
+	\flushright -- ¡Vale! \\
+	\flushleft -- No te he preguntado si \textit{vale}, te he preguntado que si\\ quieres 
+	que te cuente el cuento del rábano pimiento. \\
+	\flushright--Sí, una vez más, por favor. \\
+	\vspace{5ex}
+	\flushleft\textit{Un abuelo y su nieto}
+}
 
 %----------------------------------------------------------------------------------------
 %	OUTPUT TITLE PAGE AND PREVIOUS
@@ -364,6 +364,10 @@
 %	PREFACE
 %----------------------------------------------------------------------------------------
 
+\pagelayout{margin} % Choose the default chapter heading style
+\input{chapters/acknowledgements.tex} % Include the acknowledgements page
+
+\pagelayout{wide} % Output plain chapters from this point onwards
 \input{chapters/preface.tex}
 
 %----------------------------------------------------------------------------------------
@@ -402,9 +406,10 @@
 %----------------------------------------------------------------------------------------
 \mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
 
+\pagelayout{margin}
 \setchapterstyle{kao} % Choose the default chapter heading style
-% \input{chapters/about-the-author.tex}
-% \input{chapters/how-to-read-this-thesis.tex}
+\input{chapters/about-the-author.tex}
+\input{chapters/how-to-read-this-thesis.tex}
 
 
 %----------------------------------------------------------------------------------------
