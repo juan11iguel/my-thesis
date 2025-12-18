@@ -77,7 +77,7 @@ $show_time = 1;
 # Default is 5; we seem to need more owed to the complexity of the document.
 # Actual documents probably don't need this many since they won't use all features,
 # plus won't be compiling from cold each time.
-$max_repeat=7;
+$max_repeat=10;
 
 # --shell-escape option (execution of code outside of latex) is required for the
 #'svg' package.
@@ -181,6 +181,19 @@ add_cus_dep('aux', 'glstex', 0, 'run_bib2gls');
 #     }
 #     return $ret;
 # }
+
+# Glossary
+
+add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
+add_cus_dep('acn', 'acr', 0, 'run_makeglossaries');
+
+sub run_makeglossaries {
+    my ($name, $path) = fileparse($_[0]);
+    return system("makeglossaries", "-d", $path, $name);
+}
+
+$clean_ext .= "acn acr alg glo gls glg";
+ 
 # add_cus_dep('glo', 'gls', 0, 'makeglossaries');
 # sub makeglossaries {
 #   my $base = shift;
