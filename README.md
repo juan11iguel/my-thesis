@@ -45,9 +45,11 @@ to check them out in [latex.code-snippets](.vscode/latex.code-snippets).
 
 - Compile only the parts you are working on, otherwise the build time will be
   significant. 
-- The glossary compilation is very buggy. So it's better to leave that part
-  commented out in the `latexmkrc` file and include it only to produce the final
-  document. Also, delete the `out_dir` folder before compiling.
+- The glossary compilation is very buggy (`You can't use a prefix with begin-group character {'.<to be read again> {`). So it's better to leave that part
+  commented out in the `main.tex`: `printunsrtglossary`. Generate the manuscript
+  PDF, then comment everything else and uncomment the glossary part, and compile
+  again. Join both PDFs where it should be appearing and hopefully hyperlinks
+  will still work (spoiler it does not).
 
 ## Cheatsheet
 
