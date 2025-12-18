@@ -153,46 +153,43 @@ add_cus_dep('aux', 'glstex', 0, 'run_bib2gls');
 
 # PERL subroutine. $_[0] is the argument (filename in this case).
 # File from author from here: https://tex.stackexchange.com/a/401979/120853
-# sub run_bib2gls {
-#     if ( $silent ) {
-#     #    my $ret = system "bib2gls --silent --group '$_[0]'"; # Original version
-#         my $ret = system "bib2gls --silent --group $_[0]"; # Runs in PowerShell
-#     } else {
-#     #    my $ret = system "bib2gls --group '$_[0]'"; # Original version
-#         my $ret = system "bib2gls --group $_[0]"; # Runs in PowerShell
-#     };
+sub run_bib2gls {
+    if ( $silent ) {
+        my $ret = system "bib2gls --silent --group $_[0]"; # Runs in zsh/bash
+    } else {
+        my $ret = system "bib2gls --group $_[0]"; # Runs in zsh/bash
+    };
 
-#     my ($base, $path) = fileparse( $_[0] );
-#     if ($path && -e "$base.glstex") {
-#         rename "$base.glstex", "$path$base.glstex";
-#     }
+    my ($base, $path) = fileparse( $_[0] );
+    if ($path && -e "$base.glstex") {
+        rename "$base.glstex", "$path$base.glstex";
+    }
 
-#     # Analyze log file.
-#     local *LOG;
-#     $LOG = "$_[0].glg";
-#     if (!$ret && -e $LOG) {
-#         open LOG, "<$LOG";
-#     while (<LOG>) {
-#             if (/^Reading (.*\.bib)\s$/) {
-#         rdb_ensure_file( $rule, $1 );
-#         }
-#     }
-#     close LOG;
-#     }
-#     return $ret;
-# }
-
-# Glossary
-
-add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
-add_cus_dep('acn', 'acr', 0, 'run_makeglossaries');
-
-sub run_makeglossaries {
-    my ($name, $path) = fileparse($_[0]);
-    return system("makeglossaries", "-d", $path, $name);
+    # Analyze log file.
+    local *LOG;
+    $LOG = "$_[0].glg";
+    if (!$ret && -e $LOG) {
+        open LOG, "<$LOG";
+    while (<LOG>) {
+            if (/^Reading (.*\.bib)\s$/) {
+        rdb_ensure_file( $rule, $1 );
+        }
+    }
+    close LOG;
+    }
+    return $ret;
 }
 
-$clean_ext .= "acn acr alg glo gls glg";
+# Old makeglossaries support (commented out, now using bib2gls)
+# add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
+# add_cus_dep('acn', 'acr', 0, 'run_makeglossaries');
+# 
+# sub run_makeglossaries {
+#     my ($name, $path) = fileparse($_[0]);
+#     return system("makeglossaries", "-d", $path, $name);
+# }
+
+$clean_ext .= "acn acr alg glo gls glg glstex";
  
 # add_cus_dep('glo', 'gls', 0, 'makeglossaries');
 # sub makeglossaries {

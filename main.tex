@@ -73,8 +73,12 @@
 
 % \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
-\makeglossaries % Make LaTeX produce the files required to compile the glossary
-\input{glossary.tex} % Include the glossary definitions
+% Load glossary entries from glossary.bib using bib2gls
+\GlsXtrLoadResources[
+    src={glossary}, % Load from glossary.bib
+    sort={en-US}, % Sort according to English
+    selection={all}, % Include all entries (or use recorded-and-deps for only used entries)
+]
 \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
 % Reset sidenote counter at chapters
@@ -522,13 +526,13 @@ líos.}{Tatiana Țîbuleac, \textit{The Summer My Mother Had Green Eyes // El ve
 %	GLOSSARY
 %----------------------------------------------------------------------------------------
 
-% The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
-% TODO: This is not showing, maybe because we are compiling with lualatex?
-% \setglossarystyle{list} % listgroup % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
-\printglossary[title=Glossary, toctitle=List of Terms] 
-% Output the glossary, 
-% 'title' is the chapter heading for the glossary,
-% 'toctitle' is the table of contents heading
+% The glossary is compiled automatically with bib2gls via latexmk
+% Print general terms glossary
+\printunsrtglossary[type=general,title=Glossary,toctitle=List of Terms]
+% Print abbreviations
+\printunsrtglossary[type=abbreviations,title=Abbreviations]
+% Print symbols (if any)
+% \printunsrtglossary[type=symbols,title=List of Symbols]
 
 %----------------------------------------------------------------------------------------
 %	INDEX
