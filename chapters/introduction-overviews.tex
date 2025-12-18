@@ -57,15 +57,15 @@ focus on \gls{pidLabel} and hierarchical control.
 Models are  useful  approximations for the real-world, more precisely a
 mathematical representation of real-world systems. A model can depict a system
 at different levels of abstraction depending on the intended use. Models are
-useful in many applications~\sidecite{sokolowski_principles_2011}: 
+useful in many applications~\sidecite[*-2]{sokolowski_principles_2011}: 
 
 \begin{itemize}
     \item Forecasting. They are used to predict the value of a variable at some
     time in the future. 
     \item Simulation. Oftentimes experimentally evaluating real-world systems is
     impractical or infeasible, either because it is costly, time-consuming, or
-    deteriorate the system, among other factors. Simulating a model enables the
-    repeated observation of a system with just an associated computational cost. 
+    deteriorate the system, among other factors. Simulation enables the
+    repeated observation of a system with just a computational cost associated. 
     \item Control and optimization. In order to compute the optimal input to
     give to a real system, many control strategies are model-based, that is, they
     assess how inputs given to the real system will affect it by first evaluating
@@ -942,8 +942,7 @@ entire episode provides much less information to the algorithm about which
 decisions violate the constraints and when. As a result, the optimizer may
 struggle to adapt its decision variables effectively and could fail to
 converge, or require an unfeasibly large number of objective function
-evaluations\sidenote{Here, ``unable'' refers to requiring an unfeasible number of
-objective function evaluations, \ie, too much time.}.
+evaluations\sidenote{\ie, too much time}.
 
 Finally, non constraint-handling capable algorithms can be wrapped with
 constraint handling methods to solve problems with
@@ -960,7 +959,7 @@ called single-objective optimization. In contrast, when multiple objectives
 must be optimized simultaneously, the problem becomes one of multi-objective
 optimization. A key difference is that in the multi-objective case, objectives
 are often conflicting: improving one objective typically requires sacrificing
-performance in another~\sidecite{deb_multiobjective_2011}. As Johan Löfberg illustrates
+performance in another~\sidecite[*-2]{deb_multiobjective_2011}. As Johan Löfberg illustrates
 in the \href{https://yalmip.github.io/multi-objective-problems}{YALMIP
 documentation}:
 
@@ -1376,12 +1375,11 @@ feedback, controllers achieve robustness, disturbance rejection, and stability.
 
 A \gls{pidLabel} controller is one of the most widely used feedback control
 strategies in engineering\sidenote{Honorable mention here to \gls{mpcLabel}
-control, not used in this research work but widely used in the industry for
-complex and effective process control, it shares many similarities to the
-optimization just described above and the reader is referred to Camacho et
-al.~\cite{camacho_model_2007}} because it combines three complementary
-mechanisms that work together to regulate a system
-effectively~\sidecite{hagglund_advanced_2006}. The proportional term (P)
+control Camacho et al.~\cite{camacho_model_2007} ---not used in this research
+work but--- widely used in the industry for complex and effective process control,
+it shares many similarities to the optimization just described above.} because
+it combines three complementary mechanisms that work together to regulate a
+system effectively~\sidecite{hagglund_advanced_2006}. The proportional term (P)
 generates a control action directly proportional to the instantaneous error
 e(t), which is the difference between the desired setpoint and the actual
 process variable; this provides an immediate response that reduces deviations.
@@ -1463,11 +1461,11 @@ Moreover, in large-scale systems, any failure of this centralized solution could
 compromise many ---often critical--- processes. For these reasons, decentralized
 and distributed approaches are often preferred.
 
-In such approaches, complexity is divided among different agents (or layers).
-Each agent has a limited, problem-specific set of responsibilities. Various
-architectures exist for managing the information exchange between these agents.
+In such approaches, complexity is divided among different layers (or agents).
+Each layer has a limited, problem-specific set of responsibilities. Various
+architectures exist for managing the information exchange between these layers.
 Summarizing, the factors that justify the need of a decentralized solution
-are~\sidecite{scattolini_architectures_2009}:
+are~\cite{scattolini_architectures_2009}:
 
 \begin{itemize}
     \item Different time scales between low- (in the order of seconds) and
@@ -1494,4 +1492,4 @@ account for slow disturbances. Consistency must be maintained between the models
 used in the upper and lower control layers, and the steady-state optimization
 should ensure that the computed input and output references are both feasible
 and as close as possible to the desired
-setpoints~\cite{scattolini_architectures_2009}.
+setpoints~\sidecite[*-2]{scattolini_architectures_2009}.

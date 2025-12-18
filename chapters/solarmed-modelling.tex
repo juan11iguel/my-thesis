@@ -19,7 +19,7 @@
     The integrated hybrid model is evaluated under realistic operation
     conditions with different prediction horizons, showing good agreement with
     experimental data. Results demonstrate that the model accurately reproduces
-    the coupled dynamics of the system, maintaining \gls{mapeLabel} below 15\%
+    the coupled dynamics of the system, maintaining \gls{mapeLabel} below 15~\%
     for multi-hour predictions while preserving computational efficiency. }
 
 %===================================
@@ -71,7 +71,7 @@ system to reach steady state\sidenote[][*-5]{Further discussed in
 %===================================
 \subsection{Solar field}
 
-\marginnote[*-2]{In all models, it has been assumed that model parameters
+\marginnote[*-1]{In all models, it has been assumed that model parameters
 like heat transfer coefficient (U) or heat loss coefficients (H) are constant,
 and not a function of temperature.}
 
@@ -88,14 +88,14 @@ The diagram in \reffig{solarmed:diagrams:solar_field} illustrates the individual
 loops that make up the field. In the model, it is assumed that all loops have
 equal flow rates and temperatures\sidenote{\ie, a balanced flow distribution
 with similar collectors, Which is the case in the experimental facility for the
-considered loops 2 to 5}. As a result, the system can be simplified to a single
+considered loops 2--5}. As a result, the system can be simplified to a single
 loop with a collector area equal to the sum of the collector areas of the
 individual rows of collector loops.
 
 % References
 A first-principles model ---see \refmod{solarmed:sf}--- based on the one presented
-in Ampuño et al.~\sidecite[*-2]{ampuno_modeling_2018} is used to model the solar
-field. The model has two types of parameters: dynamic and constant\sidenote{Also
+in Ampuño et al.~\sidecite[*-3]{ampuno_modeling_2018} is used to model the solar
+field. The model has two types of parameters: dynamic and constant\sidenote[][*2]{Also
 called model and fixed model parameters, respectively}. The dynamic parameters
 are the thermal loss coefficient, $H_{sf}\,\left( \frac{J}{s·^\circ C} \right)$,
 which relates thermal losses to the environment and the gain coefficient,
@@ -228,8 +228,8 @@ the trend in \reffig{solarmed:modelling:sf:electrical_consumption_tests} -
 safe solar field temperatures}. In the first day, step trains are applied to the
 main loop and individual isolated loops\sidenote{20240925 07:15 -- 08:30}. On
 the second day, different speeds levels were set for the main recirculation pump
-(10\% - 100\%, 10\% increments) while step trains were applied to the individual
-loops (40\% - 100\%, 20\% increments)\sidenote{In
+(10--100~\%, 10~\% increments) while step trains were applied to the individual
+loops (40--100~\%, 20~\% increments)\sidenote{In
 \reffig{solarmed:modelling:sf:electrical_consumption_tests}, from 20240927 07:35
 to 08:20}.
 
@@ -247,9 +247,9 @@ between flow rate and power consumptions for different configurations and pump
 speeds. Up to 91.9~l/min the best configuration is to just use the main
 recirculation pump. Above this flow rate, the main pump is used in combination
 with the individual loop pumps. First, a combination of main pump from 85 to
-100\% and individual loops fixed at their 40\% minimum speed up until 105~l/min,
-then the main pump fixed at 100\% and individual loops at increasing values from
-40 to 100\% until a maximum flow rate of 148~l/min is achieved. 
+100~\% and individual loops fixed at their 40~\% minimum speed up until 105~l/min,
+then the main pump fixed at 100~\% and individual loops at increasing values from
+40 to 100~\% until a maximum flow rate of 148~l/min is achieved. 
 
 \begin{equation}
     \text{Optimal configuration}(q_{sf}) =
@@ -287,9 +287,8 @@ and the individual loops depending on the working flow range.
     \includegraphics[width=\linewidth]{solar_field_validation.png}
     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solar_field_validation_20231106.html}}
     \savebox\captionqrright{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/solar_field_validation_20230511.html}}
-    \caption[]{Solar field model calibration and validation tests. The colors in
-    the validation plot represent the different loops (not available in the
-    calibration data)\hfill
+    \caption[Solar field model calibration and validation tests]{Solar field model calibration and validation tests. The colors in
+    the validation plot represent the different loops\hfill
     \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
     \labfig{solarmed:modelling:validation:solar-field}
 \end{figure*}
@@ -386,8 +385,8 @@ transfer and stratification based on the methodology developed by
 Duffie~\etal~\sidecite{duffie_energy_2013}.
 
 The governing model equations and boundary conditions to simulate the transient
-thermal behavior of the storage system, including mass and energy balances,
-heat transfer mechanisms, and the stratification dynamics are shown in
+thermal behavior of the storage system, including mass and energy balances, heat
+transfer mechanisms, and the stratification dynamics are shown in
 \refmod{solarmed:modelling:thermal-storage}.
 
 % Diagrama del componente con variables
@@ -600,14 +599,14 @@ the tank's bottom.
     \includegraphics[width=\linewidth]{thermal_storage_validation.png}
     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/thermal_storage_validation_20230707.html}}
     \savebox\captionqrright{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/thermal_storage_validation_20230505.html}}
-    \caption[]{Thermal storage model calibration and validation tests. \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
+    \caption[Thermal storage model calibration and validation tests]{Thermal storage model calibration and validation tests. \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
     \labfig{solarmed:modelling:validation:thermal-storage}
 \end{figure*}
 
 In \reffig{solarmed:modelling:validation:thermal-storage} -- right, the model is
 validated with a different test. It can be observed that the error between
 calibration and validation is similar, 1.11~$^\circ$C (\gls{maeLabel}) compared
-to 1.14~$^\circ$C\sidenote{See
+to 1.14~$^\circ$C\sidenote[][*-4]{See
 \reftab{solarmed:modelling:validation:thermal-storage} -- $T_{ts,h}$ -- Sample
 time 5 seconds. Similar value for the 400 seconds sample time. Higher
 differences are observed for the cold tank, with even a better value obtained in
@@ -742,7 +741,7 @@ experimental data. A heat transfer conductance value of 13
 the dynamic behavior of the model is validated with another test. It can be seen
 than the model performs fairly well even in transient conditions, with a
 \gls{maeLabel} of $T_{hx,p,out}=1.38\:^\circ$C, $T_{hx,p,out}=1.39\:^\circ$C and
-a coefficient of determination $R^2=99\%$ for both outputs\sidenote{With fast
+a coefficient of determination $R^2=99$~\% for both outputs\sidenote{With fast
 sample rate --10 seconds}.
 
 % Bloque de modelo con interfaz y ecuaciones
@@ -880,6 +879,19 @@ comparison purposes and to gain insight into the operation of the \gls{medLabel}
 A \gls{gprLabel} model is calibrated using data from the two experimental campaigns
 described in \refsec{solarmed:facility:med}.
 
+As observed in \refmod{solarmed:med}, the model has five inputs: the heat source
+flow rate ($q_{s}$), the feedwater flow rate ($q_{f}$), the inlet
+temperature of the heat source ($T_{s,in}$), the inlet temperature of the
+cooling water ($T_{c,in}$) and the outlet temperature of the cooling water
+($T_{c,out}$). The model returns three main outputs: the distillate flow
+rate ($q_{d}$), the outlet temperature of the heat source ($T_{s,out}$)
+and the cooling water flow rate ($q_{c}$). An additional output is
+included with a validated value for the condenser outlet temperature
+($T_{c,out}$), in cases where an unfeasible temperature is given as input.
+In \refmod{solarmed:med}, the functions $f_{bb,q}$ and $f_{bb,T}$ represent the
+black-box \gls{gprLabel} models for the model with the main outputs and the
+auxiliary output, respectively. 
+
 % Bloque de modelo con interfaz y ecuaciones
 \begin{modelcounter}{\gls{medLabel} model}
     \begin{align*}
@@ -900,18 +912,6 @@ described in \refsec{solarmed:facility:med}.
     \labfig{solarmed:diagrams:med}
 \end{marginfigure}
 
-As observed in \refmod{solarmed:med}, the model has five inputs: the heat source
-flow rate ($q_{s}$), the feedwater flow rate ($q_{f}$), the inlet
-temperature of the heat source ($T_{s,in}$), the inlet temperature of the
-cooling water ($T_{c,in}$) and the outlet temperature of the cooling water
-($T_{c,out}$). The model returns three main outputs: the distillate flow
-rate ($q_{d}$), the outlet temperature of the heat source ($T_{s,out}$)
-and the cooling water flow rate ($q_{c}$). An additional output is
-included with a validated value for the condenser outlet temperature
-($T_{c,out}$), in cases where an unfeasible temperature is given as input.
-In \refmod{solarmed:med}, the functions $f_{bb,q}$ and $f_{bb,T}$ represent the
-black-box \gls{gprLabel} models for the model with the main outputs and the
-auxiliary output, respectively. 
 
 %================================
 \subsubsection{First-principles model}
@@ -998,7 +998,7 @@ above 0.90 in all cases.
     \includegraphics[width=\linewidth]{med_validation.png}
     \savebox\captionqrleft{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/med_validation_20230331.html}}
     \savebox\captionqrright{\qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl/figures/med_validation_20230418.html}}
-    \caption[]{\gls{medLabel} model validation tests. \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
+    \caption[\gls{medLabel} model validation tests]{\gls{medLabel} model validation tests. \hfill \usebox\captionqrleft\hspace{1ex}\usebox\captionqrright}
     \labfig{solarmed:modelling:validation:med}
 \end{figure*}
 
@@ -1024,11 +1024,11 @@ inlet conditions are constantly shifting. Despite this, the static model is able
 to capture the condenser's overall behavior once the system stabilizes and the
 inlet temperature becomes the primary changing variable.
 
-\begin{table}[htbp]
+\begin{table*}[!b]
 \centering
 \caption{Models parameters}
 \labtab{solarmed:modelling:models-parameters}
-\resizebox{\textwidth}{!}{%
+\resizebox{.8\linewidth}{!}{%
 \begin{tabular}{rlrlllrlc}
 \hline
 \textbf{Subsystem}    &  & \textbf{Parameter}     &  & \textbf{Description}                            &  & \textbf{Value}                                &  & \textbf{Units}     \\ \hline \\ \hline
@@ -1055,7 +1055,9 @@ conductance              &  & 1.35$\times 10^4$                    &  & W/K
      \\ \hline
 \end{tabular}%
 }
-\end{table}
+\end{table*}
+
+\newpage
 
 %===================================
 %===================================
@@ -1112,7 +1114,7 @@ visualized in \reffig{solarmed:modelling:fsm-diagrams} (a). The states involve:
 %     \labmod{solarmed:sfts_fsm}
 % \end{modelcounter}
 
-\begin{margintable}[*-7]
+\begin{margintable}[*-9]
 \caption[\gls{sftsLabel} \gls{fsmLabel} states definitions]{\gls{sftsLabel}
 \gls{fsmLabel} states definitions. $\land$ represents the logical \texttt{AND}
 operator.}
@@ -1123,8 +1125,8 @@ operator.}
     \textbf{State} & \textbf{Name} & \textbf{Condition}  \\
     \midrule
     0 (00) & Off & $q_{sf}\land q_{ts,src}==0$ \\
-    1 (01) & Warming up \gls{sfLabel} & $q_{sf} > 0 \land q_{ts,src}==0$ \\
-    2 (10) & Recirculating \gls{tsLabel} & $q_{sf} ==0 \land q_{ts,src} > 0$ \\
+1 (01) & \begin{tabular}[t]{@{}l@{}}Warming up\\\gls{sfLabel}\end{tabular} & $q_{sf} > 0 \land q_{ts,src}==0$ \\
+2 (10) & \begin{tabular}[t]{@{}l@{}}Recirculating\\\gls{tsLabel}\end{tabular} & $q_{sf} ==0 \land q_{ts,src} > 0$ \\
     3 (11) & \gls{sfLabel} heating up \gls{tsLabel} & $q_{sf}\land q_{ts,src} > 0$
     \\
     \bottomrule
@@ -1429,9 +1431,9 @@ higher error that accumulates over time. As expected, the 8-hour horizon shows a
 higher error than the 1-hour horizon, since the model is not updated with actual
 measurements for the whole duration of the test. Nonetheless, the final state of
 the thermal storage temperature profiles is not too far from the actual
-measurements\sidenote{At the end of operation (15:00), for the 8-hour horizon:
-$T_{ts,h,t}=$96.98~$^\circ$C \vs~95.69 and $T_{ts,c,b}=$80.2~$^\circ$C \vs~81.7.
-In terms of energy stored: $Q_{ts,c}=$194.45~kWh$_{th}$ \vs~211.36 and
+measurements\sidenote[][*-3]{At the end of operation (15:00), for the 8-hour
+horizon: $T_{ts,h,t}=$96.98~$^\circ$C \vs~95.69 and $T_{ts,c,b}=$80.2~$^\circ$C
+\vs~81.7. In terms of energy stored: $Q_{ts,c}=$194.45~kWh$_{th}$ \vs~211.36 and
 $Q_{ts,c}=$170.24~kWh$_{th}$ \vs~173.52}, showing that the model is able to
 capture the overall behavior of the system. This is confirmed by the good
 agreement observed in the energy stored throughout the

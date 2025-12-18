@@ -1,34 +1,35 @@
 \chapter*{How to read this document}
 \addcontentsline{toc}{chapter}{How to read this document}
 
-\tldrbox{
-    This preliminary chapter explains how to read this document, mainly the
-    different environment boxes used throughout the manuscript, why the large
-    margins, what is placed in them, and how to use the interactive features
-    of the manuscript. This is an example of a \gls{tldrLabel} box. It contains
-    an Abstract/Summary of the main point of the chapter and are placed at the
-    beginning of every chapter.
-}
+\tldrbox{ This preliminary chapter explains how to read this document, mainly
+    why the large margins used throughout the manuscript, what is placed in
+    them, the different boxed environments, and how to use the interactive
+    features of the manuscript. This is an example of a \gls{tldrLabel} box. It
+    contains an Abstract/Summary of the main point of the chapter and are placed
+    at the beginning of every chapter. }
 
-This \LaTeX{} template is designed with large margins, on the one hand this
-allows to have shorter lines, which makes for an easier reading experience but
-most interestingly, it also allows to place additional information in the
-margins, such as side notes, side citations, figures, tables… your
-imagination is the limit! Or rather \LaTeX{} compilation errors and your
-patience are. Throughout this manuscript I will add side notes\sidenote{
-  Like this one! They are like footnotes, but placed in the margin of the page
-} to provide additional information and comments that would otherwise be too
-distracting and verbose to include in the main text, constantly interrupting
-the flow of the reading. The side notes are not essential to understand the
-content of the document, but mostly complementary.
+This \LaTeX{} template\sidenote{The
+\href{https://github.com/fmarotta/kaobook/}{kaobook} class from Federico
+Marotta} is designed with large margins, on the one hand this allows to have
+shorter lines, which makes for an easier reading experience but most
+interestingly, it also allows to place additional information in the margins,
+such as side notes, side citations, figures\sidenote{See
+\reffig{how-to-read:example-figure}}, tables\sidenote{See
+\reftab{example}}\dots~your imagination is the limit! Or rather \LaTeX{}
+compilation errors and your patience are. Throughout this manuscript I will add
+side notes\sidenote{Like this one! They are like footnotes, but placed in the
+margin of the page} to provide additional information and comments that would
+otherwise be too distracting and verbose to include in the main text, constantly
+interrupting the flow of the reading. The side notes are not essential to
+understand the content of the document, but mostly complementary.
 
 \section*{Boxed environments}
 
-Both problem definition boxes (\eg ref) and model definition boxes (\eg
-\refmod{example}) are countered environments and can (and will) be referenced
-in the text.
+Both problem definition boxes (\eg~\refprob{example}) and model definition boxes
+(\eg~\refmod{example}) are countered environments and can be referenced in the
+text.
 
-\begin{marginfigure}[]
+\begin{marginfigure}[*2]
     \includegraphics[]{bussines_cat.jpg}
     % \caption{Back view of the WCT}
     \savebox\captionqr{\qrcode[hyperlink,height=0.4in]
@@ -41,7 +42,7 @@ in the text.
 \end{marginfigure}
 
 
-\problemdefinitionbox{Problem definition box example}{
+\begin{problemcounter}{Problem definition box example}
     This is an example of a problem definition box. It is used to formally and
     concisely define an optimization problem.
   \begin{equation*}
@@ -81,18 +82,24 @@ in the text.
       \item $out_X \leq out_Z - \Delta Z$
     \end{itemize}
   \end{itemize}
-}
+\labprob{example}
+\end{problemcounter}
 
 \begin{modelcounter}{Model definition box example}
     \begin{equation*}
-        out_{1},\,out_{2} = \text{some\:cool\:model}(in_{1},\, in_{2},\, in_{3})
+        out_{1},\,out_{2} = \text{some\:useful\:model}\:(in_{1},\, in_{2},\, in_{3})
     \end{equation*}
     \labmod{example}
 \end{modelcounter}
 
+\reminder{This is a reminder}{To remind the reader of something mentioned earlier in the manuscript relevant to the current context.}
+
+\annotation{This is an annotation}{To provide additional explanation or commentary on a specific point in the text.}
+
+
 \begin{margintable}[*-8]
     \caption{\gls{medLabel} plant at \gls{psaLabel} specifications and nominal operating conditions}
-    \labtab{solarmed:facility:specifications}
+    \labtab{example}
     \resizebox{\linewidth}{!}{%
 	\begin{tabular}{@{}rl@{}}
 	\toprule
@@ -125,7 +132,7 @@ citations, and links to external resources, and they will take you to the
 corresponding location. This is standard latex, however to maintain a
 consistent experience in the physical version, QR codes are inserted in the
 margin next to the links. The reader is invited to scan them with a QR code
-reader to access the corresponding online resource\sidenote[][*-8]{
+reader to access the corresponding online resource\sidenote[][*-4]{
     I believe that this is a good way to make the document more
 accessible and to encourage readers to explore the content in more depth.
 However, the interactive features are \textbf{optional} and not necessary to
@@ -134,7 +141,7 @@ understand the content of the document.
 version of the figure, see \reffig{how-to-read:example-figure} as an example.
 
 The additional material as
-well as the source code of this document are hosted in a \href{\repositoryBaseUrl}{Zenodo repository}\sidenote[][*-2]{
+well as the source code of this document are hosted in a \href{\repositoryBaseUrl}{Zenodo repository}\sidenote[][*-1]{
     \qrcode[hyperlink,height=0.5in]{\repositoryBaseUrl} \\[2ex] \url{\repositoryBaseUrl}
 }. Alternatively, a mirror repository is also available at: \\
 \begin{center}
@@ -143,5 +150,5 @@ well as the source code of this document are hosted in a \href{\repositoryBaseUr
 It seems unlikely that both Zenodo and GitHub will go down at a time where this
 document is still relevant, and if they do, I think there will be more
 important things to worry about than losing access to the interactive content
-of this thesis.\sidenote[{\color{gray} \faToiletPaper}]{Like hoarding toilet paper}
+of this thesis\sidenote[{\color{gray} \faToiletPaper}]{Like hoarding toilet paper}.
 

@@ -22,7 +22,6 @@ The experimental campaign includes evaluations at high top brine temperatures. R
 
 Finally, a novel operational strategy is proposed to enable the seamless, autonomous, and optimal integration of a solar-driven MED system. The method explicitly determines when to start and stop each subsystem while considering a two-day prediction horizon. This allows the optimization to account not only for immediate performance but also for the effect of present decisions on future production. The approach is based on an experimentally validated system model that includes the electrical consumption of each component, combined with the most comprehensive data-driven MED model currently available in the literature. The control architecture follows a hierarchical three-layer structure, in which the upper operational layer solves a mixed-integer nonlinear programming problem aimed at maximizing water production while minimizing operating costs. Results from a week-long system simulation are compared with two alternative strategies, a baseline rule-based operation and a fixed-schedule optimized operation. The proposed method significantly increases system performance by 32% relative to the heuristic baseline and by 21% relative to the fixed-schedule strategy. These gains arise from the method’s ability to fully exploit the temporal flexibility provided by thermal storage while accounting for operational costs.
 
-
 ## How to use
 
 The best way to interact with the document is via a `devcontainer` and using the
@@ -41,6 +40,14 @@ There are a lot of snippets for including attachments in the document, make sure
 to check them out in [latex.code-snippets](.vscode/latex.code-snippets).
 
 ![Snippets](./assets/snippets.mp4)
+
+## Usage tips
+
+- Compile only the parts you are working on, otherwise the build time will be
+  significant. 
+- The glossary compilation is very buggy. So it's better to leave that part
+  commented out in the `latexmkrc` file and include it only to produce the final
+  document. Also, delete the `out_dir` folder before compiling.
 
 ## Cheatsheet
 

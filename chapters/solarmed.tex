@@ -12,11 +12,11 @@ sources}
 
 This work advances the integration, evaluation, and optimal operation of
 low-temperature \gls{medLabel} systems powered by variable energy sources such
-as thermal energy. As desalination becomes increasingly important to address
-global freshwater scarcity, modern thermal systems ---particularly low-temperature
-\gls{medLabel}--- offer a robust and complementary pathway for brine
-concentration and resource recovery, especially when coupled with waste-heat or
-renewable sources.\\
+as solar thermal energy. As desalination becomes increasingly important to
+address global freshwater scarcity, modern thermal desalination systems
+---particularly low-temperature \gls{medLabel}--- offer a robust and
+complementary pathway for brine concentration and resource recovery, especially
+when coupled with waste-heat or renewable sources.\\
 
 A standardized methodology is developed to evaluate \gls{medLabel} performance under
 realistic and highly variable operating conditions. The approach defines
@@ -62,11 +62,11 @@ to new applications such as brine-mining, specifically for the case of
 \gls[format=long]{medLabel}. Then, the experimental solar-driven \gls{medLabel}
 pilot at \gls{psaLabel} is presented in \refch{solarmed:facility}. A standard
 methodology for the experimental assessment of \gls{medLabel} systems under
-variable operating conditions is detailed in \refch{solarmed:std}, and its
-application to the experimental plant is shown in \refch{solarmed:std} in a
-high-TBT experimental campaign. The methodology for modelling and optimizing the
-operation of the system are described in \refch{solarmed:modelling} and
-\refch{solarmed:optimization}, respectively.
+variable operating conditions is detailed in \refch{solarmed:std}, together to
+its application to the experimental plant in a high-TBT experimental campaign.
+The methodology for modelling and optimizing the operation of the system are
+described in \refch{solarmed:modelling} and \refch{solarmed:optimization},
+respectively.
 
 \pagelayout{margin} % Restore margins
 %===================================
@@ -150,8 +150,9 @@ Another path to follow is to generate added value from the separation process.
 \end{figure}
 
 Brine, a byproduct of the desalination process, typically exhibits salinities
-1.6--2.1 times higher than seawater, along with residual process chemicals such
-as coagulants, antiscalants, and desinfectants~\sidecite{panagopoulos_study_2022}. Its conventional disposal
+1.6 to 2.1 times higher than seawater, along with residual process chemicals
+such as coagulants, antiscalants, and
+desinfectants~\sidecite{panagopoulos_study_2022}. Its conventional disposal
 methods ---such as marine discharge, deep-well injection, evaporation ponds, and
 land application--- are often unsustainable, leading to marine ecosystem stress,
 soil salinization, and groundwater
@@ -166,8 +167,7 @@ Brines are rich in sodium, chloride, magnesium, calcium, and potassium, as well
 as trace valuable metals like lithium, rubidium, and celsium, which have high
 commercial value~\cite{panagopoulos_environmental_2020}. This recognition has
 led to growing interest in brine management and valorization, an approach that
-aligns with the principles of a circular water economy. Through \gls{mldLabel}
-and \gls{mldLabel} systems, it is possible to recover up to 95--100~\% of
+aligns with the principles of a circular water economy. Through \gls{mldLabel}, it is possible to recover up to 95--100~\% of
 freshwater and extract valuable salts and minerals, turning waste into a
 secondary source of raw materials~\cite{panagopoulos_environmental_2020}. This
 strategy not only reduces environmental impacts but also offers potential
@@ -190,7 +190,7 @@ production~\sidecite[*-4]{hernandez_use_2020}.
 \labsec{solarmed:intro:technologies}
 
 
-Desalination refers to the set of processes that remove dissolved salts and
+Desalination refers to the set of processes that separate dissolved salts and
 impurities from saline water to produce freshwater suitable for drinking,
 irrigation, or industrial use. These technologies can be broadly divided into
 thermal and mechanical-based processes, depending on the dominant physical
@@ -204,7 +204,7 @@ mechanism of salt separation~\sidecite{el-dessouky_fundamentals_2002}.
 Membrane processes rely on selective transport through semipermeable membranes,
 driven by pressure, concentration, or electrical potential differences, without
 phase change. They have become dominant in global desalination capacity because
-of lower energy requirements and modular scalability. The main categories are:
+of their lower energy requirements and modular scalability. The main categories are:
 
 \begin{itemize}
     \item \gls{roLabel}. The most widely adopted method, where high-pressure
@@ -262,7 +262,7 @@ The main thermal processes are:
     utilize low-grade or waste heat (<~80~$^\circ$C) and can operate with very
     high salinity feeds (even near saturation). Salt rejection is typically
     high, although the exact salt rejection factor depends strongly on membrane
-    properties, on operating conditions and the membrane configuration.
+    properties, on operating conditions and on the membrane configuration.
 
     Common configurations include Direct Contact \gls{mdLabel}
     (DC\gls{mdLabel}), Air-Gap \gls{mdLabel} (AG\gls{mdLabel}), Vacuum \gls{mdLabel}
@@ -289,7 +289,7 @@ measures the heat provided to the system per unit of distillate produced. Also
 relates to the number of times latent heat is reused in the system.\\[2ex]A
 detailed description of all metrics can be found in \nrefch{solarmed:std}} by
 reusing latent heat more effectively. Research throughout the 1980s and 1990s
-concentrated on optimizing heat exchanger design, corrosion resistance, and
+focused on optimizing heat exchanger design, corrosion resistance, and
 system modularity, leading to steady improvements in performance and
 reliability~\sidecite[*3]{khawaji_advances_2008}. However, despite these advances,
 the fundamental thermodynamic limits of phase-change separation and the high
@@ -334,7 +334,7 @@ capital costs, material properties, and maintenance requirements. For example,
 while the cost of energy is comparable in co-production systems, \gls{roLabel}
 benefits from the lower material and fabrication costs of polymer membranes
 compared to the metallic heat exchangers used in thermal systems. Furthermore,
-membranes exhibit much higher effective conductance than heat exchangers,
+membranes exhibit much higher effective conductance than heat exchangers~\cite{bouma_metrics_2020},
 contributing to their overall economic and energetic advantage.
 
 Finally, in terms of environmental impact, \gls{roLabel} membranes are only
@@ -357,16 +357,16 @@ that are widely recyclable.
 
 In summary, \gls{roLabel} technology is the most prevalent, with 74~\% ---See
 \reffig{solarmed:intro:plants-worldwide}--- of the world's installed capacity
-using this technology in 2019, while another 21~\% and 3~\% remained in the use
-of thermal technologies (namely, \gls{medLabel} and
+using this technology in 2019, while 21~\% remained in using thermal
+technologies (namely, \gls{medLabel} and
 \gls{msfLabel})~\cite{panagopoulos_environmental_2020}. However, there has been
 a renewed research focus on low-temperature, small-scale thermal desalination.
 This resurgence is driven by the increasing availability of low-grade or waste
 heat, the desire for robust, low-maintenance systems in off-grid or remote
 regions, and the need for brine concentration and minimum-liquid discharge
-applications where \gls{roLabel} performance declines sharply. The development
-of membrane distillation (\gls{mdLabel}) ---a low temperature thermal separation
-process--- is an example of this shift.
+applications where \gls{roLabel} performance ---at its current status--- declines
+sharply. The development of membrane distillation (\gls{mdLabel}) ---a low
+temperature thermal separation process--- is an example of this shift.
 
 
 
@@ -527,7 +527,7 @@ Australia, representing the world's first commercial application using
 concentrated solar thermal power to co-generate electricity, freshwater, and
 heating for horticulture~\sidecite{palenzuela_concentrating_2019}. Its central
 solar tower, targeted by 23,000 mirrors, produces steam to generate electricity,
-heat and cool greenhouses, and power a desalination plant. The system annually
+heat and cool greenhouses, and powers a desalination plant. The system annually
 yields 1,700~MWh of electricity, 250,000 m$^3$ of desalinated water from the
 saline Spencer Gulf, and 20,000~MWh of thermal energy. The freshwater is used in
 the greenhouses and then recycled, while the resulting brine is managed by

@@ -1,9 +1,3 @@
-\myepigraphhead[500]{My father always said that if you get into trouble, you
-have to drag as many people as you can down with you, because that way you'll
-get off more easily. My father knew a thing or two about trouble.\\//\\Mi padre
-decía siempre que, si te metes en un lío, tienes que arrastrar contigo a toda la
-gente que puedas, porqe así te librarás más fácilmente. Mi padre entendía de
-líos.}{Tatiana Țîbuleac, \textit{The Summer My Mother Had Green Eyes // El verano en que mi madre tuvo los ojos verdes}}
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 \setchapterstyle{lines}
 
@@ -172,9 +166,9 @@ RR \pm \Delta RR = \frac{\dot{m}_{d}}{\dot{m}_{f}} \pm \left( \left(\frac{1}{\do
 Exergy consists on two components: thermomechanical exergy and chemical exergy.
 When performing an exergetic analysis, the balances of the exergy flows of
 interest are calculated given the control volume presented in
-Fig.~\ref{fig:control_volume}. Any external stream entering the control volume
-is considered an exergy input ($\dot{E}x_{in}$), while any stream leaving it is
-considered an exergy output ($\dot{E}x_{out}$). A general expression to
+\reffig{solarmed:std:control-volume}. Any external stream entering the control
+volume is considered an exergy input ($\dot{E}x_{in}$), while any stream leaving
+it is considered an exergy output ($\dot{E}x_{out}$). A general expression to
 determine the specific exergy flow ($\dot{e}_x$) of a stream is given in
 \refeq{exergy}, where the first two summands represent the thermomechanical
 component and the last the chemical component.
@@ -190,7 +184,7 @@ enthalpy, specific entropy, chemical potential, and mass fraction, respectively.
 The properties denoted with an asterisk in the equation are calculated at the
 restricted dead state conditions (when the temperature and pressure of the
 system change to match the temperature and pressure of the environment). On the
-other hand, properties labeled with a superscript of ``0" are determined at the
+other hand, properties labeled with a superscript of ``0'' are determined at the
 global dead state (when the concentration is also changed to match that of the
 environment). The subscript $i$ represents a species (NaCl, H$_2$O and others if
 considered). Notice that the chemical exergy component in this work has been
@@ -198,15 +192,15 @@ calculated by two approaches: empirical correlations (i) and modelling seawater
 as an electrolyte for a solution of NaCl with the same concentration as the
 feedwater salinity (ii). In the latter case, the required activity coefficients
 have been determined by Pitzer
-equations~\sidecite[*-4]{pitzer_thermodynamics_1973}. 
+equations~\sidecite[*-7]{pitzer_thermodynamics_1973}. 
 
 Finally, in order to calculate the specific exergy flows, libraries in MATLAB
-~\sidecite[*-4]{sharqawy_thermophysical_2010,nayar_thermophysical_2016} and
-Python ~\sidecite[*-3]{romera_iapws_2021} are available. However, they are
+~\sidecite[*-7]{sharqawy_thermophysical_2010,nayar_thermophysical_2016} and
+Python ~\sidecite[*-2]{romera_iapws_2021} are available. However, they are
 limited to 120 kg/kg of concentration. For higher values, the approach used is
 the modelling of seawater as an electrolyte and in this case the chemical exergy
 flows are determined by the activity coefficients using a free and open source
-tool~\sidecite[*-3]{marcellos_pyequion_2021}.
+tool~\sidecite[]{marcellos_pyequion_2021}.
 
 
 % Finally, in order to calculate the specific exergy flows, it should be mentioned that a library for the determination of the thermophysical properties of seawater is available at \href{http://web.mit.edu/seawater/}{MIT webpage}, which is based on the work shown in \cite{sharqawy_thermophysical_2010} and \cite{nayar_thermophysical_2016}. It includes functions to calculate the the specific exergy flows and it is available in MATLAB, Engineering Equation Solver and Excel. There is also an implementation of the IAPWS R13-08 seawater properties standard \cite{IAPWSR13-08_2008} in Python, which includes the calculation of the specific enthalpy, entropy and chemical potential of seawater \cite{romera_jjgomeraiapws_2021}. The chemical exergy calculations in the above mentioned libraries are limited to 120 kg/kg of concentration. For higher values of concentration, the approach used is the modelling of seawater as an electrolyte and the chemical exergy flows are determined using the activity coefficients \cite{fitzsimons_exergy_2015,thiel_energy_2015,chung_thermodynamic_2017}. A free and open source implementation for obtaining such coefficients is available in \cite{marcellos_pyequion_2021} for the Python programming language.
@@ -381,9 +375,8 @@ It works both at nominal and partial load conditions.
 To solve the model, an iterative process is followed where the model proceeds
 effect by effect, starting from the first stage. For each effect, it uses
 nonlinear solvers to solve a system of non linear equations (see
-Figures~\ref{ap:med-model:effect}--\ref{ap:med-model:preheater}) ensuring
-consistent heat exchange and energy balances. The preheaters are solved in a
-similar manner. Throughout the process, mass and energy conservation are
+Figures~\ref{fig:ap:med-model:effect}--\ref{fig:ap:med-model:preheater}) ensuring
+consistent heat exchange and energy balances. The preheaters are solved similarly. Throughout the process, mass and energy conservation are
 verified. After completing a cell, the model updates the inlet conditions for
 the next effect taking into consideration the distillate vapor lost in the
 preheater-effect distribution line, temperature losses and more importantly, the
@@ -534,7 +527,7 @@ by the O\&M team.
 %================================
 \subsection{Simulation mode}
 
-\begin{marginfigure}[-5cm]
+\begin{marginfigure}[-4.5cm]
     \includegraphics[]{med-modelling-simulation-interface.png}
     \caption{\gls{medLabel} model \textit{simulation mode} diagram with inputs and outputs}
     \labfig{appendix:med-model:calibration-interface}
