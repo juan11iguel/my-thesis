@@ -11,7 +11,7 @@
 	name=Combined cooling system,
 	description={combines separate dry and wet cooling systems within the same hydraulic circuit}
 }
-\newglossaryentry{Pareto front}{
+\newglossaryentry{pareto-front}{
 	name={Pareto front},
 	description={When dealing with multiple objectives where no single solution
 	is optimal, but improvements in one objective lead to trade-offs in others,
@@ -75,11 +75,25 @@
 \newacronym[
     description={A system that uses a combination of a thermal solar field and a thermal storage system as heat source to produce separation using a multi-effect distillation system.}
 ]{solarmedLabel}{SolarMED}{Solar-driven Multi-Effect Distillation}
-\newacronym[]{sfLabel}{\texttt{sf}}{Solar Field}
-\newacronym[]{tsLabel}{\texttt{ts}}{Thermal Storage}
-\newacronym[]{sftsLabel}{\texttt{sfts}}{Solar Field and Thermal Storage
-subsystem}
-\newacronym[]{medfsmLabel}{\texttt{med}}{Separation subsystem}
+\newacronym[
+  short={sf},
+  symbol={\texttt{sf}}
+]{sfLabel}{sf}{Solar Field}
+
+\newacronym[
+  short={ts},
+  symbol={\texttt{ts}}
+]{tsLabel}{ts}{Thermal Storage}
+
+\newacronym[
+  short={sfts},
+  symbol={\texttt{sfts}}
+]{sftsLabel}{sfts}{Solar Field and Thermal Storage subsystem}
+
+\newacronym[
+  short={med},
+  symbol={\texttt{med}}
+]{medfsmLabel}{med}{Separation subsystem}
 \newacronym[]{nlpLabel}{NLP}{Non-Linear Programming}
 \newacronym[]{minlpLabel}{MINLP}{Mixed Integer Non-Linear Programming}
 \newacronym[]{nnlpLabel}{nNLP problems}{n Non-Linear Programming problems}
@@ -90,10 +104,15 @@ subsystem}
 \newacronym[]{gpLabel}{GP}{Gaussian Process}
 \newacronym[]{gprLabel}{GPR}{Gaussian-Process Regression}
 \newacronym[]{lmtdLabel}{LMTD}{Logarithmic Mean Temperature Difference}
-\newacronym[]{pYidLabel}{P\&ID}{Piping and Instrumentation Diagram}
-\newacronym[]{tpyLabel}{TMY}{Typical Meteorological Year}
+\newacronym[
+  short={P\&ID},
+  sort=pid
+]{pYidLabel}{P\&ID}{Piping and Instrumentation Diagram}
 \newacronym[]{reeLabel}{REE}{Red Eléctrica de España}
-\newacronym[]{tldrLabel}{TL;DR}{Too Long; Didn't Read}
+\newacronym[
+  short={TL;DR},
+  sort=tldr
+]{tldrLabel}{TL;DR}{Too Long; Didn't Read}
 \newacronym[]{tfLabel}{TF}{Transfer Fluid}
 \newacronym[]{lcoeLabel}{LCOE}{Levelized Cost of Electricity}
 \newacronym[]{lcowLabel}{LCOW}{Levelized Cost of Water}
@@ -122,7 +141,10 @@ $^{\circ}$C}
 \newacronym[]{prbsLabel}{PRBS}{Pseudo-Random Binary Sequence}
 \newacronym[]{bpeLabel}{BPE}{Boiling Point Elevation}
 \newacronym[]{rrLabel}{RR}{Recovery Ratio}
-\newacronym[]{rrmaxLabel}{RR$_{max}$}{Maximum Recovery Ratio}
+\newacronym[
+  short={RRmax},
+  symbol={$RR_{\max}$}
+]{rrmaxLabel}{RRmax}{Maximum Recovery Ratio}
 \newacronym[]{riLabel}{RI}{Reconcentration Index}
 \newacronym[]{gorLabel}{GOR}{Gain Output Ratio}
 \newacronym[]{stecLabel}{STEC}{Specific Thermal Energy Consumption}
@@ -163,6 +185,10 @@ $^{\circ}$C}
 \newacronym[]{ghgLabel}{GHG}{Greenhouse Gas}
 \newacronym[]{tdsLabel}{TDS}{Total Dissolved Solids}
 \newacronym[]{neaLabel}{NEA}{Non-Equilibrium Allowance}
-\newacronym[]{omLabel}{O\&M}{Operation and Maintenance}
+\newacronym[
+	short={O\&M},
+	sort=om
+]{omLabel}{O\&M}{Operation and Maintenance}
+\newacronym[]{tpyLabel}{TMY}{Typical Meteorological Year}
 \newacronym[]{deahpLabel}{DEAHP}{Double-Effect Absorption Heat Pump}
 \newacronym[]{ltLabel}{LT}{Low Temperature}
