@@ -73,12 +73,14 @@
 
 % \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
-% Load glossary entries from glossary.bib using bib2gls
+% Define custom glossary types for bib2gls
+\newglossary*{general}{General Terms}
+% Load bib2gls resource
 \GlsXtrLoadResources[
-    src={glossary}, % Load from glossary.bib
-    sort={en-US}, % Sort according to English
-    selection={all}, % Include all entries (or use recorded-and-deps for only used entries)
+  src={glossary}, % BibTeX file containing the glossary entries
+  selection=all % Load all entries
 ]
+
 \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
 % Reset sidenote counter at chapters
@@ -419,6 +421,9 @@
 %----------------------------------------------------------------------------------------
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
+
+% \gls{medLabel}
+
 \input{chapters/introduction.tex}
 \input{chapters/introduction-overviews.tex}
 
@@ -526,11 +531,20 @@ líos.}{Tatiana Țîbuleac, \textit{The Summer My Mother Had Green Eyes // El ve
 %	GLOSSARY
 %----------------------------------------------------------------------------------------
 
+% \printglossaries % Output all glossaries
+
 % The glossary is compiled automatically with bib2gls via latexmk
+
 % Print general terms glossary
-\printunsrtglossary[type=general,title=Glossary,toctitle=List of Terms]
+% \printunsrtglossary[type=general,title=Glossary,toctitle=List of Terms]
+
 % Print abbreviations
-\printunsrtglossary[type=abbreviations,title=Abbreviations]
+\printunsrtglossary[
+  type=abbreviations,
+  title={Abbreviations},
+  toctitle={List of Abbreviations}
+]
+
 % Print symbols (if any)
 % \printunsrtglossary[type=symbols,title=List of Symbols]
 
