@@ -1,8 +1,23 @@
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.17885527.svg)](https://doi.org/10.5281/zenodo.17885527) [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--8908--0323-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0000-0001-8908-0323) ![Status](https://img.shields.io/badge/status-public%20deposit-blue) ![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)
+
 # Towards optimal resource management in solar thermal applications: CSP and desalination
 
-> [!info] Spanish title
-> **Contribiciones a la gestión óptima de recursos en aplicaciones solares térmicas: CSP y desalación**
+> [!NOTE]  
+> Spanish title / Título en español: **Contribuciones a la gestión óptima de recursos en aplicaciones solares térmicas: CSP y desalación**
 
+**Author:** Juan Miguel Serrano Rodríguez  
+**Institution:** University of Almería
+**Degree:** Computer Science PhD Thesis
+**Year:** 2025
+
+**Supervisors:**  
+- Dr. Lidia Roca Sobrino [![ORCID](https://img.shields.io/badge/ORCID-0000--0002--8724--5136-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0000-0002-8724-5136)
+- Dr. Patricia Palenzuela Ardila [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--8044--969X-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0000-0001-8044-969X)
+
+
+**Keywords:** CSP, cooling, desalination, solar thermal energy, resource management, optimization 
+
+---
 
 This research encompasses two complementary studies on two intrinsically linked resources: water and energy. The first part focuses on the efficient management of water resources for power generation, while the second explores the efficient use of solar energy for clean water production.
 
@@ -326,5 +341,19 @@ refrigeración combinada, etc. y la MED
 
 # License
 
-This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0
-International License](http://creativecommons.org/licenses/by-nc/4.0/). See [LICENSE](./LICENSE.md) for more details.
+<p align="center">
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+    <img alt="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+  </a>
+</p>
+
+This work is licensed under a  
+**Creative Commons Attribution–NonCommercial 4.0 International License (CC BY-NC 4.0)**.
+
+You are free to **share** and **adapt** the material for non-commercial purposes,  
+provided appropriate credit is given.
+
+See the full license text in [`LICENSE.md`](./LICENSE.md) or at  
+https://creativecommons.org/licenses/by-nc/4.0/
