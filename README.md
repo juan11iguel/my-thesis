@@ -6,8 +6,8 @@
 > Spanish title / Título en español: **Contribuciones a la gestión óptima de recursos en aplicaciones solares térmicas: CSP y desalación**
 
 **Author:** Juan Miguel Serrano Rodríguez  
-**Institution:** University of Almería
-**Degree:** Computer Science PhD Thesis
+**Institution:** University of Almería  
+**Degree:** Computer Science PhD Thesis  
 **Year:** 2025
 
 **Supervisors:**  
