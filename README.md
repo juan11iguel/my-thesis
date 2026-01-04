@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.17885527.svg)](https://doi.org/10.5281/zenodo.17885527) [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--8908--0323-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0000-0001-8908-0323) ![Status](https://img.shields.io/badge/status-public%20deposit-blue) ![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.17885527.svg)](https://doi.org/10.5281/zenodo.17885527) [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--8908--0323-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0000-0001-8908-0323) ![Status](https://img.shields.io/badge/status-public%20deposit-blue) ![License: CC BY 3.0 IGO](https://img.shields.io/badge/License-CC%20BY%203.0%20IGO-lightgrey.svg)
 
 # Towards optimal resource management in solar thermal applications: CSP and desalination
 
@@ -342,18 +342,18 @@ refrigeración combinada, etc. y la MED
 # License
 
 <p align="center">
-  <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+  <a rel="license" href="https://creativecommons.org/licenses/by/3.0/igo/">
     <img alt="Creative Commons License"
          style="border-width:0"
-         src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+         src="https://i.creativecommons.org/l/by/3.0/igo/88x31.png" />
   </a>
 </p>
 
 This work is licensed under a  
-**Creative Commons Attribution–NonCommercial 4.0 International License (CC BY-NC 4.0)**.
+**Creative Commons Attribution 3.0 IGO License (CC BY 3.0 IGO)**.
 
-You are free to **share** and **adapt** the material for non-commercial purposes,  
+You are free to **share** and **adapt** the material for any purpose, including commercially,  
 provided appropriate credit is given.
 
 See the full license text in [`LICENSE.md`](./LICENSE.md) or at  
-https://creativecommons.org/licenses/by-nc/4.0/
+https://creativecommons.org/licenses/by/3.0/igo/
