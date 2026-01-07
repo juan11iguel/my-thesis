@@ -18,6 +18,36 @@
 % Declare SI units
 \DeclareSIUnit\mbar{\milli\bar}
 
+%----------------------------------------------------------------------------------------
+%	COLOR SCHEME BASED ON VERSION
+%----------------------------------------------------------------------------------------
+
+% Customising margin citations, from TheoWinterhalter-PhD
+% Color definitions for margin citations
+\ifprintedversion
+    % Darker gray for printed B&W version (Gray!30)
+    \definecolor{margincitecolor}{RGB}{77,77,77}
+    \definecolor{linkcolor}{RGB}{77,77,77}
+\else
+    % Light gray for digital version (Gray!90)
+    \definecolor{margincitecolor}{RGB}{230,230,230}
+    % Green for digital version
+    \definecolor{linkcolor}{RGB}{0,128,0}
+\fi
+
+\renewcommand{\formatmargincitation}[1]{%
+\color{margincitecolor} \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\%
+}
+
+% Configure hyperref colors
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolor,    % Internal links (ToC, references, etc.)
+    citecolor=linkcolor,    % Citation links
+    urlcolor=linkcolor,     % URL links
+    filecolor=linkcolor     % File links
+}
+
 % Command: \trianglemarker[color][direction]
 % color      -> HTML hex (default: D6B656) or any xcolor name
 % direction  -> 'up' (default) or 'down'

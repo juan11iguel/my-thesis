@@ -17,13 +17,6 @@
 %
 % License:
 % LPPL (see included MANIFEST.md file)
-%
-% Personal modifications
-% Layout / style changes to the template
-% - Custom font (based on TheoWinterhalter-PhD)
-% - b5paper
-% - 9pt font size
-%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -42,7 +35,7 @@
 ]{kaobook}
 
 %----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%	PACKAGES
 %----------------------------------------------------------------------------------------
 
 % Choose the language
@@ -52,8 +45,8 @@
 \else
 	\usepackage[english]{babel} % Load characters and hyphenation
 \fi
-\usepackage[english=british]{csquotes}	% English quotes
 
+\usepackage[english=british]{csquotes}	% English quotes
 % Load packages for testing
 \usepackage{blindtext} % Print text without any meaning for testing purposes
 %\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
@@ -61,15 +54,35 @@
 
 % Load the bibliography package
 \usepackage{kaobiblio}
-\addbibresource{references.bib} % Bibliography file
 
 % Load mathematical packages for theorems and related environments
 \usepackage[framed=true]{kaotheorems}
 
-% Load the package for hyperreferences
-\usepackage{kaorefs}
+\usepackage{kaorefs} % Load the package for hyperreferences
+% Rotated figures and vertically aligned tables
+\usepackage{rotating} % Horizontal figures
+\usepackage{array} % Aligned equations
+\usepackage{subfig} % For subfigures
 
-\graphicspath{{examples/documentation/images/}{images/}{figures/}} % Paths in which to look for images
+\usepackage{qrcode} % Links to additional material
+% \usepackage{fancyqr}
+\usepackage{fontspec}
+\usepackage{etoolbox}
+\usepackage[percent]{overpic}
+\usepackage[fixed]{fontawesome5} % Cool icons
+\usepackage{siunitx}
+\usepackage{epigraph}
+\usepackage{mathrsfs} % calligraphic letters since mathcal does not work, problem with Fira font?
+\usepackage{placeins}  % For \FloatBarrier
+\usepackage[normalem]{ulem} % strikeout text with \sout{}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+% Bibliography file
+\addbibresource{references.bib}
+\graphicspath{{images/}{figures/}} % Paths in which to look for images
 
 % \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
@@ -86,26 +99,6 @@
 % Reset sidenote counter at chapters
 \counterwithin*{sidenote}{chapter}
 
-%----------------------------------------------------------------------------------------
-%	PERSONAL MODIFICATIONS
-%----------------------------------------------------------------------------------------
-
-% Rotated figures and vertically aligned tables
-\usepackage{rotating} % Horizontal figures
-\usepackage{array} % Aligned equations
-\usepackage{subfig} % For subfigures
-\usepackage{qrcode} % Links to additional material
-% \usepackage{fancyqr}
-\usepackage{fontspec}
-\usepackage{etoolbox}
-\usepackage[percent]{overpic}
-\usepackage[fixed]{fontawesome5} % Cool icons
-\usepackage{siunitx}
-\usepackage{epigraph}
-\usepackage{mathrsfs} % calligraphic letters since mathcal does not work, problem with Fira font?
-\usepackage{placeins}  % For \FloatBarrier
-\usepackage[normalem]{ulem} % strikeout text with \sout{}
-
 % Set custom font, from TheoWinterhalter-PhD
 \setmainfont[
 	Ligatures=TeX,
@@ -119,10 +112,18 @@
 \setmonofont[Ligatures=TeX]{Fira Mono}
 \setmathfont{Fira Math}     % the matching math font
 
-% Customising margin citations, from TheoWinterhalter-PhD
-\renewcommand{\formatmargincitation}[1]{%
-\color{Gray!90} \parencite{#1}: \citeauthor*{#1} (\citeyear{#1}), \citetitle{#1}\\%
-}
+%----------------------------------------------------------------------------------------
+%	DOCUMENT VERSION (PRINTED OR DIGITAL)
+%----------------------------------------------------------------------------------------
+
+% Set to true for printed black & white version (darker colors for better contrast)
+% Set to false for digital color version (lighter colors, green links)
+\newif\ifprintedversion
+\printedversionfalse  % Change to \printedversiontrue for printed version
+
+%----------------------------------------------------------------------------------------
+%	CONSTANTS, MACROS, CUSTOM COMMANDS, ETC.
+%----------------------------------------------------------------------------------------
 
 \include{macros}
 
