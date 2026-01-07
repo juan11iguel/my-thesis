@@ -94,6 +94,75 @@ files including the [manuscript PDF](./out_dir/main.pdf) are saved in the [out_d
 This build process is defined as a "recipe" in LaTeX workshop, and as the
 default in the devcontainer.
 
+## Utility scripts for PDF analysis and B&W conversion
+
+When ordering printed copies of the thesis, it is often more economical to
+print black & white (B&W) pages at a lower cost than color pages. However, many
+pages that appear to be B&W may still contain small amounts of color
+information, leading to higher printing costs. Two utility scripts are provided
+to analyze and optimize PDF files for printing:
+
+> [!NOTE]
+> These scripts require Ghostscript and Python 3.7+ to be installed. If using
+> the provided [devcontainer](#how-to-use), these dependencies are already included.
+
+### Analyzing page colors (Shell script)
+
+The bash script [`count_and_enumerate_bw_pages.sh`](./scripts/count_and_enumerate_bw_pages.sh) quickly analyzes a PDF to identify which pages are black & white vs. color:
+
+```bash
+bash scripts/count_and_enumerate_bw_pages.sh out_dir/main.pdf [threshold]
+```
+
+**Parameters:**
+- `out_dir/main.pdf`: Path to the PDF file to analyze
+- `threshold` (optional): Color threshold for C+M+Y ink coverage (default: 0.005)
+
+**Example output:**
+```
+B&W pages: 95
+  Pages: 2,5,6,8,9,10,11,12,...
+
+Color pages: 153
+  Pages: 1,3,4,7,25,27,28,...
+
+Threshold (C+M+Y): 0.005
+```
+
+This script uses Ghostscript's `inkcov` device to measure ink coverage and classify pages.
+
+### Generating optimized B&W PDF (Python script)
+
+The Python script [`count_and_generate_modified_bw_pdf.py`](./scripts/count_and_generate_modified_bw_pdf.py) analyzes a PDF and creates a new version with B&W pages converted to grayscale while keeping color pages in color:
+
+```bash
+uv run scripts/count_and_generate_modified_bw_pdf.py out_dir/main.pdf [threshold]
+```
+
+**Parameters:**
+- `out_dir/main.pdf`: Path to the PDF file to process
+- `threshold` (optional): Color threshold for C+M+Y ink coverage (default: 0.005)
+
+**Output:**
+- Creates `out_dir/main_bw.pdf` in the same directory as the input file
+- B&W pages are converted to grayscale (reduces file size and ensures true B&W printing)
+- Color pages remain in color
+
+**Example output:**
+```
+Threshold (C+M+Y): 0.005
+B&W pages (95): [2, 5, 6, 8, 9, ...]
+Color pages (153): [1, 3, 4, 7, 25, ...]
+
+Extracting pages...
+Merging pages...
+
+Output written to: out_dir/main_bw.pdf
+```
+
+This is particularly useful for reducing printing costs when ordering printed copies, as B&W pages will be truly grayscale and charged at B&W rates.
+
+
 ## Document customizations and additions
 
 This thesis is done in LaTeX using the [kaobook class]() with some modifications
@@ -104,6 +173,28 @@ inspired by... In particular:
 - TODO Changed colors for paragraphs in the margins (margin@par) to a lighter gray (`kao.sty`)
 - TODO Changed font to Fira Sans, as used in TheoWinterhalter-PhD (`main.tex`)
 - Changed side citations to a dark gray, as used in TheoWinterhalter-PhD (`main.tex`)
+
+### Document Output Version (Digital vs. Printed)
+
+The document supports two output variants to easily switch between digital and printed (B&W friendly) versions by changing a single boolean variable in `main.tex`:
+
+```latex
+% Set to true for printed black & white version (darker colors for better contrast)
+% Set to false for digital color version (lighter colors, green links)
+\newif\ifprintedversion
+\printedversionfalse  % Change to \printedversiontrue for printed version
+```
+
+**Digital version** (`\printedversionfalse`): Uses lighter grays and `OliveGreen` color for links and accents.  
+**Printed version** (`\printedversiontrue`): Uses darker grays (`black!50!Gray`) for better contrast in B&W printing.
+
+The following elements are automatically adjusted based on this setting:
+- **Hyperlinks** (ToC, cross-references, citations, URLs)
+- **Margin citations** (bibliography references in margins)
+- **Nomenclature group titles**
+- **Sidenotes and margin captions**
+
+Implementation details can be found in `macros.tex` where colors are defined conditionally and applied throughout the document.
 
 ### Components
 
