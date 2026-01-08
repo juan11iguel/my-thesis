@@ -162,6 +162,50 @@ Output written to: out_dir/main_bw.pdf
 
 This is particularly useful for reducing printing costs when ordering printed copies, as B&W pages will be truly grayscale and charged at B&W rates.
 
+### Generating full book covers (Python script)
+
+The Python script [`combine_covers.py`](./scripts/combine_covers.py) combines front cover, back cover, and spine PDFs into complete book covers ready for printing. The script creates a single-page PDF with all components laid out horizontally: **back-cover | spine | front-cover**.
+
+```bash
+uv run scripts/combine_covers.py assets/full_covers/front-cover.pdf assets/full_covers/back-cover.pdf assets/full_covers/spines/
+```
+
+**Parameters:**
+- First argument: Path to the front cover PDF
+- Second argument: Path to the back cover PDF
+- Third argument: Path to a spine PDF file or folder containing multiple spine PDFs
+- `-o`, `--output` (optional): Output directory or file path (defaults to back cover's directory)
+
+**Behavior:**
+- Creates a single-page PDF with components arranged horizontally (back | spine | front)
+- Automatically scales spine height if it differs from the cover height (with warning)
+- Raises an error if front and back covers have different dimensions
+- When a folder of spines is provided, generates a separate combined PDF for each spine variation
+- Output files are named `combined_cover_<spine_name>.pdf`
+
+**Example output:**
+```
+Warning: Spine height (793.00 pts) differs from covers (792.00 pts).
+         Scaling spine by factor 0.9987
+Created: assets/full_covers/combined_cover_spine_g520.pdf
+  Dimensions: 1317.88 x 792.00 pts
+  Layout: Back (612.00) | Spine (93.88) | Front (612.00)
+...
+Successfully created 8 combined cover(s)
+```
+
+**Additional examples:**
+```bash
+# Generate cover with a specific spine
+uv run scripts/combine_covers.py assets/full_covers/front-cover.pdf assets/full_covers/back-cover.pdf assets/full_covers/spines/spine_g520.pdf
+
+# Specify custom output directory
+uv run scripts/combine_covers.py assets/full_covers/front-cover.pdf assets/full_covers/back-cover.pdf assets/full_covers/spines/ -o output_covers/
+
+# Show help
+uv run scripts/combine_covers.py --help
+```
+
 
 ## Document customizations and additions
 
