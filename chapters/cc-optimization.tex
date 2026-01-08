@@ -26,13 +26,13 @@ through optimization of the individual component operation. Among them, the
 works from Martín~\etal stand out. In \sidecite{martin_optimal_2013} they were
 the first to optimize the year-round operation of a \gls{cspLabel} system not
 only considering the cooling side (a \gls{wctLabel}) but also integrating the
-power block. The problem was formulated as a multiperiod \gls{nlpLabel} problem
+power block. The problem was formulated as a multi-period \gls{nlpLabel} problem
 with the cooling system air flow rate and outlet temperature as decision
 variables. They showed that the obtained complex problem can feasibly be solved
 and an average water consumption of 2.1 l/kWh was obtained with the least
 efficient month amounting to 2.5 l/kWh. In \sidecite{martin_optimal_2015} the
 same strategy was applied this time for a dry cooling alternative
-(\gls{accLabel}) and formulating the optimization as a multiperiod
+(\gls{accLabel}) and formulating the optimization as a multi-period
 \gls{minlpLabel} problem. This integer extension to the problem was done to
 account for the addition of a new decision variable: the discrete number of
 units and fans that make up the \gls{accLabel} \ie their active state. The
@@ -83,7 +83,7 @@ even lower temperatures, the fan power is gradually reduced on the dry section.
 One inherent limitation that no optimization strategy can fully overcome is the
 seasonal mismatch between ambient temperature and water availability. In many
 locations, ambient temperatures are lowest ---favoring dry cooling--- during
-timesq of the year when water is most abundant ---favoring wet cooling. The
+times of the year when water is most abundant ---favoring wet cooling. The
 opposite occurs during hot, dry summer periods, when cooling demand is highest
 but water becomes a scarce resource. Many studies report annual water savings
 figures, but this does not offer a complete picture and can be misleading, as it
@@ -130,7 +130,7 @@ explicitly considered in the decision-making process:
     the cost of operation.
 \end{itemize}
 
-\begin{marginfigure}[*-10] % +5.5cm
+\begin{marginfigure}[*-14] % +5.5cm
     \includegraphics[]{cc-optimization-environment.png}
     \caption{Block diagram of the optimization scheme including environment components}
     \labfig{cc:optimization:environment}
@@ -141,14 +141,14 @@ This chapter analyzes the optimization of different cooling system
 configurations, focusing on their two primary resource consumptions: electricity
 and water. The optimization problems are formulated to minimize the total cost
 of cooling a thermal load, with cost defined as the combined use of these two
-resources. The thermal load is treated as an external requirement and is therefore
-excluded from the decision space. This work addresses existing limitations in
-the literature and presents, for the first time, an actual optimization of the
-operation of a combined cooling system in the context of \gls{cspLabel}
-applications.\sidenote{Although the proposed methodology is applicable to any
-system requiring thermal load cooling, particular emphasis is placed on water
-resource availability, given its critical importance in solar thermal
-applications.\\See \nrefsec{intro:csp:cooling}}
+resources. The thermal load is treated as an external requirement and is
+therefore excluded from the decision space. This work addresses existing
+limitations in the literature and presents, for the first time, an actual
+optimization of the operation of a combined cooling system in the context of
+\gls{cspLabel} applications.\sidenote[][*-3]{Although the proposed methodology
+is applicable to any system requiring thermal load cooling, particular emphasis
+is placed on water resource availability, given its critical importance in solar
+thermal applications.\\See \nrefsec{intro:csp:cooling}}
 
 % Estructura de este capítulo
 This chapter is organized as follows: \nrefsec{cc:optimization:environment}
