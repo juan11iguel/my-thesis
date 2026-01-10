@@ -27,15 +27,16 @@
 \ifprintedversion
     % Darker gray for printed B&W version (better contrast)
     \colorlet{margincitecolor}{black!50!Gray}
-    \colorlet{linkcolor}{black!50!Gray}
-    \colorlet{nomgroupcolor}{black}  % Black text for nomenclature groups (same as body text)
+    \colorlet{linkcolor}{Black}
+    \colorlet{urlcolor}{Black}
+    \colorlet{nomgroupcolor}{Black}  % Black text for nomenclature groups (same as body text)
     \colorlet{margincolor}{black!50!Gray}  % Sidenotes and margin captions
-    \colorlet{nomgroupcolor}{black}  % Black text for nomenclature groups (same as body text) Is it working? 
 \else
     % Colors for digital version
     \colorlet{margincitecolor}{Gray!90}
-    \colorlet{linkcolor}{OliveGreen}
-    \colorlet{nomgroupcolor}{OliveGreen}
+    \colorlet{linkcolor}{Black}
+    \colorlet{urlcolor}{OliveGreen}
+    \colorlet{nomgroupcolor}{Black}
 \fi
 
 \renewcommand{\formatmargincitation}[1]{%
@@ -46,8 +47,8 @@
 \hypersetup{
     colorlinks=true,
     linkcolor=linkcolor,    % Internal links (ToC, references, etc.)
-    citecolor=linkcolor,    % Citation links
-    urlcolor=linkcolor,     % URL links
+    citecolor=urlcolor,    % Citation links
+    urlcolor=urlcolor,     % URL links
     filecolor=linkcolor     % File links
 }
 
