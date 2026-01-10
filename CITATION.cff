@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this thesis or its findings, please cite it as below."
-type: thesis
+type: book
 title: "Towards optimal resource management in solar thermal applications: CSP and desalination"
 authors:
   - family-names: "Serrano Rodríguez"
