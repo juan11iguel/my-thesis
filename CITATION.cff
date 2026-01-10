@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this thesis or its findings, please cite it as below."
+type: thesis
+title: "Towards optimal resource management in solar thermal applications: CSP and desalination"
+authors:
+  - family-names: "Serrano Rodríguez"
+    given-names: "Juan Miguel"
+    orcid: "https://orcid.org/0000-0001-8908-0323"
+thesis-type: "PhD thesis"
+institution:
+  name: "University of Almería"
+department: "Computer Science"
+date-published: 2026
+doi: 10.5281/zenodo.17885527
+url: "https://github.com/juan11iguel/my-thesis"
+keywords:
+  - CSP
+  - cooling
+  - desalination
+  - solar thermal energy
+  - resource management
+  - optimization
+license: "CC-BY-3.0-IGO"
+abstract: "This research encompasses two complementary studies on two intrinsically linked resources: water and energy. The first part focuses on the efficient management of water resources for power generation, while the second explores the efficient use of solar energy for clean water production. The research addresses optimal water management strategies for Concentrated Solar Power (CSP) plants with novel combined cooling configurations, and proposes a standardized methodology for evaluating the performance of multi-effect distillation (MED) thermal desalination processes, including a novel operational strategy for solar-driven MED systems."
+contact:
+  - family-names: "Serrano Rodríguez"
+    given-names: "Juan Miguel"
+    orcid: "https://orcid.org/0000-0001-8908-0323"
