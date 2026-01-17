@@ -1,8 +1,9 @@
 {
-  "title": "Towards optimal resource management in solar thermal applications: CSP and desalination",
   "upload_type": "publication",
   "publication_type": "thesis",
   "publication_date": "2026-02-20",
+
+  "title": "Towards optimal resource management in solar thermal applications: CSP and desalination",
 
   "creators": [
     {
@@ -11,21 +12,6 @@
       "affiliation": "University of Almería"
     }
   ],
-
-  "thesis_supervisors": [
-    {
-      "name": "Roca Sobrino, Lidia",
-      "orcid": "0000-0002-8724-5136",
-      "affiliation": "University of Almería"
-    },
-    {
-      "name": "Palenzuela Ardila, Patricia",
-      "orcid": "0000-0001-8044-969X",
-      "affiliation": "University of Almería"
-    }
-  ],
-
-  "thesis_university": "University of Almería",
 
   "description": "<p>This research encompasses two complementary studies on two intrinsically linked resources: water and energy. The first part focuses on the efficient management of water resources for power generation, while the second explores the efficient use of solar energy for clean water production.</p><p><strong>Concentrated Solar Power (CSP)</strong> is poised to be a crucial contributor to the energy transition away from fossil fuels. The first phase of this transition is well underway, driven by the massive deployment of low-cost and non-dispatchable renewable technologies such as wind and solar photovoltaics. However, the second and more challenging phase, which involves achieving large-scale dispatchable renewable generation, is still ahead. CSP stands out as a renewable and scalable dispatchable technology with the potential to outcompete combined-cycle and coal-fired power plants.</p><p>One of the key challenges in CSP systems lies in cooling the power block, which is typically associated with high water consumption. The first part of this research is therefore dedicated to the efficient management of water resources in CSP plants. An optimal water management strategy is proposed for CSP systems that integrate novel combined cooling configurations. Results show that the integration of the combined cooling system can reduce specific cooling costs by up to 80% and annual water consumption by about 48%, with 38% savings during the driest months.</p><p><strong>Thermal desalination</strong>, particularly multi-effect distillation (MED), can play an important role in mitigating water scarcity. To address evaluation challenges, this research proposes a standardized methodology for evaluating the performance of MED processes, which can also be extended to other thermal separation technologies. The method covers key aspects such as instrumentation requirements, process control, and the suitability of performance metrics.</p><p>Finally, a novel operational strategy is proposed to enable the seamless, autonomous, and optimal integration of a solar-driven MED system. The proposed method significantly increases system performance by 32% relative to the heuristic baseline and by 21% relative to the fixed-schedule strategy.</p>",
 
@@ -44,11 +30,26 @@
     "water management"
   ],
 
+  "access_right": "open",
+
   "license": {
     "id": "CC-BY-3.0-IGO"
   },
 
-  "access_right": "open",
+  "thesis_supervisors": [
+    {
+      "name": "Roca Sobrino, Lidia",
+      "orcid": "0000-0002-8724-5136",
+      "affiliation": "University of Almería"
+    },
+    {
+      "name": "Palenzuela Ardila, Patricia",
+      "orcid": "0000-0001-8044-969X",
+      "affiliation": "University of Almería"
+    }
+  ],
+
+  "thesis_university": "University of Almería",
 
   "related_identifiers": [
     {
@@ -60,21 +61,6 @@
       "identifier": "10.5281/zenodo.17882753",
       "relation": "isSupplementedBy",
       "resource_type": "software"
-    }
-  ],
-
-  "contributors": [
-    {
-      "name": "Roca Sobrino, Lidia",
-      "orcid": "0000-0002-8724-5136",
-      "affiliation": "University of Almería",
-      "type": "Supervisor"
-    },
-    {
-      "name": "Palenzuela Ardila, Patricia",
-      "orcid": "0000-0001-8044-969X",
-      "affiliation": "University of Almería",
-      "type": "Supervisor"
     }
   ]
 }
