@@ -1,0 +1,94 @@
+name: Validate Metadata Files
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - '.zenodo.json'
+      - 'CITATION.cff'
+      - '.github/workflows/validate-metadata.yml'
+  pull_request:
+    paths:
+      - '.zenodo.json'
+      - 'CITATION.cff'
+      - '.github/workflows/validate-metadata.yml'
+
+jobs:
+  validate-zenodo:
+    name: 🛡️ Validate Zenodo Metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🛡️ Validate Zenodo JSON
+        uses: vsoch/zenodo-validator@main
+        with:
+          path: '.zenodo.json'
+
+  validate-citation:
+    name: 📝 Validate CITATION.cff
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: 📝 Validate CITATION.cff
+        run: uvx cffconvert --validate
+
+  validate-json-syntax:
+    name: 🔍 Validate JSON Syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Check JSON Syntax
+        run: |
+          echo "Validating .zenodo.json syntax..."
+          python3 -c "
+          import json
+          import sys
+          
+          try:
+              with open('.zenodo.json', 'r') as f:
+                  data = json.load(f)
+              
+              # Basic validation checks
+              required_fields = ['title', 'upload_type', 'publication_type', 'creators', 'description']
+              missing = [field for field in required_fields if field not in data]
+              
+              if missing:
+                  print(f'❌ Missing required fields: {missing}')
+                  sys.exit(1)
+              
+              # Check creators format
+              if not isinstance(data.get('creators'), list) or len(data['creators']) == 0:
+                  print('❌ creators must be a non-empty array')
+                  sys.exit(1)
+              
+              for creator in data['creators']:
+                  if 'name' not in creator:
+                      print(f'❌ Creator missing name field: {creator}')
+                      sys.exit(1)
+              
+              print('✅ .zenodo.json is valid')
+              print(f'✅ Title: {data[\"title\"]}')
+              print(f'✅ Type: {data[\"upload_type\"]}/{data[\"publication_type\"]}')
+              print(f'✅ Creators: {len(data[\"creators\"])}')
+              print(f'✅ License: {data.get(\"license\", \"Not specified\")}')
+              
+          except json.JSONDecodeError as e:
+              print(f'❌ Invalid JSON: {e}')
+              sys.exit(1)
+          except Exception as e:
+              print(f'❌ Validation error: {e}')
+              sys.exit(1)
+          "

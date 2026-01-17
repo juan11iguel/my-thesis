@@ -44,7 +44,9 @@
     "water management"
   ],
 
-  "license": "CC-BY-3.0-IGO",
+  "license": {
+    "id": "CC-BY-3.0-IGO"
+  },
 
   "access_right": "open",
 
