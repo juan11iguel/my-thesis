@@ -1,7 +1,6 @@
 {
   "upload_type": "publication",
   "publication_type": "thesis",
-  "publication_date": "2026-02-20",
 
   "title": "Towards optimal resource management in solar thermal applications: CSP and desalination",
 
@@ -32,35 +31,31 @@
 
   "access_right": "open",
 
-  "license": {
-    "id": "CC-BY-3.0-IGO"
-  },
+  "license": "cc-by",
 
-  "thesis_supervisors": [
+  "contributors": [
     {
       "name": "Roca Sobrino, Lidia",
       "orcid": "0000-0002-8724-5136",
-      "affiliation": "University of Almería"
+      "affiliation": "Plataforma Solar de Almería (CIEMAT)",
+      "type": "Supervisor"
     },
     {
       "name": "Palenzuela Ardila, Patricia",
       "orcid": "0000-0001-8044-969X",
-      "affiliation": "University of Almería"
+      "affiliation": "Plataforma Solar de Almería (CIEMAT)",
+      "type": "Supervisor"
     }
   ],
-
-  "thesis_university": "University of Almería",
 
   "related_identifiers": [
     {
       "identifier": "10.5281/zenodo.17882447",
-      "relation": "isSupplementedBy",
-      "resource_type": "software"
+      "relation": "isSupplementedBy"
     },
     {
       "identifier": "10.5281/zenodo.17882753",
-      "relation": "isSupplementedBy",
-      "resource_type": "software"
+      "relation": "isSupplementedBy"
     }
   ]
 }
