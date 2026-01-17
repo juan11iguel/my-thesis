@@ -15,7 +15,7 @@ keywords:
   - solar thermal energy
   - resource management
   - optimization
-license: CC-BY-3.0-IGO
+license: CC-BY-3.0
 preferred-citation:
   type: book
   title: "Towards optimal resource management in solar thermal applications: CSP and desalination"
@@ -24,6 +24,7 @@ preferred-citation:
       given-names: "Juan Miguel"
       orcid: "https://orcid.org/0000-0001-8908-0323"
   year: 2026
-  publisher: "University of Almería"
+  publisher:
+    name: "University of Almería"
   doi: 10.5281/zenodo.17885527
   abstract: "This research encompasses two complementary studies on two intrinsically linked resources: water and energy. The first part focuses on the efficient management of water resources for power generation, while the second explores the efficient use of solar energy for clean water production. The research addresses optimal water management strategies for Concentrated Solar Power (CSP) plants with novel combined cooling configurations, and proposes a standardized methodology for evaluating the performance of multi-effect distillation (MED) thermal desalination processes, including a novel operational strategy for solar-driven MED systems."

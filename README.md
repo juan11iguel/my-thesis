@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.17885527.svg)](https://doi.org/10.5281/zenodo.17885527) [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--8908--0323-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0000-0001-8908-0323) ![Status](https://img.shields.io/badge/status-public%20deposit-blue) ![License: CC BY 3.0 IGO](https://img.shields.io/badge/License-CC%20BY%203.0%20IGO-lightgrey.svg)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.17885527.svg)](https://doi.org/10.5281/zenodo.17885527) [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--8908--0323-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0000-0001-8908-0323) ![Status](https://img.shields.io/badge/status-public%20deposit-blue) ![License: CC BY 3.0](https://img.shields.io/badge/License-CC%20BY%203.0%20IGO-lightgrey.svg)
 
 # Towards optimal resource management in solar thermal applications: CSP and desalination
 
@@ -65,6 +65,11 @@ to check them out in [latex.code-snippets](.vscode/latex.code-snippets).
   PDF, then comment everything else and uncomment the glossary part, and compile
   again. Join both PDFs where it should be appearing and hopefully hyperlinks
   will still work (spoiler it does not).
+- Important! Validate the [CITATION.cff](./CITATION.cff) using `uvx cffconvert --validate`. Otherwise, Zenodo will not be able to parse it and
+  break the integration.
+- Check the [.zenodo.json](./.zenodo.json) file to make sure all the metadata is correct
+  before uploading a new version to Zenodo. This file is used by Zenodo to
+  populate the repository metadata.
 
 ## Cheatsheet
 
