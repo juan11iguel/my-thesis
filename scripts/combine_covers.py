@@ -64,7 +64,7 @@ def get_spine_files(spine_path):
         raise ValueError(f"Invalid path: {spine_path}")
 
 
-def combine_pdfs(back_cover_path, spine_path, front_cover_path, output_path):
+def combine_pdfs(back_cover_path, spine_path, front_cover_path, output_path, scale_spine=True):
     """
     Combine three PDFs horizontally: back cover | spine | front cover.
     
@@ -76,6 +76,7 @@ def combine_pdfs(back_cover_path, spine_path, front_cover_path, output_path):
         spine_path: Path to spine PDF
         front_cover_path: Path to front cover PDF
         output_path: Path for the output combined PDF
+        scale_spine: Whether to scale spine to match cover height (default: True)
         
     Raises:
         ValueError: If front and back covers have different dimensions
@@ -119,10 +120,13 @@ def combine_pdfs(back_cover_path, spine_path, front_cover_path, output_path):
     
     # Check if spine needs scaling
     spine_scale = 1.0
-    if abs(spine_height - back_height) > tolerance:
+    if abs(spine_height - back_height) > tolerance and scale_spine:
         spine_scale = back_height / spine_height
         print(f"Warning: Spine height ({spine_height:.2f} pts) differs from covers ({back_height:.2f} pts).")
         print(f"         Scaling spine by factor {spine_scale:.4f}")
+    elif abs(spine_height - back_height) > tolerance and not scale_spine:
+        print(f"Warning: Spine height ({spine_height:.2f} pts) differs from covers ({back_height:.2f} pts).")
+        print(f"         Spine will NOT be scaled (--no-scale-spine option used)")
     
     # Calculate scaled spine width
     scaled_spine_width = spine_width * spine_scale
@@ -221,6 +225,8 @@ Examples:
                        help='Path to spine PDF file or folder containing spine PDFs')
     parser.add_argument('-o', '--output', type=str, default=None,
                        help='Output path (file or directory). If not specified, uses the directory of the back cover')
+    parser.add_argument('--no-scale-spine', action='store_true',
+                       help='Do not scale spine to match cover height (by default, spine is scaled)')
     
     args = parser.parse_args()
     
@@ -278,7 +284,8 @@ Examples:
         
         # Combine the PDFs
         try:
-            combine_pdfs(back_cover, spine_file, front_cover, final_output)
+            combine_pdfs(back_cover, spine_file, front_cover, final_output, 
+                        scale_spine=not args.no_scale_spine)
         except Exception as e:
             print(f"Error combining PDFs with spine {spine_file}: {e}", file=sys.stderr)
             return 1
