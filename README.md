@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.17885527.svg)](https://doi.org/10.5281/zenodo.17885527) [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--8908--0323-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0000-0001-8908-0323) ![Status](https://img.shields.io/badge/status-public%20deposit-blue) ![License: CC BY 3.0](https://img.shields.io/badge/License-CC%20BY%203.0%20IGO-lightgrey.svg)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.17885527.svg)](https://doi.org/10.5281/zenodo.17885527) [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--8908--0323-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0000-0001-8908-0323) ![Status](https://img.shields.io/badge/status-completed-blue) ![License: CC BY 3.0](https://img.shields.io/badge/License-CC%20BY%203.0%20IGO-lightgrey.svg)
 
 # Towards optimal resource management in solar thermal applications: CSP and desalination
 
@@ -457,26 +457,6 @@ decisions on how to operate the system are made with perspective...
 ```
 
 ![](./assets/margin-reminder.png)
-
-
-
-## TODOs
-
-- [ ] Add \listofmodels
-- [ ] Add \listofproblems
-- [ ] Glosary is not being printed
-
-
-Si finalmente se hace un capíutlo de instalaciones experimentales, se puede
-hacer una introducción donde se ponga esta imagen con marcas:
-
-![](temp/PXL_20220805_071840783.jpg)
-
-Indicando el campo solar, el circuito de intercambio, generación de vapor,
-refrigeración combinada, etc. y la MED
-
-
-![alt text](image.png)
 
 
 # License
